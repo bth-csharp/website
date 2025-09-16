@@ -1,0 +1,101 @@
+---
+title: "Testning, validering och jobba med kursrepot"
+description: Lär dig hur du kan jobba med kursrepot, testa och validera din kod.
+sidebar:
+  order: 0111
+---
+
+import { YouTube } from 'astro-embed';
+
+import Figure from '@components/CustomFigure.astro';
+
+I kursen använder vi många verktyg och det kan vara förvirrande hur de fungerar och hur du ska jobba med en uppgift i kursen. I denna övning kommer jag visa dig hur du börjar jobba med en uppgift, hur du ska tänka och lösa den. Vi kommer också gå igenom hur du kan testa din lösning och validera den.
+
+Uppgiften som beskrivs här är en övningsuppgift som inte är en del av kursen. Den är bara till för att visa hur du kan jobba med en uppgift i kursen.
+
+## Förberedelse
+
+När du ska jobba med kursen behöver du börja med att öppna terminalen och flytta dig till katalogen med ditt kursrepo.
+
+```bash
+cd dbwebb-kurser/python-<din akronym>
+code .
+```
+
+Det är också bra att säkerställa att du har de senaste testerna. Vi hittar hela tiden fel i våra tester och uppdaterar dem. Så där alltid bra att kolla om det finns uppdateringar.
+
+```bash
+uv run task download-tests
+```
+
+Nu är du redo att skriva kod.
+
+
+## En övningsuppgift
+
+Vi behöver ett exempel att jobba med. 
+
+Skriv ett program som:
+
+1. Frågar användaren efter summan på en restaurangnota.
+1. Frågar användaren hur många personer som ska dela på notan.
+1. Räknar ut hur mycket varje person ska betala.
+1. Skriver ut svaret med hjälp av en f-string och avrunda till max två decimaler.
+    1. Svaret måste innehålla `<summan> kr`, tex `212.5 kr`.
+1. Skapa filen `src/kmom01/split_bill/split.py` och lägg koden där.
+
+Exempel på exekvering:
+
+```bash
+Vad är summan på notan? 850
+Hur många personer delar på notan? 4
+Varje person ska betala 212.5 kr
+```
+
+### Extrauppgift
+
+Koden kan inte hantera om användaren matar in antal personer som är mindre än 1. Lägg till en kontroll så att programmet inte kraschar om användaren matar in 0 eller ett negativt tal. Om användaren matar in ett tal mindre än 1, skriv `"Varning! Antal personer måste vara minst 1."`.
+
+Använd dig av `exit(1)` för att avsluta programmet om antalet personer är mindre än 1.
+
+Exempel på exekvering:
+
+```bash
+Vad är summan på notan? 100
+Hur många personer delar på notan? 0
+Varning! Antal personer måste vara minst 1.
+```
+
+
+## Genomgång av uppgiften
+
+Försök gärna lösa uppgift själv före du kollar på videon. Du kan skippa extrauppgiften då vi inte har gått igenom det som behövs för att lösa den än.
+
+Det är en lång video ca 1h. Jobba dig igenom den i din egen takt, pausa och spola tillbaka vid behov.
+
+<YouTube
+    id="yVhPCid0wRs" 
+/>
+### Tidsmarkörer i videon
+
+[Intro](https://www.youtube.com/watch?v=yVhPCid0wRs)  
+[Öppna VSCode i rätt mapp](https://www.youtube.com/watch?v=yVhPCid0wRs&t=148s)  
+[Skapa uppgiftsfilen](https://www.youtube.com/watch?v=yVhPCid0wRs&t=195s)  
+[Hur du kan bryta ned en uppgift](https://www.youtube.com/watch?v=yVhPCid0wRs&t=213s)  
+[Lös en del i taget](https://www.youtube.com/watch?v=yVhPCid0wRs&t=645s)  
+[Spara små delar på GitHub under tiden du kodar](https://www.youtube.com/watch?v=yVhPCid0wRs&t=867s)  
+[Ruff i VSCode](https://www.youtube.com/watch?v=yVhPCid0wRs&t=1088s)  
+[Tolka felmeddelande](https://www.youtube.com/watch?v=yVhPCid0wRs&t=1145s)  
+[Felsöka](https://www.youtube.com/watch?v=yVhPCid0wRs&t=1217s)  
+[Tolka felmeddelande igen](https://www.youtube.com/watch?v=yVhPCid0wRs&t=1650s)  
+[Valideringsfel i VSCode](https://www.youtube.com/watch?v=yVhPCid0wRs&t=1750s)  
+[Kör tester på din kod](https://www.youtube.com/watch?v=yVhPCid0wRs&t=1892s)  
+[Flaggorna som finns till tester verktyget](https://www.youtube.com/watch?v=yVhPCid0wRs&t=2455s)  
+[Exekvera alla tester -f](https://www.youtube.com/watch?v=yVhPCid0wRs&t=2510s)  
+[Exekvera specifika tester med tag](https://www.youtube.com/watch?v=yVhPCid0wRs&t=2583s)  
+[Skillnad på Fails och Errors](https://www.youtube.com/watch?v=yVhPCid0wRs&t=2885s)  
+[Lös felet i testerna](https://www.youtube.com/watch?v=yVhPCid0wRs&t=3070s)  
+[Validera kod med Ruff](https://www.youtube.com/watch?v=yVhPCid0wRs&t=3291s)  
+[Lägg till lösningen på GitHub](https://www.youtube.com/watch?v=yVhPCid0wRs&t=3500s)  
+[Lös extrauppgiften](https://www.youtube.com/watch?v=yVhPCid0wRs&t=3575s)  
+[Exekvera tester för extrauppgifter](https://www.youtube.com/watch?v=yVhPCid0wRs&t=3770s)
