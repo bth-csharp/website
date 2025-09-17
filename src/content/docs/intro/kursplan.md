@@ -9,4 +9,4 @@ Kursplanen är kursens formella dokument som fastställts av högskolan. När ku
 
 ## Aktuell kursplan
 
-Från och med hösten 2025 hittar du [kursplanen genom att söka på kurskoden DV1701 via BTH's hemsida](http://edu.bth.se/utbildning/utb_kursplaner.asp?KKurskod=DV1701) och kursen heter "Objektorienterad programmering i CSharp".
+Du hittar [kursplanen till DV1701 via BTH's hemsida](https://plan.bth.se/courses/DV1701) och kursen heter "Objektorienterad programmering i CSharp".

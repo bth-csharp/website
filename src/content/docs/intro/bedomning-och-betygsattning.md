@@ -38,7 +38,7 @@ Följande tabell används vid bedömning av genomförda kursmoment.
 | Bedömningspunkt                                                                                                                              | Poäng   | Din poäng |
 | -------------------------------------------------------------------------------------------------------------------------------------------- | ------- | --------- |
 | Kursmomenten är utförda enligt instruktion och är kompletta.                                                                                 | 30      |           |
-| Kursmomenten är mycket väl utförda och resultatet håller en hög nivå. Denna del används endast om ett betyg står och väger mellan två betyg. | 10      |           |
+| Kursmomenten är mycket väl utförda och resultatet håller en hög nivå. Hög poäng på quizzen är ett plus här. Denna del används endast om ett betyg står och väger mellan två betyg.  | 10      |           |
 | TOTALT                                                                                                                                       | 30 (40) |           |
 
 ### Projektarbete

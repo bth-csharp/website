@@ -1,0 +1,150 @@
+---
+title: "Använda AI som stöd i dina studier" 
+description: No description.
+sidebar:
+    order: 0006
+---
+
+Som student i den här kursen får du använda **AI** som ett verktyg för att utveckla din förståelse och ditt lärande. Det kan fungera både som en idégenerator och som ett bollplank när du arbetar med programmeringsuppgifter.
+
+## Komma på övningsuppgifter
+
+Om du vill öva mer på ett visst moment kan du be AI att skapa förslag på övningsuppgifter.
+
+Exempel:
+
+* *”Ge mig tre övningsuppgifter i C# där jag får öva på input, output och strängformatering”*
+* *”Kan du skapa en uppgift där jag tränar på att typkonvertera i C#?”*
+* *”Kan du skapa en uppgift där jag tränar på felsöka C# kod med if-satser?”*
+* *”Kan du skapa en uppgift där jag tränar på logisk tänkande?”*
+* *”Kan du skapa en uppgift där jag tränar på problemlösning?”*
+* *”Kom på en övningsuppgift som visar på många olika användningsfall och edge cases med if-satser i C#”*
+
+På det sättet kan du själv anpassa svårighetsgrad och område efter vad du behöver träna på.
+
+## Använda AI som bollplank och bli bättre
+
+När du fastnar i en uppgift eller inte förstår varför din kod inte fungerar kan du använda AI som en diskussionspartner.
+
+* Klistra in din kod och **beskriv vad du försökt göra**.
+* Förklara **vilket felmeddelande eller problem du får**.
+* Be AI att förklara steg för steg vad som händer i koden.
+
+Det är ofta mer lärorikt att be om en förklaring än att bara be om en färdig lösning.
+
+:::note
+**Viktigt:** du måste alltid själv förstå och kunna förklara koden efter förklaringen. Att bara läsa svaret och sen gå vidare är oftast inte tillräckligt.
+:::
+
+### Använd AI för att få en uppgift som utmanar dig och din kunskap
+
+När du har fått förklaringen av AI, kan du be AI att skapa en liknande uppgift som testar din förståelse. På det sättet kan du själv se om du verkligen har förstått konceptet.
+
+* *”Kan du komma på en ny övningsuppgift där jag behöver hantera en liknande situation?”*
+
+
+### Exempel dialog med AI
+
+*Studenten*
+
+> "Jag försöker skriva ett program som räknar ut summan av en lista, men jag får fel. Här är min kod:"
+>
+> ```C#
+> List<string> tal = new List<string> { "1", "2", "3" };
+>
+> int summa = 0;
+> foreach (int t in tal) // FEL: försöker behandla string som int
+> {
+>   summa += t;
+> }
+> ```
+>
+> "Vad betyder felmeddelandet jag får, `The type or namespace name 'List<>' could not be found (are you missing a using directive or an assembly reference?)`?"
+
+*AI*
+
+> Det finns två separata problem i din C#-kod:
+>
+> 1. Felmeddelandet `The type or namespace name 'List<>' could not be found` beror på att du saknar using-direktiv för System.Collections.Generic. Lägg till följande överst i din fil:
+>
+> ```C#
+> using System.Collections.Generic;
+> ```
+>
+> 1. Fel i foreach (int t in tal)
+> Du försöker iterera över en lista med string-värden som om de vore int. Det fungerar inte direkt eftersom "1", "2", "3" är strängar, inte heltal.
+> Du måste konvertera varje sträng till ett heltal innan du kan summera dem. Så här kan du rätta till det:
+>
+> ```C#
+> using System.Collections.Generic;
+>
+> List<string> tal = new List<string> { "1", "2", "3" };
+>
+> int summa = 0;
+> foreach (int t in tal) // FEL: försöker behandla string som int
+> {
+>     summa += int.Parse(t); // Konverterar sträng till int
+> }
+> 
+> Console.WriteLine("Summan är: " + summa);
+> ```
+>
+> 1. Dessutom frågar *AI* om du vill ha en version med TryParse också, ifall du vill hantera felaktiga strängar mer försiktigt?
+>
+> 💡 Kort sagt: felet betyder att du försöker använda en lista där C# egentligen förväntar sig ett heltal.
+
+
+**Nu vill du använda AI för att testa din förståelse.**
+
+*Studenten*
+> "Kan du komma på en ny övningsuppgift där jag behöver hantera en liknande situation?"
+
+*AI*
+> Absolut! Här är en övningsuppgift som liknar den du visade, men med ett nytt sammanhang som kräver att studenten hanterar konvertering från strängar till heltal på ett säkert sätt:
+>
+> ---
+>
+> ## Övningsuppgift: Summera åldrar från en lista med strängar
+>
+>Du har fått en lista med strängar som representerar åldrar på deltagare i en kurs. Vissa strängar kan dock vara felaktiga (t.ex. tomma eller innehålla bokstäver). Din uppgift är att:
+>
+> 1. Iterera över listan.
+> 2. Försöka konvertera varje sträng till ett heltal.
+> 3. Summera alla giltiga åldrar.
+> 4. Ignorera ogiltiga värden och skriv ut ett meddelande för varje som inte kunde konverteras.
+>
+> ### Exempel på körning
+>
+> ```bash
+> Mata in ord: katt hund elefant björn
+> Det längsta ordet är "elefant" med längd 7.
+> ```
+>
+> ### Startkod
+>
+> ```C#
+> List<string> aldre = new List<string> { "25", "30", "tjugo", "", "40", "18" };
+>
+> int summa = 0;
+>
+> // Din kod här
+>
+> Console.WriteLine("Summan av giltiga åldrar är: " + summa);
+> ```
+>
+>
+> ### Din uppgift
+>
+> 💡 Tips till studenten:
+>
+> Använd int.TryParse() för att undvika att programmet kraschar.
+> Fundera på hur du kan ge användaren feedback om vilka värden som ignorerades.
+>
+> ---
+>
+> Vill du att jag även gör ett **facit med korrekt lösning** till uppgiften, eller vill du bara ha problembeskrivningen så du kan prova själv först?
+
+
+## Viktigt att tänka på
+
+AI är ett hjälpmedel, inte en ersättning för eget tänkande. Använd AI för att testa idéer, utmana dig själv och utöka din kunskap. **Inte** för att generera färdig kod åt dig.
