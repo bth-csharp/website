@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import starlight from '@astrojs/starlight';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import starlight from '@astrojs/starlight';
 import starlightImageZoom from 'starlight-image-zoom'
