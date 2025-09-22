@@ -19,3 +19,12 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# CSharp
+**/obj/
+**/bin/
+**/plantuml/
+**/toc.yaml
+**/_site/
+**/api/
+**/docs
