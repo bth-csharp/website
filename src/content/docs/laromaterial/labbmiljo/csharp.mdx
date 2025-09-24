@@ -8,3 +8,143 @@ sidebar:
 import Figure from '@components/CustomFigure.astro';
 import YouTube from '@components/YouTube.astro';
 
+import dotnetLogo from '@assets/dotnetLogo.png';
+import vsCodeSetting from '@assets/img/kmom01/VsCodeScopedNamespace.png';
+
+## Förutsättning
+
+Du har någorlunda nya versioner av följande program installerade:
+
+- Operativsystem Windows/MacOs/Linux
+- Texteditor Visual Studio Code (VS Code)
+- Webbläsare Chrome & Firefox samt OS specifik webbläsare
+- Terminal WSL2 med Ubuntu
+- Git
+- Konto på GitHub
+
+## Terminalen
+
+Du behöver ha .NET (dotnet) installerat. Den senaste är version 9. 
+<Figure
+    src={dotnetLogo}
+    height="150px"
+    width="150px"
+    float="right"
+/>
+
+Du kan kolla om du har det installerat genom följande kommandon i terminalen.
+
+```shell
+dotnet --version // kolla versionen
+dotnet --help // info om dotnet med flaggor
+```
+
+I den här kursen kör vi programmen vi skapar i terminalen eftersom det är enklare och kan göras på samma sätt på flera plattformar.
+
+### Linux och Windows med WSL2/Ubuntu (från och med 22.04)
+
+Öppna en terminal och kör följande kommandon.
+
+```shell
+sudo apt update
+sudo apt upgrade
+sudo apt install -y dotnet-sdk-9.0
+```
+
+Första kommandot med update uppdaterar listan över tillgängliga paket och deras versioner men installerar inga nya paket. Det kontrollerar bara förändringar i paketlistorna och hämtar nya versioner av befintliga paket.
+
+Det andra kommandot med upgrade installerar de senaste versionerna av alla paket i listan.
+
+Det tredje kommandot installerar .NET version 9.
+
+Om du får problem med installationen, kan du kolla [Install .NET on Linux](https://learn.microsoft.com/en-us/dotnet/core/install/linux). Här finns information om hur du installerar om du har en tidigare version av Ubuntu eller använder någon annan Linux.
+
+### Mac
+
+Börja med att ladda ner den senaste [.NET SDK installer](https://dotnet.microsoft.com/en-us/download/dotnet) och välj den variant som passar din Mac. Du behöver kolla vilken arkitektur du ska installera för. Om du exempelvis har en Intel processor på din Mac väljer du X64. Dubbelklicka på det nedladdade installationsprogrammet och välj defaultvärden där det efterfrågas.
+
+Om du får problem med installationen, kan du kolla [Install .NET on macOS](https://learn.microsoft.com/en-us/dotnet/core/install/macos).
+
+### Kolla installationen
+
+Kolla om .NET (.NET Core) installerats i terminalen. Resultatet av `dotnet --version` nedan (9.0.200) varierar beroende på vilken version du har installerat.
+
+```bash
+dotnet --list-sdks
+// Ger till exempel utskriften: 
+// 8.0.204 [/usr/local/share/dotnet/sdk]
+// 8.0.303 [/usr/local/share/dotnet/sdk]
+// 9.0.200 [/usr/local/share/dotnet/sdk]
+dotnet --version
+// Ger utskriften: 9.0.200
+```
+
+Bra, då är det installerat som det ska!
+
+### Byte av version
+
+Om du behöver byta .NET version, till exempel från 8 till 9. Ladda ner "installern" för version 9, se länk ovan. Därefter gör du:
+
+```bash
+brew uninstall dotnet
+brew install dotnet
+
+dotnet --version
+// Ger nu version 9
+```
+
+## Texteditor - Visual Studio Code
+
+Rekommenderad texteditor är Visual Studio Code som vi kommer att använda för att uppdatera och editera koden.
+
+### Installation
+
+Installera Visual Studio Code, om du inte redan har det.
+
+Installera en extension som heter "C# Dev Kit" från Microsoft. Du klickar på "Extension" och skriver "C# Dev Kit" i sökfältet. Klicka på "Install" och så här ser det ut när "C# Dev Kit" är installerat.
+
+import csharpDevExtension from '@assets/labbmiljö/VS Code /csharpDevExtension.png';
+
+<Figure 
+    src={csharpDevExtension}
+    caption="C# Dev Kit extension är installerat."
+/>
+
+
+### Inställningar
+
+Settings öppnas via `File -> Preferences -> Settings`
+
+Vi vill använda någon som heter *scoped namespace* som kom i .NET 6.0 och det fixar vi i VS Code inställningar. Skriv "dotnet namespace" i sökrutan och "klicka i", se bild nedan.
+
+<Figure
+    src={vsCodeSetting}
+    caption="Setting i VS Code för scoped namespace."
+    class="left"
+/>
+
+### Stäng av GitHub Copilot
+
+GitHub Copilot är Microsofts egna AI-verktyg som ger förslag på kod medan du skriver. Det är ett verktyg som vi inte vill använda i den här kursen. Det är inte tillåtet att använda AI-verktyg för att generera kod i den här kursen.
+
+Klicka på Copilot-ikonen uppe till höger i VSCode och välj "Disable Copilot" för att stänga av GitHub Copilot.
+
+import extensions_copilot from '@assets/kursrepo-utvecklingsmiljo/extensions_copilot.png';
+
+<Figure 
+    src={extensions_copilot}
+    caption="Stäng av Copilot."
+/>
+
+Klicka på Copilot-ikonen nere till höger i VSCode och välj "Disable Completions" för att stänga av GitHub Copilot automatgenerering.
+
+import extensions_copilot2 from '@assets/kursrepo-utvecklingsmiljo/extensions_copilot2.png';
+
+<Figure 
+    src={extensions_copilot2}
+    caption="Stäng av Copilot."
+/>
+
+## Sammanfattning
+
+Nu har vi installerat .NET, vilket vi kollat med "dotnet --version". Dessutom har vi installerat en extension "C# Dev Kit" i Visual Studio Code. Vidare har vi stängt av Copilot och fixat så att vi kan använda scoped namespace. Behöver du mer information så läs [Getting Started with C# in VS Code](https://code.visualstudio.com/docs/csharp/get-started).

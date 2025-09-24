@@ -12,6 +12,8 @@ sidebar:
 import Figure from '@components/CustomFigure.astro';
 import YouTube from '@components/YouTube.astro';
 
+import sshkey1 from '@assets/kursrepo/sshkey1.png';
+
 :::note
 På bilderna i denna artikel står det `webtec` som kursnamn. Ignorera det och låtsas som att det står `csharp`, vilket det ska göra för er.
 :::
@@ -24,38 +26,12 @@ Om du redan har skapat ssh-nycklar på denna datorn och lagt till på GitHub ska
 Om du använder en annan dator och vill kunna jobba mot GitHub på den också så kan du följa denna artikel.
 :::
 
-## Skapa ssh-nycklar lokalt
-
-Det finns olika sätt att skapa nycklar och det finns olika typer av nycklar som kan skapas. I denna guiden försöker vi skapa nycklarna på enklaste möjliga sätt.
-
-Kör följande kommando för att skapa nycklarna, redigera kommandot och skriv in din egna mailadress. Det spelar ingen roll vilken mailadress du väljer, det är bara för informationssyfte.
-
-:::note
-Om du redan har ett nyckelpar som du använder till något annat så bör du undvika att skriva över det, då kan du istället använda det nyckelparet som du redan har. Gå vidare till `Kopiera din publika nyckel`.
-:::
-
-```console title="Generera ett nyckelpar."
-ssh-keygen -t ed25519 -C "your_email@example.com"
-```
-
-När du får en prompt för att ange en lösenordsfras så kan du bara trycka enter.
-
-Det kan se ut så här när du är klar.
-
-import sshkey1 from '@assets/kursrepo/sshkey1.png';
-
-<Figure 
-    src={sshkey1}
-    caption="Nu har du genererat ssh-nycklar."
-/>
-
-I utskriften från kommandot ser du i vilka filer som kommandot placerade ditt nyckelpar.
 
 ## Kopiera din publika nyckel
 
-Du kan öppna din publika nyckel i vscode på följande sätt.
+Du kan öppna din publika nyckel i VS Code på följande sätt.
 
-```console title="Hur du kan öppna den publika nyckeln i vscode."
+```console title="Hur du kan öppna den publika nyckeln i VS Code."
 code ~/.ssh/id_ed25519.pub
 ```
 
@@ -74,6 +50,35 @@ Nu kan du markera filens innehåll i terminalen och kopiera, vanligtvis via `ctr
 
 </details>
 
+<details>
+<summary>Om ssh-nycklar saknas - skapa nya</summary>
+
+Det finns olika sätt att skapa nycklar och det finns olika typer av nycklar som kan skapas. I denna guiden försöker vi skapa nycklarna på enklaste möjliga sätt.
+
+Kör följande kommando för att skapa nycklarna, redigera kommandot och skriv in din egna mailadress. Det spelar ingen roll vilken mailadress du väljer, det är bara för informationssyfte.
+
+:::note
+Om du redan har ett nyckelpar som du använder till något annat så bör du undvika att skriva över det, då kan du istället använda det nyckelparet som du redan har. Gå vidare till `Kopiera din publika nyckel`.
+:::
+
+```console title="Generera ett nyckelpar."
+ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+När du får en prompt för att ange en lösenordsfras så kan du bara trycka enter.
+
+Det kan se ut så här när du är klar.
+
+<Figure 
+    src={sshkey1}
+    caption="Nu har du genererat ssh-nycklar."
+/>
+
+I utskriften från kommandot ser du i vilka filer som kommandot placerade ditt nyckelpar.
+
+Nu kan du markera filens innehåll i terminalen och kopiera, vanligtvis via `ctrl-c` eller `shift ctrl c` beroende av vilken terminal du har.
+
+</details>
 
 
 ## Lägg till den publika nyckeln på GitHub
