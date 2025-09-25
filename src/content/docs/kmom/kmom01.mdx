@@ -1,6 +1,8 @@
 ---
 title: "Kmom01: Kom igång med C#"
 description: Första kmomet.
+sidebar:
+    order: 2
 ---
 
 import { YouTube } from 'astro-embed';
@@ -18,7 +20,7 @@ Vi börjar skriva de första enkla programmen för att komma underfund med hur C
 <Figure
     src={var1Image}
     caption="Informationsflödet mellan en användare och hårdvaran."
-    class="left"
+    width="450px"
 />
 
 Bilden visar på informationsflödet mellan en användare och hårdvaran. Användaren är den som använder, nyttjar, programmet eller applikationen som det också kallas. Hårdvaran är den fysiska datorn och kan vara en PC, Linuxdator eller en Mac. Operativsystem kan vara Windows, Mac eller någon Linuxvariant som Ubuntu. Operativsystemet tillhandahåller resurser som filer och nätverkskommunikation men hanterar även resurser som till exempel minnet.
@@ -71,15 +73,11 @@ När du läser boken så är det viktigt att ha en terminal öppen och köra kod
     Det räcker inte med att bara läsa. Du är klar med boken när du förstår vad som står i den och kan köra koden själv. Utforska och experimentera med koden. Gör övningarna i boken. Testa ändra saker och se vad som händer. Det är så du lär dig.
     :::
 
-1. Läs igenom [C# - vad är det för språk?](../../laromaterial/kmom01/CsharpInfo).
+1. Läs igenom "[C# - vad är det för språk?](../../laromaterial/kmom01/csharpInfo)".
 
-1. Läs och jobba igenom [Python till **C#**](../../laromaterial/kmom01/PythonTillCsharp.md). Testa gärna i [C# online kompilator](https://dotnetfiddle.net/) (glöm ej att välja senaste kompilatorn i menyn till vänster). Skriv din kodsnutt inuti Main()-metoden.
+2. Läs och jobba igenom "[Python till C#](/website/laromaterial/kmom01/pythonTillCsharp/)". Testa gärna i [C# online kompilator](https://dotnetfiddle.net/) (glöm ej att välja senaste kompilatorn i menyn till vänster). Skriv din kodsnutt inuti Main()-metoden.
 
-1. Läs och jobba igenom [Mer **C#**](/website/laromaterial/kmom01/MerCsharp.md). Testa gärna i [C# online kompilator](https://dotnetfiddle.net/) (glöm ej att välja senaste kompilatorn i menyn till vänster). Skriv din kodsnutt inuti Main()-metoden.
-
-1. För att bekanta dig med csharps dokumentation, kika i [csharp Standard Library](https://docs.csharp.org/3/library/index.html). **Spendera inte mer än 60 minuter på detta.**
-    - Läs om [Built-in Functions](https://docs.csharp.org/3/library/functions.html) och [Built-in Constants](https://docs.csharp.org/3/library/constants.html). Läs **inte** igenom alla funktioner utan kolla på de som verkar intressanta och relevanta för det du jobbar med T.ex. `input()`, `len()`, `bool()`, `int()` och `isinstance()`. Det är bra att ha en översikt över vad som finns i språket och vad som går att göra.
-    - Läs också om datatypen [Text Sequence Type — str](https://docs.csharp.org/3/library/stdtypes.html#text-sequence-type-str)
+3. Läs och jobba igenom "[Mer C#](/website/laromaterial/kmom01/merCsharp)". Testa gärna i [C# online kompilator](https://dotnetfiddle.net/) (glöm ej att välja senaste kompilatorn i menyn till vänster). Skriv din kodsnutt inuti Main()-metoden.
 
 </Steps>
 
@@ -94,7 +92,7 @@ När du läser boken så är det viktigt att ha en terminal öppen och köra kod
 <summary>
 ## Onsdag
 </summary>
-Jobba igenom [seminarium kmom01 vecka 1](/website/laromaterial/seminarium/kmom01). Det görs på onsdagens lektion.
+Jobba igenom [seminarium kmom01](/website/laromaterial/seminarium/kmom01). Det görs på onsdagens lektion.
 </details>
 <br/>
 
@@ -117,16 +115,24 @@ Jobba igenom [seminarium kmom01 vecka 1](/website/laromaterial/seminarium/kmom01
 ### Öva
 
 Nu har du jobbat igenom det förbereda materialet för veckan. Förhoppningsvis har du inte använt upp alla 20h än. Använd resten av tiden till att öva på det du har lärt dig.
-- Utforska själv, experimentera och lek med koden. Gör ett antagande om hur kod/csharp fungera, skriv en liten kodsnutt för att testa ditt antagande och se om det stämmer.
-- Om du vill använda dig av AI, kan du här läsa om hur du gör det på bästa sätt i kursen.
-    - Läs "[Använda AI som stöd i dina studier](../../studieguide/använd-ai)"
-    - Fundera nu på vad du har svårt att förstå med programmeringen och vill bli bättre på. Använd AI för att generera övningsuppgifter som du kan träna på. När du stöter på problem i din kod eller något du inte förstår, be AI att generera ny uppgift med liknande fel/problem.
-- Använd en webbtjänst för att hitta övningsuppgifter. Om du vill jobba med avancerad programmering på företag som Google, Facebook, Amazon, Microsoft, etc. efter dina studier så är dessa webbtjänster bra att träna på. De har ofta samma typ av uppgifter som du kan få på anställningsintervjuer.
-    - [Exercism](https://exercism.org/tracks/csharp)
-    - [LeetCode](https://leetcode.com/)
-    - [HackerRank](https://www.hackerrank.com/domains/csharp)
-    - [Codewars](https://www.codewars.com/)
-    - [CheckIO](https://py.checkio.org/)
+
+#### Interaktiva övningar och tutorials
+
+* [Microsoft Learn – C#](https://learn.microsoft.com/dotnet/csharp/)  
+Officiella guider och interaktiva kodexempel direkt i webbläsaren. Bra om du vill lära dig rätt från källan.
+* [Exercism](https://exercism.org/tracks/csharp)  
+Gratis, massor av små övningar där du får feedback av communityn. Perfekt för att träna problemlösning i C#.
+* [Codewars](https://www.codewars.com/)  
+Gamifierat – lös problem ("kata") och gå upp i nivå. Bra för att öva logik och algoritmer i C#.
+* [LeetCode](https://leetcode.com/)  
+Inriktat på algoritmer, datastrukturer och problemlösning. Väldigt bra om du vill bli stark på intervjufrågor och mer avancerad kodning.
+
+#### Lekfulla/övningsvänliga sidor
+
+* [Codingame](https://www.codingame.com/)  
+Lös problem genom att styra spel med C#. Roligare än vanliga uppgifter om du gillar spel.
+* [Dotnetfiddle](https://dotnetfiddle.net/)  
+Online-editor för C#, där du snabbt kan skriva och testa kod utan att installera något.
 
 </details>
 <br/>
@@ -145,9 +151,8 @@ Följande uppgifter skall utföras och resultatet skall redovisas.
 1. På Canvas, gör quizzet `Fusk policy. Måste få alla rätt, oändlig med försök`.
 
 :::danger
-Lösningar som använder konstruktionerna list/dict comprehension eller lambda funktioner godkänns inte i denna kurs.
+Varje uppgift ska lösas med de C# konstruktioner som vi går igenom i respektive kmom.
 
-Varje uppgift ska lösas med grundläggande csharp konstruktioner som vi går igenom i kursen. Egenskapade funktioner får du först använda i kmom03 och listor får användas först i kmom04.
 :::
 1. Gör uppgiften "[Ditt första csharp-skript](/website/laromaterial/uppgift/convert)" för att visa att du har koll på grunderna. Spara alla filer under `src/kmom01/convert`.
 

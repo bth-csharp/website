@@ -1,6 +1,8 @@
 ---
 title: "Kom igång"
 description: Hur du förbereder dig för att påbörja det första kursmomentet.
+sidebar:
+    order: 1
 ---
 
 Utför följande instruktioner för att förbereda dig inför kursen.
