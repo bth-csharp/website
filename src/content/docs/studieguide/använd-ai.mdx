@@ -49,7 +49,7 @@ När du har fått förklaringen av AI, kan du be AI att skapa en liknande uppgif
 
 > "Jag försöker skriva ett program som räknar ut summan av en lista, men jag får fel. Här är min kod:"
 >
-> ```C#
+> ```csharp
 > List<string> tal = new List<string> { "1", "2", "3" };
 >
 > int summa = 0;
@@ -67,7 +67,7 @@ När du har fått förklaringen av AI, kan du be AI att skapa en liknande uppgif
 >
 > 1. Felmeddelandet `The type or namespace name 'List<>' could not be found` beror på att du saknar using-direktiv för System.Collections.Generic. Lägg till följande överst i din fil:
 >
-> ```C#
+> ```csharp
 > using System.Collections.Generic;
 > ```
 >
@@ -75,7 +75,7 @@ När du har fått förklaringen av AI, kan du be AI att skapa en liknande uppgif
 > Du försöker iterera över en lista med string-värden som om de vore int. Det fungerar inte direkt eftersom "1", "2", "3" är strängar, inte heltal.
 > Du måste konvertera varje sträng till ett heltal innan du kan summera dem. Så här kan du rätta till det:
 >
-> ```C#
+> ```csharp
 > using System.Collections.Generic;
 >
 > List<string> tal = new List<string> { "1", "2", "3" };
@@ -122,7 +122,7 @@ När du har fått förklaringen av AI, kan du be AI att skapa en liknande uppgif
 >
 > ### Startkod
 >
-> ```C#
+> ```csharp
 > List<string> aldre = new List<string> { "25", "30", "tjugo", "", "40", "18" };
 >
 > int summa = 0;
