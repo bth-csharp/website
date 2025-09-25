@@ -5,6 +5,12 @@ sidebar:
     order: 4
 ---
 
+import Figure from '@components/CustomFigure.astro';
+
+import fileStructure from '@assets/img/kmom01/fileStructure.png';
+import titleWindow from '@assets/img/kmom01/titleWindow.png';
+import debug_start from '@assets/img/kmom01/debug_start.png';
+
 ## Skapa app
 
 Vi börjar med att skapa vårt första terminalprogram eller konsol-app (console app) som det kallas i C#. Det är en default-app från dotnet, som skriver ut "Hello, World!" i terminalen.
@@ -38,8 +44,11 @@ Välj Yes.  */}
 
 Så här ser filstrukturen ut i vår app.
 
-![Filstruktur för FirstApp](./../../../images/kmom01/fileStructure.png "Filstruktur för FirstApp")  
-*Filstruktur för FirstApp.*
+<Figure
+    src={fileStructure}
+    caption="Filstruktur för FirstApp."
+    width="400px"
+/>
 
 - **Program.cs** vårt huvudprogram (main) som innehåller vår kod. I det här fallet motsvarar koden bara en utskrift. När du startar ditt terminalprogram med "dotnet run" så körs denna kod.
 - **FirstApp.csproj**, håller reda på ditt projekt. Den innehåller information om projektets struktur samt vilka filer som ska inkluderas och vilka beroenden projektet har. Filen har samma namn som vårt projekt med ".csproj" på slutet.
@@ -106,8 +115,11 @@ Console.WriteLine("\n" + message);
 
 Nu har vi rensat terminalen, så "Hello, world!" och slumptalen syns inte längre. Vi har lagt till en titel på vårt terminalfönster. Så här ser det ut från en Mac:
 
-![Terminalen efter if-satsen i FirstApp](./../../../images/kmom01/titleWindow.png "Terminalen efter if-satsen i FirstApp")  
-*Terminalen efter if-satsen i FirstApp.*
+<Figure
+    src={titleWindow}
+    caption="Terminalen efter if-satsen i FirstApp."
+/>
+
 
 ### Övning 3 - gör en metod och använd den
 
@@ -241,8 +253,11 @@ Läs mer om [dotnet format](https://learn.microsoft.com/en-us/dotnet/core/tools/
 
 För att debugga vår kod öppnar vi vårt projekt, det vill säga katalogen med vårt program, i VS Code. Markera filen Program.cs. Se bild nedan:
 
-![VS code start debug](./../../../images/kmom01/debug_start.png "VS code start debug")  
-*VS code start debug.*
+<Figure
+    src={debug_start}
+    caption="VS Code start debug."
+/>
+
 
 Klicka på symbolen för att starta debugging. För att skapa brytpunkter klickar du i vänsterkanten på den aktuella kodraden.
 

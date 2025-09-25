@@ -5,6 +5,12 @@ sidebar:
     order: 5
 ---
 
+import Figure from '@components/CustomFigure.astro';
+
+import kmom01_4_drawio from '@assets/img/kmom01/kmom01_4_drawio.png';
+import kmom01_4_psuedo from '@assets/img/kmom01/kmom01_4_psuedo.png';
+import kmom01_4_menu from '@assets/img/kmom01/kmom01_4_menu.png';
+
 För att träna på iteration och metoder gör vi ett enkelt menyprogram enligt:
 
 - menyval 1 skriver ut en hälsning
@@ -18,13 +24,21 @@ Hur kan vi göra en bra meny? Hur börjar vi med uppgiften? Kanske med probleml�
 
 Flödesscheman kan se ut på olika sätt men det brukar vara vanlig kod i rektanglar och romberna som genom anslutande linjer visar flöden med bl.a olika vägar.
 
-![Flödesschema för MenuApp](./../../../images/kmom01/kmom01_4.drawio.png "Flödesschema för MenuApp")
+<Figure
+    src={kmom01_4_drawio}
+    caption="Flödesschema för MenuApp."
+    width="500px"
+/>
 
 ## Pseudokod
 
 Pseudokod är en kombination av mänskligt språk och programkod som används för att beskriva logiken i ett blivande program. Det finns inte några direkta regler förutom att det ska vara entydigt och så pass detaljerat att det relativt enkelt kan översättas till något programmeringsspråk. Ett sätt att skriva pseudokod att skriva kommentarer och det kan se ut så här:
 
-![Pseudokod för MenuApp](./../../../images/kmom01/kmom01_4_psuedo.png "Pseudokod för MenuApp")
+<Figure
+    src={kmom01_4_psuedo}
+    caption="Pseudokod för MenuApp."
+/>
+
 
 Pseudokoden i denna bild finns att kopiera längre fram i artikeln.
 
@@ -116,7 +130,10 @@ while (choice != "e")
 
 Så här kan det se ut:
 
-![Skriv ut menyn och avsluta MenuApp](./../../../images/kmom01/kmom01_4_menu.png "Skriv ut menyn och avsluta MenuApp")
+<Figure
+    src={kmom01_4_menu}
+    caption="Skriv ut menyn och avsluta MenuApp."
+/>
 
 ## Lägg till switch-satsen
 
