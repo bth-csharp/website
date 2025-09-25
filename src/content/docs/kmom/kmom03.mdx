@@ -1,8 +1,8 @@
 ---
-title: "Kmom02: Introduktion till Objektorienterad programmering och UML"
-description: Andra kmomet.
+title: "Kmom03: Mer Objektorienterad programmering och UML"
+description: Tredje kmomet.
 sidebar:
-    order: 2
+    order: 3
 ---
 
 import { YouTube } from 'astro-embed';
@@ -13,16 +13,15 @@ import Figure from '@components/CustomFigure.astro';
 
 import var1Image from '@assets/img/kmom01/infoUserHW.png';
 
-Nu ska vi börja med objektorienterad programmering i C#. Objektorienterad programmering (OOP) fokuserar på att organisera kod i klasser, vilket motsvarar en slags sammansatt datatyp, och skapa objekt av dessa klasser som representerar verkliga eller abstrakta enheter. I OOP betraktas programmet som en samling av dessa objekt som interagerar med varandra genom att skicka meddelanden. Dessa objekt har egenskaper (variabler) och beteenden (metoder).
+I detta kursmomentet ska vi titta på olika relationer mellan objekt: **komposition** och **aggregation**, och hur dessa representeras i klassdiagram. Nu tittar vi vidare på UML diagram och lär oss dels mer om klassdiagram och dels om beteendediagram. Vi fortsätter att skapa klasser och använda objekt och vi strävar efter att låta klassers variabler vara privata (information hiding).
 
-Ett objekt skapas utifrån en ritning eller beskrivning, en så kallad klass. 
+Komposition är en relationsform där en objekt "innehåller" objekt av en annan klass. Det är ganska vanligt att använda benämningen "äger", det vill säga vi uttrycker att objektet äger de objekt de objekt osm det innehåller. Objektet som äger andra objekt ansvarar för de andra objektens livslängd. 
 
-Vi ska också lära oss att använda UML klassdiagram som visar klassernas egenskaper och bet
-eenden.
+Aggregation är en associationsform där en klass har tillgång till (kan även här uttryckas innehåller) objekt av en annan klass men de objekten kan existera oberoende av varandra och det är en "svagare" relation än komposition.
 
 ## Förberedelser
 
-Innan du börjar med kmom02 så behöver du ha jobbat igenom [Kmom01](../kmom01).
+Innan du börjar med kmom03 så behöver du ha jobbat igenom [Kmom02](../kmom02).
 <br/>
 
 
@@ -44,8 +43,9 @@ code .
 
 <Steps>
 1. Läs och jobba igenom följande kapitel i boken **C# 12.0 in a Nutshell: The Definitive Reference**:
-    * kapitel 5 .NET Overview
-    * kapitel 6 .NET Fundamentals
+    * kapitel 3 Creating Types in C#, delkapitel Classes
+    * kapitel 4 Advance C#, delkapitel Try Statements and Exceptions
+    * kapitel 15, delkapitel  File and Directory Operations till och med Path
 
     :::tip
     Det räcker inte med att bara läsa. Du är klar med boken när du förstår vad som står i den och kan köra koden själv. Utforska och experimentera med koden. Gör övningarna i boken. Testa ändra saker och se vad som händer. Det är så du lär dig.

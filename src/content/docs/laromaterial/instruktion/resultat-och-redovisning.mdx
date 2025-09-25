@@ -11,29 +11,16 @@ Som ett sista steg i varje kursmoment skall du redovisa. Gör så här.
 
 
 <YouTube
-    id="1rOg_XYc9QI"
-    title="Andreas visar hur du lämnar in ett kursmoment."
+    id="???"
+    title="Marie visar hur du lämnar in ett kursmoment."
 />
 
 PS! För kmom03, kmom06 och kmom10 skall du även göra en pull request (PR) på GitHub. Läs mer om det längst ner på sidan.
 
-## Skriv redovisningstext
+## Gör veckans quiz
 
-Du skriver din redovisningstext i din `README.md` fil i kursrepot.
-
-I din redovisningstext beskriver du dina reflektioner från kursmomentet, vad som gick bra och om något var mer utmanande. Reflektera över svårigheter, problem, lösningar, erfarenheter, lärdomar, resultatet, etc.
-
-Besvara de specifika frågor som finns för varje uppgift och kursmoment.
-
-Skriv ett stycke om totalt 15-20 meningar för varje kursmoment. Försök väva in frågorna i löpande text.
-
-Kan du koppla och jämföra (reflektera) dina lärdomar från nuvarande kursmoment mot andra kursmoment, kurser eller andra lärdomar du har sedan tidigare? Sånt gillar lärare.
-
-{/*
-Läs gärna hur du kan skriva [en bra redovisningstext](kurser/faq/att-skriva-en-bra-redovisningstext).
-*/}
-
-
+Varje kmom har ett quiz på Canvas som ska göras och klaras av. Kmom01 har dessutom ett quiz om fusk som ska klaras av först.
+ 
 
 ## Tagga och pusha ditt repo
 
@@ -54,7 +41,10 @@ Du kan använda följande versioner för dina taggar.
 Tagga ditt repo så här.
 
 ```bash title="Lägg till en tagg på ditt repo med versionsnummer."
-git tag -a v1.0.0 -m "Ready with kmom01"
+git tag -a v1.0.0 -m "First draft of kmom01."
+git tag -a v1.0.1 -m "Menu choice 1 in kmom01 ready."
+...
+git tag -a v1.1.0 -m "Ready with kmom01."
 ```
 
 Om du gör ändringar så taggar du din nya inlämning med ett högre versionsnummer, till exempel v1.0.1 eller v1.1.0, du kan själv bestämma vilken version som känns lämplig.
@@ -93,47 +83,3 @@ I samband med att du lämnar in kmom03, kmom06 och kmom10 skall du även göra e
 [Gör en PR (kmom03)](/website/laromaterial/instruktion/gor-en-pr-for-kmom03/).
 
 Läraren kommer att titta på din inlämning och betygsätta den.
-
-
-
-{/* 
-Testa din inlämning
----------------------------------------
-
-Du kan själv testköra rättningsprocessen via följande kommando.
-
-```bash
-# Om du står i rooten av ditt kursrepo.
-uv run tester tests/kmom01
-uv run ruff check src/kmom01
-```
-
-Byt ut kmom01 mot det kursmoment du vill inspektera.
-
-Den som rättar och kontrollerar din inlämning utgår från ovan kommando.
-
-Du kan själv provköra och se samma resultat som rättaren ser. Det är en mycket god idé att alltid testköra sin inlämning på samma sätt som rättaren gör. Du sparar tid genom att själv upptäcka eventuella slarvfel. */}
-
-
-
-{/*
-Lämna in på Canvas 
----------------------------------------
-
-Lämna in en länk till din rapport-sida på Canvas. Länken innehåller din studentakronym och på det viset hittar rättaren din inlämning.
-
-Det är bra om du också kopierar in din redovisningstext in i Canvas, det kan vara bra att ha som backup om något händer.
-
-Läraren kommer snabbt kolla igenom din redovisningstext och uppgifterna. Betyg är G (godkänd) eller U/komplettera (komplettera → gör om → gör bättre). Bedömningen baseras på din redovisningstext samt att du har fullgjort kursmomentets uppgifter.
-*/}
-
-
-
-{/*
-Feedback och frågor 
----------------------------------------
-
-[Vilken feedback kan jag förvänta mig](kurser/faq/vilken-feedback-far-man-pa-inlamningarna)?
-
-Ställ dina frågor och funderingar i de kanaler som erbjuds i kursen. Se till att du får dina frågor besvarade. Fråga igen om något är oklart. Se till att din fråga alltid blir besvarad.
-*/}

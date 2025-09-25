@@ -1,0 +1,163 @@
+---
+title: "Kmom01: Gör ett menyprogram"
+description: Du ska göra ett menyprogram och strukturera koden i funktioner.
+sidebar:
+    order: 0010
+---
+
+# Gör ett menyprogram
+
+Du ska göra ett menyprogram och strukturera koden i funktioner. Du skapar din app i `kmom01` och kallar den `Menu`.
+**OBS** Alla utskrifter görs i menyalternativen. Skriv ut det metoderna returnerar.
+
+## Förkunskaper
+
+Du har jobbat allt material i "[kmom01](/website/kmom/kmom01)".
+
+## Krav
+
+### Inledning
+
+Börja med att göra ett flödesschema och/eller pseudokod. Läs igenom kraven och tänk igenom din kod innan du börjar skriva kod. Sen skapar du ett nytt projekt/app som du kallar `Menu`.
+
+### Metoder - sammanfattning
+
+| Menyval | Metodnamn              | Returvärde  |
+|---------|------------------------|-------------|
+|    1    | PrintInfoAboutCsharp() | void      |
+|    2    | ConvertCelsiusToFahrenheit(double tempCelsius) | double |
+|    3    | RepeatLetters()        | string      |
+|    4    | CreateAcronym()        | string      |
+|    5    | CountSumAndAverage()   | string      |
+|    6    | ValidateSsn()          | bool      |
+
+### Gör en meny
+
+Uppdatera din Program.cs med en meny. Utskriften av menyn lägger du i en metod som du själv bestämmer namnet på. Verifiera att menyn fungerar innan du fortsätter. Det kan du göra genom att lägga ut utskrift i varje case-sats, det vill säga för varje meny-alternativ.
+
+### Menyval **1**: Information om C#
+
+(Metodnamn: **void PrintInfoAboutCsharp()**)
+
+Minst 3 meningar efterfrågas. Skriv något om C#, till exempel vilka som utvecklade det, vad det är för språk och plattformen .NET (dotnet). **PrintInfoAboutCsharp** har ingen retur.
+
+### Menyval **2**: Celsius till Fahrenheit
+
+(Metodnamn: **double ConvertCelsiusToFahrenheit(double tempCelsius)**)
+
+Fråga efter en temperatur i Celsius (ska kunna vara ett tal med decimaler) och returnera motsvarande temperatur i Farenheit avrundat till 2 decimaler. Inmatningen av temperaturen i Celcius ska ske innan anrop av metoden `ConvertCelsiusToFahrenheit`. Utskriften sker efter anropet. Exempel:
+
+```text
+input: 11.344     output: "52.42"
+```
+
+### Menyval **3**: Upprepa tecken
+
+(Metodnamn: **string RepeatLetters()**)
+
+Fråga efter en sträng och skriva ut en ny sträng där varje tecken har ökat med +1 och är separerat med "-". Exempel:
+
+```text
+input: "apa"      output: "a-pp-aaa"
+input: "kassler"  output: "k-aa-sss-ssss-lllll-eeeeee-rrrrrrr"
+```
+
+### Menyval **4**: Skapa akronym
+
+(Metodnamn: **string CreateAcronym()**)
+
+Fråga efter en sträng och skapa en akronym genom att plocka ut alla stora bokstäver i namnet du skriver in. Exempel:
+
+```text
+input: "BRöderna Ivarsson Osby"      output: "BRIO"
+input: "Ingvar Kamprad Elmtaryd Agunnaryd"  output: "IKEA"
+```
+
+### Menyval **5**: Summa och medelvärde
+
+(Metodnamn: **string CountSumAndAverage()**)
+
+Låt användaren mata in tal tills texten "klar" matas in. Då skriv summan av talen och medelvärdet av talen ut. Metoden returnerar en sträng med summan och medelvärdet enligt output nedan. Avrunda medelvärdet till 2 decimaler. Exempel:
+
+```text
+input: 1
+input: 2
+input: 3
+input: "klar"  output: "Summan=6 och medelvärdet=2"
+```
+
+### Menyval **6**: Validera personnummer med hjälp av Luhnalgoritmen
+
+(Metodnamn: **bool ValidateSsn()**)
+
+Luhnalgoritmen används för att verifiera giltigheten hos nummer, särskilt kreditkortsnummer och personnummer.
+
+Algoritmen funkar på så sätt att varannan siffra multipliceras med 2 och varannan med 1, med start på första siffran i personnumret. Om något tal vid multiplikationen blir större än 9 ersätts det talet med dess siffersumma. Därefter summeras alla tal och om summan är jämt delbar med 10 så är kontrollsiffran korrekt. Om personnumret validerar ska metoden returnera `true` annars `false`. Koden ska klara av personnummer med och utan `-` innan de fyra sista siffrorna. Om för får eller för många siffror skickas med ska det bli `false`. Efter anropet av metoden skrivs texten "Valid" ut om personnumret var korrekt och annars skrivs texten "Not Valid" ut.
+
+```text
+   8  1 1 2 1 8 9  8 7  6
+*  2  1 2 1 2 1 2  1 2  1
+-------------------------
+   ^  ^ ^ ^ ^ ^ ^  ^ ^  ^
+   16 1 2 2 2 8 18 8 14 6
+```
+
+Vilket blir `1 + 6 + 1 + 2 + 2 + 2 + 8 + 1 + 8 + 8 + 1 + 4 + 6 = 50` som är delbart med 10.
+
+Exempel:
+
+```text
+input: "811218-9876"      output: "Valid"    
+input: "231218-9874"      output: "Not valid"    
+input: "8181818181"       output: "Valid"    
+```
+
+Så här kan det se ut när du är klar med uppgiften. [Videon](https://www.youtube.com/channel/UCxX3bcidovf5MDLeXMcbDyg) kommer att visa hur menyprogrammet ser ut och när man testkör de olika alternativen.
+
+## Tester
+
+Du testar din kod manuellt genom att köra alla tester under varje deluppgift.
+
+**OBS** nästa test ska ske automatiskt men just nu, det vill säga under utvecklingen, får du testa med detta projekt manuellt.
+Stå i katalogen kmom01 (använd terminalen) och kopiera testprojektet [**Menu.Tests**](./../../../CodeExamples/kmom01/uppgift/Menu.Tests) från CodeExamples/kmom01/uppgift och lägg i kmom01 och då ser det ut så här:
+
+```shell
+pwd // stå i kmom01
+tree -L 2
+.
+├── Menu
+│   ├── Menu.csproj
+│   ├── Program.cs
+├── Menu.Tests
+│   ├── Menu.Tests.csproj
+│   ├── Option1to3Test.cs
+│   ├── Option4to6Test.cs
+```
+
+För att testerna ska kunna köras behöver du lägga dessa två rader överst i din Program.cs.
+
+```csharp
+// Överst i kmom01/Program.cs
+using System.Runtime.CompilerServices;
+[assembly: InternalsVisibleTo("Menu.Tests")]
+```
+
+Kör testerna i terminalen, så här:
+
+```shell
+pwd // stå i kmom01/Menu.Tests
+dotnet test
+dotnet test --logger "console;verbosity=normal" // mer information
+```
+
+Då får vi hoppas att alla tester går igenom! Lycka till!
+
+## Tips från coachen
+
+Felsök med hjälp av utskrifter med `Console.WriteLine()`. Använd gärna debugger i VS Code.
+
+Glöm inte att använda 'dotnet format' för att formatera din kod. Se i slutet av [Mer C#](./../Kunskap/MerCsharp.md) för mer information om 'dotnet format'.
+
+Gör många och små commits i ditt git repo, du kan ha ungefär 5-10 commits för en sådan här uppgift. Och pusha till ditt GitHub repo.
+
+Lycka till och hojta till i forumet om du behöver hjälp!
