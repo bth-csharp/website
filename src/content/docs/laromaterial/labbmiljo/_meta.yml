@@ -1,4 +1,4 @@
 # Display this directory first in the sidebar group.
 label: Labbmiljö
-order: 6
+order: 40
 collapsed: true

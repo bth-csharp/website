@@ -1,4 +1,4 @@
 # Display this directory first in the sidebar group.
 label: Kursrepo
-order: 7
+order: 50
 collapsed: true
