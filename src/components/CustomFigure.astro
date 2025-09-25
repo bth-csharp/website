@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-const { src, alt, caption, width = 800, height = 400 } = Astro.props;
+const { src, alt, caption, width = 800, height = 400, float } = Astro.props;
 ---
 
 <figure id="imageFigure" style="display: inline-block; cursor: pointer;">
@@ -63,7 +63,7 @@ const { src, alt, caption, width = 800, height = 400 } = Astro.props;
   });
 </script>
 
-<style define:vars={{height, width}}>
+<style define:vars={{height, width, float}}>
   #imageModal {
     position: fixed;
     top: 50%;
@@ -97,6 +97,7 @@ const { src, alt, caption, width = 800, height = 400 } = Astro.props;
     display: inline-block;
     margin: 0;
     margin-bottom: 1em;
+    float: var(--float);
   }
   img {
     max-width: 100%;
