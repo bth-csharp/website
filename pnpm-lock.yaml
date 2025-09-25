@@ -676,7 +676,7 @@ packages:
   '@shikijs/types@3.12.2':
     resolution: {integrity: sha512-K5UIBzxCyv0YoxN3LMrKB9zuhp1bV+LgewxuVwHdl4Gz5oePoUFrr9EfgJlGlDeXCU1b/yhdnXeuRvAnz8HN8Q==}
 
-  '@shikijs/VS Code-textmate@10.0.2':
+  '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
 
   '@swc/helpers@0.5.17':
@@ -2855,20 +2855,20 @@ snapshots:
   '@shikijs/core@3.12.2':
     dependencies:
       '@shikijs/types': 3.12.2
-      '@shikijs/VS Code-textmate': 10.0.2
+      '@shikijs/vscode-textmate': 10.0.2
       '@types/hast': 3.0.4
       hast-util-to-html: 9.0.5
 
   '@shikijs/engine-javascript@3.12.2':
     dependencies:
       '@shikijs/types': 3.12.2
-      '@shikijs/VS Code-textmate': 10.0.2
+      '@shikijs/vscode-textmate': 10.0.2
       oniguruma-to-es: 4.3.3
 
   '@shikijs/engine-oniguruma@3.12.2':
     dependencies:
       '@shikijs/types': 3.12.2
-      '@shikijs/VS Code-textmate': 10.0.2
+      '@shikijs/vscode-textmate': 10.0.2
 
   '@shikijs/langs@3.12.2':
     dependencies:
@@ -2880,10 +2880,10 @@ snapshots:
 
   '@shikijs/types@3.12.2':
     dependencies:
-      '@shikijs/VS Code-textmate': 10.0.2
+      '@shikijs/vscode-textmate': 10.0.2
       '@types/hast': 3.0.4
 
-  '@shikijs/VS Code-textmate@10.0.2': {}
+  '@shikijs/vscode-textmate@10.0.2': {}
 
   '@swc/helpers@0.5.17':
     dependencies:
@@ -4725,7 +4725,7 @@ snapshots:
       '@shikijs/langs': 3.12.2
       '@shikijs/themes': 3.12.2
       '@shikijs/types': 3.12.2
-      '@shikijs/VS Code-textmate': 10.0.2
+      '@shikijs/vscode-textmate': 10.0.2
       '@types/hast': 3.0.4
 
   sisteransi@1.0.5: {}
