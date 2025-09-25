@@ -1,0 +1,271 @@
+---
+title: "Skapa menyprogram"
+description: Övning för att skapa ett menyprogram
+---
+
+För att träna på iteration och metoder gör vi ett enkelt menyprogram enligt:
+
+- menyval 1 skriver ut en hälsning
+- menyval 2 skriver ut ett slumptal mellan 10 och 20
+- menyval 3 anropar metoden vi gjorde i övning 3, CheckIfAdult()
+- menyval e avslutar programmet
+
+Hur kan vi göra en bra meny? Hur börjar vi med uppgiften? Kanske med problemlösning i form av en bild, ett flödesschema? Ett annat sätt är att skriva pseudokod i form av kommentarer i en fil.
+
+## Flödesschema
+
+Flödesscheman kan se ut på olika sätt men det brukar vara vanlig kod i rektanglar och romberna som genom anslutande linjer visar flöden med bl.a olika vägar.
+
+![Flödesschema för MenuApp](./../../../images/kmom01/kmom01_4.drawio.png "Flödesschema för MenuApp")
+
+## Pseudokod
+
+Pseudokod är en kombination av mänskligt språk och programkod som används för att beskriva logiken i ett blivande program. Det finns inte några direkta regler förutom att det ska vara entydigt och så pass detaljerat att det relativt enkelt kan översättas till något programmeringsspråk. Ett sätt att skriva pseudokod att skriva kommentarer och det kan se ut så här:
+
+![Pseudokod för MenuApp](./../../../images/kmom01/kmom01_4_psuedo.png "Pseudokod för MenuApp")
+
+Pseudokoden i denna bild finns att kopiera längre fram i artikeln.
+
+## Skapa meny-app
+
+Vi börjar med att skapa vår meny-app i terminalen. Vi ställer oss i kmom01, skapar appens katalog och går ner i den. Därefter skapar vi appen. Nedan visas också kommandot för att köra appen.
+
+```shell
+pwd // stå i kmom01 i terminalen
+dotnet new console -n MenuApp
+cd MenuApp
+dotnet run // Ger utskriften: Hello, World!"
+```
+
+## Skapa grundstrukturen i vår app
+
+Om du gjorde pseudokod, så kan du kopiera in den i ditt huvudprogram, Program.cs. Om du gjorde flödesschema, så kopierar du in kommentarerna nedan:
+
+```csharp
+// Pseudokod för kmom01/MenuApp/Program.cs
+// Methods
+// metod för att printa menyn
+// metod för kolla om myndig från övning 3
+
+// Setup
+// Variabeldeklarationer
+
+// Menu
+// Kör till användaren matar in ett "e", då stoppas iterationen
+    // Skriv ut menyn
+
+    // Input
+    // Läs in menyvalet
+
+    // Do stuff
+    // Välj en switch som gör
+    // menyval 1. skriver ut "Hej på dig!"
+    // menyval 2 skriver ut ett slumptal mellan 10 och 20   
+    // menyval 3 anropar metoden vi gjorde i övning 3, CheckIfAdult()
+    // menyval e avslutar programmet
+    // default, skriver ut menyn igen
+
+// Exit message
+```
+
+Vi kommer att skriva all kod i en enda fil. C# är objektorienterat och vill bara ha ett huvudprogram. Därför delar vi upp Program.cs i metoder som löser separata delproblem, sedan setup-metod och slutligen meny-metod. Då har vi kvar tänket med att dela upp koden. I kmom02 kommer vi att arbeta objektorienterat och då delar vi dessutom upp koden i olika filer.
+
+## Gör metoden för att skriva ut menyn
+
+Då gör vi metoden som ska skriva ut menyn. Vi lägger den överst i filen under kommentaren "// Methods". Vi rensar terminalen och skriver ut menyalternativen. Testkör metoden, genom att anropa den, och kör appen för att kontrollera att det ser ut som vi tänkt.
+
+```csharp
+// i kmom01/MenuApp/Program.cs
+// Methods
+static void PrintMenu()
+{
+    Console.WriteLine("Välj mellan dessa menyalternativ:");
+    Console.WriteLine("1. Skriv hälsning");
+    Console.WriteLine("2. Skriv ut ett slumptal");
+    Console.WriteLine("3. Kolla myndighetsålder");
+    Console.WriteLine("e. Avsluta");
+}
+
+PrintMenu(); 
+```
+
+## Hantera iterationen av meny
+
+Vi ska iterera tills användaren matar in ett "e". Här kan vi använda både while eller do-while. I detta fall väljer vi while. Vi deklarerar en sträng som vi kallar input och ger den startvärdet tom sträng (""). För att visa att vi gjort en denna del av pseudokoden så tar vi bort kommentarsatserna "// Input och // Läs in menyvalet".
+
+Vi passar på att döpa terminalen till "MENY" också och testkör för att verifiera att allt fungerar som det ska så här långt.
+
+```csharp
+// i kmom01/MenuApp/Program.cs
+// Setup
+Console.Clear();
+Console.Title = "MENY";
+string choice = "";
+
+while (choice != "e")
+{
+    PrintMenu();
+    Console.WriteLine("\nDitt val: ");
+    choice = Console.ReadLine() ?? "";
+
+    ...
+}
+```
+
+Så här kan det se ut:
+
+![Skriv ut menyn och avsluta MenuApp](./../../../images/kmom01/kmom01_4_menu.png "Skriv ut menyn och avsluta MenuApp")
+
+## Lägg till switch-satsen
+
+Nu lägger vi till `switch`-satsen och då byter vi ut kommentarsatserna "// Do stuff och ner till // // default" mot koden nedan. Testkör menyprogrammet så att alla menyalternativ fungerar. Testa även att ange ett menyalternativ som inte finns, för att se hur programmet hanterar det.
+
+```csharp
+// i kmom01/MenuApp/Program.cs
+    ... 
+    // efter input inuti while-loopen
+    switch (choice) 
+    {
+        case "1":
+            Console.WriteLine("\nHej på dig!\n");
+            break;
+        case "2":
+            // menyval 2 skriver ut ett slumptal mellan 10 och 20  
+            Console.WriteLine("Du har valt menyval 2");
+            break;
+        case "3":
+            // menyval 3 anropar metoden vi gjorde i övning 3, CheckIfAdult()
+            Console.WriteLine("Du har valt menyval 3");
+            break;
+        case "e":
+            Console.WriteLine("\nDu har valt att avsluta! Hej då!");
+            break;
+        default:
+            Console.WriteLine("Ogiltigt menyval");
+            break;
+    }
+
+```
+
+## Lägg till metod för att göra terminalen redo och metod för att slumpa tal
+
+Då lägger vi till metoder för att sätta upp terminalen och för slumpning av tal sist under "// Methods". Koden för att sätta upp terminalen kopierar vi från "FirstApp" och ersätter raderna med Console under "// Setup". Koden för att slumpa tal lägger vi i en egen metod som vi anropar från switch case "2".
+
+```csharp
+// i kmom01/MenuApp/Program.cs
+// Methods
+...
+static void GetTerminalReady(string title)
+{
+    Console.Clear();
+    Console.Title = title;
+}
+
+static int GetRandomNumberFrom10To20()
+{
+    // Create random object
+    Random random = new Random();
+
+    // Get random value from 10 (10 included) up to 21 (21 not included)
+    return random.Next(10, 21);
+}
+
+...
+
+// Setup
+GetTerminalReady("MENY");
+string choice = "";
+
+...
+
+        case "2":
+            Console.WriteLine("\nRandom value: " + GetRandomNumberFrom10To20());
+            break;
+...
+```
+
+## Lägg till metoder för myndighetskontroll
+
+Nu vill vi lägga till metoder för att läsa in en ålder från användaren samt kontrollera åldern. Vi skriver ut meddelandet i `case`-satsen för menyalternativ 3.
+
+```csharp
+// i kmom01/MenuApp/Program.cs
+// Methods
+...
+static int ReadIntFromTerminal(string info)
+{
+    Console.WriteLine("\n" + info);
+    string input = Console.ReadLine() ?? "1";
+    
+    return int.Parse(input);    
+}
+
+static string CheckIfAdult(int age)
+{
+    if (age < 18) 
+    {
+        return "Du är inte myndig";
+    } 
+    else 
+    {
+        return "Grattis - du är myndig";
+    }
+}
+...
+
+        case "3":
+            string message = CheckIfAdult(ReadIntFromTerminal("Vilken är din ålder?"));
+            Console.WriteLine("\n" + message);
+            break;
+...
+```
+
+## Starta genom att anropa en metod, Run()
+
+För att förbereda för ett kort huvudprogram, gör vi en metod av allt under kommentaren "// Setup".
+
+```csharp
+// i kmom01/MenuApp/Program.cs
+// Setup
+...
+static void Run() 
+{
+    GetTerminalReady("MENY");
+    string choice = "";
+
+    while (choice != "e")
+    {
+        PrintMenu();
+        Console.WriteLine("\nDitt val: ");
+        choice = Console.ReadLine() ?? "";
+
+        switch (choice) 
+        {
+            case "1":
+...
+
+            default:
+                Console.WriteLine("Ogiltligt menyval\n");
+                break;
+        }
+    }
+}
+
+// Run program
+Run();
+```
+
+## Resultatet
+
+Så bra, nu har vi ett enkelt menyprogram som anropar olika metoder! Dessutom har vi ett kort huvudprogram som anropar en metod som kör igång vårt menyprogram.
+
+**Glöm inte** att formatera koden med `dotnet format`.
+
+## Sammanfattning
+
+Toppen, nu har vi tränat på:
+
+- problemlösning med flödesschema och pseudokod
+- att göra en app med meny
+- iterationer
+- metoder

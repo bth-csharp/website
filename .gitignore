@@ -27,4 +27,4 @@ pnpm-debug.log*
 **/toc.yaml
 **/_site/
 **/api/
-**/docs
+#**/docs

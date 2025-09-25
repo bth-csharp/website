@@ -1,0 +1,435 @@
+---
+title: "Mer **C#**"
+description: Mer **C#**
+---
+
+Den här artikeln går igenom kodning i programmeringsspråket C#. Öppna gärna en [C# online kompilator från .NET Fiddle](https://dotnetfiddle.net/) (glöm ej att välja senaste kompilatorn i menyn till vänster) för att testköra koden.
+
+
+## Case-sensitive
+
+C# är 'case-sensitive' vilket innebär att det skiljer på stora och små bokstäver. Variabeln `numberOfCars` är inte samma som `NumberOfCars` då den senare börjar med stort N.
+
+
+## Mer om tal med decimaler
+
+De olika typerna av tal med decimaler är av olika precision och ju större precision desto mer plats tar de i datorns minne.
+
+Olika typer av decimaltal:
+
+- **float**, mindre precision (flyttal med cirka 6-9 siffror), minnesplats 4 bytes (eller 32 bitar)
+- **double**, mellan-precision (flyttal med cirka 15-17 siffror), minnesplats 8 bytes (eller 64 bitar)
+- **decimal**, mest precision (fast precision med 28-29 siffror), minnesplats 16 bytes (eller 128 bitar)
+
+Här får vi göra ett val, för ju mer precision vi väljer desto mer plats tar det i minnet. Använd inte högre precision än du behöver. Om du till exempel räknar med age = 12,2 och ska avrunda det i utskriften till heltal, då räcker **float** gott och väl. Vanligast i beräkningar är **double**. **decimal** används mest i ekonomiska beräkningar med höga krav på precision.
+
+```csharp
+double myDouble = 4.2;
+float myFloat = 4.2F; // Notera F i slutet
+decimal myDecimal = 4.2M; // Notera M i slutet
+```
+
+F och M talar om för kompilatorn att översätta talet till **float** eller **decimal**.
+
+## Mer om heltal
+
+I C# finns två olika typer av heltal. Den vanliga **int** och så finns **long** för att spara riktigt stora heltal:
+
+- **int**, heltal mellan -2147483648 och 2147483647 (32 bitar)
+- **long**, heltal mellan -9223372036854775808 to 9223372036854775807 (64 bitar)
+
+
+## Olika typer av typomvandling
+
+Det finns två olika sorters typomvandling (casting på engelska) inom samma "grundtyp" i C#:
+
+- implicit typomvandling (automatisk); när en typ av mindre storlek konverteras till en typ av större storlek. char -> int -> long -> float -> double
+- explicit typomvandling (manuell); när en typ av större storlek konverteras till en typ av mindre storlek. double -> float -> long -> int -> char
+
+Automatisk typomvandling (implicit typomvandling) ser ut så här:
+
+```csharp
+int myInt = 12;
+float myFloat = myInt;
+Console.WriteLine(myInt);      // Ger 12
+Console.WriteLine(myFloat);   // Ger 12
+```
+
+Manuell typomvandling (explicit typomvandling) ser ut så här:
+
+```csharp
+float myFloat = 12.1212f; // f i slutet specificerar en float (eller F)
+double myDouble = 12.1212;
+int myIntFromFloat = (int)myFloat;
+int myIntFromDouble = (int)myDouble;
+Console.WriteLine(myFloat);   // Ger 12.1212
+Console.WriteLine(myIntFromFloat);      // Ger 12
+Console.WriteLine(myIntFromDouble);      // Ger 12
+```
+
+När vi specificerar ett suffix, F, i slutet är det för att kompilatorn ska veta att den ska behandla variabeln som en float eller decimal. Om vi skriver ett flyttal utan suffix, kommer det att tolkas som en double. För typen decimal använder vi suffixet m eller M.
+
+Det finns också inbyggda metoder för att konvertera mellan olika sorters typer (till exempel konvertering mellan text och tal). Dessa metoder finns i klassen **Convert**. Här är några exempel:
+
+- Convert.ToString(myInt); från int till string
+- Convert.ToDouble(myInt); från int till double
+- Convert.ToInt32(myDouble); från double till int32
+
+```csharp
+Console.WriteLine("Ange priset:");
+// int price = Console.ReadLine();
+// Ger kompileringsfelet: Cannot implicitly convert type 'string' to 'int'
+string priceInput = Console.ReadLine(); // Readline returnerar en sträng
+int price = Convert.ToInt32(priceInput);
+Console.WriteLine("Priset är: " + price + "kr");
+```
+
+Läs mer om [klassen Convert](https://learn.microsoft.com/sv-se/dotnet/fundamentals/runtime-libraries/system-convert) och [type conversion](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/types/casting-and-type-conversions).
+
+Det finns också `Parse`-metoden för konvertering av flera av datatyperna och det finns även andra metoder. Här har vi information om [metoder på int32](https://learn.microsoft.com/en-us/dotnet/api/system.int32.parse?view=net-9.0).
+
+```csharp
+string numberInput = "12";
+int number = int.Parse(numberInput); // number blir ett heltal att räkna med
+
+string userInput = "12.12";
+double interest = double.Parse(userInput); // interest, nu kan vi räkna med räntan
+```
+
+Ibland så misslyckas dessa metoder (det är helt enkelt inte möjligt att utföra konverteringen). Då kastas ett undantag och vi använda `try-catch` för att fånga felet. Det går också att använda `int.TryParse` och `double.TryParse` vilka returnerar `true` eller `false` beroende på om konverteringen var möjlig eller ej. Det gör vi på detta sätt:
+
+```csharp
+string numberInput = "12";
+int number;
+bool success = int.TryParse(numberInput, out number); 
+```
+
+Om konverteringen går bra, finns resultatet i variabeln `number` och `success` har värdet `true`. Om konverteringen inte går bra får `number` istället värdet 0 och `success` har värdet `false`.
+
+
+## Ingenting är null
+
+Variabler av värdetyp (till exempel int, float, double, char) innehåller/har alltid ett värde som motsvarar datatypen. När vi deklarerar en sådan variabel utan att initiera den har vi inte alltid kontroll på vilket värde det blir. Vi ska därför tänka på att initiera variabler, det vill säga ge variabeln ett startvärde. Exempelvis kan vi initiera en heltalsvariabel med värde 0.
+
+När det gäller övriga datatyper (s.k. referensdatatyper) såsom till exempel string kan man behöva initiera dessa med ett värde som representerar "inget". För detta används `null` som är ett reserverat ord i C#. Tolkningen är att en variabel som har värdet `null`inte har tillgång till något objekt. För att ha möjlighet att använda värdet `null` bör vi använda möjligheten att i koden berätta att detta (annars får vi varningar). Det gör vi genom att använda ? direkt efter datatypen. Datatypen bir då s.k. *nullable*.
+
+```csharp
+string theString = ""; // theString har initierats med en tom sträng
+string? aString = null; // aString är nullable och har inte tillgång till någon textsträng
+string? anotherString = ""; // anotherString är nullable och har initierats med en tom sträng
+```
+
+Om vi försöker skriva ut innehållet i `aString` och `theString` märker vi ingen skillnad.
+
+```csharp
+Console.WriteLine("Before");
+Console.WriteLine("1: " + theString);
+Console.WriteLine("2: " + aString);
+Console.WriteLine("3: " + anotherString);
+Console.WriteLine("After");
+```
+Utskriften av `aString`, `theString` och `anotherString` blir "tomt", det vill säga det blir två tomma rader.
+
+```
+Before
+1:
+2:
+3:
+After
+```
+
+Om vi däremot vill använda metoder som är kopplade till string-objekt (läs mer under rubriken Strängar) får vi "fel"
+
+```csharp
+Console.WriteLine(theString.Length);
+Console.WriteLine(aString.Length);
+```
+
+Första utskriften ger 0 eftersom längden på strängen "" ju är 0. När den andra utskriften ska genomföras finns det ingen sträng (variabeln har värdet `null` som innebär att den inte har tillgång till någon sträng) och ett undantag (exception) kastas och programmet "krashar".
+
+
+```csharp
+int? age;
+```
+
+*I det här fallet betyder det att variabeln age är en integer som kan ha värdet `null`, en så kallad "nullableInt". Alla värdetyper kan vara nullable, det vill säga förutom `int` så gäller det även `float`, `decimal`, `double`, `bool` och några fler.*
+
+
+## Strängar
+
+Strängar kan vara tomma "" eller null. Varje tecken i en sträng är av typen char. Några bra metoder på strängar är:
+
+```csharp
+string message = "Hello";
+Console.WriteLine(message.Length); // Ger utskriften: 5
+Console.WriteLine(message.ToUpper()); // Ger utskriften: HELLO
+Console.WriteLine(message.ToLower()); // Ger utskriften: hello
+```
+
+Vi konkatenerar strängar med + men kan också använda metoden string.Concat(). Tänk på att **+** används för addition när det gäller tal och för att konkatenera när det gäller strängar. Vill vi göra ett tillägg på en sträng så kan vi använda **+=**, se exempel med " Extra info!" nedan.
+
+```csharp
+string message = "Hello";
+string addOn = " world!";
+string newMessage = string.Concat(message, addOn);
+Console.WriteLine(newMessage); // Ger utskriften: Hello world!
+Console.WriteLine(newMessage[0]); // Ger utskriften: H
+Console.WriteLine(newMessage.IndexOf("w"));  // Ger utskriften: 6
+Console.WriteLine(newMessage.Substring(6));  // Ger utskriften: world!
+Console.WriteLine(message + addOn); // Ger utskriften: Hello world!
+newMessage += " Extra info!";
+Console.WriteLine(newMessage); // Ger utskriften: Hello world! Extra info!
+```
+
+### Interpolerande sträng
+
+I C# kan vi, som vi nyligen sett, bygga ihop (konkatenera) strängar med metoden Concat. Ett annat sätt är att använda interpolerande strängar.
+
+Med ett $-tecken framför strängen, så blir den interpolerande vilket innebär att vi kan stoppa in {} (måsvingar) inuti strängen. Det som står innanför {} utvärderas och stoppas in i strängen. Det kan vara en variabel eller ett anrop av en metod.
+
+```csharp
+string firstName = "Murphy";
+int age = 42;
+string message = $"Du heter {firstName} och är {age} gammal.";
+Console.WriteLine(message);
+// Ger utskriften: Du heter Murphy och är 42 gammal.
+```
+
+Mer info om interpolerande strängar [här](https://learn.microsoft.com/en-us/dotnet/csharp/tutorials/string-interpolation).
+
+
+### Specialtecken i strängar
+
+| Tecken | Resultat | Betyder              |
+|--------|---------|----------------------|
+|   \'   |    '    | enkelfnutt           |
+|   \"   |    "    | dubbelfnutt          |
+|   \\   |    \    | 'backslash'          |
+|   \n   | ny rad  | radbrytning          |
+|   \t   |  tab    | avstånd, typ 4 mellanslag |
+
+
+### Literal sträng
+
+I C# finns s.k literala strängar (verbating strings) vilket markeras med @. Strängarna tolkas då bokstavligen och blir exakt som de skrivs. Det innebär att specialtecken blir precis som de skrivs istället för att tolkas. Ett exempel på detta är specialtecknet för radbrytning "\n" som i en literal sträng blir tecknet "\n". Det kan vara bra att använda vid exempelvis sökvägar.
+
+```csharp
+Console.WriteLine(@"Mur\nphy"); // textsträng Mur\nphy som skrivs ut på 1 rad 
+```
+
+
+## Flöde med switch
+
+I vissa fall vill vi kunna välja flera olika vägar baserat på specifika resultat/värden. Då kan if-satser bli svåra att formulera och läsa, varför `switch` kan vara ett bättre alternativ. En switch-sats kan bara användas med vissa datatyper som `int`, `string` och `char`. If-satsen däremot bygger på att ett villkor (enkelt eller sammansatt) resulterar i ett booleskt värde. 
+
+```csharp
+string choice = "1";
+
+switch (choice)
+{
+	case "1":
+		Console.WriteLine("Vi har valt menyval 1");
+		break;
+	case "2":
+		Console.WriteLine("Vi har valt menyval 2");
+		break;
+	case "3":
+		Console.WriteLine("Vi har valt menyval 3");
+		break;
+	default: // Om inte choice är "1", "2" eller "3" så hamnar vi här
+		Console.WriteLine("Ogiltigt menyval");
+		break;
+}
+// Ger utskriften: Vi har valt menyval 1
+
+// val med int ser ut så här
+int choice = 1;
+
+switch (choice) 
+{
+	case 1:
+		Console.WriteLine("Vi har valt menyval 1");
+		break;
+		...
+
+// flera val som resulterar i samma kod
+int choice = 1;
+
+switch (choice) 
+{
+	case 0:
+	case 1:
+		Console.WriteLine("Vi har valt menyval 0 och 1");
+		break;
+		...
+```
+
+
+### break och continue
+
+Vi kan också använda `break` för att hoppa ur en loop. 
+```csharp
+for (int i = 0; i < 10; i++)
+{
+    if (i == 5)
+        break; // Avslutar loopen när i är 5
+    Console.WriteLine(i);
+}
+```
+
+I exemplet ovan hade det varit bättre med en while-loop som avslutas då `i` blir 5.
+
+Det finns även ett sätt att hoppa ur en iteration i loopen och fortsätta på nästa iteration genom att använda `continue`.
+
+```csharp
+for (int i = 0; i < 10; i++)
+{
+    if (i == 5)
+        continue; // Hoppar över iterationen när i är 5
+    Console.WriteLine(i);
+}
+```
+
+I exemplet ovan är det bra att använda continue då det blir tydligt att inget ska göras i iterationen då `i` är 5.
+
+I god programmeringsstil används `break` och `continue` med omsorg och en rekommendation är att överväga alternativa sätt att skriva koden på. 
+
+## Arrayer
+
+En array är en variabel som innehåller flera värden av samma typ, där denna typ till exempel kan vara strängar. I C# har arrayer en fast längd och därför behöver vi ange storleken på arrayen när vi skapar den. För att komma åt element i arrayen använder vi oss av index inom hakparanteser.
+
+
+### Endimensionella arrayer
+
+```csharp
+string[] names = new string[3]; // skapar en array av storleken 3, det vill säga plats för 3 strängar
+names[0] = "Murphy";
+names[1] = "Edward";
+names[2] = "Aloysius";
+string[] subNames = names[1..2]; // en array med "Edward"
+Console.WriteLine(subNames[0]); // en array med "Edward" och längden 1
+```
+
+Med \[1..2\] så hämtar vi elementen på index 1 och upp till 2. Observera att detta inte är detsamma som \[1\], vilket ger oss strängen på index 1 ("Edward"), det vill säga inte en array av storlek 1 innehållande denna sträng (det vill säga inte \["Edvard"\]). 
+Vi kan indexera med \[..2\] då menar vi elementen på index 0 och 1. Om vi indexerar med \[2..\] så menar vi index 2 och framåt. Om vi vill indexera bakåt så använder vi \[\^2\] och här menar vi två från slutet.
+
+Det är smidigt att använda `foreach` för att iterera igenom en array. För att få namnen i bokstavsordning så lägger vi till en sortering innan loopen.
+
+```csharp
+string[] names = {"Murphy", "Edward", "Aloysius"};
+Array.Sort(names);
+foreach (string aName in names) 
+{
+  Console.WriteLine(aName);
+}
+```
+
+
+### Flerdimensionella arrayer
+
+I en endimensionell array får vi åtkomst till respektive element med ett index medan en tvådimensionell array kräver två index. Vi tänker oss luffarschack som har 3 rader och 3 kolumner vars element antingen är tomt (vilket här representeras av tecknet '-') eller innehåller tecknet 'O' eller tecknet 'X'. 
+
+```csharp
+string[,] board = { {"-", "-", "-"}, {"-", "-", "-"}, {"-", "-", "-"}};
+board[1,1] = "X";
+board[1,2] = "X";
+board[0,0] = "O";
+for (int i = 0; i < board.GetLength(0); i++) // iterera genom varje rad
+{
+    for (int j = 0; j < board.GetLength(1); j++) // iterera genom varje kolumn på raden
+    {
+        Console.Write(board[i, j] + " ");
+    }
+    Console.WriteLine();
+}
+```
+
+Anropet av `board.GetLength(0)` resulterar i längden i den första dimensionen (antalet rader) och anropet `board.GetLength(1)` resulterar i längden på den andra dimensionen (antalet kolumner)
+. 
+Ett kommatecken i \[,\] anger att det är en tvådimensionell array och två kommatecken \[,,\] anger att det är en tredimensionell array (till exempel en kub).
+
+
+## var
+
+**var** är ett nyckelord som används för att implicit deklarera lokala variabler.
+
+När vi deklarerar en variabel med `var` istället för att vi bestämmer datatyp så överlåter vi till kompilatorn att bestämma variabelns typ baserat på värdet som vi tilldelar variabeln. Vi måste initiera variabler vi deklarerar med `var` med ett värde direkt.
+
+```csharp
+var month = "September"; // Kompilatorn gör om det till en sträng
+var year = 2024; // Kompilatorn gör om det till en int
+var noOfDays; // Kompilatorn ger kompileringsfel, då variabeln måste initieras
+```
+
+
+## Tuples
+
+Tuple är en datastruktur som kan sparar en sammansättning av flera värden av samma eller olika datatyp.
+
+```csharp
+Tuple<int, string, bool> myTuple = new Tuple<int, string, bool>(42, "Murphy", true);
+// I C# 7 och framåt så deklarerar vi det så här
+var myTuple = (42, "Murphy", true);
+Console.WriteLine("Ditt namn är " + myTuple.Item2);
+```
+
+Notera att vi anropar elementen i en tuple med Item1, Item2 och så vidare. Till skillnad från index i arrayen som börjar på 0 så börjar tuple på Item1. I C# kan vi också jämföra tuple, använda dem i arrayer och listor liksom som returtyp från metoder eller som inparameter till en metod.
+
+```csharp
+var myTuple2 = (43, "Murphy", true);
+bool areEqual = myTuple.Equals(myTuple2); // blir false då 42 inte är lika med 43
+(string, int)[] topList = new (string, int)[10]; // en array med tuple
+topList[0] = ("Murphy", 10);
+Console.WriteLine(topList[0].Item1 + " har " + topList[0].Item2 + " poäng");
+```
+
+
+## Null-coalescing
+
+En kortform av if-sats och if-else-sats med operatorn `??` som returnerar värdet till vänster om det inte är null, annars det till höger.
+
+```csharp
+string name = null;
+string result = name ?? "default name"; // om name är null tilldelas det "default name"
+Console.WriteLine(result); // Ger utskriften: default name
+```
+
+
+## Villkorsoperator
+
+Villkorsoperatorn eller ternary operatorn som den också kallas set ut så här `?:`. Den utvärderar ett uttryck och om uttrycket är true returnera värdet till vänster om : men om uttrycket är falskt returneras istället det till höger om :.
+
+```csharp
+int age = 42;
+string result = age >= 18 ? "Myndig" : "Omyndig"; 
+Console.WriteLine(result); // Ger utskriften: Myndig
+```
+
+Om age är större eller lika med 18 så får `result` värdet "Myndig" och om age är mindre än 18 så får `result` värdet "Omyndig". I detta fallet får `result` värdet "Myndig".
+
+
+## Named arguments
+
+I C# är det möjligt att skicka in parametrarna till din metod i vilken ordning vi vill om vi bara namnger dem.
+
+```csharp
+static void Calculate(int no1, int no2)
+{
+    Console.WriteLine(no1 + no2);
+}
+
+Calculate(no2: 29, no1: 13); // Ger resultatet 42
+```
+
+
+## Sammanfattning
+
+Nu har vi tittat på C# specifika saker:
+
+- lite mer om tal med decimaler och heltal
+- olika typer av typomvandling
+- null och nullable, då vi talar om att variabeln kan bli null
+- olika strängar
+- flöde med switch
+- kortformer av if-satser; null-coalescing  och villkorsoperatorn
+- named arguments, som är ett sätt att skicka in parametrarna i en metod
