@@ -49,57 +49,34 @@ Nu skall vi skapa kursrepot som ett git repo.
 
 
 
-### Ange namn för ditt repo
+### Klona ditt GitHub repo till ett lokalt repo
 
-Det första du behöver göra är att berätta vilket namn du har på repot. Detta är samma namn som du använde när du skapade platsen för repot på GitHub. I exemplet användes `csharp-abcd25` som namn.
+Nu ska vi skapa en lokal kopia av ditt GitHub repo genom att klicka på "Code" och kopiera SSH-länken.
 
-Kör följande kommando (men byt ut `csharp-abcd25` mot namnet på ditt repo).
-
-```bash title="Sätt vilket namn som skall användas när repot skapas."
-# Change abcd25 to your own student acronym
-REPO=csharp-abcd25
-```
-
-Ovan kommando sparar ditt tänkta repo-namn i en miljövariabel som nästkommande kommandon kan läsa.
-
-Anger du fel namn så kan du rätta till det genom att köra kommandot en gång till med rätt namn.
-
-Det kan se ut så här när du gör det i terminalen.
-
-import repo1 from '@assets/kursrepo/repo1.png';
+import ghnew3 from '@assets/kursrepo/ghnew3.png';
 
 <Figure 
-    src={repo1}
-    caption="Nu är du redo att skapa ditt repo, se bara till att du valt rätt namn innan du går vidare."
+    src={ghnew3}
+    caption="Klona ditt repot på GitHub."
 />
 
-
-
-### Initiera ditt git repo med branches
-
-Nu kan du köra följande kommandon för att initiera ditt kursrepo som ett git repo som passar för kursen.
-
-```bash title="Kommandon för att skapa ditt kursrepo"
-# Init the repo and move into the repo directory
-git init $REPO
-cd $REPO
-
-# Create the main branch and add a README.md to it
-git checkout -b main
-echo "# $REPO" >> README.md
-git add README.md
-git commit -m "First commit"
-
-# Create three empty branches to which you will submit your result in the course
-git checkout -b bth/submit/kmom03
-git checkout main
-git checkout -b bth/submit/kmom06
-git checkout main
-git checkout -b bth/submit/kmom10
-git checkout main
-git checkout -b bth/submit/test-gitconfig
-git checkout main
+```bash title="Kommandon för att klona ditt kursrepo"
+git clone git@github.com:bth-csharp/csharp-<akronym>.git
 ```
+
+Om din akronym är `abcd25` så ser kommandot ut så här:  
+`git clone git@github.com:bth-csharp/csharp-abcd25.git` 
+
+
+### Kolla ditt Git repos brancher 
+
+Nu kan du köra följande kommandon för att kolla vilka brancher som finns i ditt kursrepo.
+
+```bash title="Kommandon för att kolla brancher i ditt kursrepo"
+cd csharp-<akronym>
+git branch -r
+```
+**OBS** Fixa här
 
 Här visas bilder från när kommandona körs, del för del.
 
