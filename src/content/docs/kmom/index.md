@@ -26,7 +26,7 @@ Du behöver utföra följande steg innan du kan börja jobba med det första kmo
 
 Se till att du har kursens labbmiljö installerad.
 
-1. "[Installera C#]((../laromaterial/labbmiljo/csharp))" för att komma igång med din labb- och utvecklingsmiljö för kursen.
+1. "[Installera C#](../laromaterial/labbmiljo/csharp)" för att komma igång med din labb- och utvecklingsmiljö för kursen.
 
 När du är klar med labbmiljön ska du ha följande installerat, webbläsare, texteditor, git, terminal och C#.
 
