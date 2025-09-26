@@ -35,7 +35,7 @@ Flödesscheman kan se ut på olika sätt men det brukar vara vanlig kod i rektan
 Pseudokod är en kombination av mänskligt språk och programkod som används för att beskriva logiken i ett blivande program. Det finns inte några direkta regler förutom att det ska vara entydigt och så pass detaljerat att det relativt enkelt kan översättas till något programmeringsspråk. Ett sätt att skriva pseudokod att skriva kommentarer och det kan se ut så här:
 
 <Figure
-    src={kmom01_4_psuedo}
+    src={kmom01/practice_4_psuedo}
     caption="Pseudokod för MenuApp."
 />
 
@@ -44,10 +44,10 @@ Pseudokoden i denna bild finns att kopiera längre fram i artikeln.
 
 ## Skapa meny-app
 
-Vi börjar med att skapa vår meny-app i terminalen. Vi ställer oss i kmom01, skapar appens katalog och går ner i den. Därefter skapar vi appen. Nedan visas också kommandot för att köra appen.
+Vi börjar med att skapa vår meny-app i terminalen. Vi ställer oss i `kmom01/practice`, skapar appens katalog och går ner i den. Därefter skapar vi appen. Nedan visas också kommandot för att köra appen.
 
 ```shell
-pwd // stå i kmom01 i terminalen
+pwd // stå i kmom01/practice i terminalen
 dotnet new console -n MenuApp
 cd MenuApp
 dotnet run // Ger utskriften: Hello, World!"
@@ -58,7 +58,7 @@ dotnet run // Ger utskriften: Hello, World!"
 Om du gjorde pseudokod, så kan du kopiera in den i ditt huvudprogram, Program.cs. Om du gjorde flödesschema, så kopierar du in kommentarerna nedan:
 
 ```csharp
-// Pseudokod för kmom01/MenuApp/Program.cs
+// Pseudokod för kmom01/practice/MenuApp/Program.cs
 // Methods
 // metod för att printa menyn
 // metod för kolla om myndig från övning 3
@@ -91,7 +91,7 @@ Vi kommer att skriva all kod i en enda fil. C# är objektorienterat och vill bar
 Då gör vi metoden som ska skriva ut menyn. Vi lägger den överst i filen under kommentaren "// Methods". Vi rensar terminalen och skriver ut menyalternativen. Testkör metoden, genom att anropa den, och kör appen för att kontrollera att det ser ut som vi tänkt.
 
 ```csharp
-// i kmom01/MenuApp/Program.cs
+// i kmom01/practice/MenuApp/Program.cs
 // Methods
 static void PrintMenu()
 {
@@ -112,7 +112,7 @@ Vi ska iterera tills användaren matar in ett "e". Här kan vi använda både wh
 Vi passar på att döpa terminalen till "MENY" också och testkör för att verifiera att allt fungerar som det ska så här långt.
 
 ```csharp
-// i kmom01/MenuApp/Program.cs
+// i kmom01/practice/MenuApp/Program.cs
 // Setup
 Console.Clear();
 Console.Title = "MENY";
@@ -140,7 +140,7 @@ Så här kan det se ut:
 Nu lägger vi till `switch`-satsen och då byter vi ut kommentarsatserna "// Do stuff och ner till // // default" mot koden nedan. Testkör menyprogrammet så att alla menyalternativ fungerar. Testa även att ange ett menyalternativ som inte finns, för att se hur programmet hanterar det.
 
 ```csharp
-// i kmom01/MenuApp/Program.cs
+// i kmom01/practice/MenuApp/Program.cs
     ... 
     // efter input inuti while-loopen
     switch (choice) 
@@ -171,7 +171,7 @@ Nu lägger vi till `switch`-satsen och då byter vi ut kommentarsatserna "// Do 
 Då lägger vi till metoder för att sätta upp terminalen och för slumpning av tal sist under "// Methods". Koden för att sätta upp terminalen kopierar vi från "FirstApp" och ersätter raderna med Console under "// Setup". Koden för att slumpa tal lägger vi i en egen metod som vi anropar från switch case "2".
 
 ```csharp
-// i kmom01/MenuApp/Program.cs
+// i kmom01/practice/MenuApp/Program.cs
 // Methods
 ...
 static void GetTerminalReady(string title)
@@ -208,7 +208,7 @@ string choice = "";
 Nu vill vi lägga till metoder för att läsa in en ålder från användaren samt kontrollera åldern. Vi skriver ut meddelandet i `case`-satsen för menyalternativ 3.
 
 ```csharp
-// i kmom01/MenuApp/Program.cs
+// i kmom01/practice/MenuApp/Program.cs
 // Methods
 ...
 static int ReadIntFromTerminal(string info)
@@ -244,7 +244,7 @@ static string CheckIfAdult(int age)
 För att förbereda för ett kort huvudprogram, gör vi en metod av allt under kommentaren "// Setup".
 
 ```csharp
-// i kmom01/MenuApp/Program.cs
+// i kmom01/practice/MenuApp/Program.cs
 // Setup
 ...
 static void Run() 

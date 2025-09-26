@@ -17,10 +17,10 @@ Vi börjar med att skapa vårt första terminalprogram eller konsol-app (console
 
 ### I terminalen
 
-Vi ställer oss i kmom01 och  med **dotnet** skapar vi vårt första terminalprogram som vi kallar *FirstApp*. Det tar en liten stund. Katalogen *FirstApp* kallas C#-projekt eller applikation.
+Vi ställer oss i `kmom01/practice` och  med **dotnet** skapar vi vårt första terminalprogram som vi kallar *FirstApp*. Det tar en liten stund. Katalogen *FirstApp* kallas C#-projekt eller applikation.
 
 ```bash
-pwd // stå i kmom01 (terminalen)
+pwd // stå i kmom01/practice (terminalen)
 dotnet new console -n FirstApp
 ```
 
@@ -68,7 +68,7 @@ Titta gärna i dokumentationen för mer detaljer om C#. Här är en [C# snabbref
 Vi öppnar vårt huvudprogram, Program.cs, i VS code och lägger till följande kod i slutet:
 
 ```csharp
-// i kmom01/FirstApp/Program.cs
+// i kmom01/practice/FirstApp/Program.cs
 // Create random class
 Random random = new Random();
 
@@ -88,7 +88,7 @@ Vi lägger till en if-sats som skriver ut om personen är myndig eller inte utif
 Vi lägger till följande kod i slutet vårt huvudprogram, Program.cs:
 
 ```csharp
-// i kmom01/FirstApp/Program.cs
+// i kmom01/practice/FirstApp/Program.cs
 // Clean console och sätt titel
 Console.Clear();
 Console.Title = "Min första C# app";
@@ -126,7 +126,7 @@ Nu har vi rensat terminalen, så "Hello, world!" och slumptalen syns inte längr
 Nu ska vi göra en funktion som innehåller vår if-sats för att kunna använda den kodsnutten flera gånger. Metoden ska returnera en sträng. Inmatningen är samma som innan men vi flyttar vår if-sats till en metod. Vi gör också en metod av kommandona till terminalen.
 
 ```csharp
-// i kmom01/FirstApp/Program.cs
+// i kmom01/practice/FirstApp/Program.cs
 // Methods
 static void GetTerminalReady(string title)
 {
@@ -167,7 +167,7 @@ Resultatet ska bli detsamma som i föregående övning men nu med metoder.
 Nu fortsätter vi att utforska C# med *interpolerande* strängar. Vi deklarerar en variabel för namn och en variabel för ålder vilka vi initierar och skriver ut. Därefter anropar vi metoden vi skrev ovan, `CheckIdAdult`, och skriver ut det i en interpolerande sträng.
 
 ```csharp
-// i kmom01/FirstApp/Program.cs
+// i kmom01/practice/FirstApp/Program.cs
 // String interpolation
 string firstName = "Murphy";
 int age2 = 42;
@@ -184,7 +184,7 @@ Om age2 ändras efter interpolationen i tilldelningen av message2, så påverkas
 I nyare versionen av C# finns *tuples*. Vi deklarerar en ny variabel som är en tuple med en sträng och ett heltal. Vi använder firstName och age2 från förra övningen och  kopierar deras värden till tupeln och sedan skriver ut tupeln. Om vi vill komma åt första värdet i en tuple så använder vi `Item1`, för andra värdet `Item2` och så vidare. OBS räknandet börjar på 1 i tuples, till skillnad från index 0 i till exempel strängar.
 
 ```csharp
-// i kmom01/FirstApp/Program.cs
+// i kmom01/practice/FirstApp/Program.cs
 // Tuples
 (string, int) info = (firstName, age2);
 Console.WriteLine($"\n{info}");
@@ -203,7 +203,7 @@ I den här övningen ska vi träna på att omvandla mellan olika typer. Försök
 - omvandla "123" till ett tal med int.TryParse
 
 ```csharp
-// i kmom01/FirstApp/Program.cs
+// i kmom01/practice/FirstApp/Program.cs
 // Cast and convert
 int intNo = 123;
 float floatNo = intNo;
