@@ -1,0 +1,59 @@
+---
+title: "Installera Task" 
+description: Vi installerar byggverktyget Task 
+author: aar
+revision:
+    "2025-07-19": "(A, aar) Första utkastet."
+sidebar:
+    order: 0060
+---
+
+Task är ett byggverktyg och "task runner". Det är ett verktyg som förenklar processen att köra olika kommandon i terminalen. Det är ett verktyg som kan hjälpa oss att automatisera uppgifter som vi annars skulle behöva skriva in manuellt varje gång. Du kan läsa mer på dess [webbplats](https://taskfile.dev/).
+
+Vi ska främst använda det för att förenkla att ladda ner olika filer i kursen.
+
+## Installera Task
+
+Det finns många olika sätt att installera Task.
+
+### Ubuntu
+
+
+```console title="Installera Task med Snap."
+sudo snap install task --classic
+```
+
+### Mac
+
+```console title="Installera Task med Homebrew."
+brew install go-task
+```
+
+### Verifiera installationen av Task
+
+```console title="Verifiera installationen av Task"
+task --version
+// ger i mitt fall utskriften: 3.43.3
+task --help // ger hjälp
+```
+
+## Kör task
+
+Du kan kolla vilka kommandon som finns med följande kommando.
+
+```console title="Lista kommandon i Taskfile."
+task --list
+```
+
+`task` är kommandot för att köra Task och `--list` är en flagga som listar alla kommandon som finns i Taskfile.
+
+När jag skriver denna artikel finns följande kommandon tillgängliga:
+
+```
+task: Available tasks for this project:
+* download-extensions:        Download file with recommended extensions.
+* download-lab:               Download a lab. Run with 'uv run task download-lab -- lab_XX', replace XX with the lab number.
+* download-taskfile:          Downloads the Taskfile from the artifact repository
+* download-tests:             Replaces files in tests/ with files from the artifact repository, https://github.com/bth-python/python-abcd25
+* download-workflow:          Download workflows file that checks code at pull request.
+```
