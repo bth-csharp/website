@@ -28,7 +28,7 @@ Se till att du har kursens labbmiljö installerad.
 
 1. "[Installera C#](../laromaterial/labbmiljo/csharp)" för att komma igång med din labb- och utvecklingsmiljö för kursen.
 
-När du är klar med labbmiljön ska du ha följande installerat, webbläsare, texteditor, git, terminal och C#.
+När du är klar med labbmiljön ska du ha webbläsare, texteditor, git, terminal och C# installerat.
 
 ### Kursrepo
 
@@ -44,4 +44,4 @@ I ditt kursrepo behöver du ha en utvecklingsmiljö som passar till kursen, du f
 
 ### Fusk policy
 
-Läs igenom [Fusk, AI och medvetet vilseledande](../studieguide/fusk) för att veta vad som är tillåtet i kursen och svara sen på Canvas quizet `Fusk policy. Måste få alla rätt, oändlig med försök`. Dina uppgifter kommer inte rättas före du har gjort klart quizet.
+Läs igenom [Fusk, AI och medvetet vilseledande](../studieguide/fusk) för att veta vad som är tillåtet i kursen och svara sen på Canvas quizet `Fusk policy. Måste få alla rätt, oändlig med försök`. Dina uppgifter kommer inte rättas förrän du har gjort klart quizet.

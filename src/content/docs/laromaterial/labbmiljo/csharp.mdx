@@ -9,7 +9,6 @@ import Figure from '@components/CustomFigure.astro';
 import YouTube from '@components/YouTube.astro';
 
 import dotnetLogo from '@assets/dotnetLogo.png';
-import vsCodeSetting from '@assets/img/kmom01/VsCodeScopedNamespace.png';
 
 ## Förutsättning
 
@@ -25,18 +24,18 @@ Du har någorlunda nya versioner av följande program installerade:
 * Operativsystem Windows/MacOs/Linux
 * Texteditor Visual Studio Code (VS Code)
 * Webbläsare Chrome & Firefox samt OS specifik webbläsare
-* Terminal WSL2 med Ubuntu
+* Terminal WSL2 med Ubuntu (Windows)
 * Git
 * Konto på GitHub
 * SSH-nycklar
 
-Saknas något så jobbar du igenom “[Installera kursens labbmiljö](/website/laromaterial/labbmiljo)” för att få hela labb- och utvecklingsmiljö för kursen.
+Detta borde du redan ha från förra läsperioden men saknas något så jobbar du igenom “[Installera kursens labbmiljö](/website/laromaterial/labbmiljo)” för att få hela labb- och utvecklingsmiljö för kursen.
 
 ## Terminalen
 
-Du behöver ha .NET (dotnet) installerat. Den senaste är version 9.
+Du behöver ha **.NET SDK** (Dotnet Software Development Kit) installerat. Aktuell version på kursen är **9**.
 
-Du kan kolla om du har det installerat genom följande kommandon i terminalen.
+Du kan kolla om du har .NET installerat genom följande kommandon i terminalen.
 
 ```shell
 dotnet --version // kolla versionen
@@ -47,7 +46,7 @@ I den här kursen kör vi programmen vi skapar i terminalen eftersom det är enk
 
 ### Linux och Windows med WSL2/Ubuntu (från och med 22.04)
 
-Öppna en terminal och kör följande kommandon.
+Ladda ner den senaste versionen av **.NET** med pakethanteraren **apt** (du behöver använda sudo). Öppna en terminal och kör följande kommandon.
 
 ```shell
 sudo apt update
@@ -55,47 +54,45 @@ sudo apt upgrade
 sudo apt install -y dotnet-sdk-9.0
 ```
 
-Första kommandot med update uppdaterar listan över tillgängliga paket och deras versioner men installerar inga nya paket. Det kontrollerar bara förändringar i paketlistorna och hämtar nya versioner av befintliga paket.
+Första kommandot med *update* uppdaterar listan över tillgängliga paket och deras versioner men installerar inga nya paket. Det kontrollerar bara förändringar i paketlistorna och hämtar nya versioner av befintliga paket.
 
-Det andra kommandot med upgrade installerar de senaste versionerna av alla paket i listan.
+Det andra kommandot med *upgrade* installerar de senaste versionerna av alla paket i listan.
 
-Det tredje kommandot installerar .NET version 9.
+Det tredje kommandot installerar *.NET version 9*.
 
 Om du får problem med installationen, kan du kolla [Install .NET on Linux](https://learn.microsoft.com/en-us/dotnet/core/install/linux). Här finns information om hur du installerar om du har en tidigare version av Ubuntu eller använder någon annan Linux.
 
 ### Mac
 
-Börja med att ladda ner den senaste [.NET SDK installer](https://dotnet.microsoft.com/en-us/download/dotnet) och välj den variant som passar din Mac. Du behöver kolla vilken arkitektur du ska installera för. Om du exempelvis har en Intel processor på din Mac väljer du X64. Dubbelklicka på det nedladdade installationsprogrammet och välj defaultvärden där det efterfrågas.
+Ladda ner den senaste versionen av **.NET** med **brew**. Eftersom .NET är en MacOS app bundle så installerar vi med "--cask" så här:
+
+```bash
+brew install --cask dotnet-sdk
+```
 
 Om du får problem med installationen, kan du kolla [Install .NET on macOS](https://learn.microsoft.com/en-us/dotnet/core/install/macos).
 
+Om du redan har installerat .NET och vill uppgradera dess version, till exempel från 8 till 9, gör så här:
+
+```bash
+brew upgrade --cask dotnet-sdk
+```
+
 ### Kolla installationen
 
-Kolla om .NET (.NET Core) installerats i terminalen. Resultatet av `dotnet --version` nedan (9.0.200) varierar beroende på vilken version du har installerat.
+Kolla om .NET installerats i terminalen. `dotnet --list-sdks` visar alla installationer av .NET. Resultatet av `dotnet --version` visar aktuell version.
 
 ```bash
 dotnet --list-sdks
 // Ger till exempel utskriften: 
-// 8.0.204 [/usr/local/share/dotnet/sdk]
-// 8.0.303 [/usr/local/share/dotnet/sdk]
 // 9.0.200 [/usr/local/share/dotnet/sdk]
+// 9.0.306 [/usr/local/share/dotnet/sdk]
 dotnet --version
-// Ger utskriften: 9.0.200
+// Ger utskriften: 9.0.306
 ```
 
 Bra, då är det installerat som det ska!
 
-### Byte av version
-
-Om du behöver byta .NET version, till exempel från 8 till 9. Ladda ner "installern" för version 9, se länk ovan. Därefter gör du:
-
-```bash
-brew uninstall dotnet
-brew install dotnet
-
-dotnet --version
-// Ger nu version 9
-```
 
 ## Texteditor - Visual Studio Code
 
@@ -107,25 +104,29 @@ Installera Visual Studio Code, om du inte redan har det.
 
 Installera en extension som heter "C# Dev Kit" från Microsoft. Du klickar på "Extension" och skriver "C# Dev Kit" i sökfältet. Klicka på "Install" och så här ser det ut när "C# Dev Kit" är installerat.
 
-import csharpDevExtension from '@assets/labbmiljö/vscode/csharpDevExtension.png';
+import csharpDevExtension from '@assets/labbmiljo/vscode/csharpDevExtension.png';
 
 <Figure 
     src={csharpDevExtension}
     caption="C# Dev Kit extension är installerat."
 />
 
+#### Standardiserad kodstil
 
-### Inställningar
+För att hjälpa till med en standardiserad kodstil (alla får samma formatteringsregler och stilförslag), så innehåller ditt repo en fil som heter ".editorconfig". Här är en sammanställning av den:
 
-Settings öppnas via `File -> Preferences -> Settings`
-
-Vi vill använda någon som heter *scoped namespace* som kom i .NET 6.0 och det fixar vi i VS Code inställningar. Skriv "dotnet namespace" i sökrutan och "klicka i", se bild nedan.
-
-<Figure
-    src={vsCodeSetting}
-    caption="Setting i VS Code för scoped namespace."
-    class="left"
-/>
+* Indentering och format
+  * Använder mellanslag (inte tabbar)
+  * Indenterar med 4 steg
+  * Avslutar filer med en tom rad
+  * Tar bort onödiga mellanslag
+* Namnrymder; föreslår att använda file-scoped namespaces (kortare och modern syntax)
+* var-användning; föreslår att inte använda var, så att typen alltid syns tydligt
+* Kodblock; föreslår att inte använda kortformer som => i metoder och egenskaper – för att göra koden mer läsbar
+* this.-användning; föreslår att använda this. framför fält, egenskaper och events – för att visa att de tillhör klassen
+* Åtkomstmodifierare; föreslår att alltid skriva ut public, private, etc. – för att tydliggöra synlighet
+* Null-hantering; föreslår att använda moderna C#-sätt som ?? och ?. för att hantera null-värden
+* Tuples och anonyma typer; föreslår att använda automatiska namn när det är möjligt, t.ex. new { name, age } istället för new { Name = name, Age = age }
 
 ### Stäng av GitHub Copilot
 

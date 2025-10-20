@@ -68,6 +68,7 @@ export default defineConfig({
 				},
 				{
 					label: 'Kursmoment',
+					collapsed: true,
 					autogenerate: { directory: 'kmom' },
 				},
 				{

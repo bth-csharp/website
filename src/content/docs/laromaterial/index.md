@@ -38,4 +38,4 @@ Du får en invite till Discord via Canvas, eller be din lärare om det. Troligen
 När det sker streamade (eller inspelade) genomgångar och föreläsningar så sker de ofta via Youtube-kanalen för dbwebb.
 
 - [DBwebb kanalen](https://www.youtube.com/c/DbwebbSe)
-- Spellista för [Streams HT25](https://www.youtube.com/playlist?list=PLKtP9l5q3ce_6V-NBdaXB927GdpMQdCMt)
+- Spellista för [Streams HT25](https://www.youtube.com/playlist?list=PLKtP9l5q3ce8vlVWlCK99ZeR6aDaFSBcM)
