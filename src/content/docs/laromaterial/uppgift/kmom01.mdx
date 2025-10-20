@@ -114,10 +114,17 @@ Så här kan det se ut när du är klar med uppgiften. [Videon](https://www.yout
 
 ## Tester
 
-Du testar din kod manuellt genom att köra alla tester under varje deluppgift.
+Du testar din kod manuellt genom att köra alla menyalternativ och verifiera input och output under varje deluppgift.
 
 **OBS** nästa test ska ske automatiskt men just nu, det vill säga under utvecklingen, får du testa med detta projekt manuellt.
-Stå i katalogen kmom01 (använd terminalen) och kopiera testprojektet [**Menu.Tests**](./../../../CodeExamples/kmom01/uppgift/Menu.Tests) från CodeExamples/kmom01/uppgift och lägg i kmom01 och då ser det ut så här:
+
+Du testar din kod med enhetstester som du hämtar så här:
+
+```bash
+task run download-tests kmom01
+```
+
+Då ser det ut så här:
 
 ```shell
 pwd // stå i kmom01
@@ -135,7 +142,7 @@ tree -L 2
 För att testerna ska kunna köras behöver du lägga dessa två rader överst i din Program.cs.
 
 ```csharp
-// Överst i kmom01/Program.cs
+// Överst i kmom01/Menu/Program.cs
 using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Menu.Tests")]
 ```
