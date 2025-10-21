@@ -4,6 +4,7 @@ description: Konfigurationsfilen .editorconfig gör inställningar per programme
 author: mos
 revision:
     "2025-06-25": "(A, mos) Första utkastet."
+    "2025-10-21": "(B, grm) Uppdaterad för C#."
 sidebar:
     order: 0010
 ---
@@ -14,68 +15,37 @@ import YouTube from '@components/YouTube.astro';
 
 ## Om EditorConfig
 
-EditorConfig är en konfigurationsmöjlighet för din texteditor där du kan göra inställningar per programmingsspråk så att texteditorn tar hänsyn till filens ändelse för att visa koden på olika sätt i din texteditor. Texteditorn VS Code har stöd för EditorConfig. Du kan läsa mer om [EditorConfig på deras webbplats](https://editorconfig.org/).
+EditorConfig är en konfigurationsmöjlighet för din texteditor där du kan göra inställningar per programmeringsspråk så att texteditorn tar hänsyn till filens ändelse för att visa koden på olika sätt i din texteditor. Texteditorn VS Code har stöd för EditorConfig. Du kan läsa mer om [EditorConfig på deras webbplats](https://editorconfig.org/).
 
-
-## Skapa en egen .editorconfig
-
-Nu skall vi skapa en egen konfigurationsfil `.editorconfig` om passar denna kursen. Vi skall placera filen i kursrepot och lägga till den som en del i repot med Git kommandona för add, commit. Därefter gör vi push så att alla ändringar hamnar på GitHub.
+Du har fått med `.editorconfig` från template repot `csharp-abcd25` som passar denna kursen.
 
 ### Öppna VS Code  från nuvarande katalog
 
-Du har din terminal öppen och du står i ditt kursrepo. Börja med att öppna VS Code  från rooten av ditt kursrepo, det är punkten som anger vilken katalog som används och punkten refererar till nuvarande katalog. 
+Du har din terminal öppen och du står i ditt kursrepo. Börja med att öppna VS Code från roten av ditt kursrepo, det är punkten som anger vilken katalog som används och punkten refererar till nuvarande katalog.
 
 ```console title="Öppna VS Code från den katalog du står i."
 code .
 ```
 
-### Skapa filen .editorconfig
-
-Skapa nu filen `.editorconfig` med hjälp av VS Code.
-
-Du kan antingen högerklicka på musknappen i filväljarträdet och välja "New File..." och skriva in filens namn.
-
-Eller så använder du terminalen och skriver följande kommando för att skapa en ny fil.
-
-```console title="Skapa en ny fil i terminalen med kommandot touch."
-# Create a new file
-touch .editorconfig
-```
-
-Blir det fel så tar du bort filen och försöker igen.
-
 ### Öppna filen .editorconfig
 
-Öppna nu filen `editorconfig` i VS Code och lägg till följande för C#.
+Öppna nu filen `editorconfig` i VS Code och titta snabbt igenom reglerna för C#.
 
-```bash title="Innehåll för filen .editorconfig."
-# EditorConfig is awesome: https://editorconfig.org
+Din ".editorconfig" innehåller regler för att hjälpa till med en standardiserad kodstil, så att alla får samma formateringsregler och stilförslag. Här är en sammanställning av den:
 
-# top-most EditorConfig file
-root = true
+* Indentering och format
+  * Använder mellanslag (inte tabbar)
+  * Indenterar med 4 steg
+  * Avslutar filer med en tom rad
+  * Tar bort onödiga mellanslag
+* Namnrymder; föreslår att använda file-scoped namespaces (kortare och modern syntax)
+* var-användning; föreslår att inte använda var, så att typen alltid syns tydligt
+* Kodblock; föreslår att inte använda kortformer som => i metoder och egenskaper – för att göra koden mer läsbar
+* this.-användning; föreslår att använda this. framför fält, egenskaper och events – för att visa att de tillhör klassen
+* Åtkomstmodifierare; föreslår att alltid skriva ut public, private, etc. – för att tydliggöra synlighet
+* Null-hantering; föreslår att använda moderna C#-sätt som ?? och ?. för att hantera null-värden
+* Tuples och anonyma typer; föreslår att använda automatiska namn när det är möjligt, till exempel "new &#123; name, age &#125;" istället för "new &#123; Name = name, Age = age &#125;"
 
-# Unix-style newlines with a newline ending every file
-[*]
-end_of_line = lf
-insert_final_newline = true
-charset = utf-8
+Om du ändrar i din .editorconfig behöver du starta nu om VS Code för att aktivera inställningarna. Du kan antingen stänga fönstret och öppna det igen via terminalen, eller så trycker du `ctrl shift p` (på Mac är det `cmd shift p`) och letar fram "Reload Window" och trycker enter.
 
-# Indentation override for all JS under lib directory
-[*.{js,json,yaml,yml,css,html}]
-indent_style = space
-indent_size = 2
-
-[{Taskfile.yml}]
-indent_style = space
-indent_size = 4
-
-# C# files
-[*.cs]
-dotnet_sort_system_directives_first = true
-indent_style = space
-indent_size = 4
-```
-
-Starta nu om VS Code för att aktivera inställningarna. Du kan antingen stänga fönstret och öppna det igen via terminalen, eller så trycker du `ctrl shift p` (på Mac är det `cmd shift p`) och letar fram "Reload Window" och trycker enter.
-
-Nu är EditorConfig aktivt i ditt kursrepo. Men glöm inte att du alltid måste öppna VS Code från kursrepots översta katalog, den så kallade rooten av kursrepot.
+Nu är EditorConfig aktivt i ditt kursrepo. Men glöm inte att du alltid måste öppna VS Code från kursrepots översta katalog, den så kallade roten av kursrepot.
