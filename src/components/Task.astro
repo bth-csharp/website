@@ -1,0 +1,94 @@
+---
+const { completed } = Astro.props;
+---
+<div class="task-item" class:list={{"completed": completed}}>
+  <input
+    type="checkbox"
+    checked={completed}
+    class="task-checkbox"
+  />
+  <span class="task-label">
+    <slot />
+  </span>
+</div>
+
+<style>
+  .task-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+  }
+  .task-item.completed .task-label {
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+  .task-checkbox {
+    cursor: pointer;
+  }
+
+  /* Stil för belöningsmeddelandet */
+  #reward-message {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 2rem;
+    border: 2px solid #34d399; /* En glad grön färg */
+    background-color: #d1fae5; /* Ljusgrön bakgrund */
+    border-radius: 8px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #065f46;
+  }
+
+  #reward-message.hide {
+    display: none;
+  }
+
+  #reward-message.show {
+    display: block;
+  }
+</style>
+
+<script>
+      function checkCompletion() {
+    const allCheckboxes = document.querySelectorAll('.task-checkbox');
+    const rewardMessage = document.getElementById('reward-message');
+
+    if (rewardMessage === null) {
+      return; // Avsluta funktionen om elementet inte hittas
+    }
+    
+    // Använder `every()` för att kontrollera om ALLA kryssrutor är ikryssade
+    const allCompleted = Array.from(allCheckboxes).every(checkbox => {
+      // Försäkra att varje element är en HTMLInputElement
+      if (checkbox instanceof HTMLInputElement) {
+        return checkbox.checked;
+      }
+      return false; // Returnera false om det inte är en input-ruta
+    });
+
+    if (allCompleted) {
+      rewardMessage.classList.add('show');
+    } else {
+      rewardMessage.classList.remove('show');
+    }
+  }
+
+  const checkboxes = document.querySelectorAll('.task-checkbox');
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', (event) => {
+      // Check if event.target is an Element (or a specific type like HTMLInputElement)
+      if (event.target instanceof Element) {
+        const parent = event.target.closest('.task-item');
+        if (parent) {
+          // You can now safely access the properties on `parent`
+          parent.classList.toggle('completed', (event.target as HTMLInputElement).checked);
+        }
+      }
+      checkCompletion();
+    });
+  });
+  checkCompletion();
+</script>
