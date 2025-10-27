@@ -12,7 +12,7 @@ sidebar:
 import Figure from '@components/CustomFigure.astro';
 import YouTube from '@components/YouTube.astro';
 
-Nu skall du skapa kursens git repo lokalt i din terminal under katalogen `dbwebb-kurser`, och koppla det till repot som du nyligen skapade på GitHub.
+Nu skall du skapa kursens git repo lokalt i din terminal under katalogen `dbwebb-kurser` genom att klona repot som du nyligen skapade på GitHub.
 
 ## Gå till katalogen dbwebb-kurser
 
@@ -35,19 +35,14 @@ cd ~/dbwebb-kurser
 Använd kommandot `pwd` och `ls` för att försäkra dig om att du är på rätt plats i filsystemet.
 
 
-## Skapa kursrepot som ett lokalt git repo
-
-Nu skall vi skapa ett lokalt kursrepo från det repo du nyss skapade på GitHub.
-
-
-### Klona ditt GitHub repo till ett lokalt repo
+## Klona ditt GitHub repo till ett lokalt repo
 
 Nu ska vi skapa en lokal kopia av ditt GitHub repo genom att klicka på "Code" och kopiera SSH-länken.
 
-import ghnew3 from '@assets/kursrepo/ghnew3.png';
+import gh3 from '@assets/kursrepo/gh3.png';
 
 <Figure 
-    src={ghnew3}
+    src={gh3}
     caption="Klona ditt repot på GitHub."
 />
 
@@ -69,35 +64,91 @@ import repo_terminal from '@assets/kursrepo/repo_terminal.png';
 
 <Figure 
     src={repo_terminal}
-    caption="Ditt lokala Git repo i terminalen."
+    caption="Ditt lokala Git-repo i terminalen."
+    width="600px"
 />
 
 
-Nu kan du köra följande Gitkommandon för att status, kolla vilka brancher som finns i ditt kursrepo.
+### Skapa inlämningsbrancher i ditt lokala Git-repo
 
-```bash title="Gitkommandon för att kolla i ditt lokala kursrepo"
-cd csharp-<akronym>
-git status
+Nu kan du köra följande kommandon för att skapa inlämningsbrancher i ditt kursrepo. Ställ dig i ditt kursrepo och skapa en branch med `git switch -c <branchnamn>`. `git switch -c <branchnamn>` innebär att du skapar med `-c` en ny branch `<branchnamn>` och byter till den. Först säkerställer du att main-branchen finns.
+
+```bash title="Kommandon för att kolla/skapa main i ditt lokala kursrepo"
 git branch
-git branch -r
-git log
+* main
+git switch -c main
+fatal: a branch named 'main' already exists
+```
+
+Ja, det finns en main-branch och stjärnan (*) visar att det är det aktuella branchen. Nu skapar du resten av brancherna.
+
+```bash title="Kommandon för att skapa inlämningsbrancher i ditt lokala kursrepo"
+git switch -c bth/submit/kmom03
+git checkout main
+git switch -c bth/submit/kmom06
+git checkout main
+git switch -c bth/submit/kmom10
+git checkout main
+git switch -c bth/submit/test-gitconfig
+git checkout main
 ```
 
 Så här kan det se ut i terminalen:
 
-import repo_git from '@assets/kursrepo/repo_git.png';
+import repo_git1 from '@assets/kursrepo/repo_git1.png';
 
 <Figure 
-    src={repo_git}
-    caption="Gitkommandot i ditt lokala Git repo i terminalen."
+    src={repo_git1}
+    caption="Kommandon för att skapa och se inlämningsbrancherna i ditt lokala kursrepo i terminalen."
+    width="600px"
 />
 
+### Skapa inlämningsbrancher i ditt  GitHub-repo
 
-`git branch -r` visar de brancher du har i ditt GitHub repo, de behöver du inte lokalt om inlämningen går som den ska.
-Du skall jobba i branchen `main`och här kommer du att placera all kod du skriver.
+Du skall jobba i branchen `main` och här placerar du all kod du skriver.
 
-De andra fyra tomma branches ska användas vid inlämning av kursens tre uppgifter. Den sista är för att kolla att din utvecklingsmiljö är kopplad till Canvas.
+De andra fyra tomma branches ska användas vid inlämning av kursens tre uppgifter. Den sista `test-gitconfig` är för att kolla att din utvecklingsmiljö är kopplad till Canvas.
 
+Nu ska de lokala brancherna kopplas mot ditt GitHub-repo.
+
+```bash title="Kommandon för att koppla inlämningsbrancherna mot GitHub"
+git push -u origin bth/submit/kmom03
+git push -u origin bth/submit/kmom06
+git push -u origin bth/submit/kmom10
+git push -u origin bth/submit/test-gitconfig
+```
+
+Så här kan du kolla att inlämningsbrancherna numera finns både i ditt lokala Git-repo och i ditt GitHub-repo.
+
+import repo_git2 from '@assets/kursrepo/repo_git2.png';
+
+<Figure 
+    src={repo_git2}
+    caption="Kommandon för att visa att inlämningsbrancherna numera finns både i ditt lokala kursrepo och i ditt GitHub-repo."
+    width="500px"
+/>
+
+### Koppla inlämningsbrancherna till ditt GitHub-repo
+
+Nu kan du ladda om ditt GitHub-repo och ska då se att det numera är 5 brancher.
+
+import repo_git3 from '@assets/kursrepo/repo_git3.png';
+
+<Figure 
+    src={repo_git3}
+    caption="Här ser du inlämningsbrancherna i ditt GitHub-repo."
+/>
+
+Om du klickar på "Branches" så ser det ut så här nu:
+
+import repo_git4 from '@assets/kursrepo/repo_git4.png';
+
+<Figure 
+    src={repo_git4}
+    caption='Vyn "Branches" visar de 5 brancherna i ditt GitHub-repo.'
+/>
+
+### Om något går fel...
 
 :::caution
 Om något går fel så kan du radera din katalog och försöka igen.
@@ -109,5 +160,5 @@ cd ~/dbwebb-kurser
 rm -rf <dirname>
 ```
 
-Kör därefter kommandona som skapar ditt kursrepo igen, men kör dem gärna ett efter ett så blir det lättare att se vilket kommando som går fel.
+Kör därefter kommandona som klonar ditt lokala kursrepo igen, men kör dem gärna ett efter ett så blir det lättare att se vilket kommando som går fel.
 :::

@@ -27,7 +27,7 @@ Kommentarer använder vi för att beskriva något i koden men också innan vi ko
 
 I Python markerar vi en kommentar för en rad med brädgård eller hashtag "#" och för flera rader genom att omringa raderna med enkelfnuttar '''. I C# använder vi dubbla snedstreck eller slashes "//" för en-rads-kommentarer och "/\*" för fler-rads-kommentarer "\*/", se exempel.
 
-```csharp
+```csharp title="Kommentarer C#"
 // Console.WriteLine("Hello, World!"); En rad
 Console.WriteLine("Hello, World!"); // Del av en rad
 /* Console.WriteLine("Hello World from class!");
@@ -41,14 +41,14 @@ När programmet exekveras så behöver vi spara undan data som vi vill använda 
 
 I Python behöver vi inget nyckelord när vi deklarerar variabler utan enbart en identifierare:
 
-```python
+```python title="Deklarera variabler i Python"
 first_name = "Murphy"
 age = 42
 ```
 
 I C# behöver vi använda ett [nyckelord](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/) som representerar redan förutbestämda datatyper såsom `string` och `int`, vid deklarationen:
 
-```csharp
+```csharp title="Deklarera variabler i C#"
 // type variableName = value;
 string firstName = "Murphy"; // textsträng
 int age = 42; // heltal - ett ord
@@ -88,38 +88,36 @@ De aritmetiska operatorerna är nästan samma i Python och C#. Här visas dessa 
 
 I Python ger division med heltal en flyttalskvot, medan i C# ger division med heltal en heltalskvot (det vill säga den trunkeras alltid och man kan tänka att man helt enkelt tar bort decimalerna). Division med heltal innebär att både a och b är heltal. Division med flyttal i C# funkar på samma sätt som i Python. Om ett av talen till exempel är en `double` och ett av talen är en `int`, kommer resultatet av divisionen att vara en `double`.
 
-I C# finns dessutom operatorerna `++` som ökar värdet med 1 och `--` som minska värdet med 1.
+I C# finns dessutom operatorerna `++` som ökar värdet med 1 och `--` som minska värdet med 1. `++` kallas inkrementoperator (increment operator) och `--` dekrementoperator (decrement operator). När den står efter variabeln 
 Till exempel kan vi skriva så här i C#:
 
-```csharp
+```csharp title="Inkrementoperator och dekrementoperator postfix i C#"
 int numberOfCars = 2; 
 numberOfCars++; // ökar värdet med 1
 numberOfCars--; // minskar värdet med 1
 ```
+
 `++` och `--` kan även placeras framför variabeln. Om variabeln står fritt (såsom i ovan exempel) blir det ingen skillnad vilket det däremot blir men om variabeln ingår i ett uttryck.
 
-```csharp
+```csharp title="Exempel med inkrementoperator och dekrementoperator postfix coh prefix i C#"
 int value = 10;
 int resultOne = 2 * value++; // värdet i value används innan ökningen med 1 utförs
 Console.WriteLine("resultOne = " + resultOne);
+// Ger utskriften: resultOne = 20
 Console.WriteLine("value = " + value);
+// Ger utskriften: value = 11
 int resultTwo = 3 * ++value; // ökningen med 1 för value utförs innan värdet används
 Console.WriteLine("resultTwo = " + resultTwo);
+// Ger utskriften: resultTwo = 36
 Console.WriteLine("value = " + value);
-```
-utskriften blir
-```
-resultOne = 20
-value = 11
-resultTwo = 36
-value = 12
+// Ger utskriften: value = 12
 ```
 
-## Inmatning och utmatning i **C#**
+## Inmatning och utmatning i C#
 
 För att kunna ta emot inmatning från användaren använder vi metoderna `ReadLine()` och `WriteLine()` i terminalen. Med `WriteLine()` kan vi skicka med en informationssträng som argument och denna sträng skrivs ut i terminalen. Med `ReadLine()` läser vi in användarens input.
 
-```csharp
+```csharp title="Inmatning och utmatning i C#"
 // Deklarera variabeln
 string firstName; 
 
@@ -137,7 +135,7 @@ Console.WriteLine("Hej på dig " + firstName);
 
 Vi kan också utföra beräkningar i en utskrift.
 
-```csharp
+```csharp title="Utmatning med beräkning i C#"
 // Deklarera variablerna
 int price1 = 10;
 int price2 = 20; 
@@ -158,7 +156,7 @@ Strängarhantering i Python och C# är ganska lik. Vi konkatenerar strängar på
 
 I python ser strängar ut så här:
 
-```python
+```python title="Strängar i Python"
 first_name = "Murphy"
 print(first_name.upper()) # Ger MURPHY
 print(first_name.lower()) # Ger murphy
@@ -166,7 +164,7 @@ print(first_name.lower()) # Ger murphy
 
 I C# ser strängar ut så här:
 
-```csharp
+```csharp title="Strängar i C#"
 string firstName = "Murphy"; // textsträng
 Console.WriteLine(firstName.ToUpper()); // Ger MURPHY
 Console.WriteLine(firstName.ToLower()); // Ger murphy
@@ -179,7 +177,7 @@ Med hjälp av konstruktionen if/else så kan vi styra flödet i vår kod. Om vil
 
 if i Python:
 
-```python
+```python title="If-sats i Python"
 number_of_apples = 13
 
 if number_of_apples > 10:
@@ -188,7 +186,7 @@ if number_of_apples > 10:
 
 if i C#:
 
-```csharp
+```csharp title="If-sats i C#"
 int numberOfApples = 13;
 
 if (numberOfApples > 10) 
@@ -197,9 +195,9 @@ if (numberOfApples > 10)
 }
 ```
 
-if/else i Python:
+if-else i Python:
 
-```python
+```python title="If-else-sats i Python"
 number_of_apples = 9
 
 if number_of_apples > 10:
@@ -208,9 +206,9 @@ else:
     print("Vi har nog varit hungrig och ätit upp dina äpplen")
 ```
 
-if/else i C#:
+if-else i C#:
 
-```csharp
+```csharp title="If-else-sats i C#"
 int numberOfApples = 9;
 
 if (numberOfApples > 10) 
@@ -223,9 +221,9 @@ else
 }
 ```
 
-if/else if/else i Python:
+if-elif-else i Python:
 
-```python
+```python title="If-elif-else-sats i Python"
 number_of_apples = 10
 
 if number_of_apples > 10:
@@ -236,9 +234,9 @@ else:
     print("Vi har 10 äpplen")
 ```
 
-if/else if/else i C#:
+if-else if-else i C#:
 
-```csharp
+```csharp title="If-else if-else-sats i C#"
 int numberOfApples = 10;
 
 if (numberOfApples > 10) 
@@ -275,14 +273,14 @@ Ofta vill vi repetera en del av koden flera gånger och det kallas iteration. Om
 
 `for`-loop i Python:
 
-```python
+```python title="for-loop i Python"
 for i in range(10):
     print(i)
 ```
 
 `for`-loop i C#:
 
-```csharp
+```csharp title="for-loop i C#"
 for (int i = 0; i < 10; i++) 
 {
   Console.WriteLine(i);
@@ -295,7 +293,7 @@ Sista delen är steget i iterationen, att `i` ökas med 1.
 
 Loopa en sträng i Python:
 
-```python
+```python title="for-loop på en sträng i Python"
 for letter in "räksmörgås":
     if letter in "åäö":
         print(letter)
@@ -303,7 +301,7 @@ for letter in "räksmörgås":
 
 Loopa en sträng i C#:
 
-```csharp
+```csharp title="for-loop på en sträng i C#"
 foreach (char letter in "räksmörgås") 
 {
   if ("åäö".Contains(letter)) 
@@ -321,7 +319,7 @@ Om vi inte vet antalet iterationer så använder vi en `while`-loop. I det här 
 
 `while`-loop i Python:
 
-```python
+```python title="while-loop i Python"
 number = 2
 
 while number < 20:
@@ -331,7 +329,7 @@ while number < 20:
 
 `while`-loop i C#:
 
-```csharp
+```csharp title="while-loop i C#"
 int number = 2;
 
 while (number < 20) 
@@ -341,9 +339,9 @@ while (number < 20)
 }
 ```
 
-I C#, liksom i Python, finns också en `do while`-loop och den kan se ut så här:
+I C# finns också en `do while`-loop och den kan se ut så här:
 
-```csharp
+```csharp title="do-while-loop i C#"
 int number = 2;
 
 do
@@ -357,18 +355,18 @@ I en `do while`-loop så körs en iteration innan villkoret kontrolleras.
 
 ## Array
 
-Python har ingen support för array (fält på svenska), istället använder vi List för att skapa arrayer i Python. En array i Python kan innehålla olika datatyper:
+Python har inte en inbyggd datatyp array som i C#, där storlek och datatyp är fasta. Istället använder vi list för att skapa sekvenser av värden i Python. En lista i Python kan innehålla olika datatyper, till exempel:
 
-```python
+```python title="Lista i Python"
 my_array = [1, "text", 5, 42]
 
 print(my_array[2])
 print("Längden: " + str(len(my_array)))
 ```
 
-Ett fält (array på engelska) i C# innehåller element av samma datatyp:
+En array (kallas fält på svenska) i C# innehåller element av samma datatyp:
 
-```csharp
+```csharp title="Array i C#"
 string[] myStrArray = {"1", "text", "5", "42"}; // en array med 4 strängar
 int[] myIntArray = { 1, 4, 66, 11 }; // en array med 4 heltal
 
@@ -393,7 +391,7 @@ for (int i = 0; i < names.Length; i++)
 
 För att sätta samman strängar till en har vi **Join()** och för att dela på strängar använder vi **Split()**.
 
-```csharp
+```csharp title="Join och Split i C#"
 names[1] = "Mikael";
 names[3] = "Kenneth";
 names[4] = "Emil";
@@ -408,7 +406,7 @@ Listor finns både i Python och C#. I Python kan vi spara element av olika datat
 
 I Python används en lista så här:
 
-```python
+```python title="Lista i Python"
 my_list = [1, "text", 5, 42]
 
 my_list.pop(1) # Ta bort andra elementet ur listan
@@ -419,7 +417,7 @@ print(my_list)
 
 Och samma lista ser ut så här i C#:
 
-```csharp
+```csharp title="Lista i C#"
 using System.Collections.Generic; // För att använda listor 
 
 List<string> myList = new List<string>() {"1", "text", "fem", "hej"};
@@ -434,7 +432,7 @@ Det finns många inbyggda metoder på listor i C#, som **Remove()**, **IndexOf()
 
 I C# kan vi göra om en lista till array och tvärtom.
 
-```csharp
+```csharp title="Omvandla lista till array och tvärtom i C#"
 using System.Collections.Generic; // För att använda listor 
 
 List<string> myList = new List<string>() {"1", "text", "fem", "hej"};
@@ -442,14 +440,14 @@ string[] myArray = myList.ToArray(); // Gör om listan my_list till en array
 List<string> newList = new List<string>(myList);
 ```
 
-### Skillnader och likheter mellan array och listor i **C#**
+### Skillnader och likheter mellan array och listor i C#
 
 Den stora skillnaden är att en array har en fast storlek som bestäms när arrayen skapas medan listor är dynamiska och kan växa eller bli mindre efter behov. En lista kan skapas tom och utökas efterhand.
 Arrayer och listor kan endast innehålla element av den typ som anges i samband med att de deklareras.
 
 En lista har något lägre prestanda än en array men listor erbjuder många användbara metoder.
 
-### Olika listor i **C#**
+### Olika listor i C#
 
 `List<T>` är en generisk lista där T representerar typen av objekt som listan kommer att innehålla.
 
@@ -486,7 +484,7 @@ Om vi däremot behöver spara olika typer av objekt i samma lista så använder 
 
 ## Funktioner/metoder
 
-Istället för att skriva samma kodrader på flera ställen så vill vi placera dessa i funktioner/metoder. I C# kallar används benämningen metoder och dessa innehåller kodrader som utför en specifik uppgift.
+Istället för att skriva samma kodrader på flera ställen så vill vi placera dessa i funktioner/metoder. I C# används benämningen metoder och dessa innehåller kodrader som utför en specifik uppgift.
 
 En vardaglig liknelse av en funktion/metod med en brödrost:
 
@@ -497,7 +495,7 @@ En vardaglig liknelse av en funktion/metod med en brödrost:
 
 Funktion i Python:
 
-```python
+```python title="Funktion i Python"
 def calculate():
     print(12 + 10)
 
@@ -506,7 +504,7 @@ calculate()
 
 Metod i C#:
 
-```csharp
+```csharp title="Metod i C#"
 static void Calculate()
 {
     Console.WriteLine(12 + 10);
@@ -520,7 +518,7 @@ Ofta vill vi skicka med parametrar in i våra metoder. Vi kan dessutom ange defa
 
 Funktion med argument i Python:
 
-```python
+```python title="Funktion med parametrar i Python"
 def calculate(a, b = 1):
     print(a + b)
 
@@ -530,7 +528,7 @@ calculate(29) # Ger resultatet 30
 
 Metod med argument i C#. Lägg märke till att datatypen ska stå före varje inparameter:
 
-```csharp
+```csharp title="Metod med parametrar i C#"
 static void Calculate(int no1, int no2 = 1)
 {
     Console.WriteLine(no1 + no2);
@@ -542,7 +540,7 @@ Calculate(29); // Ger resultatet 30
 
 Funktion med returvärde i Python:
 
-```python
+```python title="Funktion med  och returvärde i Python"
 def calculate(a, b):
     return a + b
 
@@ -552,7 +550,7 @@ print(sum)
 
 Metod med returvärde i C#. Lägg märke till att returtypen ska specificeras. Metoder som inte returnerar något har typen `void`.
 
-```csharp
+```csharp title="Metod med  och returvärde i C#"
 static int Calculate(int no1, int no2)
 {
     return no1 + no2;
@@ -569,7 +567,7 @@ Vi namnger metoder i C# i "Pascal case", vilket innebär att alla ord i metodnam
 
 Anta att vi har ett exempel där vi försöker dividera med 0. Det fungerar inte utan ett exception kastas. Vi börjar med att titta på hur det ser ut i python.
 
-```python
+```python title="Felhantering i Python"
 try:
     divider = 0
     x = 10 / divider
@@ -584,7 +582,7 @@ finally:
 Kommandot heter `try-except-finally` i python. I try har vi koden som kan gå fel och med except fångar vi fel.
 Först fångar vi `ZeroDivisionError` och hanterar det, sen fångar vi resten av felen i `Exception` och slutligen, oavsett om det uppstod ett fel eller inte, kommer `finally`-blocket att köras och skriva ut "Slut på felhanteringen". Motsvarande kod i C# ser ut så här:
 
-```csharp
+```csharp title="Felhantering i C#"
 try
 {
     int divider = 0;
@@ -615,7 +613,6 @@ I Python är felmeddelanden ofta enkla och kan innehålla en kort beskrivning av
 Nu har vi jämfört Python och C# och det var inte så stor skillnad. De stora skillnaderna vi tittat på för C# jämfört med python är att:
 
 - semikolon avslutar satser
-- variabler och metoder ska typdeklareras 
-- var kan användas när typen på en variabel istället bestäms av initieringen
-- array (fält) finns
+- variabler och metoder ska typdeklareras
+- array finns förutom listor
 - namngivning görs med Camel case för variabelnamn och Pascal case för metodnamn
