@@ -1,0 +1,3144 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)https://code.visualstudio.com/docs/debugtest/debugging -->
+<html lang="en" data-theme="light" data-qb-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta name="awa-expId" content="vscw_aaflight1016_control:103441;">
+	<meta name="awa-env" content="prod">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="google-site-verification" content="hNs7DXrTySP_X-0P_AC0WulAXvUwgSXEmgfcO2r79dw">
+
+	<!-- Twitter and Facebook OpenGraph Metadata-->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@code">
+
+	<meta name="description" content="One of the great things in Visual Studio Code is debugging support.  Set breakpoints, step-in, inspect variables and more.">
+<meta name="keywords" content="">
+<meta name="ms.prod" content="vs-code">
+<meta name="ms.TOCTitle" content="">
+<meta name="ms.ContentId" content="4E9A74AA-D778-4D1C-B369-83763B3C340F">
+<meta name="ms.date" content="10/09/2025">
+<meta name="ms.topic" content="conceptual">
+<!-- Twitter and Facebook OpenGraph Metadata-->
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://code.visualstudio.com/docs/debugtest/debugging">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Debug code with Visual Studio Code">
+<meta property="og:description" content="One of the great things in Visual Studio Code is debugging support.  Set breakpoints, step-in, inspect variables and more.">
+
+<meta property="og:image" content="https://code.visualstudio.com/assets/docs/debugtest/debugging/debugging-social.png">
+
+
+
+	<link rel="shortcut icon" href="https://code.visualstudio.com/assets/favicon.ico" sizes="128x128">
+	<link rel="apple-touch-icon" href="https://code.visualstudio.com/assets/apple-touch-icon.png">
+
+	<title>Debug code with Visual Studio Code</title>
+
+	<link rel="stylesheet" href="./debug_commands_files/bootstrap.min.css">
+	<link rel="stylesheet" href="./debug_commands_files/style.css">
+
+	<script src="./debug_commands_files/wcp-consent.js"></script>
+	<script type="text/javascript" src="./debug_commands_files/ms.analytics-web-4.min.js"></script>
+	
+	<script type="text/javascript">
+	// Leave as var; siteConsent is initialized and referenced elsewhere.
+	var siteConsent = null;
+	
+	const GPC_DataSharingOptIn = false;
+	WcpConsent.onInitCallback(function () {
+		window.appInsights = new oneDS.ApplicationInsights();
+		window.appInsights.initialize({
+			instrumentationKey: "1a3eb3104447440391ad5f2a6ee06a0a-62879566-bc58-4741-9650-302bf2af703f-7103",
+			propertyConfiguration: {
+				userConsented: false,
+				gpcDataSharingOptIn: false,
+				callback: {
+					userConsentDetails: siteConsent ? siteConsent.getConsent : undefined
+				},
+			},
+			cookieCfg: {
+				ignoreCookies: ["MSCC"]
+			},
+			webAnalyticsConfiguration:{ // Web Analytics Plugin configuration
+				urlCollectQuery: true,
+				urlCollectHash: true,
+				autoCapture: {
+					scroll: true,
+					pageView: true,
+					onLoad: true,
+					onUnload: true,
+					click: true,
+					resize: true,
+					jsError: true
+				}
+			}
+		}, []);
+	
+		window.appInsights.getPropertyManager().getPropertiesContext().web.gpcDataSharingOptIn = GPC_DataSharingOptIn;
+	});
+	</script>
+	<link rel="alternate" type="application/atom+xml" title="RSS Feed for code.visualstudio.com" href="https://code.visualstudio.com/feed.xml">
+<style id="yt-extension-style">.ad-container,
+  .ad-div,
+  .masthead-ad-control,
+ .video-ads,
+ .ytp-ad-progress-list,
+  #ad_creative_3,
+ #footer-ads,
+  #masthead-ad,
+ #player-ads,
+  .ytd-mealbar-promo-renderer,
+  #watch-channel-brand-div,
+ #watch7-sidebar-ads,
+  ytd-display-ad-renderer,
+  ytd-compact-promoted-item-renderer,
+ .html5-video-player.ad-showing video {
+    display: none !important;
+ }</style><style id="yt-extension-info">.yt-ext-hidden { display: none; } #yt-ext-info-bar { position: fixed; bottom: 20px; left: 20px; height: auto; border: 1px solid #ececec; background: #03a9f4; z-index: 100000; padding: 5px 12px; color: white; font-size: 14px; border-radius: 4px; }</style><style id="ms-consent-banner-main-styles">.w8hcgFksdo30C8w-bygqu{color:#000}.ydkKdaztSS0AeHWIeIHsQ a{color:#0067B8}.erL690_8JwUW-R4bJRcfl{background-color:#EBEBEB;border:none;color:#000}.erL690_8JwUW-R4bJRcfl:enabled:hover{color:#000;background-color:#DBDBDB;box-shadow:0px 4px 10px rgba(0,0,0,0.25);border:none}.erL690_8JwUW-R4bJRcfl:enabled:focus{background-color:#DBDBDB;box-shadow:0px 4px 10px rgba(0,0,0,0.25);border:2px solid #000}.erL690_8JwUW-R4bJRcfl:disabled{opacity:1;color:rgba(0,0,0,0.2);background-color:rgba(0,0,0,0.2);border:none}._1zNQOqxpBFSokeCLGi_hGr{border:none;background-color:#0067B8;color:#fff}._1zNQOqxpBFSokeCLGi_hGr:enabled:hover{color:#fff;background-color:#0067B8;box-shadow:0px 4px 10px rgba(0,0,0,0.25);border:none}._1zNQOqxpBFSokeCLGi_hGr:enabled:focus{background-color:#0067B8;box-shadow:0px 4px 10px rgba(0,0,0,0.25);border:2px solid #000}._1zNQOqxpBFSokeCLGi_hGr:disabled{opacity:1;color:rgba(0,0,0,0.2);background-color:rgba(0,120,215,0.2);border:none}._23tra1HsiiP6cT-Cka-ycB{position:relative;display:flex;z-index:9999;width:100%;background-color:#F2F2F2;justify-content:space-between;text-align:left}div[dir="rtl"]._23tra1HsiiP6cT-Cka-ycB{text-align:right}._1Upc2NjY8AlDn177YoVj0y{margin:0;padding-left:5%;padding-top:8px;padding-bottom:8px}div[dir="rtl"] ._1Upc2NjY8AlDn177YoVj0y{margin:0;padding:8px 5% 8px 0;float:none}._23tra1HsiiP6cT-Cka-ycB svg{fill:none;max-width:none;max-height:none}._1V_hlU-7jdtPiooHMu89BB{display:table-cell;padding:12px;width:24px;height:24px;font-family:Segoe UI, SegoeUI, Arial, sans-serif;font-style:normal;font-weight:normal;font-size:24px;line-height:0}.f6QKJD7fhSbnJLarTL-W-{display:table-cell;vertical-align:middle;padding:0;font-family:Segoe UI, SegoeUI, Arial, sans-serif;font-style:normal;font-weight:normal;font-size:13px;line-height:16px}.f6QKJD7fhSbnJLarTL-W- a{text-decoration:underline}._2j0fmugLb1FgYz6KPuB91w{display:inline-block;margin-left:5%;margin-right:5%;min-width:40%;min-width:calc((150px + 3 * 4px) * 2 + 150px);min-width:-webkit-fit-content;min-width:-moz-fit-content;min-width:fit-content;align-self:center;position:relative}._1XuCi2WhiqeWRUVp3pnFG3{margin:4px;padding:5px;min-width:150px;min-height:36px;vertical-align:top;cursor:pointer;font-family:Segoe UI, SegoeUI, Arial, sans-serif;font-style:normal;font-weight:normal;font-size:15px;line-height:20px;text-align:center}._1XuCi2WhiqeWRUVp3pnFG3:focus{box-sizing:border-box}._1XuCi2WhiqeWRUVp3pnFG3:disabled{cursor:not-allowed}._2bvsb3ubApyZ0UGoQA9O9T{display:block;position:fixed;z-index:10000;top:0;left:0;width:100%;height:100%;background-color:rgba(255,255,255,0.6);overflow:auto;text-align:left}div[dir="rtl"]._2bvsb3ubApyZ0UGoQA9O9T{text-align:right}div[dir="rtl"] ._2bvsb3ubApyZ0UGoQA9O9T{left:auto;right:0}.AFsJE948muYyzCMktdzuk{position:relative;top:8%;margin-bottom:40px;margin-left:auto;margin-right:auto;box-sizing:border-box;width:640px;background-color:#fff;border:1px solid #0067B8}._3kWyBRbW_dgnMiEyx06Fu4{float:right;z-index:1;margin:2px;padding:12px;border:none;cursor:pointer;font-family:Segoe UI, SegoeUI, Arial, sans-serif;font-style:normal;font-weight:normal;font-size:13px;line-height:13px;display:flex;align-items:center;text-align:center;color:#666;background-color:#fff}div[dir="rtl"] ._3kWyBRbW_dgnMiEyx06Fu4{margin:2px;padding:12px;float:left}.uCYvKvHXrhjNgflv1VqdD{position:static;margin-top:36px;margin-left:36px;margin-right:36px}._17pX1m9O_W--iZbDt3Ta5r{margin-top:0;margin-bottom:12px;font-family:Segoe UI, SegoeUI, Arial, sans-serif;font-style:normal;font-weight:600;font-size:20px;line-height:24px;text-transform:none}._1kBkHQ1V1wu3kl-YcLgUr6{height:446px;overflow:auto}._20_nXDf6uFs9Q6wxRXG-I-{margin-top:0;font-family:Segoe UI, SegoeUI, Arial, sans-serif;font-style:normal;font-weight:normal;font-size:15px;line-height:20px}._20_nXDf6uFs9Q6wxRXG-I- a{text-decoration:underline}dl._2a0NH_GDQEQe5Ynfo7suVH{margin-top:36px;margin-bottom:0;padding:0;list-style:none;text-transform:none}dt._3j_LCPv7fyXv3A8FIXVwZ4{margin-top:20px;float:none;font-family:Segoe UI, SegoeUI, Arial, sans-serif;font-style:normal;font-weight:600;font-size:18px;line-height:24px;list-style:none}.k-vxTGFbdq1aOZB2HHpjh{margin:0;padding:0;border:none}._2Bucyy75c_ogoU1g-liB5R{margin:0;padding:0;border-bottom:none;font-family:Segoe UI, SegoeUI, Arial, sans-serif;font-style:normal;font-weight:600;font-size:18px;line-height:24px;text-transform:none}._63gwfzV8dclrsl2cfd90r{display:inline-block;margin-top:0;margin-bottom:13px;font-family:Segoe UI, SegoeUI, Arial, sans-serif;font-style:normal;font-weight:normal;font-size:15px;line-height:20px}._1l8wM_4mRYGz3Iu7l3BZR7{display:block}._2UE03QS02aZGkslegN_F-i{display:inline-block;position:relative;left:5px;margin-bottom:13px;margin-right:34px;padding:3px}div[dir="rtl"] ._2UE03QS02aZGkslegN_F-i{margin:0 0 13px 34px;padding:3px;float:none}div[dir="rtl"] ._2UE03QS02aZGkslegN_F-i{left:auto;right:5px}._23tra1HsiiP6cT-Cka-ycB *::before,._2bvsb3ubApyZ0UGoQA9O9T *::before,._23tra1HsiiP6cT-Cka-ycB *::after,._2bvsb3ubApyZ0UGoQA9O9T *::after{box-sizing:inherit}._1HSFn0HzGo6w4ADApV8-c4{outline:2px solid rgba(0,0,0,0.8)}input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2{display:inline-block;position:relative;margin-top:0;margin-left:0;margin-right:0;height:0;width:0;border-radius:0;cursor:pointer;outline:none;box-sizing:border-box;-webkit-appearance:none;-moz-appearance:none;appearance:none}input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2+label::before{display:block;position:absolute;top:5px;left:3px;height:19px;width:19px;content:"";border-radius:50%;border:1px solid #000;background-color:#fff}div[dir="rtl"] input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2+label::before{left:auto;right:3px}input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2:not(:disabled)+label:hover::before{border:1px solid #0067B8}input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2:not(:disabled)+label:hover::after{display:block;position:absolute;top:10px;left:8px;height:9px;width:9px;content:"";border-radius:50%;background-color:rgba(0,0,0,0.8)}div[dir="rtl"] input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2:not(:disabled)+label:hover::after{left:auto;right:8px}input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2:not(:disabled)+label:focus::before{border:1px solid #0067B8}input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2:not(:disabled)+label:focus::after{display:block;position:absolute;top:10px;left:8px;height:9px;width:9px;content:"";border-radius:50%;background-color:#000}div[dir="rtl"] input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2:not(:disabled)+label:focus::after{left:auto;right:8px}input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2:checked+label::after{display:block;position:absolute;top:10px;left:8px;height:9px;width:9px;content:"";border-radius:50%;background-color:#000}div[dir="rtl"] input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2:checked+label::after{left:auto;right:8px}input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2:disabled+label{cursor:not-allowed}input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2:disabled+label::before{border:1px solid rgba(0,0,0,0.2);background-color:rgba(0,0,0,0.2)}._3RJzeL3l9Rl_lAQEm6VwdX{display:block;position:static;float:right;margin-top:0;margin-bottom:0;margin-left:19px;margin-right:0;padding-top:0;padding-bottom:0;padding-left:8px;padding-right:0;width:80%;width:calc(100% - 19px);font-family:Segoe UI, SegoeUI, Arial, sans-serif;font-style:normal;font-weight:normal;font-size:15px;line-height:20px;text-transform:none;cursor:pointer;box-sizing:border-box}div[dir="rtl"] ._3RJzeL3l9Rl_lAQEm6VwdX{margin:0 19px 0 0;padding:0 8px 0 0;float:left}.nohp3sIG12ZBhzcMnPala{margin-top:20px;margin-bottom:48px}._2uhaEsmeotZ3P-M0AXo2kF{padding:0;width:278px;height:36px;cursor:pointer;font-family:Segoe UI, SegoeUI, Arial, sans-serif;font-style:normal;font-weight:normal;font-size:15px;line-height:20px;text-align:center}._2uhaEsmeotZ3P-M0AXo2kF:focus{box-sizing:border-box}._2uhaEsmeotZ3P-M0AXo2kF:disabled{cursor:not-allowed}._3tOu1FJ59c_xz_PmI1lKV5{float:right;padding:0;width:278px;height:36px;cursor:pointer;font-family:Segoe UI, SegoeUI, Arial, sans-serif;font-style:normal;font-weight:normal;font-size:15px;line-height:20px;text-align:center}._3tOu1FJ59c_xz_PmI1lKV5:focus{box-sizing:border-box}._3tOu1FJ59c_xz_PmI1lKV5:disabled{cursor:not-allowed}div[dir="rtl"] ._3tOu1FJ59c_xz_PmI1lKV5{margin:0;padding:0;float:left}@media only screen and (max-width: 768px){._2j0fmugLb1FgYz6KPuB91w,._1Upc2NjY8AlDn177YoVj0y{padding-top:8px;padding-bottom:12px;padding-left:3.75%;padding-right:3.75%;margin:0;width:92.5%}._23tra1HsiiP6cT-Cka-ycB{display:block}._1XuCi2WhiqeWRUVp3pnFG3{margin-bottom:8px;margin-left:0;margin-right:0;width:100%}._2bvsb3ubApyZ0UGoQA9O9T{overflow:hidden}.AFsJE948muYyzCMktdzuk{top:1.8%;width:93.33%;height:96.4%;overflow:hidden}.uCYvKvHXrhjNgflv1VqdD{margin-top:24px;margin-left:24px;margin-right:24px;height:100%}._1kBkHQ1V1wu3kl-YcLgUr6{height:62%;height:calc(100% - 188px);min-height:50%}._2uhaEsmeotZ3P-M0AXo2kF{width:100%}._3tOu1FJ59c_xz_PmI1lKV5{margin-bottom:12px;margin-left:0;width:100%}div[dir="rtl"] ._3tOu1FJ59c_xz_PmI1lKV5{margin:0 0 12px 0;padding:0;float:none}}@media only screen and (max-width: 768px) and (orientation: landscape), only screen and (max-height: 260px), only screen and (max-width: 340px){.AFsJE948muYyzCMktdzuk{overflow:auto}}@media only screen and (max-height: 260px), only screen and (max-width: 340px){._1XuCi2WhiqeWRUVp3pnFG3{min-width:0}._3kWyBRbW_dgnMiEyx06Fu4{padding:3%}.uCYvKvHXrhjNgflv1VqdD{margin-top:3%;margin-left:3%;margin-right:3%}._17pX1m9O_W--iZbDt3Ta5r{margin-bottom:3%}._1kBkHQ1V1wu3kl-YcLgUr6{height:calc(79% - 64px)}.nohp3sIG12ZBhzcMnPala{margin-top:5%;margin-bottom:10%}._3tOu1FJ59c_xz_PmI1lKV5{margin-bottom:3%}div[dir="rtl"] ._3tOu1FJ59c_xz_PmI1lKV5{margin:0 0 3% 0;padding:0;float:none}}
+</style><style type="text/css" id="ms-consent-banner-theme-styles">._23tra1HsiiP6cT-Cka-ycB {
+            background-color: #F2F2F2 !important;
+        }.w8hcgFksdo30C8w-bygqu {
+            color: #000000 !important;
+        }.ydkKdaztSS0AeHWIeIHsQ a {
+            color: #0067B8 !important;
+        }._2bvsb3ubApyZ0UGoQA9O9T {
+            background-color: rgba(255, 255, 255, 0.6) !important;
+        }.AFsJE948muYyzCMktdzuk {
+            background-color: #FFFFFF !important;
+            border: 1px solid #0067B8 !important;
+        }._3kWyBRbW_dgnMiEyx06Fu4 {
+            color: #666666 !important;
+            background-color: #FFFFFF !important;
+        }._1zNQOqxpBFSokeCLGi_hGr {
+            border: none !important;
+            background-color: #0067B8 !important;
+            color: #FFFFFF !important;
+        }._1zNQOqxpBFSokeCLGi_hGr:enabled:hover {
+            color: #FFFFFF !important;
+            background-color: #0067B8 !important;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25) !important;
+            border: none !important;
+        }._1zNQOqxpBFSokeCLGi_hGr:enabled:focus {
+            background-color: #0067B8 !important;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25) !important;
+            border: 2px solid #000000 !important;
+        }._1zNQOqxpBFSokeCLGi_hGr:disabled {
+            opacity: 1 !important;
+            color: rgba(0, 0, 0, 0.2) !important;
+            background-color: rgba(0, 120, 215, 0.2) !important;
+            border: none !important;
+        }.erL690_8JwUW-R4bJRcfl {
+            border: none !important;
+            background-color: #EBEBEB !important;
+            color: #000000 !important;
+        }.erL690_8JwUW-R4bJRcfl:enabled:hover {
+            color: #000000 !important;
+            background-color: #DBDBDB !important;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25) !important;
+            border: none !important;
+        }.erL690_8JwUW-R4bJRcfl:enabled:focus {
+            background-color: #DBDBDB !important;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25) !important;
+            border: 2px solid #000000 !important;
+        }.erL690_8JwUW-R4bJRcfl:disabled {
+            opacity: 1 !important;
+            color: rgba(0, 0, 0, 0.2) !important;
+            background-color: rgba(0, 0, 0, 0.2) !important;
+            border: none !important;
+        }input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2 + label::before {
+            border: 1px solid #000000 !important;
+            background-color: #FFFFFF !important;
+        }._1HSFn0HzGo6w4ADApV8-c4 {
+            outline: 2px solid rgba(0, 0, 0, 0.8) !important;
+        }input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2:checked + label::after {
+            background-color: #000000 !important;
+        }input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2 + label:hover::before {
+            border: 1px solid #0067B8 !important;
+        }input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2 + label:hover::after {
+            background-color: rgba(0, 0, 0, 0.8) !important;
+        }input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2 + label:focus::before {
+            border: 1px solid #0067B8 !important;
+        }input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2 + label:focus::after {
+            background-color: #000000 !important;
+        }input[type="radio"]._1dp8Vp5m3HwAqGx8qBmFV2:disabled + label::before {
+            border: 1px solid rgba(0, 0, 0, 0.2) !important;
+            background-color: rgba(0, 0, 0, 0.2) !important;
+        }</style><style type="text/css">.lf-progress {
+  -webkit-appearance: none;
+  -moz-apperance: none;
+  width: 100%;
+  /* margin: 0 10px; */
+  height: 4px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.lf-progress:focus {
+  outline: none;
+  border: none;
+}
+.lf-progress::-moz-range-track {
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+}
+.lf-progress::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  height: 13px;
+  width: 13px;
+  border: 0;
+  border-radius: 50%;
+  background: #0fccce;
+  cursor: pointer;
+}
+.lf-progress::-moz-range-thumb {
+  -moz-appearance: none !important;
+  height: 13px;
+  width: 13px;
+  border: 0;
+  border-radius: 50%;
+  background: #0fccce;
+  cursor: pointer;
+}
+.lf-progress::-ms-track {
+  width: 100%;
+  height: 3px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+.lf-progress::-ms-fill-lower {
+  background: #ccc;
+  border-radius: 3px;
+}
+.lf-progress::-ms-fill-upper {
+  background: #ccc;
+  border-radius: 3px;
+}
+.lf-progress::-ms-thumb {
+  border: 0;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: #0fccce;
+  cursor: pointer;
+}
+.lf-progress:focus::-ms-fill-lower {
+  background: #ccc;
+}
+.lf-progress:focus::-ms-fill-upper {
+  background: #ccc;
+}
+.lf-player-container :focus {
+  outline: 0;
+}
+.lf-popover {
+  position: relative;
+}
+
+.lf-popover-content {
+  display: inline-block;
+  position: absolute;
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, -10px);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  transition: all 0.3s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+
+.lf-popover-content.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(0, 0px);
+}
+
+.lf-player-btn-container {
+  display: flex;
+  align-items: center;
+}
+.lf-player-btn {
+  cursor: pointer;
+  fill: #999;
+  width: 14px;
+}
+
+.lf-player-btn.active {
+  fill: #555;
+}
+
+.lf-popover {
+  position: relative;
+}
+
+.lf-popover-content {
+  display: inline-block;
+  position: absolute;
+  background-color: #ffffff;
+  opacity: 1;
+
+  transform: translate(0, -10px);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  transition: all 0.3s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+  padding: 10px;
+}
+
+.lf-popover-content.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(0, 0px);
+}
+
+.lf-arrow {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  bottom: -9px;
+  border-style: solid;
+  border-width: 10px 10px 0px 10px;
+}
+
+.lf-left-align,
+.lf-left-align .lfarrow {
+  left: 0;
+  right: unset;
+}
+
+.lf-right-align,
+.lf-right-align .lf-arrow {
+  right: 0;
+  left: unset;
+}
+
+.lf-text-input {
+  border: 1px #ccc solid;
+  border-radius: 5px;
+  padding: 3px;
+  width: 60px;
+  margin: 0;
+}
+
+.lf-color-picker {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 90px;
+}
+
+.lf-color-selectors {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.lf-color-component {
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.lf-color-component strong {
+  width: 40px;
+}
+
+.lf-color-component input[type='range'] {
+  margin: 0 0 0 10px;
+}
+
+.lf-color-component input[type='number'] {
+  width: 50px;
+  margin: 0 0 0 10px;
+}
+
+.lf-color-preview {
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 5px;
+}
+
+.lf-preview {
+  height: 60px;
+  width: 60px;
+}
+
+.lf-popover-snapshot {
+  width: 150px;
+}
+.lf-popover-snapshot h5 {
+  margin: 5px 0 10px 0;
+  font-size: 0.75rem;
+}
+.lf-popover-snapshot a {
+  display: block;
+  text-decoration: none;
+}
+.lf-popover-snapshot a:before {
+  content: '⥼';
+  margin-right: 5px;
+}
+.lf-popover-snapshot .lf-note {
+  display: block;
+  margin-top: 10px;
+  color: #999;
+}
+.lf-player-controls > div {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.lf-player-controls > div:first-child {
+  margin-left: 0px;
+}
+.lf-player-controls > div:last-child {
+  margin-right: 0px;
+}
+</style><style type="text/css">.lf-progress {
+  -webkit-appearance: none;
+  -moz-apperance: none;
+  width: 100%;
+  /* margin: 0 10px; */
+  height: 4px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.lf-progress:focus {
+  outline: none;
+  border: none;
+}
+.lf-progress::-moz-range-track {
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+}
+.lf-progress::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  height: 13px;
+  width: 13px;
+  border: 0;
+  border-radius: 50%;
+  background: #0fccce;
+  cursor: pointer;
+}
+.lf-progress::-moz-range-thumb {
+  -moz-appearance: none !important;
+  height: 13px;
+  width: 13px;
+  border: 0;
+  border-radius: 50%;
+  background: #0fccce;
+  cursor: pointer;
+}
+.lf-progress::-ms-track {
+  width: 100%;
+  height: 3px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+.lf-progress::-ms-fill-lower {
+  background: #ccc;
+  border-radius: 3px;
+}
+.lf-progress::-ms-fill-upper {
+  background: #ccc;
+  border-radius: 3px;
+}
+.lf-progress::-ms-thumb {
+  border: 0;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: #0fccce;
+  cursor: pointer;
+}
+.lf-progress:focus::-ms-fill-lower {
+  background: #ccc;
+}
+.lf-progress:focus::-ms-fill-upper {
+  background: #ccc;
+}
+.lf-player-container :focus {
+  outline: 0;
+}
+.lf-popover {
+  position: relative;
+}
+
+.lf-popover-content {
+  display: inline-block;
+  position: absolute;
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, -10px);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  transition: all 0.3s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+
+.lf-popover-content.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(0, 0px);
+}
+
+.lf-player-btn-container {
+  display: flex;
+  align-items: center;
+}
+.lf-player-btn {
+  cursor: pointer;
+  fill: #999;
+  width: 14px;
+}
+
+.lf-player-btn.active {
+  fill: #555;
+}
+
+.lf-popover {
+  position: relative;
+}
+
+.lf-popover-content {
+  display: inline-block;
+  position: absolute;
+  background-color: #ffffff;
+  opacity: 1;
+
+  transform: translate(0, -10px);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  transition: all 0.3s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+  padding: 10px;
+}
+
+.lf-popover-content.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(0, 0px);
+}
+
+.lf-arrow {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  bottom: -9px;
+  border-style: solid;
+  border-width: 10px 10px 0px 10px;
+}
+
+.lf-left-align,
+.lf-left-align .lfarrow {
+  left: 0;
+  right: unset;
+}
+
+.lf-right-align,
+.lf-right-align .lf-arrow {
+  right: 0;
+  left: unset;
+}
+
+.lf-text-input {
+  border: 1px #ccc solid;
+  border-radius: 5px;
+  padding: 3px;
+  width: 60px;
+  margin: 0;
+}
+
+.lf-color-picker {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 90px;
+}
+
+.lf-color-selectors {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.lf-color-component {
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.lf-color-component strong {
+  width: 40px;
+}
+
+.lf-color-component input[type='range'] {
+  margin: 0 0 0 10px;
+}
+
+.lf-color-component input[type='number'] {
+  width: 50px;
+  margin: 0 0 0 10px;
+}
+
+.lf-color-preview {
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 5px;
+}
+
+.lf-preview {
+  height: 60px;
+  width: 60px;
+}
+
+.lf-popover-snapshot {
+  width: 150px;
+}
+.lf-popover-snapshot h5 {
+  margin: 5px 0 10px 0;
+  font-size: 0.75rem;
+}
+.lf-popover-snapshot a {
+  display: block;
+  text-decoration: none;
+}
+.lf-popover-snapshot a:before {
+  content: '⥼';
+  margin-right: 5px;
+}
+.lf-popover-snapshot .lf-note {
+  display: block;
+  margin-top: 10px;
+  color: #999;
+}
+.lf-player-controls > div {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.lf-player-controls > div:first-child {
+  margin-left: 0px;
+}
+.lf-player-controls > div:last-child {
+  margin-right: 0px;
+}
+</style></head>
+
+<body class="osx modal-open" cz-shortcut-listen="true">
+	<!-- Setting theme here to avoid FOUC -->
+	<script>
+		function setTheme(themeName) {
+			if (themeName === 'dark') {
+				document.documentElement.removeAttribute('data-theme'); // dark is default, so no data-theme attribute needed
+			}
+
+			if (themeName === 'light') {
+				document.documentElement.setAttribute('data-theme', themeName);
+			}
+			return;
+		}
+
+		// Determine initial theme: user preference or system preference
+		let theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+		setTheme(theme); // Apply the initial theme
+
+		// Listen for changes in the system theme preference
+		window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+			if (!localStorage.getItem('theme')) { // Only if no user preference is saved
+				setTheme(e.matches ? 'dark' : 'light');
+			}
+		});
+	</script>
+
+	<div id="main">
+		<div class="navbar-fixed-container">
+			<div class="navbar navbar-inverse navbar-fixed-top affix" data-spy="affix" data-offset-top="1">
+				<div id="cookie-banner"><div id="wcpConsentBannerCtrl" class="_23tra1HsiiP6cT-Cka-ycB" dir="ltr" role="alert">
+        <div class="_1Upc2NjY8AlDn177YoVj0y">
+            <span class="_1V_hlU-7jdtPiooHMu89BB w8hcgFksdo30C8w-bygqu">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 44 44" width="24px" height="24px" fill="none" stroke="currentColor">
+          <circle cx="22" cy="22" r="20" stroke-width="2"></circle>
+          <line x1="22" x2="22" y1="18" y2="33" stroke-width="3"></line>
+          <line x1="22" x2="22" y1="12" y2="15" stroke-width="3"></line>
+        </svg>
+        </span> <!--  used for icon  -->
+            <p class="f6QKJD7fhSbnJLarTL-W- ydkKdaztSS0AeHWIeIHsQ w8hcgFksdo30C8w-bygqu">
+                We use optional cookies to improve your experience on our websites, such as through social media connections, and to display personalized advertising based on your online activity. If you reject optional cookies, only cookies necessary to provide you the services will be used. You may change your selection by clicking “Manage Cookies” at the bottom of the page. <a target="_blank" href="https://go.microsoft.com/fwlink/?LinkId=521839">Privacy Statement</a> <a target="_blank" href="https://aka.ms/3rdpartycookies">Third-Party Cookies</a>
+            </p>
+        </div>
+
+        <div class="_2j0fmugLb1FgYz6KPuB91w">
+            <button type="button" class="_1XuCi2WhiqeWRUVp3pnFG3 erL690_8JwUW-R4bJRcfl">Accept</button>
+            <button type="button" class="_1XuCi2WhiqeWRUVp3pnFG3 erL690_8JwUW-R4bJRcfl">Reject</button>
+            <button type="button" class="_1XuCi2WhiqeWRUVp3pnFG3 erL690_8JwUW-R4bJRcfl">Manage cookies</button>
+        </div>
+        </div></div>		<nav role="navigation" aria-label="Top Level">
+					<div class="container">
+						<div class="nav navbar-header">
+							<a class="navbar-brand" href="https://code.visualstudio.com/"><span>Visual Studio Code</span></a>
+							<div class="tabloopElement" tabindex="0" style="display: none;"></div><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Expand and Collapse Menu">
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="navbar-collapse collapse" style="max-height: min(60vh, 450px);">
+							<ul class="nav navbar-nav navbar-left">
+								<li class="active"><a id="nav-docs" href="https://code.visualstudio.com/docs">Docs</a></li>
+								<li><a id="nav-updates" href="https://code.visualstudio.com/updates">Updates</a></li>
+								<li><a id="nav-blogs" href="https://code.visualstudio.com/blogs">Blog</a></li>
+								<li><a id="nav-extend" href="https://code.visualstudio.com/api">API</a></li>
+								<li><a href="https://marketplace.visualstudio.com/VSCode" target="_blank" rel="noopener" id="nav-extensions">Extensions</a></li>
+								<li><a id="nav-mcp" href="https://code.visualstudio.com/mcp">MCP</a></li>
+							<li><a id="nav-faqs" href="https://code.visualstudio.com/docs/supporting/faq">FAQ</a></li>
+							<li class="search visible-xs visible-sm"><a href="https://code.visualstudio.com/Search">Search</a></li>
+						</ul>					<ul class="nav navbar-nav navbar-right" role="presentation">
+								<li>
+									<button type="button" class="theme-switch" id="theme-toggle">
+										<img class="theme-icon-light" src="./debug_commands_files/theme-light.svg" alt="Switch to the dark theme">
+										<img class="theme-icon-dark" src="./debug_commands_files/theme-dark.svg" alt="Switch to the light theme">
+									</button>
+								</li>
+								<li>
+									<a href="https://code.visualstudio.com/Search" title="Search" class="btn search-btn" id="nav-search" aria-label="Open search page">
+										<img class="search-icon-light" src="./debug_commands_files/search.svg" width="16px" height="16px" alt="">
+										<img class="search-icon-dark" src="./debug_commands_files/search-dark.svg" width="16px" height="16px" alt="">
+									</a>
+								</li>
+								<li class="search" role="presentation">
+									<div class="nav-search search-control" role="button" tabindex="0" aria-label="Open search dialog">
+										<div class="input-group" role="presentation">
+											<span class="input-group-btn">
+												<span class="btn search-icon-container" aria-hidden="true">
+													<img class="search-icon-dark" src="./debug_commands_files/search-dark.svg" alt="">
+													<img class="search-icon-light" src="./debug_commands_files/search.svg" alt="">
+												</span>
+											</span>
+											<input type="text" name="q" class="search-box form-control" placeholder="Search Docs" aria-hidden="true" tabindex="-1" readonly="">
+											<span class="search-shortcut-overlay" style="opacity: 0.7;">⌘ ⇧ P</span>
+										</div>
+									</div>						</li>
+								<!-- this was hiden in the home and download page, keeping it for now -->
+								<li><a class="link-button" href="https://code.visualstudio.com/Download" id="nav-download">
+										<span>Download</span></a><div class="tabloopElement" tabindex="0" style="display: none;"></div></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>		<div data-announcement-version="2025-08-25-dev-days" class="updates-banner">
+			<div class="container">
+				<p class="message"><a href="https://code.visualstudio.com/updates" id="banner-link-updates">Version 1.105</a> is now available! Read about the new features and fixes from September.</p>
+			</div>
+			<div tabindex="0" role="button" title="Dismiss this update" class="dismiss-btn" id="banner-dismiss-btn"><span class="sr-only">Dismiss this update</span><span aria-hidden="true" class="glyph-icon"></span></div>
+		</div>		<!-- This div wraps around the entire site -->
+		<!-- The body itself should already have a main tag -->
+		<div id="main-content">
+			<script>
+    function closeReportIssue() {
+        var element = document.getElementById('surveypopup');
+        element.parentElement.removeChild(element);
+    }
+
+    function reportIssue(tutorial, page) {
+        var div = document.createElement('div');
+        div.innerHTML = '<div id="surveypopup" class="overlay visible"><div class="surveypopup"><div id="surveytitle">Tell us more<a href="javascript:void(0)" onclick="closeReportIssue()">X</a></div><div id="surveydiv"><iframe frameBorder="0" scrolling="0" src="https://www.research.net/r/PWZWZ52?tutorial=' + tutorial + '&step=' + page + '"></iframe></div></div></div>';
+        document.body.appendChild(div.children[0]);
+    }
+</script>
+
+<div class="container body-content docs">
+    <div class="row">
+        <!-- left nav -->
+        <div class="col-xs-12 col-md-2 docs-navbar-container">
+            <nav id="docs-navbar" aria-label="Topics" class="docs-nav visible-md visible-lg">
+              <ul class="nav" id="main-nav">
+              <li>
+                <a class="docs-home" href="https://code.visualstudio.com/docs">Overview</a>
+              </li>
+              
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#setup-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Setup</a>
+              <ul id="setup-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/setup/setup-overview">Overview</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/setup/linux">Linux</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/setup/mac">macOS</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/setup/windows">Windows</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/setup/vscode-web">VS Code for the Web</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/setup/raspberry-pi">Raspberry Pi</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/setup/network">Network</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/setup/additional-components">Additional Components</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/setup/enterprise">Enterprise</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/setup/uninstall">Uninstall</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#getstarted-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Get Started</a>
+              <ul id="getstarted-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/getstarted/getting-started">VS Code Tutorial</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/getstarted/copilot-quickstart">Copilot Quickstart</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/getstarted/userinterface">User Interface</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/getstarted/personalize-vscode">Personalize VS Code</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/getstarted/extensions">Install Extensions</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/getstarted/tips-and-tricks">Tips and Tricks</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/getstarted/introvideos">Intro Videos</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#configure-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Configure</a>
+              <ul id="configure-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/configure/locales">Display Language</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/configure/custom-layout">Layout</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/configure/keybindings">Keyboard Shortcuts</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/configure/settings">Settings</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/configure/settings-sync">Settings Sync</a>
+                    </li>
+                      
+            <li class="panel">
+              <a class="area disabled" tabindex="-1" aria-disabled="true">Extensions</a>
+              <ul id="configure-extensions-articles" class="collapse in" aria-expanded="true">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/configure/extensions/extension-marketplace">Extension Marketplace</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/configure/extensions/extension-runtime-security">Extension Runtime Security</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                    
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/configure/themes">Themes</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/configure/profiles">Profiles</a>
+                    </li>
+                      
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#configure-accessibility-articles" data-toggle="collapse" aria-expanded="false">Accessibility</a>
+              <ul id="configure-accessibility-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/configure/accessibility/accessibility">Overview</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/configure/accessibility/voice">Voice Interactions</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                    
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/configure/command-line">Command Line Interface</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/configure/telemetry">Telemetry</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#editing-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Edit code</a>
+              <ul id="editing-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/editing/codebasics">Basic Editing</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/editing/intellisense">IntelliSense</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/editing/editingevolved">Code Navigation</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/editing/refactoring">Refactoring</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/editing/userdefinedsnippets">Snippets</a>
+                    </li>
+                      
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#editing-workspaces-articles" data-toggle="collapse" aria-expanded="false">Workspaces</a>
+              <ul id="editing-workspaces-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/editing/workspaces/workspaces">Overview</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/editing/workspaces/multi-root-workspaces">Multi-root Workspaces</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/editing/workspaces/workspace-trust">Workspace Trust</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                    
+              </ul>
+            </li>
+                
+            <li class="panel active expanded">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#debugtest-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="true">Build, Debug, Test</a>
+              <ul id="debugtest-articles" class="collapse in" aria-expanded="true">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/debugtest/tasks">Tasks</a>
+                    </li>
+                      
+                    <li class="active">
+                      <a href="https://code.visualstudio.com/docs/debugtest/debugging" aria-label="Current Page: Debugging">Debugging</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/debugtest/debugging-configuration">Debug Configuration</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/debugtest/testing">Testing</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/debugtest/port-forwarding">Port Forwarding</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#copilot-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">GitHub Copilot</a>
+              <ul id="copilot-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/overview">Overview</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/setup">Setup</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/getting-started">Quickstart</a>
+                    </li>
+                      
+            <li class="panel">
+              <a class="area disabled" tabindex="-1" aria-disabled="true">Chat</a>
+              <ul id="copilot-chat-articles" class="collapse in" aria-expanded="true">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/chat/copilot-chat">Chat Overview</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/chat/chat-sessions">Chat Sessions</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/chat/copilot-chat-context">Add Context</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/chat/review-code-edits">Review Edits</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/chat/chat-checkpoints">Checkpoints</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/chat/chat-tools">Tools</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/chat/inline-chat">Inline Chat</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/chat/prompt-examples">Prompt Examples</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/chat/chat-debug-view">Chat Debug View</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                    
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/ai-powered-suggestions">Code Completions</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/copilot-coding-agent">Copilot Coding Agent</a>
+                    </li>
+                      
+            <li class="panel">
+              <a class="area disabled" tabindex="-1" aria-disabled="true">Customization</a>
+              <ul id="copilot-customization-articles" class="collapse in" aria-expanded="true">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/customization/overview">Overview</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/customization/custom-instructions">Instructions</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/customization/prompt-files">Prompt Files</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/customization/custom-chat-modes">Custom Modes</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/customization/language-models">Language Models</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/customization/mcp-servers">MCP</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                    
+            <li class="panel">
+              <a class="area disabled" tabindex="-1" aria-disabled="true">Guides</a>
+              <ul id="copilot-guides-articles" class="collapse in" aria-expanded="true">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/guides/prompt-engineering-guide">Prompt Engineering</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/guides/context-engineering-guide">Context Engineering</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/guides/notebooks-with-ai">Edit Notebooks with AI</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/guides/test-with-copilot">Test with AI</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/guides/debug-with-copilot">Debug with AI</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/guides/mcp-developer-guide">MCP Dev Guide</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                    
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/copilot-smart-actions">Smart Actions</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/copilot-tips-and-tricks">Tips and Tricks</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/security">Security</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/faq">FAQ</a>
+                    </li>
+                      
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#copilot-reference-articles" data-toggle="collapse" aria-expanded="false">Reference</a>
+              <ul id="copilot-reference-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/reference/copilot-vscode-features">Cheat Sheet</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/reference/copilot-settings">Settings Reference</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/copilot/reference/workspace-context">Workspace Context</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                    
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#sourcecontrol-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Source Control</a>
+              <ul id="sourcecontrol-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/sourcecontrol/overview">Overview</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/sourcecontrol/intro-to-git">Introduction to Git</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/sourcecontrol/github">Collaborate on GitHub</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/sourcecontrol/faq">FAQ</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#terminal-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Terminal</a>
+              <ul id="terminal-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/terminal/getting-started">Getting Started Tutorial</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/terminal/basics">Terminal Basics</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/terminal/profiles">Terminal Profiles</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/terminal/shell-integration">Shell Integration</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/terminal/appearance">Appearance</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/terminal/advanced">Advanced</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#languages-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Languages</a>
+              <ul id="languages-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/overview">Overview</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/javascript">JavaScript</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/json">JSON</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/html">HTML</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/emmet">Emmet</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/css">CSS, SCSS and Less</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/typescript">TypeScript</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/markdown">Markdown</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/powershell">PowerShell</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/cpp">C++</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/java">Java</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/php">PHP</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/python">Python</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/julia">Julia</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/r">R</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/ruby">Ruby</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/rust">Rust</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/go">Go</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/tsql">T-SQL</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/csharp">C#</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/dotnet">.NET</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/polyglot">Polyglot</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/languages/swift">Swift</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#nodejs-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Node.js / JavaScript</a>
+              <ul id="nodejs-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/nodejs/working-with-javascript">Working with JavaScript</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/nodejs/nodejs-tutorial">Node.js Tutorial</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/nodejs/nodejs-debugging">Node.js Debugging</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/nodejs/nodejs-deployment">Deploy Node.js Apps</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/nodejs/browser-debugging">Browser Debugging</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/nodejs/angular-tutorial">Angular Tutorial</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/nodejs/reactjs-tutorial">React Tutorial</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/nodejs/vuejs-tutorial">Vue Tutorial</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/nodejs/debugging-recipes">Debugging Recipes</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/nodejs/profiling">Performance Profiling</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/nodejs/extensions">Extensions</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#typescript-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">TypeScript</a>
+              <ul id="typescript-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/typescript/typescript-tutorial">Tutorial</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/typescript/typescript-compiling">Compiling</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/typescript/typescript-editing">Editing</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/typescript/typescript-refactoring">Refactoring</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/typescript/typescript-debugging">Debugging</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#python-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Python</a>
+              <ul id="python-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/python-quick-start">Quick Start</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/python-tutorial">Tutorial</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/run">Run Python Code</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/editing">Editing</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/linting">Linting</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/formatting">Formatting</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/debugging">Debugging</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/environments">Environments</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/testing">Testing</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/jupyter-support-py">Python Interactive</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/tutorial-django">Django Tutorial</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/tutorial-fastapi">FastAPI Tutorial</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/tutorial-flask">Flask Tutorial</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/tutorial-create-containers">Create Containers</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/python-on-azure">Deploy Python Apps</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/python-web">Python in the Web</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/python/settings-reference">Settings Reference</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#java-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Java</a>
+              <ul id="java-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/java/java-tutorial">Getting Started</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/java/java-editing">Navigate and Edit</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/java/java-refactoring">Refactoring</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/java/java-linting">Formatting and Linting</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/java/java-project">Project Management</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/java/java-build">Build Tools</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/java/java-debugging">Run and Debug</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/java/java-testing">Testing</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/java/java-spring-boot">Spring Boot</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/java/java-app-mod">Modernizing Java Apps</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/java/java-tomcat-jetty">Application Servers</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/java/java-on-azure">Deploy Java Apps</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/java/java-gui">GUI Applications</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/java/extensions">Extensions</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/java/java-faq">FAQ</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#cpp-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">C++</a>
+              <ul id="cpp-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/introvideos-cpp">Intro Videos</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/config-linux">GCC on Linux</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/config-mingw">GCC on Windows</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/config-wsl">GCC on Windows Subsystem for Linux</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/config-clang-mac">Clang on macOS</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/config-msvc">Microsoft C++ on Windows</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/build-with-cmake">Build with CMake</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/cmake-linux">CMake Tools on Linux</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/cmake-quickstart">CMake Quick Start</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/cpp-ide">Editing and Navigating</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/cpp-debug">Debugging</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/launch-json-reference">Configure Debugging</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/cpp-refactoring">Refactoring</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/customize-cpp-settings">Settings Reference</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/configure-intellisense">Configure IntelliSense</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/configure-intellisense-crosscompilation">Configure IntelliSense for Cross-Compiling</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/cpp/faq-cpp">FAQ</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#csharp-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">C#</a>
+              <ul id="csharp-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/csharp/introvideos-csharp">Intro Videos</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/csharp/get-started">Get Started</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/csharp/navigate-edit">Navigate and Edit</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/csharp/intellicode">IntelliCode</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/csharp/refactoring">Refactoring</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/csharp/formatting-linting">Formatting and Linting</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/csharp/project-management">Project Management</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/csharp/build-tools">Build Tools</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/csharp/package-management">Package Management</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/csharp/debugging">Run and Debug</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/csharp/testing">Testing</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/csharp/cs-dev-kit-faq">FAQ</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#containers-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Container Tools</a>
+              <ul id="containers-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/containers/overview">Overview</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/containers/quickstart-node">Node.js</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/containers/quickstart-python">Python</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/containers/quickstart-aspnet-core">ASP.NET Core</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/containers/debug-common">Debug</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/containers/docker-compose">Docker Compose</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/containers/quickstart-container-registries">Registries</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/containers/app-service">Deploy to Azure</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/containers/choosing-dev-environment">Choose a Dev Environment</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/containers/reference">Customize</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/containers/bridge-to-kubernetes">Develop with Kubernetes</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/containers/troubleshooting">Tips and Tricks</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#datascience-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Data Science</a>
+              <ul id="datascience-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/datascience/overview">Overview</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks">Jupyter Notebooks</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/datascience/data-science-tutorial">Data Science Tutorial</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/datascience/python-interactive">Python Interactive</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/datascience/data-wrangler-quick-start">Data Wrangler Quick Start</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/datascience/data-wrangler">Data Wrangler</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/datascience/pytorch-support">PyTorch Support</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/datascience/azure-machine-learning">Azure Machine Learning</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/datascience/jupyter-kernel-management">Manage Jupyter Kernels</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/datascience/notebooks-web">Jupyter Notebooks on the Web</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#intelligentapps-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Intelligent Apps</a>
+              <ul id="intelligentapps-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/intelligentapps/overview">AI Toolkit Overview</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/intelligentapps/models">Models</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/intelligentapps/playground">Playground</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/intelligentapps/agentbuilder">Agent Builder</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/intelligentapps/bulkrun">Bulk Run</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/intelligentapps/evaluation">Evaluation</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/intelligentapps/finetune">Fine-tune</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/intelligentapps/modelconversion">Model Conversion</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/intelligentapps/tracing">Tracing</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/intelligentapps/faq">FAQ</a>
+                    </li>
+                      
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#intelligentapps-reference-articles" data-toggle="collapse" aria-expanded="false">Reference</a>
+              <ul id="intelligentapps-reference-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/intelligentapps/reference/FileStructure">File Structure</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/intelligentapps/reference/ManualModelConversion">Manual Model Conversion</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/intelligentapps/reference/ManualConversionOnGPU">Manual Model Conversion On GPU</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/intelligentapps/reference/SetupWithoutAITK">Setup Environment Without AI Toolkit</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/intelligentapps/reference/TemplateProject">Template Project</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                    
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#azure-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Azure</a>
+              <ul id="azure-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/azure/overview">Overview</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/azure/gettingstarted">Getting Started</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/azure/resourcesextension">Resources View</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/azure/deployment">Deployment</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/azure/vscodeforweb">VS Code for the Web - Azure</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/azure/containers">Containers</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/azure/aksextensions">Azure Kubernetes Service</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/azure/kubernetes">Kubernetes</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/azure/mongodb">MongoDB</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/azure/remote-debugging">Remote Debugging for Node.js</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#remote-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Remote</a>
+              <ul id="remote-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/remote/remote-overview">Overview</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/remote/ssh">SSH</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/remote/dev-containers">Dev Containers</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/remote/wsl">Windows Subsystem for Linux</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/remote/codespaces">GitHub Codespaces</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/remote/vscode-server">VS Code Server</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/remote/tunnels">Tunnels</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/remote/ssh-tutorial">SSH Tutorial</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/remote/wsl-tutorial">WSL Tutorial</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/remote/troubleshooting">Tips and Tricks</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/remote/faq">FAQ</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#devcontainers-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Dev Containers</a>
+              <ul id="devcontainers-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/devcontainers/containers">Overview</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/devcontainers/tutorial">Tutorial</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/devcontainers/attach-container">Attach to Container</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/devcontainers/create-dev-container">Create Dev Container</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/devcontainers/containers-advanced">Advanced Containers</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/devcontainers/devcontainerjson-reference">devcontainer.json</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/devcontainers/devcontainer-cli">Dev Container CLI</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/devcontainers/tips-and-tricks">Tips and Tricks</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/devcontainers/faq">FAQ</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+            <li class="panel collapsed">
+              <a class="area" role="button" href="https://code.visualstudio.com/docs/debugtest/debugging#reference-articles" data-parent="#main-nav" data-toggle="collapse" aria-expanded="false">Reference</a>
+              <ul id="reference-articles" class="collapse " aria-expanded="false">
+            
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/reference/default-keybindings">Default Keyboard Shortcuts</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/reference/default-settings">Default Settings</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/reference/variables-reference">Substitution Variables</a>
+                    </li>
+                      
+                    <li>
+                      <a href="https://code.visualstudio.com/docs/reference/tasks-appendix">Tasks Schema</a>
+                    </li>
+                      
+              </ul>
+            </li>
+                
+              </ul>
+            </nav>
+            
+            <nav id="small-nav" aria-label="Topics" class="docs-nav hidden-md hidden-lg">
+              <label class="faux-h4" for="small-nav-dropdown">Topics</label>
+              <select id="small-nav-dropdown" aria-label="topics">
+                <option value="/docs">Overview</option>
+            
+              <optgroup label="Setup">
+            
+                    <option value="/docs/setup/setup-overview">Overview</option>
+                    
+                    <option value="/docs/setup/linux">Linux</option>
+                    
+                    <option value="/docs/setup/mac">macOS</option>
+                    
+                    <option value="/docs/setup/windows">Windows</option>
+                    
+                    <option value="/docs/setup/vscode-web">VS Code for the Web</option>
+                    
+                    <option value="/docs/setup/raspberry-pi">Raspberry Pi</option>
+                    
+                    <option value="/docs/setup/network">Network</option>
+                    
+                    <option value="/docs/setup/additional-components">Additional Components</option>
+                    
+                    <option value="/docs/setup/enterprise">Enterprise</option>
+                    
+                    <option value="/docs/setup/uninstall">Uninstall</option>
+                    
+              </optgroup>
+              
+              <optgroup label="Get Started">
+            
+                    <option value="/docs/getstarted/getting-started">VS Code Tutorial</option>
+                    
+                    <option value="/docs/getstarted/copilot-quickstart">Copilot Quickstart</option>
+                    
+                    <option value="/docs/getstarted/userinterface">User Interface</option>
+                    
+                    <option value="/docs/getstarted/personalize-vscode">Personalize VS Code</option>
+                    
+                    <option value="/docs/getstarted/extensions">Install Extensions</option>
+                    
+                    <option value="/docs/getstarted/tips-and-tricks">Tips and Tricks</option>
+                    
+                    <option value="/docs/getstarted/introvideos">Intro Videos</option>
+                    
+              </optgroup>
+              
+              <optgroup label="Configure">
+            
+                    <option value="/docs/configure/locales">Display Language</option>
+                    
+                    <option value="/docs/configure/custom-layout">Layout</option>
+                    
+                    <option value="/docs/configure/keybindings">Keyboard Shortcuts</option>
+                    
+                    <option value="/docs/configure/settings">Settings</option>
+                    
+                    <option value="/docs/configure/settings-sync">Settings Sync</option>
+                    
+                    </optgroup><optgroup label="Configure - Extensions">
+            
+                      <option value="/docs/configure/extensions/extension-marketplace">Extension Marketplace</option>
+                      
+                      <option value="/docs/configure/extensions/extension-runtime-security">Extension Runtime Security</option>
+                      
+                    </optgroup>
+            
+                    <option value="/docs/configure/themes">Themes</option>
+                    
+                    <option value="/docs/configure/profiles">Profiles</option>
+                    
+                    <optgroup label="Configure - Accessibility">
+            
+                      <option value="/docs/configure/accessibility/accessibility">Overview</option>
+                      
+                      <option value="/docs/configure/accessibility/voice">Voice Interactions</option>
+                      
+                    </optgroup>
+            
+                    <option value="/docs/configure/command-line">Command Line Interface</option>
+                    
+                    <option value="/docs/configure/telemetry">Telemetry</option>
+                    
+              
+              
+              <optgroup label="Edit code">
+            
+                    <option value="/docs/editing/codebasics">Basic Editing</option>
+                    
+                    <option value="/docs/editing/intellisense">IntelliSense</option>
+                    
+                    <option value="/docs/editing/editingevolved">Code Navigation</option>
+                    
+                    <option value="/docs/editing/refactoring">Refactoring</option>
+                    
+                    <option value="/docs/editing/userdefinedsnippets">Snippets</option>
+                    
+                    </optgroup><optgroup label="Edit code - Workspaces">
+            
+                      <option value="/docs/editing/workspaces/workspaces">Overview</option>
+                      
+                      <option value="/docs/editing/workspaces/multi-root-workspaces">Multi-root Workspaces</option>
+                      
+                      <option value="/docs/editing/workspaces/workspace-trust">Workspace Trust</option>
+                      
+                    </optgroup>
+            
+              
+              
+              <optgroup label="Build, Debug, Test">
+            
+                    <option value="/docs/debugtest/tasks">Tasks</option>
+                    
+                    <option value="/docs/debugtest/debugging" selected="">Debugging</option>
+                    
+                    <option value="/docs/debugtest/debugging-configuration">Debug Configuration</option>
+                    
+                    <option value="/docs/debugtest/testing">Testing</option>
+                    
+                    <option value="/docs/debugtest/port-forwarding">Port Forwarding</option>
+                    
+              </optgroup>
+              
+              <optgroup label="GitHub Copilot">
+            
+                    <option value="/docs/copilot/overview">Overview</option>
+                    
+                    <option value="/docs/copilot/setup">Setup</option>
+                    
+                    <option value="/docs/copilot/getting-started">Quickstart</option>
+                    
+                    </optgroup><optgroup label="GitHub Copilot - Chat">
+            
+                      <option value="/docs/copilot/chat/copilot-chat">Chat Overview</option>
+                      
+                      <option value="/docs/copilot/chat/chat-sessions">Chat Sessions</option>
+                      
+                      <option value="/docs/copilot/chat/copilot-chat-context">Add Context</option>
+                      
+                      <option value="/docs/copilot/chat/review-code-edits">Review Edits</option>
+                      
+                      <option value="/docs/copilot/chat/chat-checkpoints">Checkpoints</option>
+                      
+                      <option value="/docs/copilot/chat/chat-tools">Tools</option>
+                      
+                      <option value="/docs/copilot/chat/inline-chat">Inline Chat</option>
+                      
+                      <option value="/docs/copilot/chat/prompt-examples">Prompt Examples</option>
+                      
+                      <option value="/docs/copilot/chat/chat-debug-view">Chat Debug View</option>
+                      
+                    </optgroup>
+            
+                    <option value="/docs/copilot/ai-powered-suggestions">Code Completions</option>
+                    
+                    <option value="/docs/copilot/copilot-coding-agent">Copilot Coding Agent</option>
+                    
+                    <optgroup label="GitHub Copilot - Customization">
+            
+                      <option value="/docs/copilot/customization/overview">Overview</option>
+                      
+                      <option value="/docs/copilot/customization/custom-instructions">Instructions</option>
+                      
+                      <option value="/docs/copilot/customization/prompt-files">Prompt Files</option>
+                      
+                      <option value="/docs/copilot/customization/custom-chat-modes">Custom Modes</option>
+                      
+                      <option value="/docs/copilot/customization/language-models">Language Models</option>
+                      
+                      <option value="/docs/copilot/customization/mcp-servers">MCP</option>
+                      
+                    </optgroup>
+            
+                    <optgroup label="GitHub Copilot - Guides">
+            
+                      <option value="/docs/copilot/guides/prompt-engineering-guide">Prompt Engineering</option>
+                      
+                      <option value="/docs/copilot/guides/context-engineering-guide">Context Engineering</option>
+                      
+                      <option value="/docs/copilot/guides/notebooks-with-ai">Edit Notebooks with AI</option>
+                      
+                      <option value="/docs/copilot/guides/test-with-copilot">Test with AI</option>
+                      
+                      <option value="/docs/copilot/guides/debug-with-copilot">Debug with AI</option>
+                      
+                      <option value="/docs/copilot/guides/mcp-developer-guide">MCP Dev Guide</option>
+                      
+                    </optgroup>
+            
+                    <option value="/docs/copilot/copilot-smart-actions">Smart Actions</option>
+                    
+                    <option value="/docs/copilot/copilot-tips-and-tricks">Tips and Tricks</option>
+                    
+                    <option value="/docs/copilot/security">Security</option>
+                    
+                    <option value="/docs/copilot/faq">FAQ</option>
+                    
+                    <optgroup label="GitHub Copilot - Reference">
+            
+                      <option value="/docs/copilot/reference/copilot-vscode-features">Cheat Sheet</option>
+                      
+                      <option value="/docs/copilot/reference/copilot-settings">Settings Reference</option>
+                      
+                      <option value="/docs/copilot/reference/workspace-context">Workspace Context</option>
+                      
+                    </optgroup>
+            
+              
+              
+              <optgroup label="Source Control">
+            
+                    <option value="/docs/sourcecontrol/overview">Overview</option>
+                    
+                    <option value="/docs/sourcecontrol/intro-to-git">Introduction to Git</option>
+                    
+                    <option value="/docs/sourcecontrol/github">Collaborate on GitHub</option>
+                    
+                    <option value="/docs/sourcecontrol/faq">FAQ</option>
+                    
+              </optgroup>
+              
+              <optgroup label="Terminal">
+            
+                    <option value="/docs/terminal/getting-started">Getting Started Tutorial</option>
+                    
+                    <option value="/docs/terminal/basics">Terminal Basics</option>
+                    
+                    <option value="/docs/terminal/profiles">Terminal Profiles</option>
+                    
+                    <option value="/docs/terminal/shell-integration">Shell Integration</option>
+                    
+                    <option value="/docs/terminal/appearance">Appearance</option>
+                    
+                    <option value="/docs/terminal/advanced">Advanced</option>
+                    
+              </optgroup>
+              
+              <optgroup label="Languages">
+            
+                    <option value="/docs/languages/overview">Overview</option>
+                    
+                    <option value="/docs/languages/javascript">JavaScript</option>
+                    
+                    <option value="/docs/languages/json">JSON</option>
+                    
+                    <option value="/docs/languages/html">HTML</option>
+                    
+                    <option value="/docs/languages/emmet">Emmet</option>
+                    
+                    <option value="/docs/languages/css">CSS, SCSS and Less</option>
+                    
+                    <option value="/docs/languages/typescript">TypeScript</option>
+                    
+                    <option value="/docs/languages/markdown">Markdown</option>
+                    
+                    <option value="/docs/languages/powershell">PowerShell</option>
+                    
+                    <option value="/docs/languages/cpp">C++</option>
+                    
+                    <option value="/docs/languages/java">Java</option>
+                    
+                    <option value="/docs/languages/php">PHP</option>
+                    
+                    <option value="/docs/languages/python">Python</option>
+                    
+                    <option value="/docs/languages/julia">Julia</option>
+                    
+                    <option value="/docs/languages/r">R</option>
+                    
+                    <option value="/docs/languages/ruby">Ruby</option>
+                    
+                    <option value="/docs/languages/rust">Rust</option>
+                    
+                    <option value="/docs/languages/go">Go</option>
+                    
+                    <option value="/docs/languages/tsql">T-SQL</option>
+                    
+                    <option value="/docs/languages/csharp">C#</option>
+                    
+                    <option value="/docs/languages/dotnet">.NET</option>
+                    
+                    <option value="/docs/languages/polyglot">Polyglot</option>
+                    
+                    <option value="/docs/languages/swift">Swift</option>
+                    
+              </optgroup>
+              
+              <optgroup label="Node.js / JavaScript">
+            
+                    <option value="/docs/nodejs/working-with-javascript">Working with JavaScript</option>
+                    
+                    <option value="/docs/nodejs/nodejs-tutorial">Node.js Tutorial</option>
+                    
+                    <option value="/docs/nodejs/nodejs-debugging">Node.js Debugging</option>
+                    
+                    <option value="/docs/nodejs/nodejs-deployment">Deploy Node.js Apps</option>
+                    
+                    <option value="/docs/nodejs/browser-debugging">Browser Debugging</option>
+                    
+                    <option value="/docs/nodejs/angular-tutorial">Angular Tutorial</option>
+                    
+                    <option value="/docs/nodejs/reactjs-tutorial">React Tutorial</option>
+                    
+                    <option value="/docs/nodejs/vuejs-tutorial">Vue Tutorial</option>
+                    
+                    <option value="/docs/nodejs/debugging-recipes">Debugging Recipes</option>
+                    
+                    <option value="/docs/nodejs/profiling">Performance Profiling</option>
+                    
+                    <option value="/docs/nodejs/extensions">Extensions</option>
+                    
+              </optgroup>
+              
+              <optgroup label="TypeScript">
+            
+                    <option value="/docs/typescript/typescript-tutorial">Tutorial</option>
+                    
+                    <option value="/docs/typescript/typescript-compiling">Compiling</option>
+                    
+                    <option value="/docs/typescript/typescript-editing">Editing</option>
+                    
+                    <option value="/docs/typescript/typescript-refactoring">Refactoring</option>
+                    
+                    <option value="/docs/typescript/typescript-debugging">Debugging</option>
+                    
+              </optgroup>
+              
+              <optgroup label="Python">
+            
+                    <option value="/docs/python/python-quick-start">Quick Start</option>
+                    
+                    <option value="/docs/python/python-tutorial">Tutorial</option>
+                    
+                    <option value="/docs/python/run">Run Python Code</option>
+                    
+                    <option value="/docs/python/editing">Editing</option>
+                    
+                    <option value="/docs/python/linting">Linting</option>
+                    
+                    <option value="/docs/python/formatting">Formatting</option>
+                    
+                    <option value="/docs/python/debugging">Debugging</option>
+                    
+                    <option value="/docs/python/environments">Environments</option>
+                    
+                    <option value="/docs/python/testing">Testing</option>
+                    
+                    <option value="/docs/python/jupyter-support-py">Python Interactive</option>
+                    
+                    <option value="/docs/python/tutorial-django">Django Tutorial</option>
+                    
+                    <option value="/docs/python/tutorial-fastapi">FastAPI Tutorial</option>
+                    
+                    <option value="/docs/python/tutorial-flask">Flask Tutorial</option>
+                    
+                    <option value="/docs/python/tutorial-create-containers">Create Containers</option>
+                    
+                    <option value="/docs/python/python-on-azure">Deploy Python Apps</option>
+                    
+                    <option value="/docs/python/python-web">Python in the Web</option>
+                    
+                    <option value="/docs/python/settings-reference">Settings Reference</option>
+                    
+              </optgroup>
+              
+              <optgroup label="Java">
+            
+                    <option value="/docs/java/java-tutorial">Getting Started</option>
+                    
+                    <option value="/docs/java/java-editing">Navigate and Edit</option>
+                    
+                    <option value="/docs/java/java-refactoring">Refactoring</option>
+                    
+                    <option value="/docs/java/java-linting">Formatting and Linting</option>
+                    
+                    <option value="/docs/java/java-project">Project Management</option>
+                    
+                    <option value="/docs/java/java-build">Build Tools</option>
+                    
+                    <option value="/docs/java/java-debugging">Run and Debug</option>
+                    
+                    <option value="/docs/java/java-testing">Testing</option>
+                    
+                    <option value="/docs/java/java-spring-boot">Spring Boot</option>
+                    
+                    <option value="/docs/java/java-app-mod">Modernizing Java Apps</option>
+                    
+                    <option value="/docs/java/java-tomcat-jetty">Application Servers</option>
+                    
+                    <option value="/docs/java/java-on-azure">Deploy Java Apps</option>
+                    
+                    <option value="/docs/java/java-gui">GUI Applications</option>
+                    
+                    <option value="/docs/java/extensions">Extensions</option>
+                    
+                    <option value="/docs/java/java-faq">FAQ</option>
+                    
+              </optgroup>
+              
+              <optgroup label="C++">
+            
+                    <option value="/docs/cpp/introvideos-cpp">Intro Videos</option>
+                    
+                    <option value="/docs/cpp/config-linux">GCC on Linux</option>
+                    
+                    <option value="/docs/cpp/config-mingw">GCC on Windows</option>
+                    
+                    <option value="/docs/cpp/config-wsl">GCC on Windows Subsystem for Linux</option>
+                    
+                    <option value="/docs/cpp/config-clang-mac">Clang on macOS</option>
+                    
+                    <option value="/docs/cpp/config-msvc">Microsoft C++ on Windows</option>
+                    
+                    <option value="/docs/cpp/build-with-cmake">Build with CMake</option>
+                    
+                    <option value="/docs/cpp/cmake-linux">CMake Tools on Linux</option>
+                    
+                    <option value="/docs/cpp/cmake-quickstart">CMake Quick Start</option>
+                    
+                    <option value="/docs/cpp/cpp-ide">Editing and Navigating</option>
+                    
+                    <option value="/docs/cpp/cpp-debug">Debugging</option>
+                    
+                    <option value="/docs/cpp/launch-json-reference">Configure Debugging</option>
+                    
+                    <option value="/docs/cpp/cpp-refactoring">Refactoring</option>
+                    
+                    <option value="/docs/cpp/customize-cpp-settings">Settings Reference</option>
+                    
+                    <option value="/docs/cpp/configure-intellisense">Configure IntelliSense</option>
+                    
+                    <option value="/docs/cpp/configure-intellisense-crosscompilation">Configure IntelliSense for Cross-Compiling</option>
+                    
+                    <option value="/docs/cpp/faq-cpp">FAQ</option>
+                    
+              </optgroup>
+              
+              <optgroup label="C#">
+            
+                    <option value="/docs/csharp/introvideos-csharp">Intro Videos</option>
+                    
+                    <option value="/docs/csharp/get-started">Get Started</option>
+                    
+                    <option value="/docs/csharp/navigate-edit">Navigate and Edit</option>
+                    
+                    <option value="/docs/csharp/intellicode">IntelliCode</option>
+                    
+                    <option value="/docs/csharp/refactoring">Refactoring</option>
+                    
+                    <option value="/docs/csharp/formatting-linting">Formatting and Linting</option>
+                    
+                    <option value="/docs/csharp/project-management">Project Management</option>
+                    
+                    <option value="/docs/csharp/build-tools">Build Tools</option>
+                    
+                    <option value="/docs/csharp/package-management">Package Management</option>
+                    
+                    <option value="/docs/csharp/debugging">Run and Debug</option>
+                    
+                    <option value="/docs/csharp/testing">Testing</option>
+                    
+                    <option value="/docs/csharp/cs-dev-kit-faq">FAQ</option>
+                    
+              </optgroup>
+              
+              <optgroup label="Container Tools">
+            
+                    <option value="/docs/containers/overview">Overview</option>
+                    
+                    <option value="/docs/containers/quickstart-node">Node.js</option>
+                    
+                    <option value="/docs/containers/quickstart-python">Python</option>
+                    
+                    <option value="/docs/containers/quickstart-aspnet-core">ASP.NET Core</option>
+                    
+                    <option value="/docs/containers/debug-common">Debug</option>
+                    
+                    <option value="/docs/containers/docker-compose">Docker Compose</option>
+                    
+                    <option value="/docs/containers/quickstart-container-registries">Registries</option>
+                    
+                    <option value="/docs/containers/app-service">Deploy to Azure</option>
+                    
+                    <option value="/docs/containers/choosing-dev-environment">Choose a Dev Environment</option>
+                    
+                    <option value="/docs/containers/reference">Customize</option>
+                    
+                    <option value="/docs/containers/bridge-to-kubernetes">Develop with Kubernetes</option>
+                    
+                    <option value="/docs/containers/troubleshooting">Tips and Tricks</option>
+                    
+              </optgroup>
+              
+              <optgroup label="Data Science">
+            
+                    <option value="/docs/datascience/overview">Overview</option>
+                    
+                    <option value="/docs/datascience/jupyter-notebooks">Jupyter Notebooks</option>
+                    
+                    <option value="/docs/datascience/data-science-tutorial">Data Science Tutorial</option>
+                    
+                    <option value="/docs/datascience/python-interactive">Python Interactive</option>
+                    
+                    <option value="/docs/datascience/data-wrangler-quick-start">Data Wrangler Quick Start</option>
+                    
+                    <option value="/docs/datascience/data-wrangler">Data Wrangler</option>
+                    
+                    <option value="/docs/datascience/pytorch-support">PyTorch Support</option>
+                    
+                    <option value="/docs/datascience/azure-machine-learning">Azure Machine Learning</option>
+                    
+                    <option value="/docs/datascience/jupyter-kernel-management">Manage Jupyter Kernels</option>
+                    
+                    <option value="/docs/datascience/notebooks-web">Jupyter Notebooks on the Web</option>
+                    
+              </optgroup>
+              
+              <optgroup label="Intelligent Apps">
+            
+                    <option value="/docs/intelligentapps/overview">AI Toolkit Overview</option>
+                    
+                    <option value="/docs/intelligentapps/models">Models</option>
+                    
+                    <option value="/docs/intelligentapps/playground">Playground</option>
+                    
+                    <option value="/docs/intelligentapps/agentbuilder">Agent Builder</option>
+                    
+                    <option value="/docs/intelligentapps/bulkrun">Bulk Run</option>
+                    
+                    <option value="/docs/intelligentapps/evaluation">Evaluation</option>
+                    
+                    <option value="/docs/intelligentapps/finetune">Fine-tune</option>
+                    
+                    <option value="/docs/intelligentapps/modelconversion">Model Conversion</option>
+                    
+                    <option value="/docs/intelligentapps/tracing">Tracing</option>
+                    
+                    <option value="/docs/intelligentapps/faq">FAQ</option>
+                    
+                    </optgroup><optgroup label="Intelligent Apps - Reference">
+            
+                      <option value="/docs/intelligentapps/reference/FileStructure">File Structure</option>
+                      
+                      <option value="/docs/intelligentapps/reference/ManualModelConversion">Manual Model Conversion</option>
+                      
+                      <option value="/docs/intelligentapps/reference/ManualConversionOnGPU">Manual Model Conversion On GPU</option>
+                      
+                      <option value="/docs/intelligentapps/reference/SetupWithoutAITK">Setup Environment Without AI Toolkit</option>
+                      
+                      <option value="/docs/intelligentapps/reference/TemplateProject">Template Project</option>
+                      
+                    </optgroup>
+            
+              
+              
+              <optgroup label="Azure">
+            
+                    <option value="/docs/azure/overview">Overview</option>
+                    
+                    <option value="/docs/azure/gettingstarted">Getting Started</option>
+                    
+                    <option value="/docs/azure/resourcesextension">Resources View</option>
+                    
+                    <option value="/docs/azure/deployment">Deployment</option>
+                    
+                    <option value="/docs/azure/vscodeforweb">VS Code for the Web - Azure</option>
+                    
+                    <option value="/docs/azure/containers">Containers</option>
+                    
+                    <option value="/docs/azure/aksextensions">Azure Kubernetes Service</option>
+                    
+                    <option value="/docs/azure/kubernetes">Kubernetes</option>
+                    
+                    <option value="/docs/azure/mongodb">MongoDB</option>
+                    
+                    <option value="/docs/azure/remote-debugging">Remote Debugging for Node.js</option>
+                    
+              </optgroup>
+              
+              <optgroup label="Remote">
+            
+                    <option value="/docs/remote/remote-overview">Overview</option>
+                    
+                    <option value="/docs/remote/ssh">SSH</option>
+                    
+                    <option value="/docs/remote/dev-containers">Dev Containers</option>
+                    
+                    <option value="/docs/remote/wsl">Windows Subsystem for Linux</option>
+                    
+                    <option value="/docs/remote/codespaces">GitHub Codespaces</option>
+                    
+                    <option value="/docs/remote/vscode-server">VS Code Server</option>
+                    
+                    <option value="/docs/remote/tunnels">Tunnels</option>
+                    
+                    <option value="/docs/remote/ssh-tutorial">SSH Tutorial</option>
+                    
+                    <option value="/docs/remote/wsl-tutorial">WSL Tutorial</option>
+                    
+                    <option value="/docs/remote/troubleshooting">Tips and Tricks</option>
+                    
+                    <option value="/docs/remote/faq">FAQ</option>
+                    
+              </optgroup>
+              
+              <optgroup label="Dev Containers">
+            
+                    <option value="/docs/devcontainers/containers">Overview</option>
+                    
+                    <option value="/docs/devcontainers/tutorial">Tutorial</option>
+                    
+                    <option value="/docs/devcontainers/attach-container">Attach to Container</option>
+                    
+                    <option value="/docs/devcontainers/create-dev-container">Create Dev Container</option>
+                    
+                    <option value="/docs/devcontainers/containers-advanced">Advanced Containers</option>
+                    
+                    <option value="/docs/devcontainers/devcontainerjson-reference">devcontainer.json</option>
+                    
+                    <option value="/docs/devcontainers/devcontainer-cli">Dev Container CLI</option>
+                    
+                    <option value="/docs/devcontainers/tips-and-tricks">Tips and Tricks</option>
+                    
+                    <option value="/docs/devcontainers/faq">FAQ</option>
+                    
+              </optgroup>
+              
+              <optgroup label="Reference">
+            
+                    <option value="/docs/reference/default-keybindings">Default Keyboard Shortcuts</option>
+                    
+                    <option value="/docs/reference/default-settings">Default Settings</option>
+                    
+                    <option value="/docs/reference/variables-reference">Substitution Variables</option>
+                    
+                    <option value="/docs/reference/tasks-appendix">Tasks Schema</option>
+                    
+              </optgroup>
+              
+              </select>
+            </nav>        </div>
+
+        <!-- main content -->
+        <main class="col-xs-12 col-sm-9 col-md-8 body">
+            <div class="edit-github pull-right">
+                <a href="https://vscode.dev/github/microsoft/vscode-docs/blob/main/docs/debugtest/debugging.md" class="btn btn-default hidden-xs hidden-sm hidden-md" title="Edit this document in vscode.dev">
+                    Edit
+                </a>
+            </div>
+            <h1>Debug code with Visual Studio Code</h1>
+<p>Visual Studio Code has rich support for debugging various types of applications. VS Code has built-in support for JavaScript, TypeScript, and Node.js debugging. The <a href="https://marketplace.visualstudio.com/vscode/Debuggers" class="external-link" target="_blank">Visual Studio Marketplace</a> has a wide variety of debugging extensions to add debugging support for other languages and runtimes to VS Code.</p>
+<p>This article describes the debugging features of VS Code and how to get started with debugging in VS Code. You also learn how you can use Copilot in VS Code to accelerate setting up your debugging configuration and starting a debugging session.</p>
+<p>The following video shows how to get started with debugging in VS Code.</p>
+<iframe width="560" height="315" src="./debug_commands_files/3HiLLByBWkg.html" title="Getting started with debugging in VS Code" frameborder="0" allowfullscreen=""></iframe>
+<h2 id="_debugger-user-interface" data-needslink="_debugger-user-interface"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_debugger-user-interface">Debugger user interface</a></h2>
+<p>The following diagram shows the main components of the debugger user interface:</p>
+<p><img src="./debug_commands_files/debugging_hero.png" alt="Debugging diagram" loading="lazy" class="expandable-image" tabindex="0" aria-label="Debugging diagram. Expandable image, press Enter or Space to view larger and press Escape to close."></p>
+<ol>
+<li><strong>Run and Debug view</strong>: displays all information related to running, debugging, and managing debug configuration settings.</li>
+<li><strong>Debug toolbar</strong>: has buttons for the most common debugging actions.</li>
+<li><strong>Debug console</strong>: enables viewing and interacting with the output of your code running in the debugger.</li>
+<li><strong>Debug sidebar</strong>: during a debug session, lets you interact with the call stack, breakpoints, variables, and watch variables.</li>
+<li><strong>Run</strong> menu: has the most common run and debug commands.</li>
+</ol>
+<h2 id="_before-you-start-debugging" data-needslink="_before-you-start-debugging"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_before-you-start-debugging">Before you start debugging</a></h2>
+<ol>
+<li>
+<p>Install a debugging extension from the <a href="https://marketplace.visualstudio.com/vscode/Debuggers" class="external-link" target="_blank">Visual Studio Marketplace</a> for your language or runtime.</p>
+<p>VS Code has built-in support for JavaScript, TypeScript, and Node.js debugging.</p>
+</li>
+<li>
+<p>Define a debugging configuration for your project.</p>
+<p>For simple applications, VS Code tries to run and debug the currently active file. For more complex applications or debugging scenarios, you need to create a <code>launch.json</code> file to specify the debugger configuration. Get more information about creating a <a href="https://code.visualstudio.com/docs/debugtest/debugging-configuration">debug configuration</a>.</p>
+<div class="markdown-alert tip" dir="auto">
+      <span>
+        <svg class="markdown-alert-icon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+          <path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z">
+          </path>
+        </svg>
+        Tip
+      </span><p>Copilot in VS Code can help generate the <code>launch.json</code> file for you. For more information, see <a href="https://code.visualstudio.com/docs/debugtest/debugging-configuration#_generate-a-launch-configuration-with-ai">Use Copilot to generate debugging configurations</a>.</p>
+</div></li>
+<li>
+<p>Set breakpoints in your code.</p>
+<p>A breakpoint is a marker that you can set on a line of code to tell the debugger to pause execution when it reaches that line. You can set breakpoints by clicking in the gutter next to the line number in the editor.</p>
+<p>For more information about breakpoints, see <a href="https://code.visualstudio.com/docs/debugtest/debugging#_breakpoints">Working with Breakpoints</a>.</p>
+</li>
+</ol>
+<h2 id="_start-a-debugging-session" data-needslink="_start-a-debugging-session"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_start-a-debugging-session">Start a debugging session</a></h2>
+<p>To start a debugging session in VS Code, perform the following steps:</p>
+<ol>
+<li>
+<p>Open the file that contains the code you want to debug.</p>
+</li>
+<li>
+<p>Start a debugging session with the <span class="dynamic-keybinding keybinding osx" data-commandid="workbench.action.debug.start" data-osx="F5" data-win="F5" data-linux="F5" title="Windows: F5, Linux: F5">F5</span> key or select <strong>Run and Debug</strong> in the <strong>Run and Debug</strong> view (<code>workbench.view.debug</code>).</p>
+<p><img src="./debug_commands_files/debug-start.png" alt="Simplified initial Run and Debug view" loading="lazy" class="expandable-image" tabindex="0" aria-label="Simplified initial Run and Debug view. Expandable image, press Enter or Space to view larger and press Escape to close."></p>
+<p>For more complex debugging scenarios like attaching to a running process, you need to create a <code>launch.json</code> file to specify the debugger configuration. Get more information about <a href="https://code.visualstudio.com/docs/debugtest/debugging-configuration">debug configurations</a>.</p>
+</li>
+<li>
+<p>Choose the debugger you want to use from the list of available debuggers.</p>
+<p>VS Code tries to run and debug the currently active file. For Node.js, VS Code checks for a <code>start</code> script in the <code>package.json</code> file to determine the entry point of the application.</p>
+</li>
+<li>
+<p>When a debugging session starts, the <strong>DEBUG CONSOLE</strong> panel is displayed and shows debugging output, and the Status Bar changes color (orange for default color themes).</p>
+<p><img src="./debug_commands_files/debug-session.png" alt="debug session" loading="lazy" class="expandable-image" tabindex="0" aria-label="debug session. Expandable image, press Enter or Space to view larger and press Escape to close."></p>
+</li>
+<li>
+<p>The debug status in the Status Bar shows the active debug configuration. Select the debug status to change the active launch configuration and start debugging without needing to open the <strong>Run and Debug</strong> view.</p>
+<p><img src="./debug_commands_files/debug-status.png" alt="Debug status" loading="lazy" class="expandable-image" tabindex="0" aria-label="Debug status. Expandable image, press Enter or Space to view larger and press Escape to close."></p>
+</li>
+</ol>
+<h2 id="_debug-actions" data-needslink="_debug-actions"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_debug-actions">Debug actions</a></h2>
+<p>Once a debug session starts, the Debug toolbar appears at the top of the window. The toolbar contains actions to control the flow of the debug session, such as stepping through code, pausing execution, and stopping the debug session.</p>
+<p><img src="./debug_commands_files/toolbar.png" alt="Screenshot that shows the Debug toolbar, with icons to control the flow of the debug session." loading="lazy" class="expandable-image" tabindex="0" aria-label="Screenshot that shows the Debug toolbar, with icons to control the flow of the debug session.. Expandable image, press Enter or Space to view larger and press Escape to close."></p>
+<p>The following table describes the actions available in the debug toolbar:</p>
+<div class="table-expand-container"><button class="table-expand-button">
+          Expand table
+        </button><div class="table-wrapper"><table class="table table-striped">
+<thead>
+<tr>
+<th>Action</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Continue / Pause <br> <span class="dynamic-keybinding keybinding osx" data-commandid="workbench.action.debug.continue" data-osx="F5" data-win="F5" data-linux="F5" title="Windows: F5, Linux: F5">F5</span></td>
+<td><strong>Continue</strong>: Resume normal program/script execution (up to the next breakpoint). <br> <strong>Pause</strong>: Inspect code executing at the current line and debug line-by-line.</td>
+</tr>
+<tr>
+<td>Step Over <br> <span class="dynamic-keybinding keybinding osx" data-commandid="workbench.action.debug.stepOver" data-osx="F10" data-win="F10" data-linux="F10" title="Windows: F10, Linux: F10">F10</span></td>
+<td>Execute the next method as a single command without inspecting or following its component steps.</td>
+</tr>
+<tr>
+<td>Step Into <br> <span class="dynamic-keybinding keybinding osx" data-commandid="workbench.action.debug.stepInto" data-osx="F11" data-win="F11" data-linux="F11" title="Windows: F11, Linux: F11">F11</span></td>
+<td>Enter the next method to follow its execution line-by-line.</td>
+</tr>
+<tr>
+<td>Step Out <br> <span class="dynamic-keybinding keybinding osx" data-commandid="workbench.action.debug.stepOut" data-osx="⇧F11" data-win="Shift+F11" data-linux="Shift+F11" title="Windows: Shift+F11, Linux: Shift+F11">⇧F11</span></td>
+<td>When inside a method or subroutine, return to the earlier execution context by completing remaining lines of the current method as though it were a single command.</td>
+</tr>
+<tr>
+<td>Restart <br> <span class="dynamic-keybinding keybinding osx" data-commandid="workbench.action.debug.restart" data-osx="⇧⌘F5" data-win="Ctrl+Shift+F5" data-linux="Ctrl+Shift+F5" title="Windows: Ctrl+Shift+F5, Linux: Ctrl+Shift+F5">⇧⌘F5</span></td>
+<td>Terminate the current program execution and start debugging again using the current run configuration.</td>
+</tr>
+<tr>
+<td>Stop <br> <span class="dynamic-keybinding keybinding osx" data-commandid="workbench.action.debug.stop" data-osx="⇧F5" data-win="Shift+F5" data-linux="Shift+F5" title="Windows: Shift+F5, Linux: Shift+F5">⇧F5</span></td>
+<td>Terminate the current program execution.</td>
+</tr>
+</tbody>
+</table></div></div>
+<p>If your debugging sessions involve multiple targets (for example, a client and a server), the debug toolbar shows the list of sessions and lets you switch between them.</p>
+<div class="markdown-alert tip" dir="auto">
+      <span>
+        <svg class="markdown-alert-icon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+          <path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z">
+          </path>
+        </svg>
+        Tip
+      </span><p>Use the <span class="setting"><a href="vscode://settings/debug.toolBarLocation" codesetting="true"><span class="codicon codicon-settings-gear dynamic-setting-icon" title="Open &#39;debug.toolBarLocation&#39; in Settings Editor"></span>debug.toolBarLocation</a></span> setting to control the location of the Debug toolbar. It can be the default <code>floating</code>, <code>docked</code> to the <strong>Run and Debug</strong> view, or <code>hidden</code>. A floating debug toolbar can be dragged horizontally and also down to the editor area (up to a certain distance from the top edge).</p>
+</div><h2 id="_breakpoints" data-needslink="_breakpoints"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_breakpoints">Breakpoints</a></h2>
+<p>A breakpoint is a special marker that pauses the execution of your code at a specific point, so you can inspect the state of your application at that point. VS Code supports several types of breakpoints.</p>
+<h3 id="_setting-breakpoints" data-needslink="_setting-breakpoints"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_setting-breakpoints">Setting breakpoints</a></h3>
+<p>To set or unset a breakpoint, click on the <strong>editor margin</strong> or use <span class="dynamic-keybinding keybinding osx" data-commandid="editor.debug.action.toggleBreakpoint" data-osx="F9" data-win="F9" data-linux="F9" title="Windows: F9, Linux: F9">F9</span> on the current line.</p>
+<ul>
+<li>Breakpoints in the editor margin are normally shown as red filled circles.</li>
+<li>Disabled breakpoints have a filled gray circle.</li>
+<li>When a debugging session starts, breakpoints that can't be registered with the debugger change to a gray hollow circle. The same might happen if the source is edited while a debug session without live-edit support is running.</li>
+</ul>
+<p>Optionally, breakpoints can be shown in the editor's overview ruler by enabling the setting <span class="setting"><a href="vscode://settings/debug.showBreakpointsInOverviewRuler" codesetting="true"><span class="codicon codicon-settings-gear dynamic-setting-icon" title="Open &#39;debug.showBreakpointsInOverviewRuler&#39; in Settings Editor"></span>debug.showBreakpointsInOverviewRuler</a></span>:</p>
+<p><img src="./debug_commands_files/bpts-in-overview.png" alt="breakpoints in overview ruler" loading="lazy" class="expandable-image" tabindex="0" aria-label="breakpoints in overview ruler. Expandable image, press Enter or Space to view larger and press Escape to close."></p>
+<p>For more control of your breakpoints, use the <strong>Run and Debug</strong> view's <strong>BREAKPOINTS</strong> section. This section lists all breakpoints in your code and provides extra actions to manage them.</p>
+<p><img src="./debug_commands_files/breakpoints.png" alt="Breakpoints" loading="lazy" class="expandable-image" tabindex="0" aria-label="Breakpoints. Expandable image, press Enter or Space to view larger and press Escape to close."></p>
+<h3 id="_breakpoint-types" data-needslink="_breakpoint-types"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_breakpoint-types">Breakpoint types</a></h3>
+<h4 id="_conditional-breakpoints" data-needslink="_conditional-breakpoints"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_conditional-breakpoints">Conditional breakpoints</a></h4>
+<p>A powerful VS Code debugging feature is the ability to set conditions based on expressions, hit counts, or a combination of both.</p>
+<ul>
+<li><strong>Expression condition</strong>: The breakpoint is hit whenever the expression evaluates to <code>true</code>.</li>
+<li><strong>Hit count</strong>: The <em>hit count</em> controls how many times a breakpoint needs to be hit before it interrupts execution. Whether a hit count is respected, and the exact syntax of the expression, can vary among debugger extensions.</li>
+<li><strong>Wait for breakpoint</strong>: The breakpoint is activated when another breakpoint is hit (<a href="https://code.visualstudio.com/docs/debugtest/debugging#_triggered-breakpoints">triggered breakpoint</a>).</li>
+</ul>
+<p>To add a conditional breakpoint:</p>
+<ol>
+<li>
+<p>Create a conditional breakpoint</p>
+<ul>
+<li>Right-click in the editor margin and select <strong>Add Conditional Breakpoint</strong>.</li>
+<li>Use the <strong>Add Conditional Breakpoint</strong> command in the Command Palette (<span class="dynamic-keybinding keybinding osx" data-commandid="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P" title="Windows: Ctrl+Shift+P, Linux: Ctrl+Shift+P">⇧⌘P</span>).</li>
+</ul>
+</li>
+<li>
+<p>Choose the type of condition you want to set (expression, hit count, or wait for breakpoint).</p>
+<p><img src="./debug_commands_files/hitCount.gif" alt="HitCount" loading="lazy"></p>
+</li>
+</ol>
+<p>To add a condition to an existing breakpoint:</p>
+<ol>
+<li>
+<p>Edit an existing breakpoint</p>
+<ul>
+<li>Right-click on the breakpoint in the editor margin and select <strong>Edit Breakpoint</strong>.</li>
+<li>Select the pencil icon next for an existing breakpoint in the <strong>BREAKPOINTS</strong> section of the <strong>Run and Debug</strong> view.</li>
+</ul>
+</li>
+<li>
+<p>Edit the condition (expression, hit count, or wait for breakpoint).</p>
+</li>
+</ol>
+<p>If a debugger does not support conditional breakpoints, the <strong>Add Conditional Breakpoint</strong> and <strong>Edit Condition</strong> actions are not available.</p>
+<h4 id="_triggered-breakpoints" data-needslink="_triggered-breakpoints"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_triggered-breakpoints">Triggered breakpoints</a></h4>
+<p>A triggered breakpoint is type of conditional breakpoint that is enabled once another breakpoint is hit. They can be useful when diagnosing failure cases in code that happen only after a certain precondition.</p>
+<p>Triggered breakpoints can be set by right-clicking on the glyph margin, selecting <strong>Add Triggered Breakpoint</strong>, and then choosing which other breakpoint enables the breakpoint.</p>
+<p><video src="/assets/docs/debugtest/debugging/debug-triggered-breakpoint.mp4" autoplay="" loop="" controls="" muted=""></video></p>
+<h4 id="_inline-breakpoints" data-needslink="_inline-breakpoints"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_inline-breakpoints">Inline breakpoints</a></h4>
+<p>Inline breakpoints are only hit when the execution reaches the column associated with the inline breakpoint. This is useful when debugging minified code, which contains multiple statements in a single line.</p>
+<p>An inline breakpoint can be set using <span class="dynamic-keybinding keybinding osx" data-commandid="editor.debug.action.toggleInlineBreakpoint" data-osx="⇧F9" data-win="Shift+F9" data-linux="Shift+F9" title="Windows: Shift+F9, Linux: Shift+F9">⇧F9</span> or through the context menu during a debug session. Inline breakpoints are shown inline in the editor.</p>
+<p>Inline breakpoints can also have conditions. Editing multiple breakpoints on a line is possible through the context menu in the editor's left margin.</p>
+<h4 id="_function-breakpoints" data-needslink="_function-breakpoints"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_function-breakpoints">Function breakpoints</a></h4>
+<p>Instead of placing breakpoints directly in source code, a debugger can support creating breakpoints by specifying a function name. This is useful in situations where source is not available but a function name is known.</p>
+<p>To create a function breakpoint, select the <strong>+</strong> button in the <strong>BREAKPOINTS</strong> section header and enter the function name. Function breakpoints are shown with a red triangle in the <strong>BREAKPOINTS</strong> section.</p>
+<h4 id="_data-breakpoints" data-needslink="_data-breakpoints"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_data-breakpoints">Data breakpoints</a></h4>
+<p>If a debugger supports data breakpoints, they can be set from the context menu in the <strong>VARIABLES</strong> view. The <strong>Break on Value Change/Read/Access</strong> commands add a data breakpoint that is hit when the value of the underlying variable changes/is read/is accessed. Data breakpoints are shown with a red hexagon in the <strong>BREAKPOINTS</strong> section.</p>
+<h4 id="_logpoints" data-needslink="_logpoints"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_logpoints">Logpoints</a></h4>
+<p>A logpoint is a variant of a breakpoint that does not interrupt into the debugger, but instead logs a message to the debug console. Logpoints can help you save time by not having to add or remove logging statements in your code.</p>
+<p>A logpoint is represented by a diamond-shaped icon. Log messages are plain text but can also include expressions to be evaluated within curly braces ('{}').</p>
+<p>To add a logpoint, right-click in the editor left margin and select <strong>Add Logpoint</strong>, or use the <strong>Debug: Add Logpoint...</strong> command in the Command Palette (<span class="dynamic-keybinding keybinding osx" data-commandid="workbench.action.showCommands" data-osx="⇧⌘P" data-win="Ctrl+Shift+P" data-linux="Ctrl+Shift+P" title="Windows: Ctrl+Shift+P, Linux: Ctrl+Shift+P">⇧⌘P</span>). You can also configure the setting <span class="setting"><a href="vscode://settings/debug.gutterMiddleClickAction" codesetting="true"><span class="codicon codicon-settings-gear dynamic-setting-icon" title="Open &#39;debug.gutterMiddleClickAction&#39; in Settings Editor"></span>debug.gutterMiddleClickAction</a></span> to toggle a logpoint when pressing the middle mouse button in the editor gutter.</p>
+<p><img src="./debug_commands_files/log-points.gif" alt="Logpoints" loading="lazy"></p>
+<p>Just like regular breakpoints, logpoints can be enabled or disabled and can also be controlled by a condition and/or hit count.</p>
+<div class="markdown-alert note" dir="auto">
+      <span>
+        <svg class="markdown-alert-icon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+          <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z">
+          </path>
+        </svg>
+        Note
+      </span><p>Debugger extensions can choose to implement logpoints or not.</p>
+</div><h2 id="_data-inspection" data-needslink="_data-inspection"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_data-inspection">Data inspection</a></h2>
+<h3 id="_run-and-debug-view" data-needslink="_run-and-debug-view"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_run-and-debug-view">Run and Debug view</a></h3>
+<p>During a debugging session, you can inspect variables and expressions in the <strong>VARIABLES</strong> section of the <strong>Run and Debug</strong> view or by hovering over their source in the editor. Variable values and expression evaluation are relative to the selected stack frame in the <strong>CALL STACK</strong> section.</p>
+<p><img src="./debug_commands_files/variables.png" alt="Screenshot of the Variables section in the Run and Debug view." loading="lazy"></p>
+<p>To change the value of a variable during the debugging session, right-click on the variable in the <strong>VARIABLES</strong> section and select <strong>Set Value</strong> (<span class="dynamic-keybinding keybinding osx" data-commandid="debug.setVariable" data-osx="Enter" data-win="F2" data-linux="F2" title="Windows: F2, Linux: F2">Enter</span>).</p>
+<p>Additionally, you can use the <strong>Copy Value</strong> action to copy the variable's value, or the <strong>Copy as Expression</strong> action to copy an expression to access the variable. You can then use this expression in the <strong>WATCH</strong> section.</p>
+<p>Variables and expressions can also be evaluated and watched in the <strong>Run and Debug</strong> view's <strong>WATCH</strong> section.</p>
+<p><img src="./debug_commands_files/watch.png" alt="Screenshot of the Watch section in the Run and Debug view." loading="lazy"></p>
+<p>To filter variables by their name or value, use the <span class="dynamic-keybinding keybinding osx" data-commandid="list.find" data-osx="⌥⌘F" data-win="Ctrl+Alt+F" data-linux="Ctrl+Alt+F" title="Windows: Ctrl+Alt+F, Linux: Ctrl+Alt+F">⌥⌘F</span> keyboard shortcut while the focus is on the <strong>VARIABLES</strong> section, and type a search term.</p>
+<p><img src="./debug_commands_files/filtering-variables.png" alt="Screenshot of the filter control in the Variables section." loading="lazy"></p>
+<h3 id="_debug-console-repl" data-needslink="_debug-console-repl"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_debug-console-repl">Debug console REPL</a></h3>
+<p>Expressions can be evaluated with the <strong>Debug Console</strong> REPL (<a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop" class="external-link" target="_blank">Read-Eval-Print Loop</a>) feature. To open the Debug Console, use the <strong>Debug Console</strong> action at the top of the Debug pane or use the <strong>View: Debug Console</strong> command (<span class="dynamic-keybinding keybinding osx" data-commandid="workbench.debug.action.toggleRepl" data-osx="⇧⌘Y" data-win="Ctrl+Shift+Y" data-linux="Ctrl+Shift+Y" title="Windows: Ctrl+Shift+Y, Linux: Ctrl+Shift+Y">⇧⌘Y</span>).</p>
+<p>Expressions are evaluated after you press <span class="keybinding">Enter</span> and the Debug Console REPL shows suggestions as you type. If you need to enter multiple lines, use <span class="keybinding">Shift+Enter</span> between the lines and then send all lines for evaluation with <span class="keybinding">Enter</span>.</p>
+<p>Debug Console input uses the mode of the active editor, which means that the Debug Console input supports syntax coloring, indentation, auto closing of quotes, and other language features.</p>
+<p><img src="./debug_commands_files/debugconsole.png" alt="Screenshot of the Debug Console." loading="lazy"></p>
+<div class="markdown-alert note" dir="auto">
+      <span>
+        <svg class="markdown-alert-icon" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">
+          <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z">
+          </path>
+        </svg>
+        Note
+      </span><p>You must be in an active debugging session to use the Debug Console REPL.</p>
+</div><h2 id="_multitarget-debugging" data-needslink="_multitarget-debugging"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_multitarget-debugging">Multi-target debugging</a></h2>
+<p>For complex scenarios that involve more than one process (for example, a client and a server), VS Code supports multi-target debugging. After you've started a first debug session, you can launch another debug session. As soon as a second session is up and running, the VS Code UI switches to <em>multi-target mode</em>:</p>
+<ul>
+<li>
+<p>The individual sessions now show up as top-level elements in the <strong>CALL STACK</strong> view.</p>
+<p><img src="./debug_commands_files/debug-callstack.png" alt="Callstack View" loading="lazy"></p>
+</li>
+<li>
+<p>The debug toolbar shows the currently <strong>active session</strong> (and all other sessions are available in a dropdown menu).</p>
+<p><img src="./debug_commands_files/debug-actions-widget.png" alt="Debug Actions Widget" loading="lazy"></p>
+</li>
+<li>
+<p>Debug actions (for example, all actions in the debug toolbar) are performed on the active session. The active session can be changed either by using the dropdown menu in the debug toolbar or by selecting a different element in the <strong>CALL STACK</strong> view.</p>
+</li>
+</ul>
+<h2 id="_remote-debugging" data-needslink="_remote-debugging"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_remote-debugging">Remote debugging</a></h2>
+<p>VS Code does not support built-in remote debugging across all languages. Remote debugging is a feature of the debug extension you are using, and you should consult the extension's page in the <a href="https://marketplace.visualstudio.com/search?target=VSCode&amp;category=Debuggers&amp;sortBy=Installs" class="external-link" target="_blank">Marketplace</a> for support and details.</p>
+<p>There is, however, one exception: the Node.js debugger included in VS Code supports remote debugging. For more information, see <a href="https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_remote-debugging">Node.js Debugging</a>.</p>
+<h2 id="_debugger-extensions" data-needslink="_debugger-extensions"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_debugger-extensions">Debugger extensions</a></h2>
+<p>VS Code has built-in debugging support for the <a href="https://nodejs.org/" class="external-link" target="_blank">Node.js</a> runtime and can debug JavaScript, TypeScript, or any other language that gets transpiled to JavaScript.</p>
+<p>For debugging other languages and runtimes (including <a href="https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug" class="external-link" target="_blank">PHP</a>, <a href="https://marketplace.visualstudio.com/items?itemName=rebornix.Ruby" class="external-link" target="_blank">Ruby</a>, <a href="https://marketplace.visualstudio.com/items?itemName=golang.go" class="external-link" target="_blank">Go</a>, <a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp" class="external-link" target="_blank">C#</a>, <a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python" class="external-link" target="_blank">Python</a>, <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools" class="external-link" target="_blank">C++</a>, <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.PowerShell" class="external-link" target="_blank">PowerShell</a> and <a href="https://marketplace.visualstudio.com/search?term=debug&amp;target=VSCode&amp;category=Debuggers&amp;sortBy=Relevance" class="external-link" target="_blank">many others</a>), look for <code>Debuggers</code> extensions in the <a href="https://marketplace.visualstudio.com/vscode/Debuggers" class="external-link" target="_blank">Visual Studio Marketplace</a>, or select <strong>Install Additional Debuggers</strong> in the top-level Run menu.</p>
+<p>These are several popular extensions that include debugging support:</p>
+<div class="marketplace-extensions-debuggers"><div><div class="extensions"><div class="gallery-items"><a aria-label="Python extension" aria-describedby="cover-f1f59ae4-9318-4f3c-a9b5-81b2eaa5f8a5 details-f1f59ae4-9318-4f3c-a9b5-81b2eaa5f8a5" class="gallery-item-card-container" href="https://marketplace.visualstudio.com/items?itemName=ms-python.python" target="_blank" rel="noopener noreferrer"><div class="gallery-item-card"><div class="cover" id="cover-f1f59ae4-9318-4f3c-a9b5-81b2eaa5f8a5" aria-label="Published by ms-python. 189.5M installs."><div class="icon-cell"><img class="icon" src="./debug_commands_files/Microsoft.VisualStudio.Services.Icons.Default" alt="Python"></div><div class="core-info-cell"><div class="name" title="Python"><span>Python</span></div><div class="core-info-second-row"><span class="installs"><span class="install-icon"></span><span class="install-count">189.5M</span></span><div class="publisher"><span>ms-python</span></div></div></div></div></div></a><a aria-label="Python Debugger extension" aria-describedby="cover-4bd5d2c9-9d65-401a-b0b2-7498d9f17615 details-4bd5d2c9-9d65-401a-b0b2-7498d9f17615" class="gallery-item-card-container" href="https://marketplace.visualstudio.com/items?itemName=ms-python.debugpy" target="_blank" rel="noopener noreferrer"><div class="gallery-item-card"><div class="cover" id="cover-4bd5d2c9-9d65-401a-b0b2-7498d9f17615" aria-label="Published by ms-python. 94.8M installs."><div class="icon-cell"><img class="icon" src="./debug_commands_files/Microsoft.VisualStudio.Services(1).Icons.Default" alt="Python Debugger"></div><div class="core-info-cell"><div class="name" title="Python Debugger"><span>Python Debugger</span></div><div class="core-info-second-row"><span class="installs"><span class="install-icon"></span><span class="install-count">94.8M</span></span><div class="publisher"><span>ms-python</span></div></div></div></div></div></a><a aria-label="C/C++ extension" aria-describedby="cover-690b692e-e8a9-493f-b802-8089d50ac1b2 details-690b692e-e8a9-493f-b802-8089d50ac1b2" class="gallery-item-card-container" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools" target="_blank" rel="noopener noreferrer"><div class="gallery-item-card"><div class="cover" id="cover-690b692e-e8a9-493f-b802-8089d50ac1b2" aria-label="Published by ms-vscode. 89.7M installs."><div class="icon-cell"><img class="icon" src="./debug_commands_files/Microsoft.VisualStudio.Services(2).Icons.Default" alt="C/C++"></div><div class="core-info-cell"><div class="name" title="C/C++"><span>C/C++</span></div><div class="core-info-second-row"><span class="installs"><span class="install-icon"></span><span class="install-count">89.7M</span></span><div class="publisher"><span>ms-vscode</span></div></div></div></div></div></a><a aria-label="CMake Tools extension" aria-describedby="cover-7c889349-8749-43d4-8b5e-08939936d7f4 details-7c889349-8749-43d4-8b5e-08939936d7f4" class="gallery-item-card-container" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools" target="_blank" rel="noopener noreferrer"><div class="gallery-item-card"><div class="cover" id="cover-7c889349-8749-43d4-8b5e-08939936d7f4" aria-label="Published by ms-vscode. 51.7M installs."><div class="icon-cell"><img class="icon" src="./debug_commands_files/Microsoft.VisualStudio.Services(3).Icons.Default" alt="CMake Tools"></div><div class="core-info-cell"><div class="name" title="CMake Tools"><span>CMake Tools</span></div><div class="core-info-second-row"><span class="installs"><span class="install-icon"></span><span class="install-count">51.7M</span></span><div class="publisher"><span>ms-vscode</span></div></div></div></div></div></a></div><div class="clearfix"></div></div></div></div>
+<h2 id="_next-steps" data-needslink="_next-steps"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_next-steps">Next steps</a></h2>
+<p>To learn about VS Code's Node.js debugging support, take a look at:</p>
+<ul>
+<li><a href="https://code.visualstudio.com/docs/nodejs/nodejs-debugging">Node.js</a> - Describes the Node.js debugger, which is included in VS Code.</li>
+<li><a href="https://code.visualstudio.com/docs/typescript/typescript-debugging">TypeScript</a> - The Node.js debugger also supports TypeScript debugging.</li>
+</ul>
+<p>To see a tutorial on the basics of debugging, check out this video:</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=3HiLLByBWkg" class="external-link" target="_blank">Getting started with debugging in VS Code</a> - Learn about debugging in VS Code.</li>
+</ul>
+<p>To learn more about Copilot and AI-assisted debugging in VS Code:</p>
+<ul>
+<li><a href="https://code.visualstudio.com/docs/copilot/overview#_fix-issues">Debugging and fixing issues with Copilot</a></li>
+<li><a href="https://code.visualstudio.com/docs/copilot/reference/copilot-vscode-features#_debug-and-fix-problems">Copilot cheat sheet for debugging and fixing issues</a></li>
+</ul>
+<p>To learn about debugging support for other programming languages via VS Code extensions:</p>
+<ul>
+<li><a href="https://code.visualstudio.com/docs/cpp/cpp-debug">C++</a></li>
+<li><a href="https://code.visualstudio.com/docs/python/debugging">Python</a></li>
+<li><a href="https://code.visualstudio.com/docs/java/java-debugging">Java</a></li>
+</ul>
+<p>To learn about VS Code's task running support, go to:</p>
+<ul>
+<li><a href="https://code.visualstudio.com/docs/debugtest/tasks">Tasks</a> - Describes how to run tasks with Gulp, Grunt, and Jake and how to show errors and warnings.</li>
+</ul>
+<p>To write your own debugger extension, visit:</p>
+<ul>
+<li><a href="https://code.visualstudio.com/api/extension-guides/debugger-extension">Debugger Extension</a> - Uses a mock sample to illustrate the steps required to create a VS Code debug extension.</li>
+</ul>
+<h2 id="_common-questions" data-needslink="_common-questions"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_common-questions">Common questions</a></h2>
+<h3 id="_what-are-the-supported-debugging-scenarios" data-needslink="_what-are-the-supported-debugging-scenarios"><a class="hash-link" href="https://code.visualstudio.com/docs/debugtest/debugging#_what-are-the-supported-debugging-scenarios">What are the supported debugging scenarios?</a></h3>
+<p>Debugging of Node.js-based applications is supported on Linux, macOS, and Windows out of the box with VS Code. Many other scenarios are supported by <a href="https://marketplace.visualstudio.com/vscode/Debuggers?sortBy=Installs" class="external-link" target="_blank">VS Code extensions</a> available in the Marketplace.</p>
+
+            <div class="feedback"><div class="widget"><form aria-label="Feedback"><div class="buttons"><h3 class="feedback-header">Was this documentation helpful?</h3><br><button value="1">Yes<span class="sr-only"> , this page was helpful</span></button><button value="0">No<span class="sr-only"> , this page was not helpful</span></button></div></form></div></div>
+            
+            <div class="body-footer">10/09/2025</div>
+            
+        </main>
+
+        <!-- medium right nav -->
+        <div class="col-sm-3 col-md-2 hidden-xs docs-subnavbar-container">
+            <nav id="docs-subnavbar" aria-label="On Page" data-spy="affix" data-offset-top="20" class="affix">
+                
+                <h4><span class="sr-only">On this page there are 11 sections</span><span aria-hidden="true">On this page</span></h4>
+                <ul class="nav">
+                    
+                    <li class=""><a href="https://code.visualstudio.com/docs/debugtest/debugging#_debugger-user-interface">Debugger user interface</a></li>
+                    
+                    <li class=""><a href="https://code.visualstudio.com/docs/debugtest/debugging#_before-you-start-debugging">Before you start debugging</a></li>
+                    
+                    <li class="active"><a href="https://code.visualstudio.com/docs/debugtest/debugging#_start-a-debugging-session">Start a debugging session</a></li>
+                    
+                    <li><a href="https://code.visualstudio.com/docs/debugtest/debugging#_debug-actions">Debug actions</a></li>
+                    
+                    <li><a href="https://code.visualstudio.com/docs/debugtest/debugging#_breakpoints">Breakpoints</a></li>
+                    
+                    <li><a href="https://code.visualstudio.com/docs/debugtest/debugging#_data-inspection">Data inspection</a></li>
+                    
+                    <li><a href="https://code.visualstudio.com/docs/debugtest/debugging#_multitarget-debugging">Multi-target debugging</a></li>
+                    
+                    <li><a href="https://code.visualstudio.com/docs/debugtest/debugging#_remote-debugging">Remote debugging</a></li>
+                    
+                    <li><a href="https://code.visualstudio.com/docs/debugtest/debugging#_debugger-extensions">Debugger extensions</a></li>
+                    
+                    <li><a href="https://code.visualstudio.com/docs/debugtest/debugging#_next-steps">Next steps</a></li>
+                    
+                    <li><a href="https://code.visualstudio.com/docs/debugtest/debugging#_common-questions">Common questions</a></li>
+                    
+                </ul>
+                
+                <div class="connect-widget"><ul class="connect-links"><li><a href="https://code.visualstudio.com/feed.xml" target="_blank"><img alt="RSS" src="./debug_commands_files/rss.svg">RSS Feed</a></li><li><a href="https://stackoverflow.com/questions/tagged/vscode" target="_blank" rel="noopener noreferrer"><img alt="Stackoverflow" src="./debug_commands_files/stackoverflow.svg">Ask questions</a></li><li><a href="https://go.microsoft.com/fwlink/?LinkID=533687" target="_blank" rel="noopener noreferrer"><img alt="Twitter" src="./debug_commands_files/twitter.svg">Follow @code</a></li><li id="connect-uservoice"><a href="https://go.microsoft.com/fwlink/?LinkID=533482" target="_blank" rel="noopener noreferrer"><img alt="GitHub" src="./debug_commands_files/github.svg">Request features</a></li><li id="connect-github"><a href="https://www.github.com/Microsoft/vscode/issues" target="_blank" rel="noopener noreferrer"><img alt="Issues" src="./debug_commands_files/issue.svg">Report issues</a></li><li id="connect-youtube"><a href="https://www.youtube.com/channel/UCs5Y5_7XK8HLDX0SLNwkd3w" target="_blank" rel="noopener noreferrer"><img alt="YouTube" src="./debug_commands_files/youtube.svg">Watch videos</a></li></ul></div>
+            </nav>
+        </div>
+        <!-- end of page connect widget -->
+        <div class="col-xs-12 visible-xs">
+            <div class="connect-widget"><ul class="connect-links"><li><a href="https://code.visualstudio.com/feed.xml" target="_blank"><img alt="RSS" src="./debug_commands_files/rss.svg">RSS Feed</a></li><li><a href="https://stackoverflow.com/questions/tagged/vscode" target="_blank" rel="noopener noreferrer"><img alt="Stackoverflow" src="./debug_commands_files/stackoverflow.svg">Ask questions</a></li><li><a href="https://go.microsoft.com/fwlink/?LinkID=533687" target="_blank" rel="noopener noreferrer"><img alt="Twitter" src="./debug_commands_files/twitter.svg">Follow @code</a></li><li id="connect-uservoice"><a href="https://go.microsoft.com/fwlink/?LinkID=533482" target="_blank" rel="noopener noreferrer"><img alt="GitHub" src="./debug_commands_files/github.svg">Request features</a></li><li id="connect-github"><a href="https://www.github.com/Microsoft/vscode/issues" target="_blank" rel="noopener noreferrer"><img alt="Issues" src="./debug_commands_files/issue.svg">Report issues</a></li><li id="connect-youtube"><a href="https://www.youtube.com/channel/UCs5Y5_7XK8HLDX0SLNwkd3w" target="_blank" rel="noopener noreferrer"><img alt="YouTube" src="./debug_commands_files/youtube.svg">Watch videos</a></li></ul></div>
+        </div>
+    </div>
+</div>
+		</div>
+	</div>
+
+	<footer role="contentinfo" class="container">
+		<div class="footer-container">
+			<div class="footer-row">
+				<div class="footer-social">
+					<ul class="links">
+						<li>
+							<a href="https://github.com/microsoft/vscode"><img src="./debug_commands_files/github-icon.svg" alt="VS Code on Github"></a>
+						</li>
+						<li>
+							<a href="https://go.microsoft.com/fwlink/?LinkID=533687"><img src="./debug_commands_files/x-icon.svg" class="x-icon" alt="Follow us on X"></a>
+						</li>
+						<li>
+							<a href="https://www.linkedin.com/showcase/vs-code"><img src="./debug_commands_files/linkedin-icon.svg" alt="VS Code on LinkedIn"></a>
+						</li>
+						<li>
+							<a href="https://bsky.app/profile/vscode.dev"><img src="./debug_commands_files/bluesky-icon.svg" alt="VS Code on Bluesky"></a>
+						</li>
+						<li>
+							<a href="https://www.reddit.com/r/vscode/"><img src="./debug_commands_files/reddit-icon.svg" alt="Join the VS Code community on Reddit"></a>
+						</li>
+						<li>
+							<a href="https://www.vscodepodcast.com/"><img src="./debug_commands_files/podcast-icon.svg" alt="The VS Code Insiders Podcast"></a>
+						</li>
+						<li>
+							<a href="https://www.tiktok.com/@vscode"><img src="./debug_commands_files/tiktok-icon.svg" alt="VS Code on TikTok"></a>
+						</li>
+						<li>
+							<a href="https://www.youtube.com/@code"><img src="./debug_commands_files/youtube-icon.svg" alt="VS Code on YouTube"></a>
+						</li>
+						<script>
+							function manageConsent() {
+								if (siteConsent && siteConsent.isConsentRequired) {
+									siteConsent.manageConsent();
+								}
+							}
+						</script>
+					</ul>
+					<a id="footer-microsoft-link" class="microsoft-logo" href="https://www.microsoft.com/">
+						<img src="./debug_commands_files/microsoft.svg" alt="Microsoft homepage">
+					</a>
+				</div>
+			</div>
+			<div class="footer-row">
+				<ul class="links">
+					<li><a id="footer-support-link" href="https://support.serviceshub.microsoft.com/supportforbusiness/create?sapId=d66407ed-3967-b000-4cfb-2c318cad363d" target="_blank" rel="noopener">Support</a></li>
+					<li><a id="footer-privacy-link" href="https://go.microsoft.com/fwlink/?LinkId=521839" target="_blank" rel="noopener">Privacy</a></li>
+					<li style=""><a id="footer-cookie-link" style="cursor: pointer;" onclick="manageConsent()" target="_blank" rel="noopener">Manage Cookies</a></li>
+					<li><a id="footer-terms-link" href="https://www.microsoft.com/legal/terms-of-use" target="_blank" rel="noopener">Terms of Use</a></li>
+					<li><a id="footer-license-link" href="https://code.visualstudio.com/License" target="_blank" rel="noopener">License</a></li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+	<script type="module">
+		document.addEventListener('DOMContentLoaded', () => {
+			const copilotDeepLinks = document.querySelectorAll('.copilot-deep-link');
+			if (copilotDeepLinks.length === 0) {
+				return;
+			}
+			if (window.innerWidth < 992) {
+				for (const link of copilotDeepLinks) {
+					link.href = 'https://aka.ms/vscode-activatecopilotfree';
+				}
+			}
+		});
+	</script>
+
+	<script src="./debug_commands_files/index.js"></script>
+
+	
+
+	<script type="application/ld+json">
+		{
+			"@context" : "http://schema.org",
+			"@type" : "SoftwareApplication",
+			"name" : "Visual Studio Code",
+			"softwareVersion": "1.105",
+			"offers": {
+				"@type": "Offer",
+				"price": "0",
+				"priceCurrency": "USD"
+			},
+			"applicationCategory": "DeveloperApplication",
+			"applicationSubCategory": "Text Editor",
+			"alternateName": "VS Code",
+			"datePublished": "2021-11-03",
+			"operatingSystem": "Mac, Linux, Windows",
+			"logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+			"screenshot": "https://code.visualstudio.com/assets/home/home-screenshot-win.png",
+			"releaseNotes": "https://code.visualstudio.com/updates",
+			"downloadUrl": "https://code.visualstudio.com/download",
+			"license": "https://code.visualstudio.com/license",
+			"softwareRequirements": "https://code.visualstudio.com/docs/supporting/requirements",
+			"url" : "https://code.visualstudio.com",
+			"author": {
+				"@type": "Organization",
+				"name": "Microsoft"
+			},
+			"publisher": {
+				"@type": "Organization",
+				"name": "Microsoft"
+			},
+			"maintainer": {
+				"@type": "Organization",
+				"name": "Microsoft"
+			},
+			"potentialAction": {
+				"@type": "SearchAction",
+				"target": "https://code.visualstudio.com/Search?q={search_term_string}",
+				"query-input": "required name=search_term_string"
+			},
+			"sameAs" : [
+				"https://en.wikipedia.org/wiki/Visual_Studio_Code",
+				"https://twitter.com/code",
+				"https://www.youtube.com/code",
+				"https://www.tiktok.com/@vscode",
+				"https://github.com/microsoft/vscode"
+			]
+		}
+	</script>
+
+
+<div id="yt-ext-info-bar" class="yt-ext-hidden">Skipping ads...</div>
+        
+      <div id="modal-announcements" aria-live="polite" aria-atomic="true" class="sr-only">Table modal opened. Press Escape to close.</div>
+        <div class="table-modal-overlay open" role="dialog" aria-modal="true" aria-labelledby="modal-table-title">
+          <div class="table-modal-container">
+            <div class="table-modal-header">
+              <h2 id="modal-table-title" class="sr-only">Table expanded view</h2>
+              <button class="table-modal-close" aria-label="Close table modal">
+                <span aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.116 8l-4.558 4.558.884.884L8 8.884l4.558 4.558.884-.884L8.884 8l4.558-4.558-.884-.884L8 7.116 3.442 2.558l-.884.884L7.116 8z"></path></svg></span>
+              </button>
+            </div>
+            <div class="table-modal-content">
+              <table class="table table-striped" tabindex="0">
+<thead>
+<tr>
+<th>Action</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Continue / Pause <br> <span class="dynamic-keybinding keybinding osx" data-commandid="workbench.action.debug.continue" data-osx="F5" data-win="F5" data-linux="F5" title="Windows: F5, Linux: F5">F5</span></td>
+<td><strong>Continue</strong>: Resume normal program/script execution (up to the next breakpoint). <br> <strong>Pause</strong>: Inspect code executing at the current line and debug line-by-line.</td>
+</tr>
+<tr>
+<td>Step Over <br> <span class="dynamic-keybinding keybinding osx" data-commandid="workbench.action.debug.stepOver" data-osx="F10" data-win="F10" data-linux="F10" title="Windows: F10, Linux: F10">F10</span></td>
+<td>Execute the next method as a single command without inspecting or following its component steps.</td>
+</tr>
+<tr>
+<td>Step Into <br> <span class="dynamic-keybinding keybinding osx" data-commandid="workbench.action.debug.stepInto" data-osx="F11" data-win="F11" data-linux="F11" title="Windows: F11, Linux: F11">F11</span></td>
+<td>Enter the next method to follow its execution line-by-line.</td>
+</tr>
+<tr>
+<td>Step Out <br> <span class="dynamic-keybinding keybinding osx" data-commandid="workbench.action.debug.stepOut" data-osx="⇧F11" data-win="Shift+F11" data-linux="Shift+F11" title="Windows: Shift+F11, Linux: Shift+F11">⇧F11</span></td>
+<td>When inside a method or subroutine, return to the earlier execution context by completing remaining lines of the current method as though it were a single command.</td>
+</tr>
+<tr>
+<td>Restart <br> <span class="dynamic-keybinding keybinding osx" data-commandid="workbench.action.debug.restart" data-osx="⇧⌘F5" data-win="Ctrl+Shift+F5" data-linux="Ctrl+Shift+F5" title="Windows: Ctrl+Shift+F5, Linux: Ctrl+Shift+F5">⇧⌘F5</span></td>
+<td>Terminate the current program execution and start debugging again using the current run configuration.</td>
+</tr>
+<tr>
+<td>Stop <br> <span class="dynamic-keybinding keybinding osx" data-commandid="workbench.action.debug.stop" data-osx="⇧F5" data-win="Shift+F5" data-linux="Shift+F5" title="Windows: Shift+F5, Linux: Shift+F5">⇧F5</span></td>
+<td>Terminate the current program execution.</td>
+</tr>
+</tbody>
+</table>
+            </div>
+          </div>
+        </div>
+      </body></html>

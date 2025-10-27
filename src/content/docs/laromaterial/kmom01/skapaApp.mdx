@@ -13,7 +13,10 @@ import result2 from '@assets/img/kmom01/result2.png';
 import result4 from '@assets/img/kmom01/result4.png';
 import result5 from '@assets/img/kmom01/result5.png';
 import result6 from '@assets/img/kmom01/result6.png';
-import debug_start from '@assets/img/kmom01/debug_start.png';
+import debug1 from '@assets/img/kmom01/debug1.png';
+import debug2 from '@assets/img/kmom01/debug2.png';
+import debug3 from '@assets/img/kmom01/debug3.png';
+import toolbar from '@assets/img/kmom01/toolbar.png';
 
 ## Skapa app
 
@@ -298,15 +301,49 @@ Läs mer om [dotnet format](https://learn.microsoft.com/en-us/dotnet/core/tools/
 
 ### Debugging
 
-För att debugga vår kod öppnar vi vårt projekt, det vill säga katalogen med vårt program, i VS Code. Markera filen "Program.cs". Se bild nedan:
+För att debugga vår kod öppnar vi vårt projekt, det vill säga katalogen med vårt program *FirstApp*, i VS Code. Markera filen "Program.cs". Först klickar du på "Run" eller "Run and Debug", sen på "Add configuration" och sen välj "C#". Nu kan du markera filen "Program.cs" och köra igång debuggern.
+
+Efter som "C# Dev Kit extension" är installerad, så kan du debugga genom att markera filen "Program.cs" och sen klicka på "F5". Det funkar inte på min Mac utan där gör jag enligt bilden nedan. Klicka först (1) på "SOLUTION EXPLORER" och därefter (2) så markerar du "FirstApp". Högerklicka på "FirstApp" och följande meny dyker upp med (3) debug som alternativ längst ner. Starta (4) debuggern genom att välja "Start New Instance".
+
+Se bild nedan:
 
 <Figure
-    src={debug_start}
-    caption="VS Code start debug."
+    src={debug1}
+    caption="Starta debuggning i VS Code."
 />
 
+Efter en liten stund så ser det ut så som bilden nedan. För att mata in värden (1) så gör du det längst ner och trycker ENTER när du är klar, precis som i terminalen. Längst upp (2) kan du styra debuggningen. 
 
-Klicka på symbolen för att starta debugging. För att skapa brytpunkter klickar du i vänsterkanten på den aktuella kodraden.
+<Figure
+    src={debug2}
+    caption="Mata in värde och kör vidare i debuggningen."
+/>
+
+Så här ser verktygsfältet med debugkommandona ut i VS Code.
+
+<Figure
+    src={toolbar}
+    caption="VS Code verktygsfält för debuggning."
+    width="500px"
+/>
+
+**Debugkommandona**:
+
+1. **Kör/Fortsätt (Continue/Pause)**; Startar eller fortsätter exekveringen tills nästa breakpoint.
+1. **Stega över (Step Over)**; Kör nästa rad utan att gå in i metod/funktion.
+1. **Stega in (Step Into)**; Går in i nästa metod/funktion.
+1. **Stega ut (Step Out)**; Kör klart aktuell metod och återgår till anropande kod.
+1. **Starta om (Restart)**; Stoppar och startar om debug-sessionen.
+1. **Stoppa (Stop)**; Avslutar debug-sessionen.
+
+Sätt brytpunkter genom att markerar till vänster om radnumret och då blir det en röd punkt där.
+
+<Figure
+    src={debug3}
+    caption="Visa en brytpunkt i VS Code."
+/>
+
+Om du vill läsa mer, se manualen till VS Code [Debugging](https://code.visualstudio.com/docs/csharp/debugging).
 
 
 ## Sammanfattning
