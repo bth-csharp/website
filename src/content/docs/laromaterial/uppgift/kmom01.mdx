@@ -33,13 +33,13 @@ Börja med att göra ett flödesschema och/eller pseudokod. Läs igenom kraven o
 
 Uppdatera "Program.cs" med en meny. Utskriften av menyn lägger du i en metod som du själv bestämmer namnet på. Verifiera att menyn fungerar innan du fortsätter. Det kan du göra genom att lägga en utskrift i varje case-sats, det vill säga för varje meny-alternativ.
 
-### Menyval **1**: Information om C#
+### Menyval 1: Information om C#
 
 (Metodnamn: **void PrintInfoAboutCsharp()**)
 
 Minst 3 meningar efterfrågas. Skriv något om C#, till exempel vilka som utvecklade det, vad det är för språk och plattformen .NET (dotnet). **PrintInfoAboutCsharp** har ingen retur.
 
-### Menyval **2**: Celsius till Fahrenheit
+### Menyval 2: Celsius till Fahrenheit
 
 (Metodnamn: **double ConvertCelsiusToFahrenheit(double tempCelsius)**)
 
@@ -49,7 +49,7 @@ Fråga efter en temperatur i Celsius (ska kunna vara ett tal med decimaler) och 
 input: 11.344     output: "52.42"
 ```
 
-### Menyval **3**: Upprepa tecken
+### Menyval 3: Upprepa tecken
 
 (Metodnamn: **string RepeatLetters()**)
 
@@ -60,7 +60,7 @@ input: "apa"      output: "a-pp-aaa"
 input: "kassler"  output: "k-aa-sss-ssss-lllll-eeeeee-rrrrrrr"
 ```
 
-### Menyval **4**: Skapa akronym
+### Menyval 4: Skapa akronym
 
 (Metodnamn: **string CreateAcronym()**)
 
@@ -71,7 +71,7 @@ input: "BRöderna Ivarsson Osby"      output: "BRIO"
 input: "Ingvar Kamprad Elmtaryd Agunnaryd"  output: "IKEA"
 ```
 
-### Menyval **5**: Summa och medelvärde
+### Menyval 5: Summa och medelvärde
 
 (Metodnamn: **string CountSumAndAverage()**)
 
@@ -84,7 +84,7 @@ input: 3
 input: "klar"  output: "Summan=6 och medelvärdet=2"
 ```
 
-### Menyval **6**: Validera personnummer med hjälp av Luhnalgoritmen
+### Menyval 6: Validera personnummer med hjälp av Luhnalgoritmen
 
 (Metodnamn: **bool ValidateSsn()**)
 
@@ -115,8 +115,6 @@ Så här kan det se ut när du är klar med uppgiften. [Videon](https://www.yout
 ## Tester
 
 Du testar din kod manuellt genom att köra alla menyalternativ och verifiera input och output under varje deluppgift.
-
-**OBS** nästa test ska ske automatiskt men just nu, det vill säga under utvecklingen, får du testa med detta projekt manuellt.
 
 Du testar din kod med enhetstester som du hämtar så här:
 
@@ -159,10 +157,10 @@ Då får vi hoppas att alla tester går igenom! Lycka till!
 
 ## Tips från coachen
 
-Felsök med hjälp av utskrifter med `Console.WriteLine()`. Använd gärna debugger i VS Code.
+Felsök med hjälp av utskrifter med `Console.WriteLine()`. Använd gärna debuggern i VS Code.
 
 Glöm inte att använda 'dotnet format' för att formatera din kod. Se i slutet av [Mer C#](./../Kunskap/MerCsharp.md) för mer information om 'dotnet format'.
 
-Gör många och små commits i ditt git repo, du kan ha ungefär 5-10 commits för en sådan här uppgift. Och pusha till ditt GitHub repo.
+Arbeta i `main` -branchen och gör många och små commits i ditt lokala Git-repo, du kan ha ungefär 6-10 commits för en sådan här uppgift. Och pusha till ditt GitHub repo.
 
 Lycka till och hojta till i forumet om du behöver hjälp!
