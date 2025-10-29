@@ -16,6 +16,7 @@ import result6 from '@assets/img/kmom01/result6.png';
 import debug1 from '@assets/img/kmom01/debug1.png';
 import debug2 from '@assets/img/kmom01/debug2.png';
 import debug3 from '@assets/img/kmom01/debug3.png';
+import debug_windows from '@assets/img/kmom01/debug_windows.png';
 import toolbar from '@assets/img/kmom01/toolbar.png';
 
 ## Skapa app
@@ -301,14 +302,29 @@ Läs mer om [dotnet format](https://learn.microsoft.com/en-us/dotnet/core/tools/
 
 ### Debugging
 
-Efter som "C# Dev Kit extension" är installerad, så kan du debugga genom att markera filen "Program.cs" och sen klicka på "F5". Det funkar inte på min Mac utan där gör jag enligt bilden nedan. Klicka först (1) på "SOLUTION EXPLORER" och därefter (2) så markerar du "FirstApp". Högerklicka på "FirstApp" och följande meny dyker upp med (3) debug som alternativ längst ner. Starta (4) debuggern genom att välja "Start New Instance".
+Efter som "C# Dev Kit extension" är installerad, så förenklar det debuggning. 
+
+#### Starta debugger på Mac och Linux
+
+På Mac och Linux fungerar det enligt bilden nedan. Klicka först (1) på "SOLUTION EXPLORER" och därefter (2) så markerar du "FirstApp". Högerklicka på "FirstApp" och följande meny dyker upp med (3) debug som alternativ längst ner. Starta (4) debuggern genom att välja "Start New Instance".
 
 Se bild nedan:
 
 <Figure
     src={debug1}
-    caption="Starta debuggning i VS Code."
+    caption="Starta debuggning i VS Code (Mac och Linux)."
 />
+
+#### Starta debugger på WSL2 (Windows)
+
+Markera (1) "Program.cs" och klicka på "F5". Funkar inte det så väljer du (2) "Run" i menyn följt av "Start Debugging".
+
+<Figure
+    src={debug_windows}
+    caption="Starta debuggning i VS Code (WSL2/Windows)."
+/>
+
+#### Kör debuggern
 
 Efter en liten stund så ser det ut så som bilden nedan. För att mata in värden (1) så gör du det längst ner och trycker ENTER när du är klar, precis som i terminalen. Längst upp (2) kan du styra debuggningen. 
 
