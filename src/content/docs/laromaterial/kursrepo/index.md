@@ -1,6 +1,6 @@
 ---
 title: "Kom igång med ditt kursrepo"
-description: Skapa ditt kursrepo för kursen, ett git repo som du kommer att jobba med genom hela kursen.
+description: Skapa ditt kursrepo för kursen, ett Git-repo som du kommer att jobba med genom hela kursen.
 author: mos
 revision:
   "2025-08-15": "(A, aar) Första utkastet."
@@ -22,12 +22,12 @@ I denna guiden får du hjälp med:
 
 1. Skapa en katalogstruktur där du kan jobba med kursens material.
 
-1. Skapa ett Git repo på GitHub.
+1. Skapa ett Git-repo på GitHub.
 
 1. Visa hur du kan autentisera dig mot GitHub med ssh-nycklar.
 
-1. Skapa en katalog och ett Git repo där du sparar allt ditt material.
+1. Skapa en katalog och ett Git-repo där du sparar allt ditt material.
 
-1. Koppla ditt git repo till Canvas för inlämningar.
+1. Koppla ditt Git-repo till Canvas för inlämningar.
 
-I kursen kommer vi att referera till ditt git repo som ditt "kursrepo".
+I kursen kommer vi att referera till ditt Git-repo som ditt "kursrepo".

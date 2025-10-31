@@ -1,6 +1,6 @@
 ---
-title: "Lägg till fil i git repot" 
-description: Vi visar hur man lägger till filen .editorconfig som en del av git repot och hur man pushar repots ändringar till GitHub.
+title: "Lägg till fil i Git-repot" 
+description: Vi visar hur man lägger till filen .editorconfig som en del av Git-repot och hur man pushar repots ändringar till GitHub.
 author: mos
 revision:
     "2025-06-25": "(A, mos) Första utkastet."
@@ -14,17 +14,17 @@ import YouTube from '@components/YouTube.astro';
 
 
 
-Ditt kursrepo är ett git repo och de filer du skapar behöver du också lägga till i git repot via de kommandon som git erbjuder.
+Ditt kursrepo är ett Git-repo och de filer du skapar behöver du också lägga till i Git-repot via de kommandon som git erbjuder.
 
 ## git status
 
 Börja med att kontrollera status för ditt repo med kommandot `git status`.
 
-```console title="Kontrollera status för git repot (kursrepot)."
+```console title="Kontrollera status för Git-repot (kursrepot)."
 git status
 ```
 
-Nya filer och kataloger som är i röd text är ännu inte tillagda i ditt lokala git repo.
+Nya filer och kataloger som är i röd text är ännu inte tillagda i ditt lokala Git-repo.
 
 
 
@@ -42,13 +42,13 @@ Som ett alternativ kan du lägga till samtliga filer som ännu inte är en del a
 git add .
 ```
 
-När du lagt till filen kan du köra `git status` igen. Då är de nya filerna och katalogerna markerade med grön text. Nu är de nya filerna och katalogerna tillagda i ditt lokala git repo, men ändringarna är ännu inte committade.
+När du lagt till filen kan du köra `git status` igen. Då är de nya filerna och katalogerna markerade med grön text. Nu är de nya filerna och katalogerna tillagda i ditt lokala Git-repo, men ändringarna är ännu inte committade.
 
 
 
 ## git commit
 
-För att spara ändringarna till git repot så kör vi kommandot `git commit` och samtidigt anger vi ett commit-meddelande om vad ändringen innebär. Dessa meddelande blir en del av repots commit-historik som berättar en historia om hur repot har utvecklats och förändrats.
+För att spara ändringarna till Git-repot så kör vi kommandot `git commit` och samtidigt anger vi ett commit-meddelande om vad ändringen innebär. Dessa meddelande blir en del av repots commit-historik som berättar en historia om hur repot har utvecklats och förändrats.
 
 ```console title="Spara (samtliga) ändringarna i repot med git commit."
 git commit -m "Add the file with a short explanation"
@@ -73,7 +73,7 @@ Dåligt exempel: added functionality to count score!!!
 
 ## git push
 
-För att ladda upp ändringarna i ditt lokala git repo till GitHub, din remote, använder du kommandot `git push`. Då kommer samtliga lokala ändringar att laddas upp till din remote (GitHUb) så att både din remote och din lokala version är "i synk" och har samma innehåll och samma commit-historik.
+För att ladda upp ändringarna i ditt lokala Git-repo till GitHub, din remote, använder du kommandot `git push`. Då kommer samtliga lokala ändringar att laddas upp till din remote (GitHUb) så att både din remote och din lokala version är "i synk" och har samma innehåll och samma commit-historik.
 
 Kör nu kommandot `git push`.
 
@@ -89,7 +89,7 @@ Du kan se hur utskriften från `git status` berättar att din lokala branch är 
 
 Om läget hade varit det motsatta, att den version som ligger på GitHub är mer aktuell än din lokala kopia, då löser du det med kommandot `git pull` som laddar ned ändringarna från din remote på GitHub.
 
-Du kan köra kommandot nu, inget kommer att hända eftersom din remote (GitHub) och din lokala version av git repot är "i synk".
+Du kan köra kommandot nu, inget kommer att hända eftersom din remote (GitHub) och din lokala version av Git-repot är "i synk".
 
 ```console title="Uppdatera ditt lokala repo med ändringar som är gjorde på din remote (GitHub)."
 git pull
@@ -100,6 +100,6 @@ Om du är osäker på att du är i synk så kan du alltid göra `git status` til
 
 ## Bra git kommandon
 
-* **git log**; visar commit-historik för ditt git repo. Bra för att se vad som hänt i olika commits.
-* **git diff**; visar skillnader mellan filer i ditt git repo. Bra för att se vad du ändrat i filerna.
+* **git log**; visar commit-historik för ditt Git-repo. Bra för att se vad som hänt i olika commits.
+* **git diff**; visar skillnader mellan filer i ditt Git-repo. Bra för att se vad du ändrat i filerna.
 * **git branch**; visar alla brancher i repot. Du ska jobba i main branchen.

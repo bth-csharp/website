@@ -1,11 +1,17 @@
 ---
-title: "Resultat och redovisning" 
+title: "Resultat och redovisning ⚠️" 
 description: No description.
 sidebar:
     order: 001
 ---
 
 import { YouTube } from 'astro-embed';
+
+:::danger
+Instruktionerna är under uppdatering och är ännu inte klara!
+
+Pusha till main och jobba på så länge!
+:::
 
 Som ett sista steg i varje kursmoment skall du redovisa. Gör så här.
 
@@ -16,6 +22,10 @@ Som ett sista steg i varje kursmoment skall du redovisa. Gör så här.
 />
 
 PS! För kmom03, kmom06 och kmom10 skall du även göra en pull request (PR) på GitHub. Läs mer om det längst ner på sidan.
+
+## Kör tester
+
+Dubbelkolla att din kod passerar testerna och validerar. Ladda ner testerna lokalt, se information i respektive kmom. Om du har några fel, fixa dem före du fortsätter.
 
 ## Gör veckans quiz
 
@@ -36,7 +46,7 @@ Du kan använda följande versioner för dina taggar.
 | v4.0.0   | kmom04 |
 | v5.0.0   | kmom05 |
 | v6.0.0   | kmom06 |
-| v7.0.0   | kmom10 |
+| v10.0.0   | kmom10 |
 
 Tagga ditt repo så här.
 
@@ -56,7 +66,7 @@ git push
 git push --tags
 ```
 
-I framtiden kommer du (troligen) att använda versionsnummer enligt något som heter "[Semantic versioning](https://semver.org/)", kika gärna på hur det fungerar.
+När du taggar så körs tester på respektive kmom. Kolla på GitHub att det går grönt under "Actions"!
 
 Som ett sista steg i din inlämning så kan du kontrollera att GitHub verkligen innehåller den allra senaste versionen av din kod.
 
