@@ -24,7 +24,9 @@ Du behöver utföra följande steg innan du kan börja jobba med det första kmo
 
 ### Introduktion till kursen
 
-1. Titta på [kursintroduktionen](../laromaterial/forelasning/kursintroduktion.mdx)
+1. Titta på [Kursintroduktionen](../laromaterial/forelasning/kursintroduktion)
+
+1. Titta på [Introduktion till Canvas och webbsida](../laromaterial/forelasning/canvasintroduktion)
 
 ### Labbmiljö
 
