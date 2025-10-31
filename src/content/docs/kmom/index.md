@@ -22,6 +22,10 @@ Vissa kursmoment kan spänna över flera veckor, till exempel så brukar det avs
 
 Du behöver utföra följande steg innan du kan börja jobba med det första kmomet.
 
+### Introduktion till kursen
+
+1. Titta på [kursintroduktionen](../laromaterial/forelasning/kursintroduktion.mdx)
+
 ### Labbmiljö
 
 Se till att du har kursens labbmiljö installerad.
