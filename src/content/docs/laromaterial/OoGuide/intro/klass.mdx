@@ -1,0 +1,246 @@
+---
+title: "Klasser och objekt"
+description: Klasser och objekt med kodexempel
+sidebar:
+    order: 5
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+En klass är en mall med medlemmar som variabler (attribut) och metoder. Utifrån mallen skapar vi objekt av klassen. Objekt är en instans av klassen.
+
+Vi testar att skapa en klass med både statiska variabler och instansvariabler och att instansiera två objekt av klassen.
+
+
+## Skapa projekt
+
+Vi skapar ett projekt i terminalen som heter **OoGuide** i katalogen **practice** under aktuellt kmom.
+
+```shell title="I terminalen, stå i katalogen practice i aktuellt kmom"
+dotnet new console -n OoGuide
+cd OoGuide
+```
+
+
+## Skapa en klass
+
+Låt oss gå igenom hur vi skapar en bilklass, **Car**. En klass börjar alltid med nyckelordet `class` följt av klassens namn och därefter krullparenteser `{}` som omger klassens innehåll. Vi lägger klassen i katalogen **src** eftersom det är vanligt i programmeringsprojekt. **src** står för "source" och innehåller all kod för projektet.
+
+```shell title="I terminalen, i katalogen OoGuide"
+mkdir src
+cd src
+dotnet new class -n Car // funkar inte detta så skapa filen Car.cs i VS Code
+```
+
+I C# använder vi också namespace för att organisera kod och undvika namnkollisioner. I denna guide kallar vi namespacet "OoGuide.src".
+
+Fördelen med namespace är att det är en egen namnrymd. Klassen **Car** som vi skapar finns i namespacet "OoGuide.src". Det ger oss möjlighet att skapa flera klasser som heter **Car** i andra namespace utan att det krockar. Däremot måste vi peka ut vilket namespace som klassen **Car** som vi ska använda finns i.
+
+Vi har skapat en ny fil (namngiven Car.cs) och nu ska vi se till att den innehåller implementation för klassen **Car**. Detta gör vi genom att editera filen i VS Code. När vi öppnar filen Car.cs så ser den ut så här (**Dubbelkolla att du har rätt namespace!**):
+
+```csharp title="Så här ser klassen Car ut i filen Car.cs"
+namespace OoGuide.src;
+
+public class Car
+{
+
+}
+```
+
+En klass behöver normalt sett även variabler (attribut) som kan hålla dess tillstånd. Vi börjar med att lägga till statiska variabler.
+
+### Statiska variabler och konstanter
+
+Om vi vill veta hur många bilar som har skapats, kan vi skapa en statisk variabel som fungerar som en räknare för hur många objekt som skapat av klassen **Car**. "Statiska variabler" innehåller värden som är gemensamma för alla objekt av klassen till skillnad från "instansvariabler" som är individuella för varje objekt av klassen.
+
+Något som "alla" bilar har gemensamt är att de har 4 hjul. Vi skapar en konstant `WHEELS`som är statisk och som innehåller värdet 4. För att skapa en konstant används det reserverade ordet `const`. Eftersom konstanten är deklarerad inom en klass blir det automatiskt "statisk" (tillhör klassen) och delas av alla objekt. Konstanten görs publik för att det ska vara möjligt att komma åt den via klassens namn följt av en punkt.
+
+import classdiagramCar_1 from '@assets/img/ooguide/classdiagramCar_1.png';
+
+<Figure
+    src={classdiagramCar_1}
+    caption="Klassdiagram över Car med statiska variabler"
+    width="200px"
+/>
+
+```csharp title="Klassen Car får en konstant och en statisk variabel"
+namespace OoGuide.src;
+
+class Car
+{
+    public const int WHEELS = 4;
+    private static int _carCount = 0;
+
+    // Static methods
+    public static int GetCarCount()
+    {
+        return _carCount;
+    }
+}
+```
+
+Sådär ja, nu har klassen Car en statisk variabel namngiven `_carCount` och en statiskt konstant `WHEELS`. Vi har även en getmetod för att komma åt den privata statiska variabeln `_carCount`.
+
+
+Ibland är det svårt att skilja på vad som ska vara en konstant, const, och vad som ska vara en klassvariabel, static. En konstant, const, ska användas för ett värde som aldrig ska ändras (i vårt fall ska alla bilar alltid ha 4 hjul). Värdet för en konstant måste ges i samband med deklarationen och vädret beräknas vid kompileringen. Konstanter namnges med stora bokstäver.
+
+En statisk variabel, static, kan däremot ändras. Den är en del av klassen och delas mellan alla instanser av klassen.
+
+Publika konstanter och klassvariabler kommer vi åt genom `ClassName.THE_CONSTANT` respektive `ClassName.staticVariable`. Motsvarande gäller för publika klassmetoder, det vill säga `ClassName.staticMethod(...)`.
+
+Vi går vidare med att lägga till instansvariabler (attribut) som ska innehålla data som vi vill ska vara individuellt för varje objekt.
+
+### Instansvariabler (attribut)
+
+Statiska variabler och instansvariabler deklarerar vi överst i klassen och skapar i `konstruktorn`. Konstruktorn är metoden som körs för att skapa en ny instans av klassen (ett objekt). Alla bilar kommer att ha 4 hjul men innehållet i övriga variabler kan skilja sig mellan objekten. Konstruktor-metoden har alltid samma namn som klassen och parameterlista med eventuella inparametrar. För klassen Car är namnet på konstruktorn `Car`. Lämpliga inparametrar till `Car()` kan vara `model` och `price`. Konstruktorer bör ligga efter variabeldeklarationerna men före övriga metoder. En klass kan ha flera konstruktorer med olika inparametrar.
+
+Vi fyller på med instansvariabler för modell och pris. I och med att konstruktorn används för att skapa nya objekt av vår klass är det i denna vi ökar `_carCounter` med 1.
+
+import classdiagramCar_2 from '@assets/img/ooguide/classdiagramCar_2.png';
+
+<Figure
+    src={classdiagramCar_2}
+    caption="Klassdiagram över Car med statiska medlemmar och instansvariabler"
+    width="200px"
+/>
+
+```csharp title="Klassen Car får instansvariabler med metoder"
+// i OoGuide/src/Car.cs
+namespace OoGuide.src;
+
+class Car
+{
+    public const int WHEELS = 4;
+    private static int _carCount = 0;
+
+    private string _model;
+    private int _price;
+
+    public Car(string model, int price)
+    {
+        this._model = model;
+        this._price = price;
+        Car._carCount += 1;
+    }
+
+    public static int GetCarCount()
+    {
+        return _carCount;
+    } 
+}
+```
+
+### Skapa objekt
+
+För att vi ska kunna skapa objekt med egna värden, har vi i det här fallet en inmatning i konstruktorn för varje instansvariabel som hör till objektet. I konstruktorn bestämmer vi vilka värden dessa instansvariabler ska ha, alltså vilket innehåll objektet ska få. Det innebär att med `this._model = model` så tilldelas objektets instansvariabel `_model` det värde som har skickats med i parametern `model`. Motsvarande utförs för instansvariabeln `_price`.
+Avslutningsvis ökar vi den statiska variabeln `_carCount` med 1 för att registrera att ytterligare ett objekt har skapats.
+
+Nu har vi en klass som innehåller en statisk variabel, en konstant (som indirekt blir statisk) och två instansvariabler. Vi provar att anropa konstruktorn för att skapa ett par **Car**-objekt. Det gör vi i vårt huvudprogram **Program.cs**.
+
+```csharp title="I Program.cs skapar vi objekten bmw, volvo och extraCar från klassen Car"
+using OoGuide.src;
+
+Car bmw = new Car("BMW", 100000);
+Car volvo = new Car("Volvo", 150000);
+Car extraCar = volvo;
+```
+
+Nu har vi skapat en instans av klassen Car, `bmw`, med 4 hjul, märket BMW och med ett pris på 150000.000 samt en instans, `volvo`, med 4 hjul, märket Volvo och priset 50000. Vi har dessutom skapat ytterligare en variabel namngiven `extraCar` tilldelas `volvo`. Konsekvensen av denna tilldelning är att både `extraCar` och `volvo` "pekar på" samma instans, det vill säga objektet som har 4 hjul, märket Volvo och priset 150000. Vi har skapat 2 instanser (även om vi har 3 variabler), vilket innebär att antalet bilar i `_carCount` ska vara 2.
+
+### Hämta information från objekten
+
+Vi testar att skriva ut information från objekten:
+
+```csharp title="Lägg till följande kod i Program.cs"
+
+...
+Console.WriteLine("Antal hjul: " + Car.WHEELS);
+// ger utskriften: Antal hjul: 4
+
+Console.WriteLine("Antal hjul: " + bmw.WHEELS);
+// ger utskriften: error CS0176: Member 'Car.WHEELS' cannot be accessed with an instance reference; qualify it with a type name instead. Alltså måste statiska variabler accessas via klassnamnet annars får vi kompileringsfel.
+
+Console.WriteLine("Antal bilar: " + Car._carCount); // Funkar ej, _carCount är private
+// Ger kompileringsfel: error CS0117: 'Car' does not contain a definition for '_carCount'
+
+Console.WriteLine("Antal bilar: " + Car.GetCarCount());
+// ger utskriften: Antal bilar: 2
+
+Console.WriteLine(volvo);
+// ger utskriften: OoGuide.Car 
+// Först namespace följt av en punkt och sen klassnamnet. Alla instanser av klassen Car för samma utskrift.
+```
+
+Vi kan se att vi kommer åt konstanten, `WHEELS`, från klassen, `Car.WHEELS` men inte med `bmw.WHEELS` eller `volvo.WHEELS` trots att den är publik. Det blir kompileringsfel om vi försöker komma åt konstanten via en instans då en konstant är en statisk variabel som nås via klassen.
+
+Vi försöker kompilera och testköra programmet i terminalen (stå i katalogen OoGuide) med:
+
+```shell title="Kör igång programmet i terminalen i katalogen OoGuide"
+dotnet run
+```
+
+Förhoppningen är att det ska fungera och att programmet visar det som förväntas men blir det kompileringsfel så försöker vi rätta dessa. Vi kontrollerar att vi skrivit rätt namn på klasser, namespaces, metoder och så vidare. I det här fallet kommenterar vi bara bort raden med felet och kör igen. Vi har behållet raden med del för att visa hur felmeddelanden ser ut.
+
+Nu ser det bra ut. Två instanser av klassen **Car**, `volvo` och `bmw` som är lagrade på olika minnesplatser med olika variabelnamn, vilket betyder att det är två separata objekt med olika värden. Vi ser också att räknaren fungerar. Däremot är `extraCar` en variabel som pekar på samma objekt som variabeln `volvo` pekar på.
+
+```csharp title="Lägg till följande kod i Program.cs"
+// i OoGuide/Program.cs
+if (!Object.Equals(bmw, volvo))
+    Console.WriteLine("bmw och volvo är olika instanser på olika platser i minnet");
+// ger utskriften: bmw och volvo är olika instanser på olika platser i minnet
+
+if (Object.Equals(volvo, extraCar))
+    Console.WriteLine("extraCar och volvo är samma instans och pekar på samma plats i minnet");
+// ger utskriften: extraCar och volvo är samma instans och pekar på samma plats i minnet
+```
+
+För att komma åt innehållet i instansvariablerna kan vi använda get- och set-metoder. Vi tittar på hur det kan se ut. Vi lägger till get-metoder för märke och pris efter den statiska get-metoden `GetCarCount`, sist i klassen **Car**.
+
+```csharp title="Lägg till följande kod i Car.cs"
+
+    ...
+    public string GetModel()
+    {
+        return this._model;
+    }
+
+    public int GetPrice()
+    {
+        return this._price;
+    }
+```
+
+```csharp title="Lägg till följande kod i Program.cs"
+
+...
+Console.WriteLine("_model: " + bmw.GetModel());
+// ger utskriften: _model: BMW
+
+Console.WriteLine("_model: " + volvo.GetModel());
+// ger utskriften: _model: Volvo
+```
+
+## Sammanfattning
+
+Vi använder **new** följt av ett anrop av konstruktorn för att skapa ett objekt av klassen. Vi använder `.` punktnotation för att komma åt publika attribut och metoder i klassen.
+
+Nu flyttar vi alla utskrifterna vi gjort i huvudprogrammet **Program.cs** till en egen metod och anropar istället den för att se att vi får samma resultat som innan.  Så här ser det ut när vi är klara:
+
+```csharp title="Lägg till följande kod i Program.cs"
+using OoGuide.src;
+
+static void TestingClassPrintouts()
+{
+    Car bmw = new Car("BMW", 100000);
+    Car volvo = new Car("Volvo", 150000);
+    Car extraCar = volvo;
+
+    Console.WriteLine("Antal hjul: " + Car.WHEELS);
+    ...
+}
+
+TestingClassPrintouts();
+```
+
+Efter att ha testkört metoden kommenterar vi bort anropet av den.

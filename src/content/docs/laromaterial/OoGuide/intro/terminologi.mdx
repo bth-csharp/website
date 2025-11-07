@@ -1,0 +1,84 @@
+---
+title: "Objektorienterad terminologi"
+description: Objektorienterad terminologi
+sidebar:
+    order: 3
+    hidden: true
+---
+
+
+Här beskrivs vanliga koncept in objektorienterad programmering (OOP). Koncepten beskrivs mer djupgående i guiden och denna sidan är mer en referenslista som ni kan gå tillbaka till för att få en överblick över OOP koncept.
+
+## Grundläggande terminologi
+
+- **Klass**: En mall eller ritning för att skapa objekt. En användardefinierad typ för ett objekt som definierar en uppsättning medlemmar som karaktäriserar alla objekt av klassen. Medlemmarna kan vara variabler (egenskaper) och metoder, som nås via "dot-notation".
+
+- **Objekt**: Ett objekt är en konkret enhet i minnet som innehåller både data och beteende. Det är en instans av en klass. Ett objekt skapas med nyckelordet new följt av klassens namn; `new <ClassName>`.
+
+- **Instans**: Ett individuellt (unikt) objekt av en klass. Det skapas med nyckelordet new följt av klassens namn; `new <ClassName>`. Alla instanser är objekt men när vi säger instans betonar vi kopplingen till klassen.
+
+- **Attribut (medlemsvariabler)**: variabler som tillhör ett objekt. De beskriver objektets tillstånd. Attribut kan också kallas egenskaper (properties) och fält (fields) i C#. Vi kommer att kalla dem attribut för att det är ett generellt begrepp inom OOP för medlemsvariabler i en klass.
+
+  - **Vanliga attribut (instansattribut)**: Ett attribut som hör till ett specifikt objekt (en instans) av en klass. Varje objekt har en egen kopia av attributet. Attributet tillhör enbart den instansen av klassen och kan (om den är publik) nås via instansens namn, därefter en punkt följt av variabelns namn. Inuti klassen nås instansvariabeln med this följt av en punkt; "this.Attribute".
+
+  - **Statiska attribut**: Ett attribut som tillhör själva klassen, och inte ett specifikt objekt. Alla instanser, dsv alla objekt, delar på ett och samma statiska attribut. Attributet nås (om det är publikt) via klassens namn, därefter en punkt följt av variabelns namn; "ClassName.StaticAttribute".
+
+- **Metod**: en körbar del (kallas ibland funktion) som definieras i en klass och tillhör antingen klassen eller instanser av klassen, det vill säga objekt.
+
+  - **Vanliga metoder (instansmetoder)**: En metod som tillhör objekt (en instans) av en klass. Den anropas (om den är publik) med instansens namn, därefter en punkt följt av metodens namn. Inuti klassen anropas instansmetoden med this följt av en punkt; "this.MethodName".
+
+  - **Statisk metod**: En metod som tillhör klassen. Alla instanser delar på en och samma statiska metod. Den anropas (om den är publik) med klassens namn, följt av en punkt och sen metodens namn: ; "ClassName.StaticMethodName". Inom en statisk metod kan bara andra statiska metoder i klassen anropas.
+
+## Principer inom OOP
+
+- **Inkapsling**: Samlar ihop data (attribut) och metoder som kan bearbeta och påverka denna data, i en enhet (klass). Vidare kontrolleras åtkomst till dessa via accessmodifikatorer som `private` och `public`. (Även `protected` finns men det är relevant först när man arbetar med arv.)
+
+- **Properties**: Egenskaper på svenska. Variabler med inbyggda getters och setters och anropas med instansens namn, följt av en punkt och sen variabelns namn.
+
+- **Arv**: *är-en* relation mellan två klasser. En `Square` is a `Shape`, Square är en subklass till Shape (basklass) och ärver dess metoder och attribut. Det främjar återanvändning av kod.
+
+  - **Basklass**: Grundklass som andra ärver ifrån.
+
+  - **Subklass**: En härledd klass som ärver från en basklass.
+
+- **Polymorfism**: Det hänvisar till förmågan hos olika objekt att svara på samma meddelande på olika sätt. Olika klasser kan svara på samma metodanrop genom att utföra olika handlingar baserat på sin egen implementation av metoden. Metodöverlagring, operatorsöverlagring och överskuggning är exempel på polymorfism.
+
+  - **Metodöverlagring**: När en metod har samma namn men olika parameterlista som en annan metod. Parameterlistan behöver skilja sig åt avseende antalet parametrar, typen på parametrarna eller ordningen på parametrarna. På engelska heter det "Method overloading".
+
+  - **Operatorsöverlagring**: När en klass har implementerat en metod för en operator (t.ex +. -, ==, >). På engelska heter det "Operator overloading".
+
+  - **Metodöverskuggning**: När en subklass har en metod med samma namn och samma parameterlista som en metod i basklassen. Metoden är anpassad till subklassen. På engelska heter det "Method overriding".
+
+- **Abstraktion**: Visar endast relevant information och funktionalitet för användaren och döljer komplexitet
+
+  - **Abstrakt klass**: En klass som likt en vanlig klass definierar en uppsättning variabler och metoder som beskriver klassen. En abstrakt klass kan inte instansieras utan används endast som basklass vid arv.
+
+  - **Abstrakta metoder**: Abstrakta metoder används i abstrakta klasser. De saknar implementation, vilket "tvingar" subklasser att implementera (override/överskugga) dessa (om inte även subklasserna ska vara abstrakta).
+
+  - **Dataabstraktion**: Det är att dölja detaljer och väsentlig information för användaren av klassen. Se även inkapsling och information hiding. Det kan göras med abstrakta klasser och metoder. På engelska heter det "Data abstraction".
+
+## Andra begrepp
+
+- **Information hiding**: Att man gömmer intern data, så att den inte kan användas på fel sätt av extern kod. Se [åtkomstnivåerna](#information-hiding) nedan. Visar endast de variabler och metoder som behövs utåt - fokus på säkerhet och kontroll.
+
+- **Konstruktor**: Är en publik metod i klassen som har samma som klassen. Den har ingen returdatayp. Dess uppgift är att skapa och initiera ett objekt av klassen.
+
+- **Destruktor**: Körs när en instans av klassen (det vill säga ett objekt) förstörs.
+
+## Relationer mellan klasser
+
+- **Aggregation**: *har*-relation mellan två klasser med svag koppling. Ett objekt av en klass har tillgång till ett objekt av en annan klass. En `House` has a `Owner`. Ett Owner objekt kan existera även utanför ett House objekt.
+
+- **Komposition**: *har*-relation mellan två klasser med stark koppling. Ett objekt av en klass äger ett objekt av en annan klass och styr livscykeln för det ägda objektet. Ett `House` has a `Room`. Ett Room objekt kan inte existera utanför ett House objekt.
+
+- **Association**: *använder*-relation mellan två klasser med svag tillfällig koppling mellan två klasser. Det är inte ett ägandeförhållande, utan mer "den ena känner till den andra" under en viss tidsrymd. `Guest` besöker `House`. Objektet Guest känner till objektet House.
+
+## Information hiding
+
+Med **Information hiding** visar vi endast de variabler och metoder som är nödvändiga utåt för att kontrollera åtkomsten och göra klassen säker. Ett
+
+| Implementation | Typ     | Syfte                                                                                 |
+|----------------|---------|---------------------------------------------------------------------------------------|
+| private _name   | privat (private) | Nås endast från klassen där de deklareras (default om inget annat anges)
+| protected _name | skyddad (protected) | Fungerar som privat men medlemmen kan även nås från klasser som ärver från klassen där de deklareras                             | |
+| public name    | publik (public)  | Kan nås av vem som helst och ska undvikas för egenskaper där property bör användas istället.           |

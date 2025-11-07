@@ -1,0 +1,91 @@
+---
+title: "Operatorsöverlagring"
+description: Operatorsöverlagring med kodexempel
+sidebar:
+    order: 4
+    hidden: true
+---
+
+
+Operatorer inom programmering (`+, -, *, /, <, >` med flera), har ett förutbestämt syfte och vi kan använda dem på våra värden. C# vet vad som ska göras när vi skriver `3 + 5`. Men när vi skapar egna klasser så gömmer vi data i objekt och då kan vi inte bara addera eller subtrahera två objekt och förvänta oss att det ska fungera. Till exempel så funkar inte `volvo + bmw`. Vidare har våra objekt ofta flera attribut med olika värden. Hur ska C# veta vilka av attributen som ska användas vid uträkningarna? Ska C# använda strängen `_model`  eller heltalet `_price` i operationen?
+
+Här kommer **operatorsöverlagring** in i bilden. När vi använder en operator är det en hemlig metod i C# som anropas och exekveras. I våra egenskapade klasser kan vi skriva över dessa metoder och på så sätt bestämma vad som ska ske när vi använder en operatorn.
+
+
+## Addition, Car + Car
+
+ Låt säga att vi vill kunna addera två bil objekt och få reda på det sammanlagda priset. Först testar vi rakt av:
+
+```csharp
+// i OoGuide/Program.cs
+Car bmw = new Car("BMW", 100000);
+Car volvo = new Car("Volvo", 80000);
+
+Console.WriteLine("Addera priset: " + (bmw + volvo));
+// Ger kompileringsfel: error CS0019: Operator '+' cannot be applied to operands of type 'Car' and 'Car'
+```
+
+Det gick inte så bra. `+`-operatorn fungerar inte med två instanser av klassen Car, eftersom klassen Car inte innehåller inte den metoden. Metoden som anropas vid `+` operatorn heter `operator +`. Vi lägger till en metod som heter `operator +` sist i klassen. Detta kallas att överlagra en operator eller operatorsöverlagring:
+
+```csharp
+// i OoGuide/src/Car.cs
+    ...
+    // Operator overloading methods
+    // Overloading the '+' operator for adding the price of two instances of the class Car
+    public static int operator +(Car car1, Car car2)
+    {
+        return (int)(car1.GetPrice() + car2.GetPrice());
+    }
+}
+```
+
+Metoden `operator +` har två inparametrar, två instanser av klassen **Car** och returnerar summan av de två instansernas priser som ett heltal. Vi kollar på hur vi anropar metoden.
+
+```csharp
+// i OoGuide/Program.cs
+Console.WriteLine("Addera priset: " + (bmw + volvo));
+// Ger utskriften: Addera priset: 180000
+```
+
+Nu C# tolkar `volvo + bmw` som att de både objektens pris ska adderas.
+
+## Addition, Car + int
+
+Vi kan vilja att ha ut mer funktionalitet av `operator +`. Vad händer om vi adderar ett Car objekt med ett heltal?
+
+```csharp
+// i OoGuide/Program.cs
+Console.WriteLine("Addera priset (Car+int): " + (bmw + 10000));
+// Ger kompileringsfelet: error CS0019: Operator '+' cannot be applied to operands of type 'Car' and 'int'
+```
+
+Då kraschar programmet för att `operator +` metoden vill ha två inparametrar av typen **Car**. Vi kan lösa det genom att göra ännu en operatorsöverlagring för metoden `operator +` med en inparameter av typer **Car** och den andra inparametern av typen int.
+
+```csharp
+// i OoGuide/src/Car.cs
+    ...
+    // Operator overloading methods
+    ...
+
+    // Overloading the '+' operator for adding the price of one instances of 
+    // the class Car and an integer amount
+    public static int operator +(Car car1, int amount)
+    {
+        return (int)(car1.GetPrice() + amount);
+    }
+}
+```
+
+```csharp
+// i OoGuide/Program.cs
+Console.WriteLine("Addera priset (Car+int): " + (bmw + 10000));
+// Ger utskriften: Addera priset (Car+int): 110000
+```
+
+## Sammanfattning
+
+Nu har vi överlagrat vår första operator. Det är ett programmerat beteende i C# att leta efter en `operator +` metod och anropa den när man använder `+` operatorn. En regel vid operatoröverlagring är att minst en av operanderna är av den fördefinierade typen. I vår första metod är båda operanderna av klassen **Car** och i vår andra metod är första operanden av klassen **Car** och den andra en int.
+
+Det finns en specifik metod för de olika aritmetiska operatorerna `+, -, *, /, %`. Även för jämförelseoperatorerna som `==, <, > <= >=` m.m, med de metoderna kan vi programmera hur två objekt av klassen Car jämförs t. ex. vilket objekt som räknas som störst eller minst. Vid subtraktion heter den metoden `operator -`.
+Alla operatorer går inte att överlagra, mer om det i [C#s dokumentation](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/operator-overloading).
+

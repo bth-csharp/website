@@ -1,0 +1,40 @@
+---
+title: "Huvudprogram"
+description: Huvudprogram med kodexempel
+sidebar:
+    order: 4
+    hidden: true
+---
+
+
+Allt i C# är på ett eller annat sätt ett objekt. Strängar, heltal, listor, moduler - ja, allt. Vi ska titta på är hur man skapar egna klasser och objekt och hur man hanterar dem.
+
+C# har inga globala variabler och huvudprogrammet måste också deklareras som en klass. Vi hittar huvudprogrammet i Program.cs. Från och med .NET 6 så ser huvudprogrammet eller som det också kallas toppnivåinstruktionerna (top-level statements) förenklat.
+
+I .NET 5 och tidigare såg det ut så här:
+
+```csharp title="Huvudprogrammet i filen Program.cs"
+using System;
+
+namespace MyApp // OBS! Namnet på namespace beror på projektets namn.
+{
+    public class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+        }
+    }
+}
+```
+
+Från .NET 6 och framåt så fyller du bara i koden `Console.WriteLine("Hello World!");` i funktionen Main. Det kallas modern C# med toplevel statements. "using System;", "class Program" och "Main-metoden" körs i bakgrunden. Det ser det ut så här:
+
+```csharp title="Huvudprogrammet i filen Program.cs i modern C# med toplevel statements"
+namespace MyApp;
+
+// See https://aka.ms/new-console-template for more information
+Console.WriteLine("Hello, World!");
+```
+
+Dessa två sätt representerar samma program. Förutsatt att projektet heter "MyApp" så får namespacet samma namn.

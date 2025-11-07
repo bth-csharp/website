@@ -1,0 +1,381 @@
+---
+title: "Objekt i objekt"
+description: Objekt i objekt med kodexempel
+sidebar:
+    order: 5
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+Till vår racerbana så har vi två klasser **RaceTrack**, som representerar själva racerbanan, och **Car** som representerar en bil på racerbanan. Vad kan vi mer behöva för klasser? Det kan behövas förare, publik och varför inte väder. Vädret kan påverka bilarnas hastighet.
+
+Precis som vi har attribut på en klass som är av typen string eller int, så kan vi också ha attribut av typen en specifik klass. Vi skapar en klass **Weather** som sedan blir ett attribut på klassen **RaceTrack**.
+
+
+## Ny klass Weather
+
+Vi pratar ofta om vädret och det påverkar hur fort bilarna kan köra. Klassen innehåller information om vädertyp, temperatur och vindstyrka. Klassen **Weather** kan se ut så här:
+
+```csharp
+// i OoGuide/src/Weather.cs
+namespace OoGuide.src;
+public class Weather
+{
+    private string _type;
+    private double _temperature;
+    private double _wind;
+
+    public Weather(string type, double temperature, double wind)
+    {
+        this._type = type;
+        this._temperature = temperature;
+        this._wind = wind;
+    }
+
+    public string GetForecast()
+    {
+        return $"Väder: {this._type}, {this._temperature} grader och {this._wind} m/s.";
+    }
+
+    public Update(string type, double temperature, double wind)
+    {
+        // borde hämta infon från någon vädersida istället 
+        this._type = type;
+        this._temperature = temperature;
+        this._wind = wind;
+    }
+}
+```
+
+Metoden `Update` borde hämta informationen om vädertyp, temperatur och vindstyrka från en vädersida men för enkelhets skull så är det vi som bestämmer vädret med inparametrar.  
+Vi testar klassen **Weather** i huvudprogrammet.
+
+```csharp
+// i OoGuide/Program.cs
+...
+Weather weather = new Weather("Soligt", 18, 8);
+Console.WriteLine(weather.GetForecast());
+// ger utskriften: Väder: Soligt, 18 grader och 8 m/s.
+
+weather.Update("Halvmulet", 15, 4);
+Console.WriteLine(weather.GetForecast());
+// ger utskriften: Väder: Halvmulet, 15 grader och 4 m/s.
+```
+
+## Använd klassen Weather i klassen RaceTrack
+
+Klassen **RaceTrack** har väder men även om racerbanan stänger så fortsätter ju vädret att finnas. Alltså väderobjektet lever vidare även om racerbana-objektet upphör att existera. Då har vi en aggregation, en oifylld diamant ska peka på **RaceTrack**. Vi lägger till en metod för att lägga till ett väderobjekt till klassen `AddWeather` och en metod för att returnera prognosen `GetForecast`. Om det inte finns något väderobjekt så returnerar `GetForecast` bara "Väder okänt".
+
+import classdiagramWeather from '@assets/img/ooguide/classdiagramWeather.png';
+
+<Figure
+    src={classdiagramWeather}
+    caption="Klassdiagram över RaceTrack med ett Weather objekt"
+/>
+
+Så här ser koden ut i **RaceTrack**:
+
+```csharp
+// i OoGuide/src/RaceTrack.cs
+    ...
+
+    private Weather? _weather = null; // null för att markera inget väder satt ännu
+    ...
+
+    public void AddWeather(Weather newWeather)
+    {
+        this._weather = newWeather;
+    }
+   
+    public string GetWeatherForecast()
+    {
+        string forecast = "Väder okänt";
+
+        if (this._weather != null)
+        {
+            forecast = this._weather.GetForecast();
+        }
+
+        return forecast;
+    }
+}
+```
+
+I **Weather** så sätter vi ett defaultvärde på den private variabeln direkt när vi deklarerar variabeln `_weather` eftersom vi tycker att det blir tydligare och `_weather` är inte beroende av någon logik. Om `_weather` var beroende av logik samt att vi ville ha mer kontroll, så hade vi satt `_weather` till null i konstruktorn istället. Frågetecknet efter typen **Weather** markerar att variabeln får vara null.
+
+Då testar vi att använda ett objekt av klassen **Weather** i klassen **RaceTrack**.
+
+```csharp
+// i OoGuide/Program.cs
+...
+Weather weather = new Weather("Soligt", 18, 8);
+
+weather.Update("Halvmulet", 15, 4);
+
+RaceTrack track = new RaceTrack(100);
+Console.WriteLine(track.GetWeatherForecast());
+// ger utskriften: Väder okänt
+track.AddWeather(weather);
+Console.WriteLine(track.GetWeatherForecast());
+// ger utskriften: Väder: Halvmulet, 15 grader och 4 m/s.
+
+```
+
+## Använd klassen Car i klassen RaceTrack
+
+Naturligtvis vill vi ha med tre bilar i racet på vår racerbana. Dessa bilar skapas då racerbanan skapas och dess relation blir då komposition. När objektet för racerbanan upphör att existera så upphör att existera också bilobjekten. Komposition är en ifylld diamant som pekar på ägandeklassen **RaceTrack**.
+
+Vi lägger till attributet `_cars` på klassen **RaceTrack** och det får bli en lista av **Car** objekt. Med metoden `CreateRace` så skapas ett race med tre bilobjekt.
+
+import classdiagramCar_5 from '@assets/img/ooguide/classdiagramCar_5.png';
+
+<Figure
+    src={classdiagramCar_5}
+    caption="Klassdiagram över RaceTrack. `List<Car>` betyder att `_cars` är en lista med Car objekt."
+/>
+
+Så här ser koden för **RaceTrack** ut nu:
+
+```csharp
+// i OoGuide/src/RaceTrack.cs
+namespace OoGuide.src;
+
+class RaceTrack
+{
+    private const string NAME = "DBWEBB Racing track";
+    private const int MINIMUM_FINISH = 20;
+    private int _finishLine;
+    private Weather? _weather = null; // null för att markera inget väder satt ännu
+    private List<Car> _cars;
+
+    public RaceTrack(int finishLine)
+    {
+        this._finishLine = finishLine;
+        if (finishLine < RaceTrack.MINIMUM_FINISH) 
+        {
+            this._finishLine = RaceTrack.MINIMUM_FINISH;
+        }
+        this._cars = new List<Car>();
+        this.CreateRace();
+    }
+
+    // Other methods
+    public void CreateRace()
+    {
+        Car car1 = new Car("Volvo", 99000, "Passenger");
+        this._cars.Add(car1);
+        Car car2 = new Car("Ferrari", 899000, "Sport");
+        this._cars.Add(car2);
+        Car car3 = new Car("Ford Kuga", 299000, "SUV");
+        this._cars.Add(car3);
+    }
+
+    public void Description()
+    {
+        Console.WriteLine($"\nVälkommen till {RaceTrack.NAME}!");
+        Console.WriteLine($"{this._weather.GetForecast()}");
+        Console.WriteLine($"Det finns {this._cars.Count} bilar:");
+        foreach (var aCar in this._cars) // kan använda var eller Car som datatyp
+        {
+            aCar.Description();
+        }
+        this.PrintFinishLine();
+    }
+
+}
+```
+
+I **RaceTrack** har vi nu en metod `CreateRace` för att lägga till tre bilar, det vill säga objekt av typen **Car**, till racerbanan. Dessutom utökar vi en metoden `Description` för att även få information om vädret och om de aktuella bilarna. Vi förutsätter att raderna för att testa väderobjektet är kvar.
+
+```csharp
+// i OoGuide/Program.cs
+...
+track.Description();
+// Kör dotnet run i terminalen och det ger utskriften: 
+// Välkommen till DBWEBB Racing track!
+// Väder: Halvmulet, 15 grader och 4 m/s.
+// Det finns 3 bilar:
+// Bilen är en Volvo och kostar 99000 kr.
+// Bilen är en Ferrari och kostar 899000 kr.
+// Bilen är en Ford Kuga och kostar 299000 kr.
+// 
+// START                                                                         MÅL
+//                                                                                |
+```
+
+## Ny klass AsciiArt som används i klassen Car
+
+Det blir lite roligare med en grafisk representation av olika typer bilar, en för passagerarbil, en för SUV och en för sportbil. Klassen kommer inte att ändra tillstånd och blir därför statisk och anropas därmed via klassnamnet.
+
+### Grafisk representation
+
+Här är tre ASCII-bilder som vi kan rita ut i terminalen. Vi har hittat tre fina ascii bilder för bilar som vi kan lägga till i **Car** klassen. Vi gör en metod som returnerar en ascii bild för "Passenger", en annan för "Suv" och en tredje för "Sport". Vi lägger en variabel `pos` framför bilderna för att kunna flytta på dem senare.
+
+```csharp
+// i OoGuide/src/AsciiArt.cs
+namespace OoGuide.src;
+
+public static class AsciiArt
+{
+
+    public string GetAsciiModel(string type, string pos = "")
+    {
+        if (type.ToLower() == "sport")
+        {
+            return $@"
+{pos}
+{pos}.-'--`-._
+{pos}'-O---O--'
+";
+        }
+        else if (type.ToLower() == "suv")
+        {
+            return $@"
+{pos}  ______
+{pos} /|_||_\`.__
+{pos}(   _    _ _\
+{pos}=`-(_)--(_)-' 
+";
+
+        }
+        else // Passenger
+        {
+            return $@"
+{pos}   __
+{pos} _| =\__
+{pos}/o____o_\
+";
+        }
+    }
+}
+```
+
+I den här C#-koden med @-symbolen före strängen så tillåts du att skriva en ordagrann sträng, vilket innebär att tecken, radbrytningarna och formateringen bevaras som de är i koden. Till exempel blir @"\n" en sträng med tecknet backslash och tecknet n och inte ny rad som det kan bli utan @.
+
+Vi lägger till ett nytt attribut till **Car** som beskriver dess bilmodell eller typ och uppdaterar konstruktorn med typen. Vi lägger ett defaultvärde på typen att om du inte anger något så är det en passagerarbil.
+
+Vi lägger till en ny metod `PrintAsciiModel` i klassen **Car** som anropar klassen **AsciiArt** och hämtar en bild av en biltyp. I det här fallet blir relationen av den svagare typen "association" som är en pil från klassen som använder den **Car** mot **AsciiArt**.
+
+import classdiagramCar_6 from '@assets/img/ooguide/classdiagramCar_6.png';
+
+<Figure
+    src={classdiagramCar_6}
+    caption="Klassdiagram över RaceTrack med komposition, aggregation och association"
+/>
+
+Så här uppdaterar vi koden:
+
+```csharp
+// i OoGuide/src/Car.cs
+...
+    private string _type;
+
+    public Car(string model, int price, string type="Passenger")
+    {
+        this._model = model;
+        this._price = price;
+        this._type = type;
+        Car._carCount += 1;
+    }
+
+    ...
+    public void PrintAsciiModel(string pos = "")
+    {
+        Console.WriteLine(AsciiArt.GetAsciiModel(this._type, pos));
+    }
+}
+```
+
+Vi utökar metoden `Description` på klassen **RaceTrack** för att skriva ut ASCII-bilden för respektive bil.
+
+```csharp
+// i OoGuide/src/RaceTrack.cs
+namespace OoGuide.src;
+
+class RaceTrack
+{
+    ...
+
+    public void Description()
+    {
+        Console.WriteLine($"\nVälkommen till {RaceTrack.NAME}!");
+        Console.WriteLine($"{this._weather.GetForecast()}");
+        Console.WriteLine($"\nDet finns {this._cars.Count} bilar:");
+        foreach (var aCar in this._cars) // kan använda var eller Car som datatyp
+        {
+            aCar.Description();
+            aCar.PrintAsciiModel();
+        }
+        this.PrintFinishLine();
+    }
+
+}
+```
+
+När vi kör om huvudprogrammet så får vi följande utskrift:
+
+```csharp
+// i OoGuide/Program.cs
+...
+track.Description();
+// Kör dotnet run i terminalen och det ger utskriften: 
+// Välkommen till DBWEBB Racing track!
+// Väder: Halvmulet, 15 grader och 4 m/s.
+// Det finns 3 bilar:
+// Bilen är en Volvo och kostar 99000 kr.
+//    __
+//  _| =\__
+// /o____o_\
+//
+// Bilen är en Ferrari och kostar 899000 kr.
+//  .-'--`-._
+//  '-O---O--'
+//
+// Bilen är en Ford Kuga och kostar 299000 kr.
+//    ______
+//   /|_||_\`.__
+//  (   _    _ _\
+//  =`-(_)--(_)-' 
+// 
+// START                                                                         MÅL
+//                                                                                |
+```
+
+Vi gör en metod av all ny kod från detta kapitel i Program.cs och kallar den `TestObjectInObject`.
+
+```csharp
+// i OoGuide/Program.cs
+...
+static void TestObjectInObject()
+{
+    Weather weather = new Weather("Soligt", 18, 8);
+    Console.WriteLine(weather.GetForecast());
+
+    weather.Update("Halvmulet", 15, 4);
+    Console.WriteLine(weather.GetForecast());
+
+    RaceTrack track = new RaceTrack(100);
+    Console.WriteLine(track.GetWeatherForecast());
+    track.AddWeather(weather);
+    Console.WriteLine(track.GetWeatherForecast());
+
+    track.Description();
+}
+TestObjectInObject();
+```
+
+Och när vi inte vill använda metoden `TestObjectInObject` så kommenterar vi bort den.
+
+## Sammanfattning
+
+Se här ser vårt klassdiagram ut nu:
+
+<Figure
+    src={classdiagramCar_6}
+    caption="Klassdiagram över RaceTrack med komposition, aggregation och association"
+/>
+
+Vi har en komposition mellan **RaceTrack** och **Car**, vilket innebär när **RaceTrack** objektet upphör att existera så upphör att existera även **Car** objekten. Medan **Weather** objektet fortsätter att existera då **RaceTrack** objektet upphör att existera eftersom dess relation är aggregation. Association har vi mellan **Car** och **AsciiArt**.
+
+Vi har använt objekt i objekt.

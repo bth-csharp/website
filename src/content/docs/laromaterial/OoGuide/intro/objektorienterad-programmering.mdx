@@ -1,0 +1,54 @@
+---
+title: "Objektorienterad programmering"
+description: Objektorienterad programmering
+sidebar:
+    order: 2
+    hidden: true
+---
+
+
+Objektorienterad programmering är en av många metoder att programmera på, en så kallad programmeringsparadigm. Ett programmeringsspråk sorteras vanligen in i en programmeringsparadigm och många språk stödjer flera programmeringsparadigmer. Vi kan alltså välja hur vi skriver vår kod, enligt en eller flera paradigmer.
+
+Ett vanligt sätt att lära sig programmera är [procedurell programmering](https://en.wikipedia.org/wiki/Procedural_programming) med sekvenser av instruktioner (funktioner och moduler) som utförs stegvis. Procedurell programmering separerar data och beteende. Det är den programmeringsmetoden vi använde oss av i pythonkursen. Exempel på andra programmeringsparadigmer är funktionell programmering, logikprogrammering och event-driver programmering.
+
+Nu kommer det att handla om den [objektorienterade programmeringsparadigmen](https://en.wikipedia.org/wiki/Object-oriented_programming). Objektorienterad programmering handlar om att organisera sin kod i klasser och objekt. Klassen är mallen eller ritningen som vi skapar objektet ifrån. Objekten innehåller både egenskaper (data) och beteende (funktionalitet).
+
+Fördelar med objektorienterad programmering:
+
+- Modularitet, eftersom programmet delas upp i mindre oberoende delar (klasser) vilket är lättare att förstå och underhålla.
+- Återanvändbarhet, klasser återanvänds vilket minskar upprepning av koden och gör koden mer effektiv.
+- Flexibilitet och skalbarhet, lätt att utöka och modifiera koden (klasserna).
+- Tydlig struktur
+
+
+## Vad är ett objekt?
+
+Innan vi går in på vad ett objekt är inom programmering kan vi fundera över hur det ser ut i "verkligheten". Vi kan säga att allt som existerar är ett objekt av något slag. En bil, en båt eller en diskmaskin, de är alla olika slags objekt. De har olika uppsättning av funktionalitet och information/data kopplat till dem.
+
+Vi föreställer oss en generell bil. Vad utgör en bil? Den har fyra hjul, en nummerplåt, ett modellnummer, en topphastighet, en körsträcka, en motor och den kan förflytta sig framåt och bakåt, Det går att hissa rutor upp och ner osv. Ett bilobjekt utgörs av informationen och funktionaliteten. Informationen (data) är nummerplåten, modellnumret, topphastighet , körsträcka , motor och antalet hjul. Funktionaliteten (beteendet) är gasa (föra sig framåt), backa, hissa upp rutor och hissa ner rutor. Vi generaliserar och säger att alla bilar består av dessa saker, annars är det inte en bil.
+
+Om vi vill skapa ett eget bilobjekt så utgår vi från en ritning som specificerar de sakerna som vi beskrev att en bil består av. Om vi bara har en ritning så har vi inte några bilar, då har vi bara definierat vad som ska ingå i en bil. Det är först när vi bygger bilen som vi skapar ett objekt och den bl.a. får ett nummer till nummerplåten, ett värde på hur långt den har kört, ett modellnummer, en motor och funktionaliteten att röra sig framåt och bakåt och så vidare.
+
+Om vi använder ritningen för att skapa 3 bilar så har vi tre bilobjekt. Objekten är av modellen bil och varje bilobjekt är också en individuell instans av bilritningen. Vi tänker oss att vi har tre bilobjekt och för att kunna identifiera dem namnger vi dem "gamle bettan", "röda faran" och "spitfire". Alla tre är bilobjekt men också individuella instanser av bilklassen.
+
+Vad har detta med OO (objektorienterad) programmering att göra? Jo, inom OO programmering försöker vi återskapa konceptet av objekt i verkligheten till kod. Om vi ska göra ett program med bilar så behöver vi skapa en ritning som definierar vilken data och funktionalitet en bil består utav. Detta kallar vi en "klass" och den skriver vi i vår kod. Vi behöver först ha klassen (det vill säga ritningen/mallen) innan vi kan skapa objekt. När vi kör ett program använda koden för klassen (ritningen/mallen) för att skapa ett objekt. Ett objekt lever i minnet på datorn.
+
+I datorn har vi inte metall eller bensin, vi kan inte bygga faktiska bilar utan allt är "konceptuellt". Vi behöver representera informationen och funktionaliteten i en riktig bil med kod. Vi kan använda variabler, datatyper och metoder. I klasserna bestämmer vi vilken data som ska finnas i varje objekt som skapas av klassen genom att ange variabler och vilken funktionalitet varje objekt ska ha genom att ange metoder. 
+
+I den här guiden ska vi lära oss att använda klasser och objekt samt andra begrepp inom objektorienterad programmering.
+
+
+## Klasser och objekt
+
+En klass är en mall som beskriver egenskaper (data) och beteende (funktionalitet). Klassens kod innehåller variabler (som motsvarar egenskaperna) och metoder (som motsvara funktionaliteten). Variabler används för att lagra ett *state*, ett visst tillstånd, som definieras av dess värden. Metoderna är en förteckning över vad objektet kan göra. Ett program består normalt sett av flera olika klasser.
+
+Ett objekt skapas från klassen och kallas då en instans av klassen. Att skapa ett objekt kan kallas att [instansiera](http://en.wikipedia.org/wiki/Instance_(computer_science)) klassen till ett objekt, eller att instansiera ett objekt av klassen.
+
+När ett objekt skapas från en klass och får det de variabler och metoder som är specificerade i klassen. Variablerna används, som nämnts ovan, för att lagra ett *state*, ett visst tillstånd som definieras av objektets värden i variablerna. För att ändra tillstånd på objektet används metoder (som kan påverka värdet i en eller flera variabler). Exakt hur objektet verkställer saker och ting är objektets ansvar. Objektet *kapslar in* detaljerna för implementation och erbjuder endast ett publikt API (gränssnitt) i form av metoder. 
+
+
+## Manualen
+
+Kolla gärna dessa självstudier som går igenom [Introduktion till klasser](https://learn.microsoft.com/sv-se/dotnet/csharp/fundamentals/tutorials/classes) eller på engelska i [Introduction to classes](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/tutorials/classes).
+
+Där hittar du också [C# dokumentation](https://learn.microsoft.com/sv-se/dotnet/csharp/).

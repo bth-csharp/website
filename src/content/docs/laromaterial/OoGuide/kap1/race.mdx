@@ -1,0 +1,329 @@
+---
+title: "Racet"
+description: Racet med kodexempel
+sidebar:
+    order: 6
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+import { YouTube } from 'astro-embed';
+
+Vi har en racerbana med 4 klasser, **RaceTrack**, **Car**, **Weather** och **AsciiArt**. Med hjälp av dem så har vi en racerbana med 3 bilar med ASCII-bild och så en väderprognos. Nu är tanken att vi ska lägga till en position för bilarna och flytta bilarna framåt genom att lägga till mellanslag framför (" ") bilden. När bilarna gått i mål så utser vi en vinnare!
+
+Till slut kommer det se ut så här när vi kör "dotnet run":
+
+<YouTube
+    id="??"
+    title="Så här kan vår racerbana se ut."
+/>
+
+## Flytta bilarna
+
+För att kunna flytta på bilarna gör vi en metod `MoveCars` på klassen **RaceTrack**. Den slumpar ett tal för respektive bil och flyttar dess bild så många mellanslag framåt.  Positionen utgår från vänster kant av terminalen och sen ska de röra sig till höger.
+
+```csharp
+// i OoGuide/src/RaceTrack.cs
+...
+    public void MoveCars()
+    {
+        var random = new Random();
+        foreach (var aCar in this._cars)
+        {
+            int numberOfSpaces = random.Next(1, 20);
+            aCar.PrintAsciiModel(new string(' ', numberOfSpaces));
+        }
+    }
+}
+```
+
+I koden ovanför så slumpar vi fram ett tal mellan 1 och 10 och det talet blir antalet mellanslag framför bilden (bakom bilen). Det ger en illusion av att bilarna rör sig.
+
+```csharp
+// i OoGuide/Program.cs
+RaceTrack track = new RaceTrack(100);
+
+Console.WriteLine("\nKör bilarna");
+track.MoveCars();
+// ger utskriften: Kör bilarna
+//          __
+//        _| =\__
+//       /o____o_\
+//
+// osv
+```
+
+Nu ser vi att bilarna rör sig framåt.
+
+
+### Position och hastighet
+
+Vi lägger till bilens position för att kunna utgå från den i varje flytt av bilen. För att få variation i bilarnas hastighet så slumpar vi fram ett float tal för det när de skapas. Vi lägger till en metod `Move` då bilen känner ju till sin hastighet och position och flyttar sig bäst själv. I `Move` lägger vi raden som skriver ut ACSII-bilden från `MoveCars` (RaceTrack klassen).
+
+```csharp
+// i OoGuide/src/Car.cs
+    ...
+    private int _position;
+    private float _speed;
+
+    public Car(string model, int price)
+    {
+        this._model = model;
+        this._price = price;
+        this._position = 0;
+        this._speed = CalculateSpeed();
+        Car._carCount += 1;
+    }
+
+    ... // sist i klassen 
+
+    private float CalculateSpeed()
+    {
+        Random random = new Random();
+        const float MAX_SPEED = 3.5F;
+        const float MIN_SPEED = 0.5F;
+
+        return (float)(MIN_SPEED + (random.NextDouble() * (MAX_SPEED - MIN_SPEED)));
+    }
+
+    public void Move()
+    {
+        this._position += (int)Math.Round(this._speed);
+        this.PrintAsciiModel(new string(' ', this._position));
+        this._speed = CalculateSpeed(); // ny hastighet för mer spänning
+    }
+}
+```
+
+Vi har lagt till två privata instansvariabler; `_position` och  `_speed` samt två konstanter; `MAX_SPEED` för högsta hastigheten och `MIN_SPEED` för minsta hastigheten. Vi specificerar flyttalet med ett suffix f för att specificera float. Utan suffix blir alla flyttal double. För att räkna ut hastigheten så har vi gjort en metod `CalculateSpeed` som senare är lätt att ändra i om vi vill ändra hur hastigheten räknas ut. I `CalculateSpeed` ger `random.NextDouble()` mig ett slumptal mellan 0 och 1,0 som vi sen multiplicerar med intervallet mellan högsta och minsta hastigheten.
+
+Dessutom har vi lagt till en metod `Move` som flyttar fram positionen eftersom bilobjektet själv känner till sin hastighet och position och flyttar sig bäst själv. Bilen får också ny hastighet efter flytten för att få det mer levande. `new string(' ', this._position)`ger mig ett antal mellanslag framför bilden. Om `this._position` är 10 så ritas 10 mellanslag ut framför ACSII-bilden av bilen, istället för `{pos}`. Det ger oss en illusion av att bilen flyttar sig framåt.
+
+Nu ska vi uppdatera metoden `MoveCars` i klassen **RaceTrack** så att den anropar bilklassens `Move` metod.
+
+```csharp
+// i OoGuide/src/RaceTrack.cs
+    ...
+    public void MoveCars()
+    {
+        foreach (var aCar in this._cars)
+        {
+            aCar.Move();
+        }
+    }
+    ...
+```
+
+För att få bilarna att flytta sig flera gånger repeterar vi koden för att rensa skärmen, flytta bilarna och skriva ut det. För att vi ska hinna se varje iteration så pausar vi i 0,1 s i slutet av iterationen.
+
+```csharp
+// i OoGuide/Program.cs
+...
+RaceTrack track = new RaceTrack();
+track.Description();
+for (int i = 0; i < 30; i++)
+{
+    Console.Clear(); // Rensar skärmen och ritar om
+    Console.WriteLine("\nRACE TIME");
+    track.MoveCars();
+    Thread.Sleep(100); // Pausar i 0,1 sekunder för att vi ska se förflyttningarna
+}
+// ger utskriften:
+// Välkommen till DBWEBB Racing track!
+// ...
+// 
+```
+
+### Refaktorera huvudprogrammet
+
+Vi vill att huvudprogrammet ska innehålla så lite kod som möjligt. Därför gör vi en metod `RunRace` på klassen **RaceTrack** som kör loppet. I samband med det uppdaterar vi metoderna `MoveCars` och `Description` så att det blir mer anpassat till racerbanan. I metoden `PrintFinishLine` så lägger vi in en inparameter som har defaultvärde "true" och i så fall skrivs även "START" och "MÅL" ut. Men om metoden anropas med inparametern "false" så skrivs bara mållinjen ut.
+
+```csharp
+// i OoGuide/src/RaceTrack.cs
+    ...
+    public void Description()
+    {
+        Console.WriteLine($"\nVälkommen till {RaceTrack.NAME}!");
+        if (this._weather != null)
+        {
+            Console.WriteLine($"{this._weather.GetForecast()}");
+        }
+    }
+
+    private void PrintFinishLine(bool heading = true)
+    {
+        string spaces = new string(' ', this._finishLine);
+        if (heading)
+        {
+            Console.WriteLine(string.Concat("\nSTART", spaces.AsSpan(0, spaces.Length - 6), "MÅL"));
+        }
+        Console.WriteLine(spaces + "|");
+    }
+
+    ...
+
+    public void MoveCars()
+    {
+        this.PrintFinishLine();
+        foreach (var aCar in this._cars)
+        {
+            aCar.Description();
+            aCar.Move();
+            this.PrintFinishLine(false);
+        }
+    }
+
+    public void RunRace()
+    {
+        for (int i = 0; i < 30; i++)
+        {
+            Console.Clear(); // Rensar terminalen
+            this.Description();
+            this.MoveCars();
+            Thread.Sleep(100); // Pausar i 0,1 sekunder för att vi ska se förflyttningarna
+        }
+    }
+} 
+```
+
+Metoden `MoveCars` blir ansvarig för att skriva ut "START" och "MÅL" samt mållinjen genom att anropa `PrintFinishLine`. Innan varje bil flyttas så skrivs en kort beskrivning ut för att vi lättare ska ha koll på bilarna.
+Istället för utskriften av rubriken "RACE TIME" så anropar vi metoden `Description` i metoden `RunRace`.
+
+```csharp
+// i OoGuide/Program.cs
+...
+track.RunRace();
+// ger utskriften:
+// Välkommen till DBWEBB Racing track!
+// ...
+// START                                                                         MÅL
+//
+//          __
+//        _| =\__
+//       /o____o_\
+//  
+```
+
+Så nu har vi ett spel som har en racing bana med tre bilar som kör i olika hastigheter och flyttar sig framåt eller till höger på terminalen. Men vem vinner?
+
+
+## Vem vinner?
+
+Vi vill gärna ha en vinnare. Det är lämpligt att klassen **RaceTrack** som har mållinjen och bilarna också utser vinnaren. Vi börjar med att lägga till en getmetod för att **RaceTrack** ska kunna hämta en bils position.
+
+```csharp
+// i OoGuide/src/Car.cs
+    ... // sist i Get methods
+    public int GetPosition()
+    {
+        return this._position;
+    }
+    ...
+```
+
+Vi skapar en metod som ritar ut mållinjen och en som kollar vem som vann. För att ha koll på vem som vinner så lägger vi till en instansvariabel `_winnerIndex` på klassen **RaceTrack** och är den negativ så länge racet pågår.
+
+```csharp
+// i OoGuide/src/RaceTrack.cs
+namespace OoGuide.src;
+
+class RaceTrack
+{
+    ...
+    private int _winnerIndex;
+
+    public RaceTrack(int _finishLine)
+    {
+        this._cars = new List<Car>();
+        CreateCars();
+        this._finishLine = _finishLine;
+        this._winnerIndex = -1; // negativt visar ingen vinnare
+    }
+    ...
+
+    public void MoveCars()
+    {
+        this.PrintFinishLine();
+        foreach (var aCar in this._cars)
+        {
+            if (this._winnerIndex < 0)
+            {
+                aCar.Description();
+                aCar.Move();
+                this.PrintFinishLine(false);
+            }
+        }
+    }
+
+    public void RunRace()
+    {
+        while (this._winnerIndex < 0)
+        {
+            Console.Clear(); // Rensar terminalen
+            this.Description();
+            this.MoveCars();
+            this.CheckIfFinished();
+            Thread.Sleep(100); // Pausar i 0,1 sekunder för att vi ska se förflyttningarna
+        }
+        Console.WriteLine("\n\nVINNAREN:");
+        this._cars[this._winnerIndex].Description();
+    }
+
+    private void CheckIfFinished()
+    {
+        bool finished = false;
+        int index = 0;
+
+        while (index < this._cars.Count && !finished)
+        {
+            if (this._cars[index].GetPosition() > this._finishLine)
+            {
+                finished = true;
+                this._winnerIndex = index;
+            }
+            index++;
+        }
+    }
+}
+```
+
+För att ingen av bilarna ska flytta sig efter att första bilen fått över mållinjen så lägger vi en extra koll i `MoveCars`. Metoden `CheckIfFinished` kollar bilarna en och en och den som först går över mållinjen för sitt index från listan sparad i `_winnerIndex`. Så fort `_winnerIndex` är positiv så avslutas racet.
+
+I huvudprogrammet så anropar vi metoden vi nyss gjorde för att utse vinnaren.
+
+```csharp
+// i OoGuide/Program.cs
+...
+RaceTrack track = new RaceTrack(100);
+Weather weather = new Weather("Soligt", 18, 8);
+
+track.AddWeather(weather);
+track.Description();
+track.RunRace();
+// ger utskriften:
+// Välkommen till DBWEBB Racing track!
+// Väder: Soligt, 18 grader och 8 m/s. 
+// osv   
+// VINNAREN:
+// Bilen är en model1 och kostar 99000 kr.
+```
+
+## Sammanfattning
+
+Nu har vi gjort en enkel racerbanan och det blev ju riktigt bra. Naturligtvis går det att utöka och förbättra detta program men nu är vi nöjda. Här är filmen på spelet igen!
+
+<YouTube
+    id="??"
+    title="Så här kan vår racerbana se ut."
+/>
+
+Lycka till med din racerbana! Så här ser klassdiagrammet ut nu.
+
+import classdiagramCar_ok from '@assets/img/ooguide/classdiagramCar_ok.png';
+
+<Figure
+    src={classdiagramCar_ok}
+    caption="Färdigt klassdiagram på vår racerbana med klasserna RaceTrack, **Weather**, Car och AsciiArt. Det är komposition mellan RaceTrack och Weather medan det är aggregation mellan RaceTrack och Car. Dessutom är det association mellan Car och AcsiiArt."
+/>
+
+Om du vill se koden i sin helhet så kan du ladda ner den med kommandot `task download-code -- kmom03/OoGuide`. Exemplet hamnar då i en katalog som heter "codeExample" under kmom03.

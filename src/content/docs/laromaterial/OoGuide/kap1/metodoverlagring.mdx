@@ -1,0 +1,46 @@
+---
+title: "Metodöverlagring"
+description: Metodöverlagring med kodexempel
+sidebar:
+    order: 3
+    hidden: true
+---
+
+
+Metoder i C# kan ha samma namn så länge de har olika antal parametrar eller samma antal parametrar fast av olika typer. Vid anrop av en överlagrad metod väljer C# den mest passande metoden baserat på antalet och typerna av argument som skickas med anropet. Detta möjliggör flexibel och intuitiv användning av metoder med samma namn för att utföra olika uppgifter beroende på olika användningsfall.
+
+```csharp
+// Kod för att testa klassen
+Calculator calc = new Calculator();
+int sum1 = calc.Add(29, 13);
+Console.WriteLine("Summan är: " + sum1); // Ger resultatet 42
+double sum2 = calc.Add(29.5, 13.2);
+Console.WriteLine("Summan är: " + sum2); // Ger resultatet 42.7
+int sum3 = calc.Add(32);
+Console.WriteLine("Summan är: " + sum1); // Ger resultatet 42
+
+// Klassen
+class Calculator
+{
+	public static int Add(int no1, int no2)
+	{
+		return no1 + no2;
+	}
+
+	public static double Add(double no1, double no2)
+	{
+		return no1 + no2;
+	}
+
+	public static int Add(int no)
+	{
+		return no + 10;
+	}
+}
+```
+
+I det första fallet när två heltal ska adderas så väljer C# metoden med parameterlistan med heltal. I det andra fallet har vi två decimaltal och då väljer C# metoden med double i parameterlistan. I det tredje fallet har vi ett heltal som inparameter och passar tredje metoden bäst och därför väljer C# den.
+
+Alla metoderna i klassen **Calculator** är statiska då de inte ändrar på något i klassen.
+
+När du kör detta i en [C# online simulator](https://dotnetfiddle.net/) som har en Main() metod, så lägger du klassen **Calculator** innan Main() metoden och resten av koden inuti Main() metoden. Du kan också kopiera in koden i OoGuidens Program.cs och testköra den där.

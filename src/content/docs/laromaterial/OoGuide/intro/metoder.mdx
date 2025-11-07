@@ -1,0 +1,272 @@
+---
+title: "Metoder"
+description: Metoder med kodexempel
+sidebar:
+    order: 6
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+En metod är en körbar enhet som är definierad i en klass. Metoder kan antingen tillhöra en klass, statiska metoder eller tillhöra ett objekt, instansmetoder. En instansmetod tillhör ett objekt (en instans) av klassen och anropas med instansens namn, följt av en punkt och därefter metodens namn med parameterlista. Inom klassen anropas instansmetoden med `this` följt av en punkt och därefter metodens namn med parameterlista. Varje metod ska utföra en separat uppgift och ha ett beskrivande namn.
+
+
+## Konstruktor/Destruktor
+
+En konstruktor är en specialmetod som har till uppgift att skapa objekt av en klass. En klass kan ha flera konstruktorer (ett exempel på överlagring). En destruktor är också en specialmetod men dess uppgift är den omvända - den ska "förstöra" objektet. Oftast använder vi den inbyggda defaultdestruktorn och låter den rensa efter oss.
+
+En konstruktor:
+
+- har samma namn som klassen och har ingen returtyp
+- anropas när ett objekt av klassen skapas (new)
+- en konstruktor kan ha inga, en eller flera inparametrar beroende på hur många och vilka  instansattribut vi vill ge initialt värde till i samband med att objektet skapas
+- C# skapar en defaultkonstruktor (no-parameter-constructor) till oss om vi inte skapar någon själv men den blir utan initialvärden (inparametrar). Vi bör skapa alla konstruktorer själv så att du kan sätta lämpliga initialvärden på alla instansattribut.
+
+En destruktor:
+
+- har samma namn som klassen
+- kallas när ett objekt förstörs
+- återlämnar det minne objektet använt
+
+### Konstruktor i klassen Car
+
+Vi gjorde en konstruktor till **Car**:
+
+```csharp title="Konstruktorn i klassen Car, se Car.cs"
+
+    ...
+    public Car(string model, int price)
+    {
+        this._model = model;
+        this._price = price;
+        Car._carCount += 1;
+    }
+    ...
+``` 
+
+För att skapa ett bil objekt så ska vi ange två inparametrar, `model` och `price` som kommer att bli de initiala värdena för `_model` och `_price`. Dessutom så ökar vi klassen räknare för antalet skapade objekt, `_carCount`, med ett.
+
+
+### Ny klass RaceTrack med konstruktor
+
+Vi skapar en ny klass för att representera en racerbana, **RaceTrack**, med en konstant som anger namnet på racerbanan och ett attribut som anger mållinjen (längden på racerbanan). Båda attributen är privata.
+
+Klassen **RaceTrack** med konstruktor med en flexibel mållinje kan se ut så här:
+
+```csharp title="Klassen RaceTrack i filen RaceTrack.cs i katalogen src"
+namespace OoGuide.src;
+
+class RaceTrack
+{
+    private const string NAME = "DBWEBB Racing track";
+    private int _finishLine;
+
+    public RaceTrack(int _finishLine)
+    {
+        this._finishLine = _finishLine;
+    }
+}
+``` 
+
+I konstruktorer kan vi också lägga till kod som kontrollerar inparametrarna. Vi vill i detta fall inte ha en mållinje som är för nära starten utan vi vill ha ett minimumavstånd från startlinjen, på 20. Vi tillför en konstant för minimumavståndet och uppdaterar även konstruktorn:
+
+```csharp title="Lägg till följande kod i klassen RaceTrack"
+namespace OoGuide.src;
+
+class RaceTrack
+{
+    private const string NAME = "DBWEBB Racing track";
+    private const int MINIMUM_FINISH = 20;
+    private int _finishLine;
+
+    public RaceTrack(int finishLine)
+    {
+        this._finishLine = finishLine;
+        if (finishLine < RaceTrack.MINIMUM_FINISH) 
+        {
+            this._finishLine = RaceTrack.MINIMUM_FINISH;
+        }
+    }
+}
+```
+
+import classdiagramRaceTrack_intro from '@assets/img/ooguide/classdiagramRaceTrack_intro.png';
+
+<Figure
+    src={classdiagramRaceTrack_intro}
+    caption="Klassdiagram över RaceTrack"
+    width="200px"
+/>
+
+För att kunna avgöra om sträckan till mållinjen blir den vi anger när vi skapar objekt, lägger vi till metoden `PrintFinishLine` som har till uppgift att presentera denna sträcka. Detta genomförs genom att skapa en sträng med det antal mellanslag (' ') som värdet på sträckan motsvarar och markerar mållinjen med ett `|`. Dessutom finns texten "START" och "MÅL" på lämpliga ställen i strängen.
+
+```csharp title="Lägg till följande kod i klassen RaceTrack"
+namespace OoGuide.src;
+
+class RaceTrack
+{
+    ...
+    public void PrintFinishLine()
+    {
+        string spaces = new string(' ', this._finishLine);
+        Console.WriteLine(string.Concat("\nSTART", spaces.AsSpan(0, spaces.Length - 6), "MÅL"));
+        Console.WriteLine(spaces + "|");
+    }
+}
+```
+
+I huvudprogrammet testar vi nu att göra objekt av **RaceTrack** för att verifiera att det funkar.
+
+```csharp title="Lägg till kod i Program.cs för att testa klassen RaceTrack"
+// i OoGuide/Program.cs
+...
+RaceTrack track1 = new RaceTrack(100); // ange mållinjen
+track1.PrintFinishLine();
+ 
+RaceTrack track2 = new RaceTrack(0); // mållinjen ska bli 20
+track2.PrintFinishLine();
+```
+
+Kontrollera att mållinjen är längre bort på `track1` och bara 20 mellanslag bort för `track2`.
+
+### Destruktor för klassen RaceTrack
+
+Om det inte finns någon destruktor så används defaultkonstruktorn och det är vanligt att denna används. Den städar bort objektet från minnet och körs automatiskt av *garbage collectorn*. Ibland behövs det mer än att minnet städas bort efter ett objekt, som till exempel en nätverksanslutning. Då är det lämpligt att själv definiera en destruktor för att hantera detta.
+
+I C# kan vi inte explicit anropa en destruktor utan destruktorer anropas automatiskt av garbage collectorn när ett objekt inte längre används och dess minne kan frigöras. 
+
+Vi väljer framöver att använda defaultdestruktorn.
+
+## Garbage collection i C#
+
+Garbage collection (eller "skräpsamling") är en automatisk process i C# som tar bort objekt i minnet som inte längre används. Det hjälper till att frigöra minne och förhindrar minnesläckor.
+
+*Stack* används för värdetyper (till exempel int, bool, double) och referenser till objekt. Variabler på stacken tas bort automatiskt när metoden de tillhör avslutas. Garbage collectorn hanterar inte stacken.
+
+*Heap* används för referenstyper (till exempel objekt av klasser, arrayer, strängar) medan referensen till objektet lagras på stacken. När vi använder *new* för att skapa ett objekt av en klass så används heapen. Garbage collectorn övervakar heapen och tar bort objekt som inte längre används – alltså objekt som inte har några referenser kvar på stacken.
+
+
+## Get- och set-metoder
+
+Vi har redan skapat getmetoder i **Car** klassen för att ha möjlighet att "se" vilket innehåll de privata variablerna har.
+
+```csharp title="Getmetoder i klassen Car"
+
+    ...
+    // Get methods
+    public string GetModel()
+    {
+        return this._model;
+    }
+
+    public int GetPrice()
+    {
+        return this._price;
+    }
+    ...
+```
+
+Vi deklarerar getmetoder åtkomliga för alla genom *public* och de har alltid ett return statement (en retur på variabelns innehåll). Vi anger dessutom getmetodens returdatatyp som behöver överensstämma med variabelns datatyp. Returdatatypen är `string` för `GetModel()` eftersom instansvariabeln `_model` är av typen string. Getmetoden `GetPrice()` returnerar int eftersom vi deklarerat instansvariabeln `_price` av datatypen int.
+
+Nu går vi vidare med setmetoder. Dessa används för att ge möjlighet att ändra värdet på privata instansvariabler. En setmetod har en inparameter som ska ersätta det befintliga värdet på instansvariabeln och ger dessutom vid behov en möjlighet att kontrollera att inparameterns värde är rimligt. Returdatatypen på setmetoder är `void` vilket innebär att den inte returnerar något. Parametern i setmetoden deklareras med datatyp och namn.
+
+```csharp title="Setmetoder i klassen Car"
+
+    ...
+    // Set methods
+    public void SetModel(string newModel)
+    {
+        this._model = newModel;
+    }
+
+    public void SetPrice(int newPrice)
+    {
+        this._price = newPrice;
+    }
+    ...
+```
+
+Nu använder vi setmetoderna för att ändra värden på objektet `bmw` och sen skriver vi ut dem.
+
+```csharp title="Lägg till kod i Program.cs för att testa set- och getmetoderna i klassen Car"
+
+...
+Car bmw = new Car("BMW", 100000);
+bmw.SetModel("BMW iX2"); // Det är en elbil
+bmw.SetPrice(500000); // Priset var alldeles för lågt och behöver ökas
+
+Console.WriteLine($"Ny model: {bmw.GetModel()} och nytt pris: {bmw.GetPrice()} kr");
+// ger utskriften: Ny model: BMW iX2 och nytt pris: 500000 kr
+```
+
+## Andra metoder
+
+Vi skapar en metod som skriver ut en sträng med information om bilen i terminalen. Vi lägger den efter set- och get-metoderna.
+
+import classdiagramCar_3 from '@assets/img/ooguide/classdiagramCar_3.png';
+
+<Figure
+    src={classdiagramCar_3}
+    caption="Klassdiagram över Car med statisk metod och instansmetoder"
+    width="200px"
+/>
+
+```csharp title="Lägg till metoden Description i klassen Car"
+
+    ...
+    // Other methods
+    public void Description()
+    {
+        Console.WriteLine($"Bilen är en {this._model} och kostar {this._price} kr.");
+    }
+}
+```
+
+Metoden `Description()` har inga inparametrar. Den gör en utskrift som visar innehållet i objektets instansvariabler. Vi kollar på hur vi anropar metoden.
+
+```csharp title="Testa metoden Description i Program.cs"
+// i OoGuide/Program.cs
+...
+bmw.Description();
+// ger utskriften: Bilen är en BMW iX2 och kostar 500000 kr.
+```
+
+Precis som vi såg i förra delen, kan vi inte komma åt en statisk variabel från ett objekt av klassen. Vi tittar mer på statiska variabler och statiska metoder i nästa kapitel.
+
+Testa runt själv med klassen, lägg till egna variabler, försök att ändra på dess värden och skriva ut dem. Skapa egna metoder och ändra variabler i dem. Lek med koden och testa era funderingar! Förslagsvis kan du lägga till en instansvariabel för bilens färg, `color`, och lägga till getmetod, `GetColor()`, för att hämta färgen och en setmetod, `SetColor(string newColor)`, för att ändra färgen. Du kan gärna lägga till kontroll så att färgen endast ändras om den är någon av "Blue", "Green", "Red" eller "Yellow". 
+
+## This
+
+I C# representerar nyckelordet `this` en referens till det aktuella objektet som metoden eller konstruktorn körs på. `this`-referensen ger åtkomst till de medlemmar (variabler och metoder) och konstruktorer i den aktuella klassen. Vi kan använda `this` för att skicka den aktuella instansen av klassen till andra metoder eller konstruktorer.
+
+## Sammanfattning
+
+Vi lägger utskrifterna från detta kapitel i en funktion och anropar den. På så sätt blir koden mer strukturerad.
+
+```csharp title="Strukturera koden genom att lägga den i en metod som anropas i Program.cs"
+
+...
+static void TestingMethodPrintouts(Car aCar)
+{
+    RaceTrack track1 = new RaceTrack(100); // ange mållinjen
+    track1.PrintFinishLine();
+
+    RaceTrack track2 = new RaceTrack(0); // mållinjen ska bli 20
+    track2.PrintFinishLine();
+
+    aCar.SetModel("BMW iX2"); // Det är en elbil
+    aCar.SetPrice(500000); // Priset var alldeles för lågt
+
+    Console.WriteLine($"Ny model: {aCar.GetModel()} och nytt pris: {aCar.GetPrice()} kr");
+    // ger utskriften: Ny model: BMW iX2 och nytt pris: 500000 kr
+
+    aCar.Description();
+}
+
+Car bmw = new Car("BMW", 100000);
+TestingMethodPrintouts(bmw);
+```
+
+Efter att ha testkört metoden så kommenterar vi bort anropet till den.
+
+Om du vill se koden i sin helhet så kan du ladda ner den med kommandot `task download-code -- kmom02/OoGuide`. Exemplet hamnar då i en katalog som heter "codeExample" under kmom02.
