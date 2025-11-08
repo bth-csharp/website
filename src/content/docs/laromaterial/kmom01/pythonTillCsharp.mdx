@@ -440,6 +440,15 @@ string[] myArray = myList.ToArray(); // Gör om listan my_list till en array
 List<string> newList = new List<string>(myList);
 ```
 
+Ett nytt sätt att deklarera listor på kom med .NET 8 och C# 12 som en del av collection expressions. Den gör det möjligt att skapa listor, arrays och andra samlingar med en mer kompakt och läsbar syntax. Syftet var att förenkla kod och göra den mer lik initialisering av arrays, men med stöd för fler samlingstyper.
+
+```csharp title="Lista med modern deklaration i C#"
+using System.Collections.Generic; // För att använda listor 
+
+List<string> emptyList = [];
+List<string> myList = ["1", "text", "fem", "hej"];
+```
+
 ### Skillnader och likheter mellan array och listor i C#
 
 Den stora skillnaden är att en array har en fast storlek som bestäms när arrayen skapas medan listor är dynamiska och kan växa eller bli mindre efter behov. En lista kan skapas tom och utökas efterhand.

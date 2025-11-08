@@ -22,20 +22,24 @@ Vi tar vårt menyprogram från kmom01 och gör det objektorienterat.
 
 Vi börjar med att skapa vår meny-app i terminalen. Vi ställer oss i kmom02, skapar appens katalog och går ner i den. Därefter skapar vi appen. Nedan visas också kommandot för att köra appen.
 
-```shell
-// Stå i exercises under kmom02
+```shell title="I terminalen står du i katalogen kmom02/practice och gör följande"
 dotnet new console -n MenuApp2
 cd MenuApp2
 dotnet run // Ger utskriften: Hello, World!"
 ```
 
+:::note
+Om det skapas en .sln fil i VS Code av misstag, så ta bort den. Den ställer till det vid kompilering och debuggning och används inte i VS Code.
+När vi skapar med dotnet new console i terminalen skapas ingen .sln fil.
+:::
+
 ## Skapa klasser
 
 Vi delar upp koden från kmom01 i två klasser, en klass med hjälpmetoder och en klass som presenterar menyn och agerar på de olika menyalternativen. Vi skapar en ny katalog i MenuApp2 och kallar den *src* som i källkod (source code). De två nya klasserna lägger vi i *src*.
 
-### Klass med hjälpmetoder
+### Klass med hjälpmetoder - Helpers
 
-#### Beskrivning och klassdiagram
+#### Beskrivning och klassdiagram - Helpers
 
 **Helpers** är en klass som endast ska innehålla metoder vilka inte är knutna till något objekt. Det finns därför inga medlemsvariabler och klasserna blir statiska.
 
@@ -55,7 +59,7 @@ import classdiagramHelpers1 from '@assets/img/kmom02/classdiagramHelpers1.png';
 
 Vi skapar först klassen **Helpers** som ska innehålla våra hjälpmetoder. Vi använder "namespacet" eller namnrymden **MenuApp2** för att organisera vår kod. Det gör vi för att undvika namnkollisioner och för att göra koden lättare att hantera och underhålla. Vi lägger våra klasser i ett källkodsbibliotek som vi kallar *src*. Det skapar en ordnad och läsbar kodstruktur som underlättare för utvecklare att arbeta effektivt och lätt förstå projektets struktur.
 
-```shell
+```shell title="Kodstruktur i katalogen MenuApp2 med klassen Helpers i src"
 // stå i kmom02/MenuApp2
 mkdir src
 cd src
@@ -68,13 +72,14 @@ tree -L 2 // om tree saknas, installera med kommandot sudo apt install tree
 ├── Program.cs // huvudprogrammet
 ├── src
 │   ├── Helpers.cs // klassen Helpers
-└── obj
-    └── Debug
+├── bin
+├── obj
+
 ```
 
 Det går också bra att skapa en tom fil och kalla den `Helpers.cs`, antingen i VS Code eller i terminalen med `touch`. `Helpers.cs` är tom och ser ut så här:
 
-```bash
+```bash title="Så här ser filen src/Helper.cs med den tomma klassen Helpers ut"
 // kmom02/MenuApp2/src/Helpers.cs
 namespace MenuApp2.src;
 
@@ -88,8 +93,7 @@ Vi lägger till kod i **Helpers** genom att kopierar metoderna `GetTerminalReady
 
 Uppdatera namespace med **MenuApp2.src** eftersom det är praxis att namespace ska återspegla filstrukturen.
 
-```csharp
-// kmom02/MenuApp2/src/Helpers.cs
+```csharp title="Lägg till följande kod i klassen Helpers"
 namespace MenuApp2.src;
 
 public class Helpers
@@ -131,9 +135,9 @@ public class Helpers
 }
 ```
 
-### Klass med meny
+### Klass med meny - Menu
 
-#### Beskrivning och klassdiagram
+#### Beskrivning och klassdiagram - Menu
 
 Klassen **Menu** skulle kunna vara statisk då den inte kommer behöva variabler men vi väljer att inte göra den statisk för att få ett exempel även på detta.
 
@@ -149,7 +153,7 @@ import classdiagramMenu from '@assets/img/kmom02/classdiagramMenu.png';
 
 Då fortsätter vi med att skapa klassen **Menu** med följande kommandon (terminalen, stå i kmom02/MenuApp2/src):
 
-```shell
+```shell title="Skapa klassen Menu och se att strukturen i MenuApp2 ser ut så här:"
 dotnet new class -n Menu // funkar inte detta så skapa filen Menu.cs i VS Code
 cd .. // gå till rotkatalogen för projektet MenuApp2
 tree -L 2
@@ -160,14 +164,11 @@ tree -L 2
 ├── src
 │   ├── Helpers.cs // klassen Helpers
 │   └── Menu.cs // klassen Menu 
-└── obj
-    └── Debug
 ```
 
 Metoderna från koden i kmom01 som hör till menyn, `PrintMenu()` och `Run()`, lägger vi i klassen **Menu**.
 
-```csharp
-// kmom02/MenuApp2/src/Menu.cs
+```csharp title="Lägg till följande kod i klassen Men i filen src/Menu.cs"
 namespace MenuApp2.src;
 
 public class Menu
@@ -224,8 +225,7 @@ För att kunna använda meny behöver vi skapa ett Meny-objekt, det vill säga e
 
 Från och med .NET 6 så ser huvudprogrammet, eller som det också kallas toppnivåinstruktioner (top-level statements), ut så här. Vi kommer att använda detta sätt:
 
-```csharp
-// i kmom02/MenuApp2/Program.cs
+```csharp title="Huvudprogrammet i Program.cs med modern C# med toplevel statements"
 using MenuApp2.src; // Här visar vi att huvudprogrammet använder klassen Menu
 
 Menu myMenu = new Menu();
@@ -235,8 +235,7 @@ myMenu.Run();
 
 Samma kod i .NET 5 och tidigare versioner ser ut så här:
 
-```csharp
-// i kmom02/MenuApp2/Program.cs
+```csharp title="Huvudprogrammet i Program.cs som det såg i .NET 5 och tidigare med"
 using System;
 using MenuApp2.src;
 
@@ -267,10 +266,17 @@ Så bra, nu har vi samma resultat som innan. Kör vi programmet med "dotnet run"
 
 ## Skriv ut en ascii bild
 
-För att göra menyalternativ 1 lite roligare lägger vi till utskrift av en asciibild efter hälsningen. Vi använder samma klass som vi kommer att använda i inlämningsuppgiften. Kopiera klassen [**AsciiArt**](./../../../CodeExamples/kmom02/uppgift/AsciiArt.cs) och lägg den i katalogen kmom02/MenuApp2/src. Uppdatera namespace till **MenuApp2.src**.
+För att göra menyalternativ 1 lite roligare lägger vi till utskrift av en asciibild efter hälsningen. Det är samma klass som vi kommer att använda i inlämningsuppgiften på nästa kmom. Ladda ner klassen **AsciiArt** och lägg den i katalogen "kmom02/MenuApp2/src". Uppdatera namespace till **MenuApp2.src**.
 
-```csharp
-// i kmom02/MenuApp2/src/AsciiArt.cs
+```bash title="Ladda ner filen AsciiArt.cs och kopiera den till src katalogen. Stå i MenuApp2 katalogen."
+task download-code -- kmom02/AsciiArt.cs
+cp ../../codeExamples/AsciiArt.cs src/.
+ls src
+// ger följande: AsciiArt.cs	Helpers.cs	Menu.cs
+```
+
+
+```csharp title="Början av klasser AcsiiArt ser ut så här:"
 namespace MenuApp2.src;  
 
 public class AsciiArt
@@ -283,8 +289,7 @@ public class AsciiArt
 
 I menyalternativ 1 i klassen **Menu** anropar vi metoden `PrintDie` i klassen **AsciiArt** och skriver ut 2 tärningar, i detta exempel har vi argumenten 1 respektive 6.
 
-```csharp
-// i kmom02/MenuApp2/src/Menu.cs
+```csharp title="I klassen Menu anropas metoden PrintDie i klassen AsciiArt"
 namespace MenuApp2.src;
 ...
             switch (choice)
@@ -333,8 +338,8 @@ Vi lägger till en ny metod i klassen **Helpers**. Vi använder DateTime objekte
 - addera till objektet i `newTime` 2 år, 1 månad och 7 dagar och skriv ut vilken veckodag det är.
 - skapa ett objekt av klassen **TimeSpan** och tilldela det resultatet av att `newTime` subtraheras från `presentTime`. Skriv ut resultatet.
 
-```csharp
-// i kmom02/MenuApp2/src/Helpers.cs
+```csharp title="Lägg till metoden PrintDateAndTime i klassen Helpers"
+
 ...
     public void PrintDateAndTime()
     {
@@ -360,7 +365,7 @@ Vi lägger till en ny metod i klassen **Helpers**. Vi använder DateTime objekte
 
 Anropa metoden som alternativ 4 i menyprogrammet.
 
-Nu vill vi gärna ha veckodagarna på svenska. Då fixar vi genom att i klassen **Helpers** skapa en statisk array `sweWeekdays` med de svenska veckonamnen. I metoden `PrintDateAndTime` så tar vi reda på vilket nummer det är på veckodagen och använder det som index i den statiska array.
+Nu vill vi gärna ha veckodagarna på svenska. Då fixar vi genom att i klassen **Helpers** skapa en statisk array `sweWeekdays` med de svenska veckodagarna som strängar. I metoden `PrintDateAndTime` så tar vi reda på vilket nummer det är på veckodagen och använder det som index i den statiska array.
 
 import classdiagramHelpers3 from '@assets/img/kmom02/classdiagramHelpers3.png';
 
@@ -372,8 +377,7 @@ import classdiagramHelpers3 from '@assets/img/kmom02/classdiagramHelpers3.png';
 
 Här är koden.
 
-```csharp
-// i kmom02/MenuApp2/src/Helpers.cs
+```csharp title="Klassen Helpers med veckodagarna på svenska"
 namespace MenuApp2.src;
 
 public class Helpers
@@ -419,8 +423,7 @@ För att skriva ut veckodagarna så gör vi en ny metod i klassen **Helpers** so
 
 #### Med Join
 
-```csharp
-// kmom02/MenuApp2/src/Helpers.cs
+```csharp title="Skriv ut alla veckodagarna med Join i klassen Helpers"
 namespace MenuApp2.src;
 
 public class Helpers
@@ -442,7 +445,7 @@ public class Helpers
 }
 ```
 
-I metoden `PrintDays()` använder vi den inbyggda metoden `Join` för att göra en sträng av alla strängar i den statiska arrayen `sweWeekDays`(i koden tydliggörs att den tillhör klassen Heplers genom `Helpers.sweWeekdays`). 
+I metoden `PrintDays()` använder vi den inbyggda metoden `Join` för att göra en sträng av alla strängar i den statiska arrayen `sweWeekDays`(i koden tydliggörs att den tillhör klassen Heplers genom `Helpers.sweWeekdays`).
 
 För att dela upp en sträng i delsträngar till en array av finns metoden `Split`.
 
@@ -450,8 +453,7 @@ För att dela upp en sträng i delsträngar till en array av finns metoden `Spli
 
 Eftersom veckodagarna är en array med strängar så kan vi skriva ut den istället. Vi uppdaterar `PrintDays` med en for-loop.
 
-```csharp
-// kmom02/MenuApp2/src/Helpers.cs
+```csharp title="I klassen Helpers loopar vi igenom arrayen sweWeekdays med foreach"
 namespace MenuApp2.src;
 
 public class Helpers
@@ -478,8 +480,7 @@ public class Helpers
 
 Men tänk om vi har en lista att skriva ut istället. Vi gör om veckodagarna till en lokal lista med strängar och tillför en ny metod `PrintDays` med en lista som inparameter. Nu använder vi `foreach` för att öva på den.
 
-```csharp
-// kmom02/MenuApp2/src/Helpers.cs
+```csharp title="I klassen Helpers gör vi om arrayen sweWeekdays till en lista och skriver ut den med foreach"
 namespace MenuApp2.src;
 
 public class Helpers

@@ -168,10 +168,9 @@ class BankAccount {
 
 #### Implementation BankAccount
 
-Nedanför kan ni se hur koden för klassdiagrammet ser ut i C#.
+Vi skapar ett terminalprogram som heter `MyBank` och skapar klassen **BankAccount** i src katalogen. Nedanför kan ni se hur koden för klassdiagrammet med **BankAccount** ser ut i C#.
 
-```csharp
-// i kmom02/MyBank/Src/BankAccount.cs
+```csharp title="Klassen BankAccount har följande kod och ligger i filen MyBank/src/BankAccount.cs"
 namespace MyBank.src;
 
 public class BankAccount
@@ -236,12 +235,10 @@ public class BankAccount
 }
 ```
 
-För att testa klassen skapar vi objekt av klassen och anropar dess metoder.
-Till exempel med följande kodrader:
+För att testa klassen skapar vi objekt av klassen och anropar dess metoder Program.cs. Vi lägger till "using MyBank.src" för visa att alla klasser i MyBank/src kan användas i huvudprogrammet.
 
-```csharp
-// i kmom02/MyBank/Program.cs
-using MyBankApp.src; // Visar att alla klasser i MyBank/src kan användas
+```csharp title="Följande kod i Program.cs testar klassen BankAccount"
+using MyBankApp.src;
 
 var account1 = new BankAccount("Marie", 1000);
 var account2 = new BankAccount("Betty", 2000);

@@ -49,7 +49,7 @@ Minst 3 meningar efterfrågas. Skriv något om C#, till exempel vilka som utveck
 
 Fråga efter en temperatur i Celsius (ska kunna vara ett tal med decimaler) och returnera motsvarande temperatur i Farenheit avrundat till 2 decimaler. Inmatningen av temperaturen i Celcius ska ske innan anrop av metoden `ConvertCelsiusToFahrenheit`. Inmatning sker innan metoden anropas. Utskriften sker efter anropet. Exempel:
 
-```text
+```shell
 input: 11.344     output: "52.42"
 ```
 
@@ -59,7 +59,7 @@ input: 11.344     output: "52.42"
 
 Fråga efter en sträng och skriva ut en ny sträng där varje tecken har ökat med +1 och är separerat med "-". Inmatning sker i metoden. Utskriften sker efter anropet. Exempel:
 
-```text
+```shell
 input: "apa"      output: "a-pp-aaa"
 input: "kassler"  output: "k-aa-sss-ssss-lllll-eeeeee-rrrrrrr"
 ```
@@ -70,7 +70,7 @@ input: "kassler"  output: "k-aa-sss-ssss-lllll-eeeeee-rrrrrrr"
 
 Fråga efter en sträng och skapa en akronym genom att plocka ut alla stora bokstäver i namnet du skriver in. Inmatning sker i metoden. Utskriften sker efter anropet. Exempel:
 
-```text
+```shell
 input: "BRöderna Ivarsson Osby"      output: "BRIO"
 input: "Ingvar Kamprad Elmtaryd Agunnaryd"  output: "IKEA"
 ```
@@ -81,7 +81,7 @@ input: "Ingvar Kamprad Elmtaryd Agunnaryd"  output: "IKEA"
 
 Låt användaren mata in tal tills texten "klar" matas in. Då skriv summan av talen och medelvärdet av talen ut. Metoden returnerar en sträng med summan och medelvärdet enligt output nedan. Avrunda medelvärdet till 2 decimaler. Inmatning sker i metoden. Utskriften sker efter anropet. Exempel:
 
-```text
+```shell
 input: 1
 input: 2
 input: 3
@@ -96,7 +96,7 @@ Luhnalgoritmen används för att verifiera giltigheten hos nummer, särskilt kre
 
 Algoritmen funkar på så sätt att varannan siffra multipliceras med 2 och varannan med 1, med start på första siffran i personnumret. Om något tal vid multiplikationen blir större än 9 ersätts det talet med dess siffersumma. Därefter summeras alla tal och om summan är jämt delbar med 10 så är kontrollsiffran korrekt. Om personnumret validerar ska metoden returnera `true` annars `false`. Koden ska klara av personnummer med och utan `-` innan de fyra sista siffrorna. Om för får eller för många siffror skickas med ska det bli `false`.  Inmatning sker i metoden. Efter anropet av metoden skrivs texten "Valid" ut om personnumret var korrekt och annars skrivs texten "Not valid" ut beroende på om metoden returnerar true eller false.
 
-```text
+```shell
    8  1 1 2 1 8 9  8 7  6
 *  2  1 2 1 2 1 2  1 2  1
 -------------------------
@@ -108,7 +108,7 @@ Vilket blir `1 + 6 + 1 + 2 + 2 + 2 + 8 + 1 + 8 + 8 + 1 + 4 + 6 = 50` som är del
 
 Exempel:
 
-```text
+```shell
 input: "811218-9876"      output: "Valid"    
 input: "231218-9874"      output: "Not valid"    
 input: "8181818181"       output: "Valid"    

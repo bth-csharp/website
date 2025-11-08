@@ -9,8 +9,16 @@ sidebar:
 import Figure from '@components/CustomFigure.astro';
 import { YouTube } from 'astro-embed';
 
+import dice from '@assets/img/kmom02/dice.jpeg';
 import classdiagramDie from '@assets/img/kmom02/classdiagramDie.png';
 import classdiagramRound from '@assets/img/kmom02/classdiagramRound.png';
+
+<Figure
+    src={dice}
+    height="150px"
+    width="150px"
+    float="right"
+/>
 
 Tärningsspelet **Dice100** är ett enkelt men roligt, tärningsspel. Det gäller att samla ihop poäng för att komma först till **100** genom att kasta tärningar. I varje omgång kastar en spelare i taget tärningar tills spelaren väljer att stanna och spara poängen eller tills det dyker upp en 1:a eftersom spelaren då förlorar alla poäng som samlats in i rundan. Antalet rundor räknas upp oavsett om spelaren väljer att spara rundan eller får en etta.
 
@@ -19,15 +27,11 @@ I denna uppgiften får du möjlighet att bygga klasser för att representera en 
 
 ## Förkunskaper
 
-Du bör ha gjort, eller ha förkunskaper som motsvarar:
-
-- guiden "Kom igång med objektorienterad programmering i C#" [Intro till OOP guiden](./../../../OoGuide/intro/README.md)
-- guiden "Kom igång med objektorienterad programmering i C#" [Kapitel 1 - Objekt och Klasser](./../../../OoGuide/kap1/README.md)
-- artikeln [Introduktion till UML och klassdiagram](./../Kunskap/UmlKlassdiagram.md).
+Du bör ha jobbat igenom [Kmom02](/website/kmom/kmom02) eller ha motsvarande kunskaper.
 
 ## Introduktion
 
-Spelet ska fungera enligt beskrivningen ovan. En rekommendation är att börja med menyalternativet som ska skriva ut reglerna. Projektet som du skapar ska heta **Die100**  och det skapar du i kmom02. Det kallas också [Pig game](https://en.wikipedia.org/wiki/Pig_(dice_game)).
+Spelet ska fungera enligt beskrivningen ovan. En rekommendation är att börja med menyalternativet som ska skriva ut reglerna. Projektet som du skapar ska heta **Die100**  och det skapar du i katalogen kmom02. Det kallas också [Pig game](https://en.wikipedia.org/wiki/Pig_(dice_game)).
 
 Dina klasser ska motsvara beskrivningar och klassdiagram som du hitter lite längre ner på sidan. Det som finns i beskrivningar och klassdiagram **måste** finnas, du får och är **rekommenderad** att skapa ytterligare metoder och attribut som är motiverade.
 
@@ -35,9 +39,9 @@ Dina klasser ska motsvara beskrivningar och klassdiagram som du hitter lite län
 
 ### Die
 
-Klassen **Die** innehåller information och funktionalitet för en tärning. Klassen **Die** representerar **en** tärning och därför är namngivningen "Die, det vill säga singularis för tärning på engelska. 
+Klassen **Die** innehåller information och funktionalitet för en tärning. Klassen **Die** representerar **en** tärning och därför är namngivningen "Die, det vill säga singularis för tärning på engelska.
 
-*Anm: Flera tärningar är "dice" på engelska men i modern engelska kan du använda "dice" för både en och flera tärningar.*
+*Anmärkning: Flera tärningar är "dice" på engelska men i modern engelska kan du använda "dice" för både en och flera tärningar.*
 
 #### Klassdiagram Die
 
@@ -88,11 +92,11 @@ Klassen **Round** innehåller:
 
 ### Game
 
-Klassen **Game** innehåller information och funktionalitet för spelet. Menyn (se nedan) har ett objekt av klassen Game och anropar lämpliga metoder för Game-objektet för respektive meny-alternativ. Börja med att göra en metod i Game-klassen som skriver ut spelets regler och anropa den i menyalternativet för "Skriv ut reglerna". Därefter utökar du med metoder efter hand baserat på de meny-alternativ som finns. 
+Klassen **Game** innehåller information och funktionalitet för spelet. Menyn (se nedan) har ett objekt av klassen Game och anropar lämpliga metoder för Game-objektet för respektive meny-alternativ. Börja med att göra en metod i Game-klassen som skriver ut spelets regler och anropa den i menyalternativet för "Skriv ut reglerna". Därefter utökar du med metoder efter hand baserat på de meny-alternativ som finns.
 
-Klassen **Game** behöver att objekt av klassen Round. Funderar vilka ytterligare egenskaper klassen Game har behov av. Ett tips är att titta på reglerna. 
+Klassen **Game** behöver att objekt av klassen Round. Funderar vilka ytterligare egenskaper klassen Game har behov av. Ett tips är att titta på reglerna.
 
-Klassdiagram till klassen Game skapar ni själva i uppgiften nedan.
+Klassdiagram till klassen **Game** skapar ni själva i uppgiften nedan.
 
 ### Menu
 
@@ -104,7 +108,7 @@ Programmet styrs via en meny, som ska innehålla alternativen:
 - Skriv ut reglerna
 - Avsluta
 
-Menyklassen ska innehålla ett objekt av klassen Game.
+Menyklassen **Menu** ska innehålla ett objekt av klassen **Game**.
 
 ### Huvudprogrammet
 
@@ -112,35 +116,31 @@ Huvudprogrammet, `Program.cs`, ska endast skapa ett objekt av Meny-klassen och v
 
 ## Krav
 
-1. Gör så att en spelare kan spela tärningsspelet **Dice100** med ett terminalprogram.
+1. Gör så att en spelare kan spela tärningsspelet **Dice100** med ett terminalprogram. Skapa ett nytt projekt som heter **Dice100** i kmom02 katalogen.
 
-2. Skapa ett nytt projekt som heter **Dice100**.
+1. Skapa dina klasser under src katalogen i ditt projekt **Dice100** precis som du gjorde i övningen.
 
-3. Skapa dina klasser under src i ditt projekt **Dice100** precis som du gjorde i övningen.
+1. Skapa klassen för tärningen **Die**. Gör `dotnet build` och rätta eventuella kompileringsfel.
 
-4. Skapa klassen för tärningen **Die**. Gör `dotnet build` och rätta eventuella kompileringsfel.
+1. Skapa klassen för spelrunda **Round**. Gör `dotnet build` och rätta eventuella kompileringsfel.
 
-5. Skapa klassen för spelrunda **Round**. Gör `dotnet build` och rätta eventuella kompileringsfel.
+1. För att testa att grunden är enligt kraven ovan, så kan du ladda ner testprojektet för **Die** och **Round** med `task download-tests -- kmom02`. Se mer information under kapitlet [Tester](#tester) nedan.
 
-6. För att testa att grunden är enligt kraven ovan, så kan du kopiera testprojektet för **Die** och **Round** [Dice100.Tests](./../../../CodeExamples/kmom02/uppgift/Dice100.Tests) under samma katalog som din Dice100 ligger. Se mer information under kapitlet [Tester](#tester) nedan.
+1. Skapa klassen för **Menu**. Gör gärna utskrifter efter varje menyalternativ. När du väljer "Slå tärningarna" så vill du visa tärningarna (PrintRound) och kanske mer information som poäng för den aktuella rundan, totalpoäng och antalet rundor. Det är bra att visa information om spelet efter varje menyval.
+När du börjar utveckla så kanske du bara skriver ut vilket menyalternativ du valt och sen utökar du informationen genom att anropa en metod. Efter som Game klassen inte är utvecklad ännu gör du en kommentar under menyval "Slå tärningarna" att du ska anropa motsvarande metod i Game. Gör likadant med menyvalen "Spara rundan och lägg till totalpoängen" och "Nollställ spelet".
 
-7. Skapa klassen för **Menu**. Gör gärna utskrifter efter varje menyalternativ. När du väljer "Slå tärningarna" så vill du visa tärningarna (PrintRound) och kanske mer information som poäng för den aktuella rundan, total poäng och antalet rundor. Det är bra att visa information om spelet efter varje menyval.
-När du börjar utveckla så kanske du bara skriver ut vilket menyalternativ du valt och sen utökar du informationen. Efter som Game klassen inte är utvecklad ännu gör du en kommentar under menyval "Slå tärningarna" att du ska anropa motsvarande metod i Game. Gör likadant med menyvalen "Spara rundan och lägg till totalpoängen" och "Nollställ spelet".
+1. Skapa ett klassdiagram (UML) för din klass **Game**. Välj beskrivande metodnamn. Lämna in diagrammet i filen classdiagram.pdf eller classdiagram.png. Diagrammet kan ritas i ritprogram eller på ett papper som du tar kort på.
 
-8. Skapa ett klassdiagram (UML) för din klass **Game**. Välj beskrivande metodnamn.
+1. För att reda ut vad som händer i klassen **Game** ritar du ett flödesdiagram. Vid spelets start - vad händer då? Jo, tärningarna slås och visas upp tillsammans med poängsumman. Vad händer efter det? Vad väljer användaren då? Och vad händer om det blir en 1:a? Lämna in diagrammet i filen flowchart.pdf eller flowchart.png.
 
-9. För att reda ut vad som händer i klassen **Game** ritar du ett flödesdiagram. Vid spelets start - vad händer då? Jo, tärningarna slås och visas upp tillsammans med poängsumman. Vad händer efter det? Vad väljer användaren då? Och vad händer om det blir en 1:a?
-
-10. Skapa klassen **Game**. Det är lite olika tillstånd i spelet som du behöver att tänka på. Hur ser objektet ut från början? Vad händer efter första kastet i runda 1? Vad händer när man sparar och påbörjar en ny runda? Hur får man reda på att spelet är klart, när spelaren når 100 poäng? Hur nollställs spelet?
+1. Skapa klassen **Game**. Det är lite olika tillstånd i spelet som du behöver att tänka på. Hur ser objektet ut från början? Vad händer efter första kastet i runda 1? Vad händer när man sparar och påbörjar en ny runda? Hur får man reda på att spelet är klart, när spelaren når 100 poäng? Hur nollställs spelet?
 **Tips:** Testa gärna med 2-3 tärningar i rundan för att minska sannolikheten för att få en 1:a under utveckling och minska dessutom målpoängen (som i det färdiga spelet är 100). Du kan till exempel välja 2 tärningar och 30 som målpoäng.
 
 11. Testkör ditt spel och kontrollera att menyalternativen fungera såsom avsett och att poäng och antalet rundor uppdateras som de ska.
 
 ## Demo på Dice100
 
-Så här kan det se ut när det är klart.
-
-Så här kan det se ut när det är klart.
+Så här kan det se ut när det är klart. Kommer snart!
 
 <YouTube
     id="??"
@@ -154,17 +154,16 @@ Gör så att flera spelare kan spela mot varandra.
 
 ## Tester
 
-Du har testa din kod genom att köra igenom ditt menyprogram och kontrollerat att det fungerar såsom avsett. Du har kollat att testprojektet från uppgiften ovan går igenom - då fungerar **Die** och **Round** som de ska.
+Du har testat din kod genom att köra igenom ditt menyprogram och kontrollerat att det fungerar såsom avsett. Du har kollat att testprojektet från uppgiften ovan går igenom - då fungerar **Die** och **Round** som de ska.
 Du hämtar enhetstesterna så här:
 
-```bash
-task download-tests -- kmom03
+```shell title="Ladda ner testerna för kmom02"
+task download-tests -- kmom02
 ```
 
 Då ser det ut så här:
 
-```shell
-pwd // stå i me/kmom02
+```shell title="Katalogstruktur i kmom02 när testerna är nedladdade och kraven avklarade"
 tree -L 2
 .
 ├── Dice100
@@ -177,25 +176,23 @@ tree -L 2
 │   ├── Dice100.Tests.csproj
 │   ├── DieTest.cs
 │   ├── RoundTest.cs
-│   └── Usings.cs
+├── classdiagram.pdf
+├── flowchart.png
 ```
 
 Titta i filen Dice100.Tests.csproj och se om den pekar ut rätt klasser att testa, vilket den gör genom att referera till projektfilen "Dice100.csproj". Kör testerna:
 
-```shell
-pwd // stå i me/kmom02/Dice100.Tests
+```shell title="Kör testerna för kmom02"
 dotnet test
 dotnet test --logger "console;verbosity=normal" // mer information
 ```
 
 Då får vi hoppas att alla tester går igenom! Lycka till!
 
-## Inlämning
-
-Ta bort debugutskrifter och kontrollera att tärningar och målpoäng stämmer med kraven.  
-Lämna in klassdiagrammet på **Game** och lämna in flödesdiagrammet. Det går bra att göra flödesdiagrammet på papper, fotografera av det och lämna in.
 
 ## Tips från coachen
+
+Ta bort debugutskrifter och kontrollera att tärningar och målpoäng stämmer med kraven. 
 
 Felsöka med hjälp av utskrifter med `Console.WriteLine()`. Använd gärna debugger i VS Code.
 

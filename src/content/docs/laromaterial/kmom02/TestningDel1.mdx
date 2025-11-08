@@ -57,21 +57,18 @@ Läs mer om [NUnit](https://docs.nunit.org/articles/nunit/intro.html).
 
 ## Skapa ett NUnit-testprojekt i MenuApp2
 
+Vi börjar med att flytta oss med `cd` till samma katalog som programmet vi ska testa ligger i. I vårt fall ligger `MenuApp2` i katalogen kmom02/practice.
 Först skapar vi ett testprojekt som vi kallar `MenuApp2.Tests` och samtidigt skapas en tom testfil som heter `UnitTest1.cs`. Vi byter namn på till `HelpersTest.cs` och uppdateras klassens namn till **HelpersTest**.
 
-```shell
-pwd // stå i kmom02
-dotnet new nunit -n MenuApp2.Tests // här skapar vi ett testprojekt i Tests 
+```shell title="Skapa ett testprojekt med NUnit som heter MenuApp2 i katalogen kmom02/practice"
+dotnet new nunit -n MenuApp2.Tests 
 cd MenyApp2.Tests
-mv UnitTest1.cs  HelpersTest.cs // eller byt namn på testfilen i VS code 
+mv UnitTest1.cs  HelpersTest.cs
 ```
 
-Med dotnet new NUnit fixar vi så att vi får tillgång till Microsofts test.SDK och NUnit testramverk och dess finesser. Nu har vi tillgång till alla assertmetoder.
-Den sista raden med 'add reference' gör vi för att våra testklasser ska känna till våra klasser under `MenuApp2/src`.
+Med dotnet new NUnit fixar vi så att vi får tillgång till Microsofts test.SDK och NUnit testramverk och dess finesser. Nu har vi tillgång till alla assertmetoder. Assertmetoder använder vi för att verifiera ett resultat med ett förväntat värde i ett testfall. Om vi har en metod som vid en viss input ska returnera "Valid" så jämför vi med det förväntade värdet "Valid" och om de är lika så går testfallet bra.
 
-```shell
-cd ..
-pwd // stå i kmom02/MenuApp2.Tests
+```shell title="Katalogstrukturen i MenuApp2.Tests"
 tree -L 1
 // Ger utskriften
 .
@@ -79,7 +76,11 @@ tree -L 1
 ├── MenuApp2.Tests.csproj
 ├── Usings.cs
 └── obj
-// Lägg till referensen till program MenuApp2
+```
+
+Testprojektet `MenuApp2.Tests` ska testa klasserna i `MenuApp2` För att `MenuApp2.Tests` ska känna till `MenuApp2` så behöver vi lägga till en referens i projektfilen för `MenuApp2.Tests` som pekar ut projektet vars kod vi vill testa. Vi pekar ut `MenuApp2` genom att ange pathen till dess projektfil.
+
+```shell title="Lägg till en referens till MenuApp2 i projektfilen för MenuApp2.Tests"
 dotnet add reference ../MenuApp2/MenuApp2.csproj
 ```
 
@@ -90,18 +91,28 @@ Så där ja, nu har vi ett testprojekt *MenuApp2.Tests* där vi kan lägga till 
 
 ### Assertmetoder
 
-Det finns två olika modeller för att skriva assertions i NUnit; 'Constraint model' och 'Classic model'. Vi kommer att använda 'Constraint model' då den fortfarande utvecklas och har tydligare felmeddelanden. Assertmetoderna ser ut så här:
+Det finns två olika modeller för att skriva assertions i NUnit; "Constraint model" och "Classic model". Vi kommer att använda "Constraint model" då den fortfarande utvecklas och har tydligare felmeddelanden. En annan fördel med "Constraint model" är att syntaxen är mer läsbar och att du kan kombinera flera villkor.  
+Formatet på en assertmetod ser ut så här:
 
 ```csharp
 Assert.That(värde att testa, assertmetod/constraint)
 ```
 
+Exempel på assertmetoder:
+
+```csharp
+Assert.That(actual, Is.GreaterThan(0).And.LessThan(100));
+Assert.That(list, Has.Count.EqualTo(3));
+Assert.That(name, Does.StartWith("Marie"));
+Assert.That(value, Is.InRange(10, 20));
+```
+
 ### Testa GetRandomNumberFrom10To20
 
 Då börjar vi med att testa vår klassmetod GetRandomNumberFrom10To20. Vi gör 2 testfall, ett som testar att talet vi får är mindre eller lika med 20 och nästa testfall testar att talet vi får är större eller lika med 10.
+**OBS** Dubbelkolla att namespacet är samma som klassen vi testar! Klassen **Helpers** har namespace `MenuApp2.src` och då använder vi det.
 
-```csharp
-// i MenuApp2.Tests/HelpersTest.cs
+```csharp title="Lägg till 2 testfall i testklassen HelpersTest i testprojektet MenuApp2.Tests"
 namespace MenuApp2.src;
 
 [TestFixture]
@@ -131,8 +142,9 @@ Vi kan effektivt organisera och arbeta med flera projekt inom en dotnet-baserad 
 
 Kör detta i terminalen, stå i MenuApp2.Tests.
 
-```shell
-dotnet test  // våra testfall körs 
+```shell title="I terminalen i katalogen MenuApp2.Tests kör vi testerna så här:"
+dotnet test
+// ger utskriften:
 ...
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
@@ -140,21 +152,20 @@ A total of 1 test files matched the specified pattern.
 Passed!  - Failed:     0, Passed:     2, Skipped:     0, Total:     2, Duration: 23 ms - MenuApp2.Tests.dll (net7.0)
 ```
 
-Om vi glömmer att göra klassen Helpers.cs i `MenuApp2/src` public, så får vi nedanstående felmeddelandet:
+**Om vi får fel:**
 
-```shell
-dotnet test
-... error CS0122: 'Helpers' is inaccessible due to its protection level
-```
+- Om vi glömmer att göra klassen Helpers.cs i `MenuApp2/src` public, så får vi nedanstående felmeddelandet "error CS0122: 'Helpers' is inaccessible due to its protection level".
 
-Om vi får felet "error CS0103: The name 'Helpers' does not exist in the current context" beror det på att vi glömt lägga till referensen till projektet `MenuApp2`.
+- Om vi får felet "error CS0103: The name 'Helpers' does not exist in the current context" beror det på att vi glömt lägga till referensen till projektet `MenuApp2`.
+
+- Om vi får felet "error CS0234: The type or namespace name 'Helpers' does not exist in the namespace 'MenuApp2'" så har vi fel namespace i testklassen HelpersTest.
+
 
 ### Testa CheckIfAdult
 
-Nu lägger vi till två testfall för att testa klassmetoden CheckIfAdult.
+Nu lägger vi till två testfall för att testa klassmetoden CheckIfAdult. Ett för att testa att vi får strängen "Du är inte myndig" om åldern som matas in i metoden är mindre än 18 och det andra för att testa vad som returneras när ålder är över 18.
 
-```csharp
-// i MenuApp2.Tests/HelpersTest.cs
+```csharp title="Lägg till följande testfall i klassen HelpersTest"
 namespace MenuApp2.src;
 
 [TestFixture]
@@ -181,9 +192,9 @@ public class HelpersTest
 
 ## Få en sammanfattning av testerna
 
-dotnet test körs alltid i tyst läge vilket innebär att så lite som möjligt skrivs ut. Men för att få en bra sammanfattning av vilka testfall som körs, så kan man köra enligt nedan:
+`dotnet test` körs alltid i tyst läge vilket innebär att så lite som möjligt skrivs ut. Men för att få en bra sammanfattning av vilka testfall som körs, så kan man köra testerna enligt nedan:
 
-```shell
+```shell title="Få ut mer information med dotnet test genom flaggan logger"
 dotnet test --logger "console;verbosity=normal"
 // Ger utskriften
 ...
@@ -201,12 +212,10 @@ Total tests: 4
 
 ## Repetition av dotnet kommandona
 
-```shell
-dotnet clean // rensa innan du bygger om 
-dotnet format // formatera koden
-dotnet run // kompilerar, bygger och kör igång programmet
-dotnet test --logger "console;verbosity=normal" // kör testerna med snygg utskrift
-```
+- dotnet clean; rensa innan du bygger om
+- dotnet format; formatera koden
+- dotnet run; kompilerar, bygger och kör igång programmet
+- dotnet test --logger "console;verbosity=normal"; kör testerna med snygg utskrift
 
 ## Sammanfattning
 
@@ -217,3 +226,5 @@ Nu har vi tittat på enhetstestning C#:
 - vi har lärt oss att få mer användbar information från testerna.
 - vi har också lärt oss att köra testerna med dotnet test
 - vi har lärt oss hur vi skapar ett testprojekt "MenuApp2.Tests" som testar klasserna i vårt projekt "MenuApp2".
+
+Nu har vi tittat lite på enhetstester för att få mer förståelse om testfall och enhetstestning. Vi tittar mer på enhetstestning i kmom05.
