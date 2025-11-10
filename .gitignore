@@ -23,7 +23,6 @@ pnpm-debug.log*
 # CSharp
 **/obj/
 **/bin/
-**/plantuml/
 **/toc.yaml
 **/_site/
 **/api/
