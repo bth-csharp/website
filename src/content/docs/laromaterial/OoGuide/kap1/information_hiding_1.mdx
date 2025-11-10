@@ -9,13 +9,13 @@ sidebar:
 
 Information hiding är när man gömmer intern data i klassen, så att den inte kan användas på fel sätt eller utanför den egna instansen. Låt oss säga att vi har en klass som har ett attribut som innehåller någon känslig data. Då vill vi inte att det ska gå att använda den datan hur som helst. Vi vill kanske kontrollera hur värdet sätts, göra en speciell uträkning för att få ett nytt värde, eller så är bara värdet hemligt. Vi vill kunna begränsa tillgången till variabler eller metoder utanför klassdefinitionen.
 
-Det finns tre olika klassificeringar inom klassisk objektorientering, publik, skyddad och privat. Publika variabler används sällan i objektorienterad programmering. Oftast är variablerna privata och nås med publika get- och set-metoder. Det finns också skyddade variabler och metoder som endast subklasserna kommer åt.
+Det finns tre olika klassificeringar inom klassisk objektorientering:  *publik*, *skyddad* och *privat*. Publika variabler används sällan i objektorienterad programmering. Oftast är variablerna privata och nås med publika get- och set-metoder. Det finns också skyddade variabler och metoder som endast subklasser (tas upp i samband med arv) kommer åt.
 
 | Implementation | Typ     | Syfte                                                                                 |
 |----------------|---------|---------------------------------------------------------------------------------------|
-| public name    | publik (public)  | Kan nås av vem som helst, använd inte. Använd egenskaper (properties) istället.           |
+| public name    | publik (public)  | Kan nås av vem som helst.           |
 | protected _name | skyddad (protected) | Funkar som privat men metoden/variabeln kan också nås från klasser som ärver från klassen där de deklareras                             |
-| private _name   | privat (private) | Nås endast från klassen där de deklareras (default om inget annat anges)                   |
+| private _name   | privat (private) | Nås endast från klassen där den deklareras (default om inget annat anges)                   |
 
 
 ## Anledning till att använda privata attribut
@@ -30,7 +30,7 @@ Vi använder privata attribut för att:
 
 ## Inga publika variabler i klassen Car
 
-Helst bör alla klassens variabler vara privata och därför ändrar vi `WHEELS` till att vara privat. Det är praxis att konstanter har namn med stora bokstäver även om de är privata.
+Helst bör alla klassens variabler vara privata och därför ändrar vi `WHEELS` till privat. Det är praxis att konstanter har namn med versaler (stora bokstäver) även om de är privata.
 
 ```csharp title="Gör medlemsvariablerna i klassen Car privata"
 namespace OoGuide.src;
@@ -50,14 +50,14 @@ Om vi nu anropar `WHEELS` som vi gjorde innan blir det kompileringsfel.
 // Ger kompileringsfelet: error CS0122: 'Car.Wheels' is inaccessible due to its protection level
 ```
 
-För att komma åt `WHEELS` måste vi göra en getmetod och det gör vi i nästa kapitel.
+För att få tillgång till innehållet i `WHEELS` kan vi göra en getmetod, vilket vi gör i nästa kapitel.
 
-Nu har vi gömt alla variabler inuti **Car** klassen och de anropas via metoder på klassen istället. Detta kallas för `information hiding`.
+Nu har vi gömt alla variabler inuti **Car** klassen och tillfört metoder för den tillgång och bearbetning som ska tillåtas. Detta kallas för `information hiding`.
 
 
 ## Publikt och privat i klassen RaceTrack
 
-I klassen **RaceTrack** är redan alla variabler privata och gömda men vi kan titta över metoderna. Metoden `PrintFinishLine` borde delas upp i två metoder, en privat som heter `PrintFinishLine` och en publik som heter `Description`. `Description` ska skriva ut information om racerbanan medan `PrintFinishLine` anropas inifrån `Description`.
+I klassen **RaceTrack** är redan alla variabler privata och gömda och vi tittar över metoderna. Metoden `PrintFinishLine` kan delas upp i två metoder, en privat som heter `PrintFinishLine` (denna kan alltså inte anropas utifrån) och en publik som heter `Description`. `Description` ska skriva ut information om racerbanan och anropar `PrintFinishLine` som hanterar en specifik del av det som ska ingå i utskriften.
 
 Koden kan då se ut så här:
 
@@ -85,7 +85,7 @@ class RaceTrack
 }
 ```
 
-Nu kan bara metoden `PrintFinishLine` användas inuti klassen **RaceTrack**.
+Eftersom metoden `PrintFinishLine` är privat kan en endast användas inuti klassen **RaceTrack**.
 
 ```csharp title="Testkör koden genom att anropa den privata metoden PrintFinishLine"
 RaceTrack track1 = new RaceTrack(100);
@@ -93,7 +93,7 @@ track1.PrintFinishLine();
 // Ger kompileringsfelet: error CS0122: 'RaceTrack.PrintFinishLine()' is inaccessible due to its protection level
 ```
 
-Och det stämmer eftersom vi gjorde den privat för vi ville att den publika metoden `Description` ska användas istället.
+Och det vi får detta bekräftat eftersom vi gjorde den privat för att använda dne internt inom klassen.
 
 ```csharp title="Testkör koden genom att anropa den publika metoden Description"
 RaceTrack track1 = new RaceTrack(100);
@@ -102,9 +102,9 @@ track1.Description();
 
 Det funkar bra och vi får ut en beskrivning samt en mållinje.
 
-## Sammanfattning
+## Slutligen
 
-Vi lägger utskrifterna från detta kapitel samt förra i en funktion. Nu ser det ut så här:
+Vi lägger utskrifterna från detta kapitel och förra i en publik funktion (vilken i sin tur anropar en privat metod). Nu ser det ut så här:
 
 ```csharp title="Strukturera koden genom att lägga den i en metod som anropas i Program.cs"
 
@@ -123,4 +123,4 @@ static void TestingPrivatePrintouts()
 TestingPrivatePrintouts(bmw, volvo);
 ```
 
-Och när vi inte vill använda metoden `TestingPrivatePrintouts` så kommenterar vi bort den.
+När vi inte vill använda metoden `TestingPrivatePrintouts` kommenterar vi bort den.
