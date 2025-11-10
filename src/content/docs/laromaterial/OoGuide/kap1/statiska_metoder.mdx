@@ -8,11 +8,11 @@ sidebar:
 
 import Figure from '@components/CustomFigure.astro';
 
-Statiska variabler är en variabel som tillhör klassen och inte en specifik instans av klassen. Metoder på statiska variabler kallas statiska metoder.
+Statiska variabler är variabler som tillhör klassen och inte en specifik instans av klassen. Vi kan även skapa metoder som är statiska och som tillhör klassen. Dessa kallas statiska metoder .
 
-## Lägg till statisk get- och set-metod
+## Lägg till statisk getmetod
 
-Vi gör en getmetod för att komma åt `WHEELS` och och en setmetod för att ändra `WHEELS`. Eftersom `WHEELS` är en konstant som tillhör klassen, så blir getmoden på `WHEELS` också statisk.  Vi lägger dem bland de statiska metoderna och inte bland de vanliga get- och set-metoderna.
+Vi gör en getmetod för att komma åt `WHEELS` och eftersom `WHEELS` är en konstant som tillhör klassen blir getmetoden på `WHEELS` statisk.  Vi lägger alla statiska metoder tillsammans och blandar de inte med de vanliga get- och set-metoderna.
 
 ```csharp
 // i OoGuide/src/Car.cs
@@ -42,11 +42,32 @@ Console.WriteLine("Antal hjul: " + Car.GetWheels());
 // Ger utskriften: Antal hjul: 4
 ```
 
-## Lägg till en statisk metod
+## Lägg till en annan statisk metod
 
-Vi kanske vill utöka vår beskrivning av bilen med informationen i de statiska klassvariablerna `WHEELS` och `_carCount`. Då behöver vi göra en statisk metod som vi lägger sist bland de statiska metoderna **Car** klassen.
+Vi kanske vill utöka vår beskrivning av bilen med informationen om värdet i i klasskonstanten `WHEELS` och värdet i klassvariabeln `_carCount`. Då gör vi en statisk metod som skriver ut detta. Vi lägger metoden tillsammans med de tidigare statiska metoderna i **Car** klassen.
 
-Metoden `DescriptionStatic()` har inga inparametrar och skriver ut de statiska variablerna samt anropar metoden `Description()` för att skriva ut instansvariablerna också. Vi kollar på hur vi anropar metoden på klassen.
+Metoden som vi namnger `DescriptionStatic()` har inga inparametrar. Vi kollar på hur vi anropar metoden via klassen.
+
+```csharp 
+// i OoGuide/src/Car.cs
+    ...
+
+    // Static methods
+    ...
+    public static void DescriptionStatic()
+    {
+        Console.WriteLine($"Bilen har {Car.WHEELS} hjul och är bil nummer {Car._carCount}.");
+    }
+}
+```
+```csharp
+// i OoGuide/Program.cs
+...
+Car.DescriptionStatic();
+// ger utskriften: Bilen har 6 hjul och är bil nummer 0.
+```
+
+Det är inte möjligt att anropa metoder som inte är statiska i en statisk metod. Om vi t.ex försöker anropa `Description()` (som inte är statisk) i `DescriptionStatic()` får vi fel.
 
 ```csharp
 // i OoGuide/src/Car.cs
@@ -61,8 +82,7 @@ Metoden `DescriptionStatic()` har inga inparametrar och skriver ut de statiska v
     }
 }
 ```
-
-Vi testkör vår i huvudprogrammet:
+När vi försöker köra får vi:
 
 ```csharp
 // i OoGuide/Program.cs
@@ -72,15 +92,7 @@ Car.DescriptionStatic();
 // static method, or static field initializer
 ```
 
-Vi får inte använda `this` i en statisk metod. Ta bort raden med `this.Description()` i `DescriptionStatic()` och testkör igen. 
-
-
-```csharp
-// i OoGuide/Program.cs
-...
-Car.DescriptionStatic();
-// ger utskriften: Bilen har 6 hjul och är bil nummer 0.
-```
+Vi får alltså inte använda `this` (som representerar anropande instans) i en statisk metod. Ta bort raden med `this.Description()` i `DescriptionStatic()` och testkör igen. 
 
 Men vad händer om vi skapar ett bilobjekt och försöker anropa den statiska metoden på det?
 
@@ -94,9 +106,9 @@ bmw.DescriptionStatic();
 // with an instance reference; qualify it with a type name instead
 ```
 
-Detta felet får vi för att vi anropar en statisk metod från en instans av klassen. En statisk metod ska anropas från klassen, i detta fallet klassen **Car**.
+Detta felet får vi för att vi anropar en statisk metod från en instans av klassen. En statisk metod anropas från klassen, i detta fallet klassen **Car**.
 
-Vi anropar både `Description()` och `DescriptionStatic()` för att få informationen i de båda metoderna.
+Vi anropar både `Description()` (som är en instansmetod/medlemsmetod) och `DescriptionStatic()` (som är en klassmetod).
 
 ```csharp
 // i OoGuide/Program.cs
@@ -110,14 +122,13 @@ Car.DescriptionStatic(); // statisk metod anropas på klassen Car
 // Bilen har 6 hjul och är bil nummer 1.
 ```
 
-Nu har vi testat olika sätt med statiska metoder och är nöjda med resultatet.
+Nu har vi testat en statisk metod och sett hur den anropas.
 
-
-## Lägg till en statisk metod som påverkar klassen
+## Lägg till en statisk metod för beräkning som är relevant för instanser av klassen
 
 Vi lägger till en statisk metod som gäller för hela klassen. Den använder inte de statiska klassvariablerna men beräkningen som görs ska gälla för alla instanser av klassen och därför gör vi metoden statisk.
 
-Man brukar säga att en bil förlorar 1/3 av sitt värde när den lämnar bilfirman. Så vi skapar en statisk metod som tar bort 1/3 av ett pris och lägger den sist bland de statiska metoderna:
+Man brukar säga att en bil förlorar 1/3 av sitt värde när den lämnar bilfirman. Vi skapar därför en statisk metod som utför denna beräkning och lägger den bland de statiska metoderna:
 
 ```csharp
 // i OoGuide/src/Car.cs
@@ -132,7 +143,7 @@ Man brukar säga att en bil förlorar 1/3 av sitt värde när den lämnar bilfir
 }
 ```
 
-Metoden `CalculatePriceReduction()` har priset som inparameter och returnerar ett heltal som är det nya reducerade priset. Vid beräkningen blir priset ett decimaltal som vi byter typ på, castar, till heltal med hjälp av *(int)*. Vi kollar på hur vi anropar metoden.
+Metoden `CalculatePriceReduction()` har priset som inparameter och returnerar ett heltal som är det nya reducerade priset. Vid beräkningen blir priset ett decimaltal som vi typomvandlar, castar, till ett heltal med hjälp av *(int)*. Nu testar vi att anropa metoden:
 
 ```csharp
 // i OoGuide/Program.cs
@@ -141,7 +152,7 @@ Console.WriteLine($"Prisreduktion: {Car.CalculatePriceReduction(bmw.GetPrice())}
 // ger utskriften: Prisreduktion: 66000 kr.
 ```
 
-Vi hämtar priset på vår bmw med getmetoden och ger den som inparameter till den statiska metoden *CalculatePriceReduction()*. Den statiska metoden anropas med klassens namn följt av en punkt och så namnet på metoden.
+Vi hämtar priset på vår bmw (Car-objekt) med getmetoden och använder det som inparameter till den statiska metoden *CalculatePriceReduction(...)*. Den statiska metoden anropas, som tidigare, med klassens namn följt av en punkt och därefter namnet på metoden.
 
 import classdiagramCar_4 from '@assets/img/ooguide/classdiagramCar_4.png';
 
@@ -152,7 +163,7 @@ import classdiagramCar_4 from '@assets/img/ooguide/classdiagramCar_4.png';
 />
 
 
-## Sammanfattning
+## Slutligen
 
 Vi lägger utskrifterna från detta kapitel i samma funktion som vi gjorde i förra kapitlet. Nu ser det ut så här:
 
@@ -177,4 +188,4 @@ static void TestingStaticMethodPrintouts()
 TestingStaticMethodPrintouts(bmw);
 ```
 
-Och när vi inte vill använda metoden `TestingStaticMethodPrintouts` så kommenterar vi bort den.
+När vi inte vill använda metoden `TestingStaticMethodPrintouts` kommenterar vi bort den.
