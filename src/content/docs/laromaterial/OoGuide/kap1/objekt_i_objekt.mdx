@@ -8,14 +8,14 @@ sidebar:
 
 import Figure from '@components/CustomFigure.astro';
 
-Till vår racerbana så har vi två klasser **RaceTrack**, som representerar själva racerbanan, och **Car** som representerar en bil på racerbanan. Vad kan vi mer behöva för klasser? Det kan behövas förare, publik och varför inte väder. Vädret kan påverka bilarnas hastighet.
+Till vår racerbana så har vi två klasser **RaceTrack**, som representerar själva racerbanan, och **Car** som representerar en bil på racerbanan. Vad kan vi mer behöva för klasser? Det kan till exempel behövas förare, publik och varför inte väder. Vädret kan ju påverka bilarnas hastighet.
 
-Precis som vi har attribut på en klass som är av typen string eller int, så kan vi också ha attribut av typen en specifik klass. Vi skapar en klass **Weather** som sedan blir ett attribut på klassen **RaceTrack**.
+Precis som vi har attribut i en klass som är av typen string eller int, så kan vi också ha attribut som är av en specifik klass (typen är alltså klassen). Vi skapar en klass **Weather** som sedan får ett attribut i klassen **RaceTrack**.
 
 
 ## Ny klass Weather
 
-Vi pratar ofta om vädret och det påverkar hur fort bilarna kan köra. Klassen innehåller information om vädertyp, temperatur och vindstyrka. Klassen **Weather** kan se ut så här:
+Vi pratar om att vädret påverkar hur fort bilarna kan köra. Klassen som ska representera väder innehåller information om vädertyp, temperatur och vindstyrka. Klassen får namnet  **Weather** ser ut så här:
 
 ```csharp
 // i OoGuide/src/Weather.cs
@@ -65,7 +65,7 @@ Console.WriteLine(weather.GetForecast());
 
 ## Använd klassen Weather i klassen RaceTrack
 
-Klassen **RaceTrack** har väder men även om racerbanan stänger så fortsätter ju vädret att finnas. Alltså väderobjektet lever vidare även om racerbana-objektet upphör att existera. Då har vi en aggregation, en oifylld diamant ska peka på **RaceTrack**. Vi lägger till en metod för att lägga till ett väderobjekt till klassen `AddWeather` och en metod för att returnera prognosen `GetForecast`. Om det inte finns något väderobjekt så returnerar `GetForecast` bara "Väder okänt".
+Klassen **RaceTrack** har ett attribut för väder men även om racerbanan stänger så fortsätter ju vädret att finnas. Alltså lever väderobjektet vidare även om racerbana-objektet upphör att existera. Då har vi en *aggregation*, vilket illustreras med en oifylld diamant ansluter till **RaceTrack**. Vi lägger till en metod för att lägga till ett väderobjekt till klassen `AddWeather` och en metod för att returnera prognosen `GetForecast`. Om det inte finns något väderobjekt så returnerar `GetForecast` bara "Väder okänt".
 
 import classdiagramWeather from '@assets/img/ooguide/classdiagramWeather.png';
 
@@ -102,9 +102,9 @@ Så här ser koden ut i **RaceTrack**:
 }
 ```
 
-I **Weather** så sätter vi ett defaultvärde på den private variabeln direkt när vi deklarerar variabeln `_weather` eftersom vi tycker att det blir tydligare och `_weather` är inte beroende av någon logik. Om `_weather` var beroende av logik samt att vi ville ha mer kontroll, så hade vi satt `_weather` till null i konstruktorn istället. Frågetecknet efter typen **Weather** markerar att variabeln får vara null.
+I **Weather** sätter vi ett defaultvärde på den private variabeln direkt när vi deklarerar variabeln `_weather`. Det blir tydligt och `_weather` är inte beroende av någon logik. Om `_weather` var beroende av logik och vi ville ha mer kontroll, så hade vi satt `_weather` till null i konstruktorn istället. Frågetecknet efter typen **Weather** markerar att variabeln får vara `null`.
 
-Då testar vi att använda ett objekt av klassen **Weather** i klassen **RaceTrack**.
+Nu testar vi att använda ett objekt av klassen **Weather** i klassen **RaceTrack**.
 
 ```csharp
 // i OoGuide/Program.cs
@@ -124,9 +124,9 @@ Console.WriteLine(track.GetWeatherForecast());
 
 ## Använd klassen Car i klassen RaceTrack
 
-Naturligtvis vill vi ha med tre bilar i racet på vår racerbana. Dessa bilar skapas då racerbanan skapas och dess relation blir då komposition. När objektet för racerbanan upphör att existera så upphör att existera också bilobjekten. Komposition är en ifylld diamant som pekar på ägandeklassen **RaceTrack**.
+Naturligtvis vill vi ha med tre bilar i racet på vår racerbana. Dessa bilar skapas då racerbanan skapas och kommer bara att existera så länge racerbane-objektet finns. Relation blir då *komposition*. När objektet för racerbanan upphör att existera så upphör också bilobjekten att existera. Komposition är en ifylld diamant som ansluter till ägandeklassen - i detta fall **RaceTrack**.
 
-Vi lägger till attributet `_cars` på klassen **RaceTrack** och det får bli en lista av **Car** objekt. Med metoden `CreateRace` så skapas ett race med tre bilobjekt.
+Vi lägger till attributet `_cars`i klassen **RaceTrack** och det blir en lista av **Car** objekt. Med metoden `CreateRace` skapas ett race med tre bilobjekt.
 
 import classdiagramCar_5 from '@assets/img/ooguide/classdiagramCar_5.png';
 
@@ -186,7 +186,7 @@ class RaceTrack
 }
 ```
 
-I **RaceTrack** har vi nu en metod `CreateRace` för att lägga till tre bilar, det vill säga objekt av typen **Car**, till racerbanan. Dessutom utökar vi en metoden `Description` för att även få information om vädret och om de aktuella bilarna. Vi förutsätter att raderna för att testa väderobjektet är kvar.
+I **RaceTrack** har vi nu en metod `CreateRace` som lägger till tre bilar, det vill säga tre objekt av typen **Car**, till racerbanan. Dessutom utökar vi en metoden `Description` för att även få information om vädret och om bilarna. Vi förutsätter att raderna för att testa väderobjektet är kvar.
 
 ```csharp
 // i OoGuide/Program.cs
@@ -206,11 +206,11 @@ track.Description();
 
 ## Ny klass AsciiArt som används i klassen Car
 
-Det blir lite roligare med en grafisk representation av olika typer bilar, en för passagerarbil, en för SUV och en för sportbil. Klassen kommer inte att ändra tillstånd och blir därför statisk och anropas därmed via klassnamnet.
+Det blir lite roligare med en grafisk representation av olika typer av bilar, till exempel en för passagerarbil, en för SUV och en för sportbil. Klassen kommer inte att ändra tillstånd och blir därför statisk och anropas därmed via klassnamnet.
 
 ### Grafisk representation
 
-Här är tre ASCII-bilder som vi kan rita ut i terminalen. Vi har hittat tre fina ascii bilder för bilar som vi kan lägga till i **Car** klassen. Vi gör en metod som returnerar en ascii bild för "Passenger", en annan för "Suv" och en tredje för "Sport". Vi lägger en variabel `pos` framför bilderna för att kunna flytta på dem senare.
+Här är tre ASCII-bilder som vi kan "rita" ut i terminalen. Vi har tre fina ascii bilder för bilar som vi kan lägga till i **Car** klassen. Vi gör en metod som returnerar en ascii bild för "Passenger", en annan för "Suv" och en tredje för "Sport". Vi lägger en variabel `pos` framför bilderna för att kunna flytta på dem senare.
 
 ```csharp
 // i OoGuide/src/AsciiArt.cs
@@ -251,11 +251,11 @@ public static class AsciiArt
 }
 ```
 
-I den här C#-koden med @-symbolen före strängen så tillåts du att skriva en ordagrann sträng, vilket innebär att tecken, radbrytningarna och formateringen bevaras som de är i koden. Till exempel blir @"\n" en sträng med tecknet backslash och tecknet n och inte ny rad som det kan bli utan @.
+I den här C#-koden med @-symbolen före strängen så tillåts du att skriva en ordagrann sträng, vilket innebär att tecken, radbrytningarna och formateringen bevaras som de är i koden. Till exempel blir @"\n" en sträng med tecknet backslash följt av tecknet n istället för en ny rad som det kan bli utan @.
 
-Vi lägger till ett nytt attribut till **Car** som beskriver dess bilmodell eller typ och uppdaterar konstruktorn med typen. Vi lägger ett defaultvärde på typen att om du inte anger något så är det en passagerarbil.
+Vi lägger till ett nytt attribut till **Car** som beskriver dess bilmodell eller typ och uppdaterar konstruktorn med typen. Vi lägger ett defaultvärde på typen så att det är en passagerarbil om inget anges.
 
-Vi lägger till en ny metod `PrintAsciiModel` i klassen **Car** som anropar klassen **AsciiArt** och hämtar en bild av en biltyp. I det här fallet blir relationen av den svagare typen "association" som är en pil från klassen som använder den **Car** mot **AsciiArt**.
+Vi lägger till en ny metod `PrintAsciiModel` i klassen **Car** som använder en metod i klassen **AsciiArt** för hämtar en bild av en biltyp. I det här fallet blir relationen av den svagare typen *associations* som representeras med en pil från klassen som använder den, dvs i det här fallet från **Car** mot **AsciiArt**.
 
 import classdiagramCar_6 from '@assets/img/ooguide/classdiagramCar_6.png';
 
@@ -313,7 +313,7 @@ class RaceTrack
 }
 ```
 
-När vi kör om huvudprogrammet så får vi följande utskrift:
+När vi nu kör huvudprogrammet får vi följande utskrift:
 
 ```csharp
 // i OoGuide/Program.cs
@@ -365,7 +365,7 @@ static void TestObjectInObject()
 TestObjectInObject();
 ```
 
-Och när vi inte vill använda metoden `TestObjectInObject` så kommenterar vi bort den.
+När vi inte vill använda metoden `TestObjectInObject` kommenterar vi bort den.
 
 ## Sammanfattning
 
@@ -376,6 +376,6 @@ Se här ser vårt klassdiagram ut nu:
     caption="Klassdiagram över RaceTrack med komposition, aggregation och association"
 />
 
-Vi har en komposition mellan **RaceTrack** och **Car**, vilket innebär när **RaceTrack** objektet upphör att existera så upphör att existera även **Car** objekten. Medan **Weather** objektet fortsätter att existera då **RaceTrack** objektet upphör att existera eftersom dess relation är aggregation. Association har vi mellan **Car** och **AsciiArt**.
+Vi har en *komposition* mellan **RaceTrack** och **Car**, vilket innebär när **RaceTrack** objektet upphör att existera så upphör även **Car**-objekten att existera. Däremot fortsätter **Weather**-objektet att existera då **RaceTrack** objektet upphör att existera eftersom dess relation är *aggregation*. Det finns även relationen *association*  mellan **Car** och **AsciiArt**.
 
-Vi har använt objekt i objekt.
+Vi har använt objekt i objekt med olika relationer.
