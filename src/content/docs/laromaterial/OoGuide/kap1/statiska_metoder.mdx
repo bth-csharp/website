@@ -14,8 +14,7 @@ Statiska variabler är variabler som tillhör klassen och inte en specifik insta
 
 Vi gör en getmetod för att komma åt `WHEELS` och eftersom `WHEELS` är en konstant som tillhör klassen blir getmetoden på `WHEELS` statisk.  Vi lägger alla statiska metoder tillsammans och blandar de inte med de vanliga get- och set-metoderna.
 
-```csharp
-// i OoGuide/src/Car.cs
+```csharp title="Lägg till en statisk metod i klassen Car"
 namespace OoGuide.src;
 class Car
 {
@@ -36,8 +35,7 @@ class Car
 
 Nu testar vi den statiska getmetoden på `WHEELS`.
 
-```csharp
-// i OoGuide/Program.cs
+```csharp title="Testa den statiska metoden i huvudprogrammet"
 Console.WriteLine("Antal hjul: " + Car.GetWheels());
 // Ger utskriften: Antal hjul: 4
 ```
@@ -48,8 +46,7 @@ Vi kanske vill utöka vår beskrivning av bilen med informationen om värdet i i
 
 Metoden som vi namnger `DescriptionStatic()` har inga inparametrar. Vi kollar på hur vi anropar metoden via klassen.
 
-```csharp 
-// i OoGuide/src/Car.cs
+```csharp title="Lägg till en annan statisk metod i klassen Car"
     ...
 
     // Static methods
@@ -60,8 +57,7 @@ Metoden som vi namnger `DescriptionStatic()` har inga inparametrar. Vi kollar p�
     }
 }
 ```
-```csharp
-// i OoGuide/Program.cs
+```csharp title="Testa även den statiska metoden i huvudprogrammet"
 ...
 Car.DescriptionStatic();
 // ger utskriften: Bilen har 6 hjul och är bil nummer 0.
@@ -69,7 +65,7 @@ Car.DescriptionStatic();
 
 Det är inte möjligt att anropa metoder som inte är statiska i en statisk metod. Om vi t.ex försöker anropa `Description()` (som inte är statisk) i `DescriptionStatic()` får vi fel.
 
-```csharp
+```csharp title="Testa att använda this i en statiska metod"
 // i OoGuide/src/Car.cs
     ...
 
@@ -84,8 +80,7 @@ Det är inte möjligt att anropa metoder som inte är statiska i en statisk meto
 ```
 När vi försöker köra får vi:
 
-```csharp
-// i OoGuide/Program.cs
+```csharp title="Kompileringsfel i huvudprogrammet när vi har this i en statisk metod"
 ...
 Car.DescriptionStatic();
 // ger kompileringsfelet: error CS0026: Keyword 'this' is not valid in a static property,
@@ -96,8 +91,7 @@ Vi får alltså inte använda `this` (som representerar anropande instans) i en 
 
 Men vad händer om vi skapar ett bilobjekt och försöker anropa den statiska metoden på det?
 
-```csharp
-// i OoGuide/Program.cs
+```csharp title="Kompileringsfel i huvudprogrammet när vi anropar en statisk metod på ett objekt"
 ...
 Car bmw = new Car("BMW", 100000);
 
@@ -110,8 +104,7 @@ Detta felet får vi för att vi anropar en statisk metod från en instans av kla
 
 Vi anropar både `Description()` (som är en instansmetod/medlemsmetod) och `DescriptionStatic()` (som är en klassmetod).
 
-```csharp
-// i OoGuide/Program.cs
+```csharp title="Nu använder vi metoderna på rätt sätt i huvudprogrammet"
 ...
 Car bmw = new Car("BMW", 100000);
 
@@ -130,8 +123,7 @@ Vi lägger till en statisk metod som gäller för hela klassen. Den använder in
 
 Man brukar säga att en bil förlorar 1/3 av sitt värde när den lämnar bilfirman. Vi skapar därför en statisk metod som utför denna beräkning och lägger den bland de statiska metoderna:
 
-```csharp
-// i OoGuide/src/Car.cs
+```csharp title="Lägg till en statisk metod som räknar ner priset i klassen Car"
     ...
     // Static methods
     ...
@@ -145,8 +137,7 @@ Man brukar säga att en bil förlorar 1/3 av sitt värde när den lämnar bilfir
 
 Metoden `CalculatePriceReduction()` har priset som inparameter och returnerar ett heltal som är det nya reducerade priset. Vid beräkningen blir priset ett decimaltal som vi typomvandlar, castar, till ett heltal med hjälp av *(int)*. Nu testar vi att anropa metoden:
 
-```csharp
-// i OoGuide/Program.cs
+```csharp title="Testkör den statiska metoden i huvudprogrammet"
 ...
 Console.WriteLine($"Prisreduktion: {Car.CalculatePriceReduction(bmw.GetPrice())} kr.");
 // ger utskriften: Prisreduktion: 66000 kr.
@@ -167,8 +158,7 @@ import classdiagramCar_4 from '@assets/img/ooguide/classdiagramCar_4.png';
 
 Vi lägger utskrifterna från detta kapitel i samma funktion som vi gjorde i förra kapitlet. Nu ser det ut så här:
 
-```csharp
-// i OoGuide/Program.cs
+```csharp title="Strukturera koden genom att lägga den i en metod som anropas i Program.cs"
 ...
 static void TestingStaticMethodPrintouts()
 {

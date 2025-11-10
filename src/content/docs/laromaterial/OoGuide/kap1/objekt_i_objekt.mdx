@@ -17,8 +17,7 @@ Precis som vi har attribut i en klass som är av typen string eller int, så kan
 
 Vi pratar om att vädret påverkar hur fort bilarna kan köra. Klassen som ska representera väder innehåller information om vädertyp, temperatur och vindstyrka. Klassen får namnet  **Weather** ser ut så här:
 
-```csharp
-// i OoGuide/src/Weather.cs
+```csharp title="Skapa en ny klass Weather"
 namespace OoGuide.src;
 public class Weather
 {
@@ -51,8 +50,7 @@ public class Weather
 Metoden `Update` borde hämta informationen om vädertyp, temperatur och vindstyrka från en vädersida men för enkelhets skull så är det vi som bestämmer vädret med inparametrar.  
 Vi testar klassen **Weather** i huvudprogrammet.
 
-```csharp
-// i OoGuide/Program.cs
+```csharp title="Testa den nya klassen Weather i huvudprogrammet"
 ...
 Weather weather = new Weather("Soligt", 18, 8);
 Console.WriteLine(weather.GetForecast());
@@ -76,8 +74,7 @@ import classdiagramWeather from '@assets/img/ooguide/classdiagramWeather.png';
 
 Så här ser koden ut i **RaceTrack**:
 
-```csharp
-// i OoGuide/src/RaceTrack.cs
+```csharp title="Uppdatera klassen RaceTrack med attributet _weather"
     ...
 
     private Weather? _weather = null; // null för att markera inget väder satt ännu
@@ -106,8 +103,7 @@ I **Weather** sätter vi ett defaultvärde på den private variabeln direkt när
 
 Nu testar vi att använda ett objekt av klassen **Weather** i klassen **RaceTrack**.
 
-```csharp
-// i OoGuide/Program.cs
+```csharp title="Testa det nya attributet i klassen RaceTrack i huvudprogrammet"
 ...
 Weather weather = new Weather("Soligt", 18, 8);
 
@@ -137,8 +133,7 @@ import classdiagramCar_5 from '@assets/img/ooguide/classdiagramCar_5.png';
 
 Så här ser koden för **RaceTrack** ut nu:
 
-```csharp
-// i OoGuide/src/RaceTrack.cs
+```csharp title="Klassen RaceTrack ser ut så här nu:"
 namespace OoGuide.src;
 
 class RaceTrack
@@ -188,8 +183,7 @@ class RaceTrack
 
 I **RaceTrack** har vi nu en metod `CreateRace` som lägger till tre bilar, det vill säga tre objekt av typen **Car**, till racerbanan. Dessutom utökar vi en metoden `Description` för att även få information om vädret och om bilarna. Vi förutsätter att raderna för att testa väderobjektet är kvar.
 
-```csharp
-// i OoGuide/Program.cs
+```csharp title="Lägg till följande rad i huvudprogrammet och kör programmet"
 ...
 track.Description();
 // Kör dotnet run i terminalen och det ger utskriften: 
@@ -212,8 +206,7 @@ Det blir lite roligare med en grafisk representation av olika typer av bilar, ti
 
 Här är tre ASCII-bilder som vi kan "rita" ut i terminalen. Vi har tre fina ascii bilder för bilar som vi kan lägga till i **Car** klassen. Vi gör en metod som returnerar en ascii bild för "Passenger", en annan för "Suv" och en tredje för "Sport". Vi lägger en variabel `pos` framför bilderna för att kunna flytta på dem senare.
 
-```csharp
-// i OoGuide/src/AsciiArt.cs
+```csharp title="Lägg till en ny klass AsciiArt"
 namespace OoGuide.src;
 
 public static class AsciiArt
@@ -255,7 +248,7 @@ I den här C#-koden med @-symbolen före strängen så tillåts du att skriva en
 
 Vi lägger till ett nytt attribut till **Car** som beskriver dess bilmodell eller typ och uppdaterar konstruktorn med typen. Vi lägger ett defaultvärde på typen så att det är en passagerarbil om inget anges.
 
-Vi lägger till en ny metod `PrintAsciiModel` i klassen **Car** som använder en metod i klassen **AsciiArt** för hämtar en bild av en biltyp. I det här fallet blir relationen av den svagare typen *associations* som representeras med en pil från klassen som använder den, dvs i det här fallet från **Car** mot **AsciiArt**.
+Vi lägger till en ny metod `PrintAsciiModel` i klassen **Car** som använder en metod i klassen **AsciiArt** för hämtar en bild av en biltyp. I det här fallet blir relationen av den svagare typen *association* som representeras med en pil från klassen som använder den, dvs i det här fallet från **Car** mot **AsciiArt**.
 
 import classdiagramCar_6 from '@assets/img/ooguide/classdiagramCar_6.png';
 
@@ -266,8 +259,7 @@ import classdiagramCar_6 from '@assets/img/ooguide/classdiagramCar_6.png';
 
 Så här uppdaterar vi koden:
 
-```csharp
-// i OoGuide/src/Car.cs
+```csharp title="Uppdatera klassen Car med metoden PrintAsciiModel"
 ...
     private string _type;
 
@@ -289,8 +281,7 @@ Så här uppdaterar vi koden:
 
 Vi utökar metoden `Description` på klassen **RaceTrack** för att skriva ut ASCII-bilden för respektive bil.
 
-```csharp
-// i OoGuide/src/RaceTrack.cs
+```csharp title="Utöka metoden Description i klassen RaceTrack"
 namespace OoGuide.src;
 
 class RaceTrack
@@ -315,8 +306,7 @@ class RaceTrack
 
 När vi nu kör huvudprogrammet får vi följande utskrift:
 
-```csharp
-// i OoGuide/Program.cs
+```csharp title="Kör huvudprogrammet"
 ...
 track.Description();
 // Kör dotnet run i terminalen och det ger utskriften: 
@@ -344,8 +334,7 @@ track.Description();
 
 Vi gör en metod av all ny kod från detta kapitel i Program.cs och kallar den `TestObjectInObject`.
 
-```csharp
-// i OoGuide/Program.cs
+```csharp title="Strukturera koden genom att lägga den i en metod som anropas i Program.cs"
 ...
 static void TestObjectInObject()
 {

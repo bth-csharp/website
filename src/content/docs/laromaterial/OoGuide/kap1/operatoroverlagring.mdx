@@ -16,8 +16,8 @@ Här kommer **operatorsöverlagring** in i bilden. När vi använder en operator
 
  Låt säga att vi vill kunna addera två bil objekt och få reda på det sammanlagda priset. Först testar vi rakt av:
 
-```csharp
-// i OoGuide/Program.cs
+```csharp title="Addera två bilobjekt i huvudprogrammet"
+...
 Car bmw = new Car("BMW", 100000);
 Car volvo = new Car("Volvo", 80000);
 
@@ -27,8 +27,7 @@ Console.WriteLine("Addera priset: " + (bmw + volvo));
 
 Det gick inte så bra. `+`-operatorn (läses plus-operatorn) fungerar inte med två instanser av klassen Car, eftersom klassen Car inte innehåller metoden som definierar +-operatorn. Metoden som anropas vid `+` heter `operator +`. Vi lägger till en metod som heter `operator +`. Detta kallas att överlagra en operator eller operatorsöverlagring. Vi placerar den sist i klassen för att ha lite ordning och reda.
 
-```csharp
-// i OoGuide/src/Car.cs
+```csharp title="Lägg till en metod för att hantera addera bilobjekt i klassen Car"
     ...
     // Operator overloading methods
     // Overloading the '+' operator for adding the price of two instances of the class Car
@@ -41,8 +40,8 @@ Det gick inte så bra. `+`-operatorn (läses plus-operatorn) fungerar inte med t
 
 Metoden `operator +` har två inparametrar, två instanser av klassen **Car** och returnerar summan av de två instansernas priser som ett heltal. Vi ser hur vi anropar metoden.
 
-```csharp
-// i OoGuide/Program.cs
+```csharp title="Testa metoden för att addera bilobjekt i huvudprogrammet"
+...
 Console.WriteLine("Addera priset: " + (bmw + volvo));
 // Ger utskriften: Addera priset: 180000
 ```
@@ -53,16 +52,15 @@ Nu tolkar C# `volvo + bmw` som att de både objektens pris ska adderas eftersom 
 
 Vi kan vilja ha ut mer funktionalitet av `operator +`. Ska/Kan det till exempel vara möjligt att addera ett Car objekt med ett heltal?
 
-```csharp
-// i OoGuide/Program.cs
+```csharp title="Testa att addera en int och ett bilobjekt i huvudprogrammet"
+...
 Console.WriteLine("Addera priset (Car+int): " + (bmw + 10000));
 // Ger kompileringsfelet: error CS0019: Operator '+' cannot be applied to operands of type 'Car' and 'int'
 ```
 
 Nu kraschar programmet för att metoden`operator +`  vill ha två inparametrar av typen **Car**. Vi kan lösa det genom att göra ännu en överlagring av metoden `operator +` där en inparameter är av typer **Car** och en inparameter av typen int.
 
-```csharp
-// i OoGuide/src/Car.cs
+```csharp title="Lägg till en metod för att addera en int och ett bilobjekt i klassen Car"
     ...
     // Operator overloading methods
     ...
@@ -76,8 +74,8 @@ Nu kraschar programmet för att metoden`operator +`  vill ha två inparametrar a
 }
 ```
 
-```csharp
-// i OoGuide/Program.cs
+```csharp title="På nytt, testa att addera en int och ett bilobjekt i huvudprogrammet"
+...
 Console.WriteLine("Addera priset (Car+int): " + (bmw + 10000));
 // Ger utskriften: Addera priset (Car+int): 110000
 ```
