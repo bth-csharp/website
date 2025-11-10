@@ -3,7 +3,6 @@ title: "Kmom02: Tärningsspelet Dice100"
 description: Tärningsspelet Dice100
 sidebar:
     order: 0020
-    hidden: true
 ---
 
 import Figure from '@components/CustomFigure.astro';
@@ -11,7 +10,7 @@ import { YouTube } from 'astro-embed';
 
 import dice from '@assets/img/kmom02/dice.jpeg';
 import classdiagramDie from '@assets/img/kmom02/classdiagramDie.png';
-import classdiagramRound from '@assets/img/kmom02/classdiagramRound.png';
+import classdiagramRoundNew from '@assets/img/kmom02/classdiagramRoundNew.png';
 
 <Figure
     src={dice}
@@ -55,7 +54,7 @@ Klassen **Die** innehåller:
 
 - **MAX_VALUE** en privat konstant som anger den högsta möjliga värdet för tärningen, i detta fall 6.
 - **MIN_VALUE** en privat konstant som anger den lägsta möjliga värdet för tärningen, i detta fall 1.
-- **_value** en privat medlemsvariabel som lagrar det aktuella värdet för tärningen.
+- **_value** en privat medlemsvariabel som lagrar det aktuella värdet för tärningen. Värdet ska vara slumpat.
 - **_dieRandom** är ett klassattribut som är privat och håller en instans (ett objekt) av klassen *Random*. Det används för att generera slumptal.
 - **Die()** en publik konstruktor som instansierar ett Die-objekt.
 - **Die(value)** en publik konstruktor med en int som inparameter som instansierar ett Die-objekt och ger den värdet av inparametern. Här ska konstanterna MAX_VALUE och MIN_VALUE användas för att kontrollera och hantera att det bara kan bli tärningar som har värden mellan 1 och 6. Om man försöker skapa en tärning genom Die(10) så ska det bli en tärning med värdet MAX_VALUE. På samma sätt ska MIN_VALUE användas om någon försöker använda ett värde mindre än MIN_VALUE.
@@ -70,7 +69,7 @@ Klassen **Round** innehåller information och funktionalitet för en runda i spe
 #### Klassdiagram Round
 
 <Figure
-    src={classdiagramRound}
+    src={classdiagramRoundNew}
     caption="Klassdiagram Round"
     width="300px"
 />
@@ -83,10 +82,10 @@ Klassen **Round** innehåller:
 - **Round()** en publik konstruktor som instansierar ett Round-objekt och initierar instansvariablerna. Poängen bör sättas till 0 och en lista med tomma tärningsobjekt bör skapas. Listan ska vara lika lång som antalet tärningar i rundan.
 - **Round(values)** en publik konstruktor som instansierar ett Round-objekt där tärningarna tilldelas värden från inparametern values. Dessutom uppdateras rundans poäng till summan av de inskickade värdena.
 - **GetPoints()** en publik metod som returnerar rundans poäng.
-- **ClearPoints()** en publik metod som sätter nollställer rundans poäng.
-- **UpdatePoints()** en privat metod som uppdaterar poängen (_points) baserat på tärningarnas värden. Men om tärningarna innehåller en 1:a så ska poängen (_points) bli 0.
+- **ClearPoints()** en publik metod som nollställer rundans poäng.
+- **UpdatePoints(newPoint)** en privat metod som uppdaterar poängen (_points) baserat på tärningarnas värden. Men om tärningarna innehåller en 1:a så ska poängen (_points) bli 0.
 - **Roll()** en publik metod som rullar tärningarna och uppdaterar poängen (UpdatePoints).
-- **Roll(indexes)** en publik metod som endast rullar tärningarna som inparameters indexes pekar ut och uppdaterar poängen (UpdatePoints).
+- **Roll(indexes)** en publik metod som endast rullar tärningarna som inparametern indexes pekar ut och uppdaterar poängen (UpdatePoints).
 - **HandToList()** en publik metod som returnerar en lista av tärningarnas värden.
 - **PrintRound()** en publik metod som skriver ut tärningarna i handen.
 
