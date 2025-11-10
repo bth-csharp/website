@@ -342,7 +342,7 @@ Vi lägger till en ny metod i klassen **Helpers**. Vi använder DateTime objekte
 ...
     public void PrintDateAndTime()
     {
-        DateTime presentTime = new DateTime.Now;
+        DateTime presentTime = DateTime.Now;
         Console.WriteLine("\nJust nu: " +  presentTime.ToString());
         
         Console.WriteLine("\nEnligt ISO 8601: " +  presentTime.ToString("yyyy-MM-dd"));
