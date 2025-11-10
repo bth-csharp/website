@@ -9,7 +9,7 @@ sidebar:
 import Figure from '@components/CustomFigure.astro';
 import { YouTube } from 'astro-embed';
 
-Vi har en racerbana med 4 klasser, **RaceTrack**, **Car**, **Weather** och **AsciiArt**. Med hjälp av dem så har vi en racerbana med 3 bilar med ASCII-bild och så en väderprognos. Nu är tanken att vi ska lägga till en position för bilarna och flytta bilarna framåt genom att lägga till mellanslag framför (" ") bilden. När bilarna gått i mål så utser vi en vinnare!
+Vi har en racerbana med 4 klasser, **RaceTrack**, **Car**, **Weather** och **AsciiArt**. Med hjälp av dessa har vi en racerbana med 3 bilar med ASCII-bild och dessutom en väderprognos. Nu är tanken att vi ska lägga till en position för bilarna och flytta bilarna framåt genom att lägga till mellanslag framför (" ") bilden. När bilarna gått i mål utser vi en vinnare!
 
 Till slut kommer det se ut så här när vi kör "dotnet run":
 
@@ -20,7 +20,7 @@ Till slut kommer det se ut så här när vi kör "dotnet run":
 
 ## Flytta bilarna
 
-För att kunna flytta på bilarna gör vi en metod `MoveCars` på klassen **RaceTrack**. Den slumpar ett tal för respektive bil och flyttar dess bild så många mellanslag framåt.  Positionen utgår från vänster kant av terminalen och sen ska de röra sig till höger.
+För att kunna flytta på bilarna gör vi en metod `MoveCars` i klassen **RaceTrack**. Den slumpar ett tal för respektive bil och flyttar dess bild så många mellanslag framåt. Positionen utgår från vänster kant av terminalen och därefter ska de röra sig till höger.
 
 ```csharp
 // i OoGuide/src/RaceTrack.cs
@@ -37,7 +37,7 @@ För att kunna flytta på bilarna gör vi en metod `MoveCars` på klassen **Race
 }
 ```
 
-I koden ovanför så slumpar vi fram ett tal mellan 1 och 10 och det talet blir antalet mellanslag framför bilden (bakom bilen). Det ger en illusion av att bilarna rör sig.
+I koden ovanför slumpar vi fram ett tal mellan 1 och 10 vilket kommer bli antalet mellanslag som placeras framför bilden (bakom bilen). Det ger en illusion av att bilarna rör sig.
 
 ```csharp
 // i OoGuide/Program.cs
@@ -58,7 +58,7 @@ Nu ser vi att bilarna rör sig framåt.
 
 ### Position och hastighet
 
-Vi lägger till bilens position för att kunna utgå från den i varje flytt av bilen. För att få variation i bilarnas hastighet så slumpar vi fram ett float tal för det när de skapas. Vi lägger till en metod `Move` då bilen känner ju till sin hastighet och position och flyttar sig bäst själv. I `Move` lägger vi raden som skriver ut ACSII-bilden från `MoveCars` (RaceTrack klassen).
+Vi lägger till bilens position för att kunna utgå från den i varje flytt av bilen. För att få variation i bilarnas hastighet slumpar vi fram ett `float`-värde för hastigheten när de skapas. Vi lägger till även en metod `Move` då bilen känner till sin hastighet och position och flyttar själv efter dessa egenskapers värden. I `Move` lägger vi även raden som skriver ut ACSII-bilden från `MoveCars` (RaceTrack klassen).
 
 ```csharp
 // i OoGuide/src/Car.cs
@@ -95,11 +95,11 @@ Vi lägger till bilens position för att kunna utgå från den i varje flytt av 
 }
 ```
 
-Vi har lagt till två privata instansvariabler; `_position` och  `_speed` samt två konstanter; `MAX_SPEED` för högsta hastigheten och `MIN_SPEED` för minsta hastigheten. Vi specificerar flyttalet med ett suffix f för att specificera float. Utan suffix blir alla flyttal double. För att räkna ut hastigheten så har vi gjort en metod `CalculateSpeed` som senare är lätt att ändra i om vi vill ändra hur hastigheten räknas ut. I `CalculateSpeed` ger `random.NextDouble()` mig ett slumptal mellan 0 och 1,0 som vi sen multiplicerar med intervallet mellan högsta och minsta hastigheten.
+Vi har lagt till två privata instansvariabler; `_position` och  `_speed` samt två konstanter; `MAX_SPEED` för högsta hastigheten och `MIN_SPEED` för minsta hastigheten. Vi specificerar flyttalet med ett suffix f. Utan suffix blir alla flyttal som skrivs som konstanta tal (dvs med siffror) `double`. För att räkna ut hastigheten har vi gjort en metod `CalculateSpeed` som senare är lätt att ändra i om vi vill ändra hur hastigheten räknas ut. I `CalculateSpeed` ger `random.NextDouble()` ett slumptal mellan 0 och 1,0 som multipliceras med intervallet mellan högsta och minsta hastigheten.
 
-Dessutom har vi lagt till en metod `Move` som flyttar fram positionen eftersom bilobjektet själv känner till sin hastighet och position och flyttar sig bäst själv. Bilen får också ny hastighet efter flytten för att få det mer levande. `new string(' ', this._position)`ger mig ett antal mellanslag framför bilden. Om `this._position` är 10 så ritas 10 mellanslag ut framför ACSII-bilden av bilen, istället för `{pos}`. Det ger oss en illusion av att bilen flyttar sig framåt.
+Dessutom har vi lagt till en metod `Move` som flyttar fram positionen eftersom bilobjektet själv känner till sin hastighet och position och flyttar sig själv. Bilen får också ny hastighet efter flytten för att få det mer "levande". `new string(' ', this._position)` ger en sträng med ett antal mellanslag som kommer placeras framför bilden i metoden `PrintAsciiModel`. Till exempel om `this._position` är 10 så ritas 10 mellanslag ut framför ACSII-bilden av bilen, istället för `{pos}`. Det ger oss en illusion av att bilen flyttar sig framåt.
 
-Nu ska vi uppdatera metoden `MoveCars` i klassen **RaceTrack** så att den anropar bilklassens `Move` metod.
+Nu ska vi uppdatera metoden `MoveCars` i klassen **RaceTrack** så att den för varje bilobjekt anropar bilklassens `Move`-metod.
 
 ```csharp
 // i OoGuide/src/RaceTrack.cs
@@ -114,7 +114,7 @@ Nu ska vi uppdatera metoden `MoveCars` i klassen **RaceTrack** så att den anrop
     ...
 ```
 
-För att få bilarna att flytta sig flera gånger repeterar vi koden för att rensa skärmen, flytta bilarna och skriva ut det. För att vi ska hinna se varje iteration så pausar vi i 0,1 s i slutet av iterationen.
+För att få bilarna att flytta sig flera gånger upprepar vi koden för att rensa skärmen, flytta bilarna och skriva ut. För att vi ska hinna se varje iteration pausar vi i 0,1 s i slutet av iterationen.
 
 ```csharp
 // i OoGuide/Program.cs
@@ -136,7 +136,7 @@ for (int i = 0; i < 30; i++)
 
 ### Refaktorera huvudprogrammet
 
-Vi vill att huvudprogrammet ska innehålla så lite kod som möjligt. Därför gör vi en metod `RunRace` på klassen **RaceTrack** som kör loppet. I samband med det uppdaterar vi metoderna `MoveCars` och `Description` så att det blir mer anpassat till racerbanan. I metoden `PrintFinishLine` så lägger vi in en inparameter som har defaultvärde "true" och i så fall skrivs även "START" och "MÅL" ut. Men om metoden anropas med inparametern "false" så skrivs bara mållinjen ut.
+Vi vill att huvudprogrammet ska innehålla så lite kod som möjligt. Därför gör vi en metod `RunRace` i klassen **RaceTrack**. Denna metod ska köra loppet. I samband med det uppdaterar vi metoderna `MoveCars` och `Description` så att det blir mer anpassat till racerbanan. I metoden `PrintFinishLine` lägger vi in en inparameter som har defaultvärde "true" och i så fall skrivs "START" och "MÅL" ut. Men om metoden anropas med inparametern "false" så skrivs bara mållinjen ut.
 
 ```csharp
 // i OoGuide/src/RaceTrack.cs
@@ -204,7 +204,7 @@ track.RunRace();
 //  
 ```
 
-Så nu har vi ett spel som har en racing bana med tre bilar som kör i olika hastigheter och flyttar sig framåt eller till höger på terminalen. Men vem vinner?
+Nu har vi ett spel som har en racingbana med tre bilar som kör i olika hastigheter och flyttar sig framåt (eller till höger på terminalen). Men vem vinner?
 
 
 ## Vem vinner?
@@ -221,7 +221,7 @@ Vi vill gärna ha en vinnare. Det är lämpligt att klassen **RaceTrack** som ha
     ...
 ```
 
-Vi skapar en metod som ritar ut mållinjen och en som kollar vem som vann. För att ha koll på vem som vinner så lägger vi till en instansvariabel `_winnerIndex` på klassen **RaceTrack** och är den negativ så länge racet pågår.
+Vi skapar en metod som ritar ut mållinjen och en som kollar vem som vann. För att ha koll på vem som vinner lägger vi till en instansvariabel `_winnerIndex` i klassen **RaceTrack** och låter den vara negativ så länge racet pågår.
 
 ```csharp
 // i OoGuide/src/RaceTrack.cs
@@ -287,9 +287,9 @@ class RaceTrack
 }
 ```
 
-För att ingen av bilarna ska flytta sig efter att första bilen fått över mållinjen så lägger vi en extra koll i `MoveCars`. Metoden `CheckIfFinished` kollar bilarna en och en och den som först går över mållinjen för sitt index från listan sparad i `_winnerIndex`. Så fort `_winnerIndex` är positiv så avslutas racet.
+För att ingen av bilarna ska flytta sig efter att första bilen passerat mållinjen lägger vi en extra koll i `MoveCars`. Metoden `CheckIfFinished` kollar bilarna en och en och den som först går över mållinjen för sitt index i listan sparad i `_winnerIndex`. Så fort `_winnerIndex` är positiv avslutas racet.
 
-I huvudprogrammet så anropar vi metoden vi nyss gjorde för att utse vinnaren.
+I huvudprogrammet anropar vi metoden vi nyss gjorde för att utse vinnaren.
 
 ```csharp
 // i OoGuide/Program.cs
@@ -310,7 +310,7 @@ track.RunRace();
 
 ## Sammanfattning
 
-Nu har vi gjort en enkel racerbanan och det blev ju riktigt bra. Naturligtvis går det att utöka och förbättra detta program men nu är vi nöjda. Här är filmen på spelet igen!
+Nu har vi gjort en enkel racerbana och det blev ju riktigt bra. Naturligtvis går det att utöka och förbättra detta program men nu är vi nöjda. Här är filmen på spelet igen!
 
 <YouTube
     id="??"
