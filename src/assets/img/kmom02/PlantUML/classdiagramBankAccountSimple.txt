@@ -1,0 +1,19 @@
+@startuml
+
+class BankAccount {
+    - {static} _nextAccountNumber
+    + {static} <<constant>> BANK_NAME
+    # _owner
+    - _balance
+    - _accountNumber
+
+    + BankAccount()
+    + GetOwner()
+    + GetBalance()
+    + GetAccountNumber()
+    + Deposit(amount: decimal)
+    + Withdraw(amount: decimal)
+    + PrintAccountDescription()
+}
+
+@enduml

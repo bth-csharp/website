@@ -1,0 +1,19 @@
+@startuml
+
+class BankAccount {
+    - {static} _nextAccountNumber: int
+    + {static} <<constant>> BANK_NAME: string = "Dbwebb Bank"
+    # _owner: string
+    - _balance: decimal
+    - _accountNumber: string
+
+    + BankAccount(name: string, initialBalance: decimal)
+    + GetOwner(): string
+    + GetBalance(): decimal
+    + GetAccountNumber(): string
+    + Deposit(amount: decimal): bool
+    + Withdraw(amount: decimal): bool
+    + PrintAccountDescription(): void
+}
+
+@enduml

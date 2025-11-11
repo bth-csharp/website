@@ -1,0 +1,17 @@
+@startuml
+
+class Die 
+{
+    - {static} MAX_VALUE: <<constant>>  int = 6
+    - {static} MIN_VALUE: <<constant>>  int = 1
+    - {static} _dieRandom : Random 
+    - _value : int 
+
+    + Die()
+    + Die(int value)
+    + GetValue() : int
+    + GetString() : string
+    + Roll() : void
+}
+
+@enduml

@@ -1,0 +1,17 @@
+@startuml
+
+class Die {
+    + <<virtual>> GetAsString() : string
+}
+
+class DieGraphic
+{
+    - _graphics : string[]
+
+    + DieGraphic() : base()
+    + DieGraphic(value : int)
+    + <<override>> GetAsString() : string
+}
+Die <|-- DieGraphic
+
+@enduml

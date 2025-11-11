@@ -1,0 +1,19 @@
+@startuml
+
+class Round {
+    + NO_OF_DICE: const int
+    - _hand: List<Die>
+    - _points: int
+
+    + Round()
+    + Round(List<int> values)
+    + GetPoints(): int
+    + ClearPoints(int newPoint): void
+    - UpdatePoints(): void
+    + Roll(): void
+    + Roll(List<int> indexes): void
+    + HandToList(): List<int>
+    + PrintRound(): void
+}
+
+@enduml

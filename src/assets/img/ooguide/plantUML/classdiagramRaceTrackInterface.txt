@@ -1,0 +1,144 @@
+@startuml
+
+class Weather 
+{
+    - _type: string
+    - _temperature: double
+    - _wind: double
+    
+    + GetForecast(): string
+    + Update(string type, double temperature, double wind): void
+}
+
+class Sport 
+{
+    - {static} MAX_SPEED: float
+    - {static} MIN_SPEED: float
+    - _personData: string
+    
+    + SetPersonData(string newPersonData): string
+    + Description(): void
+}
+
+class Passenger 
+{
+    - _echoDrivingOn: bool
+    
+    + ToggleEchoDriving(): void
+    + Description(): void
+}
+
+class Suv 
+{
+    - {static} MAX_SPEED: float
+    - {static} MIN_SPEED: float
+    - _fourWheelOn: bool
+    
+    + ToggleFourWheelOn(): bool
+    + Description(): void
+}
+
+class Car 
+{
+    - {static} WHEELS: int
+    - {static} _carCount: int
+    - _model: string 
+    - _price: int
+    - _position: int
+
+    + {static} GetCarCount(): int
+    + {static} GetWheels(): int
+    + GetPosition(): int
+    + Description(): void
+    + Move(): void
+    + PrintAsciiModel(string pos): void
+}
+
+
+Car <|-- Passenger
+Car <|-- Sport
+Car <|-- Suv
+
+class ElSuv
+{
+    - _range: double
+    - _chargingTime: double
+    + Description(): void
+}
+
+Suv <|-- ElSuv
+
+abstract class Vehicle
+{
+    + GetPosition(): int
+    + Description(): void
+    + Move(): void
+    + PrintAsciiModel(string pos): void
+}
+
+Vehicle <|-- Car
+
+class AsciiArt
+{
+    + {static} GetAsciiModel(string type, string pos=""): string
+}
+
+class RaceTrack
+{
+    - {static} NAME: string
+    - {static} MINIMUM_FINISH: int
+    - _finishLine: int
+    - _weather: Weather
+    - _vehicles: List<Vehicle>
+    - _winnerIndex: int
+    - _drivers: List<Driver>
+
+    - CreateRace(): void
+    - CheckIfFinished(): void
+    + Description(): void
+    + PrintFinishLine(): void
+    + AddWeather(Weather newWeather): void
+    + GetWeatherForecast(): string
+    + MoveVehicles(): void
+    + RunRace(): void
+    + ReadDriversFromFile(): void
+    + PresentDrivers(): voided
+}
+
+RaceTrack o- Weather
+RaceTrack *-- Vehicle
+Car -> AsciiArt
+
+class Driver 
+{
+    + Name: string
+    + Team: string
+    + Salary: int
+
+    + GetDriverInfo(): void
+}
+
+RaceTrack *-- Driver
+
+interface IVehicle
+{
+    + GetPosition(): int
+    + Description(): void
+    + Move(): void
+    + GetAsciiModel(string pos): string
+}
+
+IVehicle <|-- Car
+
+enum WeatherConditions
+{
+    Soligt
+    Halvklart
+    Molnigt
+    Regn
+    Skyfall
+}
+
+Weather --> WeatherConditions
+
+@enduml

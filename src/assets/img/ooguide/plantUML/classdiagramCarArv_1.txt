@@ -1,0 +1,47 @@
+@startuml
+
+
+class Sport 
+{
+    - _personData: string
+    
+    + SetPersonData(string newPersonData): string
+    + PrintAsciiModel(string pos): void
+}
+
+class Passenger 
+{
+    - _echoDrivingOn: bool
+    
+    + ToggleEchoDriving(): void
+    + PrintAsciiModel(string pos): void
+}
+
+class Suv 
+{
+    - _fourWheelOn: bool
+    
+    + ToggleFourWheelOn(): bool
+    + PrintAsciiModel(string pos): void
+}
+
+class Car 
+{
+    - {static} WHEELS: int
+    - {static} _carCount: int
+    - _model: string 
+    - _price: int
+    - _position: int
+
+    + {static} GetCarCount(): int
+    + {static} GetWheels(): int
+    + GetPosition(): int
+    + Description(): void
+    + Move(): void
+}
+
+Car <|-- Passenger
+Car <|-- Sport
+Car <|-- Suv
+
+@enduml

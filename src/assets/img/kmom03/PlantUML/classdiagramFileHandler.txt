@@ -1,0 +1,8 @@
+@startuml
+class FileHandler {
+  
+  + SaveToFile(string filename, string[] toplist): void
+  + ReadFromFile(string filename): string[]
+}
+
+@enduml

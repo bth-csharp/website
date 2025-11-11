@@ -1,0 +1,12 @@
+@startuml
+
+class Driver 
+{
+    + Name: string
+    + Team: string
+    + Salary: int
+
+    + GetDriverInfo(): void
+}
+
+@enduml

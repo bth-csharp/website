@@ -1,0 +1,52 @@
+@startuml
+
+class Bank {
+    + BANK_NAME: string 
+    - _accounts: List<BankAccount>
+    - _employees: List<Employee>
+    
+    + Bank(bankName: string): Bank
+    + AddAccount(nameOfOwner: string, initialBalance: decimal): void
+    + PrintDescription(): void
+    + PrintAccountInfo(): void
+    - GetBankAccountsForOwner(owner: string): List<BankAccount>
+    + PrintAccountInfoForOwner(owner: string): void
+    + HireEmployee( employee: Employee): void
+    + FireEmployee( employee: Employee): void
+}
+
+class BankAccount {
+    - {static} _nextAccountNumber: int = 100000
+    - _owner: string
+    - _balance: decimal
+    - _accountNumber: string
+
+    + BankAccount(nameOfOwner: string, initialBalance: decimal)
+    + GetOwner(): string
+    + GetBalance(): decimal
+    + Deposit(amount: decimal): bool
+    + Withdraw(amount: decimal): bool
+    + PrintAccountDescription(): void
+}
+
+class Employee {
+    - {static} _nextEmployeeNumber: int = 100
+    - _name: string
+    - _employeeNumber: int
+    
+    + Employee(name: string)
+}
+
+class Customer {
+    - _name: string
+    
+    + Customer(name: string)
+    + GetName(): string
+}
+
+Bank "1      " *-- "0..*" BankAccount : composition
+Bank "1 " o-- "1..* " Employee : aggregation
+Bank "1" --> "0..*    " Customer : association
+
+
+@enduml
