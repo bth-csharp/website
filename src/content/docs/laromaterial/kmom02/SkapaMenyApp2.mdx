@@ -340,7 +340,7 @@ Vi lägger till en ny metod i klassen **Helpers**. Vi använder DateTime objekte
 ```csharp title="Lägg till metoden PrintDateAndTime i klassen Helpers"
 
 ...
-    public void PrintDateAndTime()
+    public static void PrintDateAndTime()
     {
         DateTime presentTime = DateTime.Now;
         Console.WriteLine("\nJust nu: " +  presentTime.ToString());
