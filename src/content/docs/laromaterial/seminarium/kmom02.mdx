@@ -18,23 +18,23 @@ Läs [Om seminarier](../).
 
 ## <Icon name="open-book" class="inline-icon" label="Interpret code" /> Teori
 
-### ???
+1. Vad är skillnaden mellan en klass och ett objekt?  
 
-1. Kommer...
+1. Vad är en konstruktor och vad används den till?
+
+1. Vad innebär information hiding?
+
+1. Bryt ner beståndsdelarna i `List<int> numbers = [ 1, 2, 3]`.  
+
+1. Vilka objekt ser du i beskrivningarna och vilken klasstyp är respektive objekt av?  
+  A: Studenterna Kalle och Pelle undervisas av programmeringsläraren Marie.  
+  B: Bettys motorbåt har en motor på 100 hk.  
+  C: Biblioteket "Bokmalen" har både skönlitterära böcker och deckare.  
 
 
 ### Hur kod funkar
 
-Kommer...
-
-## <Icon name="open-book" class="inline-icon" label="Interpret code" /> Tolka kod
-
-1. Vad gör följande kod och vad blir utskriften?  
-    ```csharp
-    ???
-    ```
-
-    ```
+Hoppar vi över ht25 eftersom seminariet är 2 timmar bara istället för 3.
 
 ## <Icon name="seti:csharp" class="inline-icon" label="Write code" /> Praktisk uppgift
 
@@ -51,4 +51,41 @@ Börja med att planera er lösning, vilken kod behövs och vilka datatyper er da
 
 ### Uppgifter
 
-1. Kommer...
+Skapa ett terminalprogram som heter **Shapes**. Avrunda utskrifterna av beräkningarna till 2 decimaler i utskriften.
+
+1. Gör en klass **Rectangle** med de privata variablerna bredd och höjd samt en konstruktor med inparametrarna för bredd och höjd. Gör get- och setmetoder till de privata variablerna. Det ska inte vara möjligt att sätta ett negativt värde, då ska värdet inte ändras. I konstruktorn ska ett negativt värde sättas till 0. Dessutom har klassen **Rectangle** metoderna:  
+   - arean: `GetArea()` som är publik och returnerar en double
+   - omkretsen: `GetPerimeter()` som är publik och returnerar en double
+
+1. Gör en klass **Circle** med den privata variabeln radie. Den har samma metoder som klassen **Rectangle** samt inga negativa värden.
+
+1. Testa klasserna **Rectangle** och **Circle** i ditt huvudprogram.
+
+1. Skapa en array med plats för 4 objekt av typen **Circle** i ditt huvudprogram. Skapa 4 olika objekt av klassen **Circle** och skriv ut arean och omkretsen för alla i en foreach-loop.
+
+1. Gör om förra uppgiften med en lista istället.
+
+### Extra uppgift "Unika Tal"
+
+Du ska skapa en klass som heter `Number`. Varje instans av klassen representerar ett heltal och har en metod som avgör om talet är **primtal**, **jämnt**, eller **palindromiskt** (samma framifrån och bakifrån).
+
+Skapa sedan en lista med `Number`-objekt för talen 10 till 99. Skriv ut alla tal som uppfyller **exakt två** av dessa tre egenskaper.
+
+**Krav:**
+
+1. Skapa en klass **Number** med:
+   - Ett `int`-fält för talet.
+   - En metod `IsPrime()`
+   - En metod `IsEven()`
+   - En metod `IsPalindrome()`
+
+2. I `Program.cs`:
+   - Skapa en `List<Number>` med alla tal från 10 till 99.
+   - Gå igenom listan och skriv ut de tal som uppfyller **exakt två** av de tre egenskaperna.
+
+**Tips:**
+
+- Palindromkontroll kan göras med heltal: till exempel 42 → 2 * 10 + 4 = 24 ≠ 42 → inte palindrom.
+- Du kan använda modulus och division för att plocka ut siffror.
+- Använd `List<Number>` och en `foreach`-loop.   
+
