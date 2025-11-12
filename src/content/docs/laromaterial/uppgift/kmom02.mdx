@@ -83,7 +83,7 @@ Klassen **Round** innehåller:
 - **Round(values)** en publik konstruktor som instansierar ett Round-objekt där tärningarna tilldelas värden från inparametern values. Dessutom uppdateras rundans poäng till summan av de inskickade värdena.
 - **GetPoints()** en publik metod som returnerar rundans poäng.
 - **ClearPoints()** en publik metod som nollställer rundans poäng.
-- **UpdatePoints(newPoint)** en privat metod som uppdaterar poängen (_points) baserat på tärningarnas värden. Men om tärningarna innehåller en 1:a så ska poängen (_points) bli 0.
+- **UpdatePoints()** en privat metod som uppdaterar poängen (_points) baserat på tärningarnas värden. Men om tärningarna innehåller en 1:a så ska poängen (_points) bli 0.
 - **Roll()** en publik metod som rullar tärningarna och uppdaterar poängen (UpdatePoints).
 - **Roll(indexes)** en publik metod som endast rullar tärningarna som inparametern indexes pekar ut och uppdaterar poängen (UpdatePoints).
 - **HandToList()** en publik metod som returnerar en lista av tärningarnas värden.
