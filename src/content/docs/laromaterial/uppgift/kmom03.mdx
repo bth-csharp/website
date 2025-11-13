@@ -34,9 +34,9 @@ Klassen **AsciiArt** innehåller bilder på tärningarna som kan användas för 
 
 ### Die
 
-Lägg till en metod `PrintAscii` i klassen **Die**.
+Lägg till en metod `PrintAsciiArt` i klassen **Die**.
 
-- **PrintAscii()** en publik metod som skriver ut en ASCII-bild av tärningen.
+- **PrintAsciiArt()** en publik metod som skriver ut en ASCII-bild av tärningen.
 
 ### Huvudprogrammet
 
@@ -44,17 +44,19 @@ Huvudprogrammet, **Program.cs**, använder bara menyklassen och ska starta menyn
 
 ## Krav
 
-1. Lägg till en ny metod i klassen **Die** som heter `PrintAscii`. Metoden använder klassen **AsciiArt** och dess metod `PrintDie`.
+1. Lägg till en ny metod i klassen **Die** som heter `PrintAsciiArt`. Metoden använder klassen **AsciiArt** och dess metod `PrintDie`.
 
-2. Uppdatera klassen **Round** att använda den nya metoden `PrintAscii` istället för.
+2. Uppdatera klassen **Round** att använda den nya metoden `PrintAsciiArt` istället för.
 
-3. Gör det möjligt att mata in antalet tärningar som spelet ska använda.
+3. Gör det möjligt att mata in antalet tärningar som spelet ska använda. Inmatning ska ske via terminalen och all in- och utmatning ska ske i klassen **Menu**.
 
 4. Skapa ett exception **NumberOfDieException** som ska kastas om det matas in ett värde mindre än 2 och större än 10. Vad ska hända om spelaren matar in för många eller för få tärningar? Ett sätt är att låta användaren mata in tills värdet blir ok. Ett tips: klassen **Game** vet hur många tärningar som är ok och bör vara den som kastar ett exception om antalet inte är ok. Glöm inte att fånga de undantag/exception som kan kastas!
 
-Testa genom att köra menyprogrammet och mata in för många respektive för få tärningar och kontrollera att undantag/exception kastas och fångas. 
+5. Testa genom att köra menyprogrammet och mata in för många respektive för få tärningar och kontrollera att undantag/exception kastas och fångas. Testa också att det funkar att mata in ett ok värde.
 
-6. Gör en topplista som sparar de bästa resultaten med antal tärningar, namn, poäng och antal rundor. För att du inte ska behöva skriva om allt varje gång du startar programmet sparar du tärningar, namn, poäng och antalet rundor på fil. Detta gör du lämpligen som en sträng, som t.ex kan se ut så här "2, bella, 101, 16". Ordningen inom strängen bestämmer du själv men tänk på att testerna förväntar sig att det på varje rad finns en sträng med antalet tärningar, namn, poäng och antalet rundor.
+6. Gör en topplista som sparar de bästa resultaten med "antal tärningar, namn, poäng och antal rundor". Detta gör du lämpligen som en sträng, som t.ex. kan se ut så här "2, bella, 101, 16", som du sparar i en fil `toplist.txt` efter varje runda.
+
+Testerna förväntar sig att det på varje rad i filen `toplist.txt` finns en sträng med formatet "antalet tärningar, namn, poäng och antalet rundor".  
 Gör en egen klass **FileHandler** enligt:  
 
 <Figure
@@ -72,6 +74,10 @@ Antal rundor  Namn                 Antal tärningar Total poäng
      8        Kalle                       5            103       
      10       Nisse                       4            115       
 ```
+
+8. Beskriv relationerna mellan alla objekten i ett klassdiagram med kardinalitet. Lägg gärna in text/textrutor med förklaringar på hur du tänker med relationer och kardinalitet. Lämna in diagrammet i filen classdiagram.pdf eller classdiagram.png. Diagrammet kan ritas i ritprogram eller på ett papper som du tar kort på.
+
+9. Skriv 3-5 rader om hur du hade delat upp klasser och objekt och dess relationer och du inte fått kraven från kmom02 och kmom03. Dice100 ska ha samma funktionalitet som i kmom03.
 
 ## Demo på Dice100 del 2
 
