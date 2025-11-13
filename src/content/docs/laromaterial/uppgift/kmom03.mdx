@@ -44,6 +44,8 @@ Huvudprogrammet, **Program.cs**, använder bara menyklassen och ska starta menyn
 
 ## Krav
 
+Lägg alla klasser i en egen fil!
+
 1. Lägg till en ny metod i klassen **Die** som heter `PrintAsciiArt`. Metoden använder klassen **AsciiArt** och dess metod `PrintDie`.
 
 2. Uppdatera klassen **Round** att använda den nya metoden `PrintAsciiArt` istället för.
@@ -54,9 +56,8 @@ Huvudprogrammet, **Program.cs**, använder bara menyklassen och ska starta menyn
 
 5. Testa genom att köra menyprogrammet och mata in för många respektive för få tärningar och kontrollera att undantag/exception kastas och fångas. Testa också att det funkar att mata in ett ok värde.
 
-6. Gör en topplista som sparar de bästa resultaten med "antal tärningar, namn, poäng och antal rundor". Detta gör du lämpligen som en sträng, som t.ex. kan se ut så här "2, bella, 101, 16", som du sparar i en fil `toplist.txt` efter varje runda.
-
-Testerna förväntar sig att det på varje rad i filen `toplist.txt` finns en sträng med formatet "antalet tärningar, namn, poäng och antalet rundor".  
+6. Gör en topplista som sparar de bästa resultaten med "antal tärningar, namn, poäng och antal rundor". Detta gör du lämpligen som en sträng, som t.ex. kan se ut så här "2, bella, 101, 16", som du sparar i en fil `toplist.txt` efter varje runda.  
+Testerna förväntar sig minst 3 rader och att det på varje rad i filen `toplist.txt` finns en sträng med formatet "antalet tärningar, namn, poäng och antalet rundor".  
 Gör en egen klass **FileHandler** enligt:  
 
 <Figure
