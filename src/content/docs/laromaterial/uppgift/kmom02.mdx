@@ -56,7 +56,7 @@ Klassen **Die** innehåller:
 - **MIN_VALUE** en privat konstant som anger den lägsta möjliga värdet för tärningen, i detta fall 1.
 - **_value** en privat medlemsvariabel som lagrar det aktuella värdet för tärningen. Värdet ska vara slumpat.
 - **_dieRandom** är ett klassattribut som är privat och håller en instans (ett objekt) av klassen *Random*. Det används för att generera slumptal.
-- **Die()** en publik konstruktor som instansierar ett Die-objekt.
+- **Die()** en publik konstruktor som instansierar ett Die-objekt, tilldela det privata attributet `_value` ett slumptal mellan `MIN_VALUE` och `MAX_VALUE`.
 - **Die(value)** en publik konstruktor med en int som inparameter som instansierar ett Die-objekt och ger den värdet av inparametern. Här ska konstanterna MAX_VALUE och MIN_VALUE användas för att kontrollera och hantera att det bara kan bli tärningar som har värden mellan 1 och 6. Om man försöker skapa en tärning genom Die(10) så ska det bli en tärning med värdet MAX_VALUE. På samma sätt ska MIN_VALUE användas om någon försöker använda ett värde mindre än MIN_VALUE.
 - **GetValue()** en publik metod som returnerar det aktuella värdet för tärningen.
 - **GetString()** en publik metod som returnerar tärningens värde som en sträng.
