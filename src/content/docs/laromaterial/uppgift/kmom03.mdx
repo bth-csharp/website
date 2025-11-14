@@ -53,9 +53,11 @@ Huvudprogrammet, **Program.cs**, använder bara menyklassen och ska starta menyn
 
 2. All in- och utmatning ska ske i klassen **Menu**. Ta bort metoden `PrintRound` i klassen **Round**.
 
-3. Gör det möjligt att mata in antalet tärningar som spelet ska använda. Inmatning ska ske via terminalen.
+3. Gör det möjligt att mata in ett namn samt antalet tärningar som spelet ska använda. Inmatning ska ske via terminalen. Gör en publik metod `InitGame` på klassen **Menu** som hälsar välkommen. Välkomstmeddelandet ska innehålla namnet på spelet, namnet som matades in och antalet tärningar som valdes.
 
-4. Skapa ett exception **NumberOfDieException** som ska kastas om det matas in ett värde mindre än 2 och större än 10. Vad ska hända om spelaren matar in för många eller för få tärningar? Ett sätt är att låta användaren mata in tills värdet blir ok. Ett tips: klassen **Game** vet hur många tärningar som är ok och bör vara den som kastar ett exception om antalet inte är ok. Glöm inte att fånga de undantag/exception som kan kastas!
+4. Skapa ett exception **NumberOfDieException** som ska kastas om det matas in ett värde mindre än 2 och större än 10. Vad ska hända om spelaren matar in för många eller för få tärningar? Ett bra sätt är att låta användaren mata in tills värdet blir ok.  
+Ett tips: klassen **Game** vet hur många tärningar som är ok och bör vara den som kastar ett exception om antalet inte är ok. Gör en metod `public bool SetGameValues(int noOfDice, string name)` i klassen **Game**, som sätter namn och antal tärningar.
+Ett exception som innehåller delsträngen "vara 2 eller fler" om talet är för litet och "vara 10 eller färre" om talet är för stort ska kastas. Glöm inte att fånga de undantag/exception som kan kastas! Om allt går bra så returnerar `SetGameValues` true, annars false.
 
 5. Testa genom att köra menyprogrammet och mata in för många respektive för få tärningar och kontrollera att undantag/exception kastas och fångas. Testa också att det funkar att mata in ett ok värde.
 
