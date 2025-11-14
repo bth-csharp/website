@@ -11,7 +11,7 @@ import { YouTube } from 'astro-embed';
 
 import classdiagramFileHandler from '@assets/img/kmom03/classdiagramFileHandler.png';
 
-Tärningsspelet **Dice100** är ett enkelt men roligt, tärningsspel. Det gäller att samla ihop poäng för att komma först till **100** genom att kasta tärningar. I varje omgång kastar en spelare i taget tärningar tills spelaren väljer att stanna och spara poängen eller tills det dyker upp en 1:a eftersom spelaren då förlorar alla poäng som samlats in i rundan. Antalet rundor räknas upp oavsett om spelaren väljer att spara rundan eller får en etta.
+Tärningsspelet **Dice100** är ett enkelt men roligt tärningsspel. Det gäller att samla ihop poäng för att komma först till **100** genom att kasta tärningar. I varje omgång kastar en spelare i taget tärningar tills spelaren väljer att stanna och spara poängen eller tills det dyker upp en 1:a eftersom spelaren då förlorar alla poäng som samlats in i rundan. Antalet rundor räknas upp oavsett om spelaren väljer att spara rundan eller får en etta.
 
 I denna uppgiften får du möjlighet att använda en statisk klass **AsciiArt**  som "skriver ut" tärningarna som enkla terminalbilder i [ASCII](https://sv.wikipedia.org/wiki/ASCII). Du uppdaterar klassen **Die** med en ny metod för detta. Syftet med denna del är att visa att klassen **Die** kan använda andra klasser.
 
@@ -30,7 +30,13 @@ Projektet som du skapar ska heta **Dice100** och det skapar du i kmom03. Kopiera
 
 ### AsciiArt
 
-Klassen **AsciiArt** innehåller bilder på tärningarna som kan användas för att göra det lite roligare i terminalen. Den behöver du inte skriva själv utan den kopieras. Du hittar den [här](./../../../CodeExamples/kmom03/uppgift/AsciiArt.cs).
+Klassen **AsciiArt** innehåller bilder på tärningarna som kan användas för att göra det lite roligare i terminalen. Ladda ner klassen **AsciiArt** och lägg den i katalogen "kmom03/Dice100/src". Uppdatera namespace till **MenuApp2.src**.
+
+```bash title="Ladda ner filen AsciiArt.cs och kopiera den till src katalogen. Stå i katalogen kmom03/Dice100."
+task download-code -- kmom03/AsciiArt.cs
+cp ../../codeExamples/AsciiArt.cs src/.
+ls src
+// ger följande: AsciiArt.cs	Helpers.cs	Menu.cs Die.cs etc
 
 ### Die
 
@@ -44,7 +50,7 @@ Huvudprogrammet, **Program.cs**, använder bara menyklassen och ska starta menyn
 
 ## Krav
 
-Lägg alla klasser i en egen fil!
+Lägg alla klasser i en egen fil! All in- och utmatning i klassen **Menu**!
 
 1. Lägg till en ny metod i klassen **Die** som heter `PrintAsciiArt`. Metoden använder klassen **AsciiArt** och dess metod `PrintDie`.
 
