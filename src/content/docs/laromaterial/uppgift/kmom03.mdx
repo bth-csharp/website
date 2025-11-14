@@ -13,9 +13,9 @@ import classdiagramFileHandler from '@assets/img/kmom03/classdiagramFileHandler.
 
 Tärningsspelet **Dice100** är ett enkelt men roligt tärningsspel. Det gäller att samla ihop poäng för att komma först till **100** genom att kasta tärningar. I varje omgång kastar en spelare i taget tärningar tills spelaren väljer att stanna och spara poängen eller tills det dyker upp en 1:a eftersom spelaren då förlorar alla poäng som samlats in i rundan. Antalet rundor räknas upp oavsett om spelaren väljer att spara rundan eller får en etta.
 
-I denna uppgiften får du möjlighet att använda en statisk klass **AsciiArt**  som "skriver ut" tärningarna som enkla terminalbilder i [ASCII](https://sv.wikipedia.org/wiki/ASCII). Du uppdaterar klassen **Die** med en ny metod för detta. Syftet med denna del är att visa att klassen **Die** kan använda andra klasser.
+I denna uppgiften får du möjlighet att använda en statisk klass **AsciiArt**  som "skriver ut" tärningarna som enkla terminalbilder i [ASCII](https://sv.wikipedia.org/wiki/ASCII). 
 
-Vi gör ett eget undantag/exception och sparar dessutom en topplista på fil. Naturligtvis lägger vi till ett menyalternativ som motsvarar att läsa från fil och ett menyalternativ för att visa topplistan i terminalen.
+Vi gör ett eget undantag/exception och sparar dessutom en topplista på fil. Naturligtvis lägger vi till ett menyalternativ för att visa topplistan i terminalen.
 
 
 ## Förkunskaper
@@ -24,9 +24,7 @@ Du bör ha jobbat igenom [Kmom03](/website/kmom/kmom03) eller ha motsvarande kun
 
 ## Introduktion
 
-Nu ska vi kopiera klassen **AsciiArt** vilken ska användas i klassen **Die**. 
-
-Projektet som du skapar ska heta **Dice100** och det skapar du i kmom03. Kopiera in de klasser du redan har från kmom02 och lägg dem under kmom03/Dice100/src.
+Projektet som du skapar ska heta **Dice100** och det skapar du i kmom03 katalogen. Kopiera in de klasser du redan har från kmom02 och lägg dem under kmom03/Dice100/src.
 
 ### AsciiArt
 
@@ -51,19 +49,17 @@ Huvudprogrammet, **Program.cs**, använder bara menyklassen och ska starta menyn
 
 ## Krav
 
-Lägg alla klasser i en egen fil! All in- och utmatning i klassen **Menu**!
+1. Lägg alla klasser i en egen fil. 
 
-1. Lägg till en ny metod i klassen **Die** som heter `PrintAsciiArt`. Metoden använder klassen **AsciiArt** och dess metod `PrintDie`.
+2. All in- och utmatning ska ske i klassen **Menu**. Ta bort metoden `PrintRound` i klassen **Round**.
 
-2. Uppdatera klassen **Round** att använda den nya metoden `PrintAsciiArt` istället för.
-
-3. Gör det möjligt att mata in antalet tärningar som spelet ska använda. Inmatning ska ske via terminalen och all in- och utmatning ska ske i klassen **Menu**.
+3. Gör det möjligt att mata in antalet tärningar som spelet ska använda. Inmatning ska ske via terminalen.
 
 4. Skapa ett exception **NumberOfDieException** som ska kastas om det matas in ett värde mindre än 2 och större än 10. Vad ska hända om spelaren matar in för många eller för få tärningar? Ett sätt är att låta användaren mata in tills värdet blir ok. Ett tips: klassen **Game** vet hur många tärningar som är ok och bör vara den som kastar ett exception om antalet inte är ok. Glöm inte att fånga de undantag/exception som kan kastas!
 
 5. Testa genom att köra menyprogrammet och mata in för många respektive för få tärningar och kontrollera att undantag/exception kastas och fångas. Testa också att det funkar att mata in ett ok värde.
 
-6. Gör en topplista som sparar de bästa resultaten med "antal tärningar, namn, poäng och antal rundor". Detta gör du lämpligen som en sträng, som t.ex. kan se ut så här "2, bella, 101, 16", som du sparar i en fil `toplist.txt` efter varje runda.  
+6. Gör en topplista som sparar de bästa resultaten med "antal tärningar, namn, poäng och antal rundor". Detta gör du lämpligen som en sträng, som t.ex. kan se ut så här "2, Bella, 101, 16", som du sparar i en fil `toplist.txt` efter varje runda.  
 Testerna förväntar sig minst 3 rader och att det på varje rad i filen `toplist.txt` finns en sträng med formatet "antalet tärningar, namn, poäng och antalet rundor".  
 Gör en egen klass **FileHandler** enligt:  
 
