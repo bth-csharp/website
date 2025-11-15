@@ -28,7 +28,7 @@ Projektet som du skapar ska heta **Dice100** och det skapar du i kmom03 kataloge
 
 ### AsciiArt
 
-Klassen **AsciiArt** innehåller bilder på tärningarna som kan användas för att göra det lite roligare i terminalen. Ladda ner klassen **AsciiArt** och lägg den i katalogen "kmom03/Dice100/src". Uppdatera namespace till **MenuApp2.src**.
+Klassen **AsciiArt** innehåller bilder på tärningarna som kan användas för att göra det lite roligare i terminalen. Ladda ner klassen **AsciiArt** och lägg den i katalogen "kmom03/Dice100/src". Uppdatera namespace till **Dice100.src**.
 
 ```bash title="Ladda ner filen AsciiArt.cs och kopiera den till src katalogen. Stå i katalogen kmom03/Dice100."
 task download-code -- kmom03/AsciiArt.cs
@@ -117,7 +117,7 @@ task download-tests -- kmom03
 Då ser det ut så här:
 
 ```shell
-pwd // stå i me/kmom03
+pwd // stå i kmom03
 tree -L 2
 .
 ├── Dice100
@@ -139,7 +139,7 @@ tree -L 2
 Titta i filen "Dice100.Tests.csproj" och se om den pekar ut rätt klasser att testa. Den ska peka ut klasserna som ska testas genom att referera till projektfilen "Dice100.csproj". Kör testerna:
 
 ```shell
-pwd // stå i me/kmom03/Dice100.Tests
+pwd // stå i kmom03/Dice100.Tests
 dotnet test
 dotnet test --logger "console;verbosity=normal" // mer information
 ```
