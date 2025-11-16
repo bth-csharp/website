@@ -3,7 +3,6 @@ title: "Kapitel 1 - Objekt i objekt"
 description: Kapitel 1 - Objekt i objekt med innehållsförteckning
 sidebar:
     order: 2
-    hidden: true
 ---
 
 Vi ska titta på hur vi använder objekt i objekt, statiska metoder och överlagring. Ibland vill vi bestämma hur en klass ska använda en operator, till exempel `+`, och det kallas operatorsöverlagring. Vi ska också titta på privat och publikt och försöka gömma så mycket som möjligt inuti klassen.
