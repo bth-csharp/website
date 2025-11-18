@@ -17,25 +17,69 @@ Läs [Om seminarier](../).
 
 ## <Icon name="open-book" class="inline-icon" label="Interpret code" /> Teori
 
-### ???
+### Teori
 
-1. Kommer...
+1. Förklara och ge ett exempel på relationen komposition.
 
+2. Förklara och ge ett exempel på relationen aggregation.
+
+3. Vilken relation är det mellan Sjukhus och Avdelningar (Ett sjukhus har flera avdelningar)?
+
+4. Hur ritas relationen komposition i ett klassdiagram?
+
+5. Hur ritas relationen aggregation i ett klassdiagram?
+
+6.  Vilken relation gäller mellan klasserna Yatzy, Tärning, Protokoll och Protokollrader? Rita ett övergripande klassdiagram.
+
+7. Ett bibliotek äger ett antal böcker, bl. a ljudböcker. En låntagare lånar under en viss tid, en ljudbok av biblioteket, och lämnar därefter tillbaka ljudboken. Om detta ska implementeras: 
+    - Vilken är relationen mellan bibliotek och bok?
+    - Vilken är relationen mellan låntagare och ljudbok?
+
+8. I ett spel (klassen Game) finns obegränsat antal projektiler (klassen Projectile), mellan 0 och 5 pickups (klassen PickUp) samt en spelare (klassen Player). Ge förslag på attribut/medlemsvariabler i klassen Game som kan användas för att motsvara beskrivningen.
+
+9. I garaget som bostadsföreningen "Kikärten" äger har Lasse parkerat sin Golf, Britta parkerat sin BMW och Sven parkerat sin Toyota. Vilka klasser, objekt och relationer hittar du?
 
 ### Hur kod funkar
 
-Kommer...
+1. Anta klassen BookStore och att du i ett kodavsnitt ser följande 
+
+ ```csharp
+...
+BookStore myBookStore = new BookStore("Pelles böcker");
+Console.WriteLine(BookStore.MAX_NR_OF_COPIES);
+int nrOf = myBookStore.NrOfBooksWithTitle("Emil i Lönneberga");
+if (myBookStore.HasBook("Kommisarien"))
+{
+ ....
+}
+int nrOf = BooksStore.TotalNrOfBooks();
+int nrOfEx = 20;
+myBookStore.Add(new Book("Pippi", "Astrid Lindgren", nrOfEx));
+```
+För varje kodrad resonera kring vad de innebär/motsvarar, med bl. a följande begrepp som grund
+- klass/objekt
+- klassmetod/instansmetod
+- konstruktor
 
 ## <Icon name="open-book" class="inline-icon" label="Interpret code" /> Tolka kod
 
-1. Vad gör följande kod och vad blir utskriften?  
-    ```csharp
-    ???
-    ```
+1. Vad är det för "skillnad" på följande båda kodavsnitt, där Truck och Cargo är klasser?  
 
-    ```
+```csharp
+    Truck aTruck = new Truck();
+    Load aCargo = new Cargo("Wood");
+    aTruck.Load(aCargo);
+    
+```
+
+```csharp
+    Truck aTruck = new Truck();
+    aTruck.Load(new Cargo("Wood"));
+    
+```
 
 ## <Icon name="seti:csharp" class="inline-icon" label="Write code" /> Praktisk uppgift
+
 
 Börja med att planera er lösning, vilken kod behövs och vilka datatyper er data kommer ha i de olika stegen. Efter ni har en plan, skriv koden. Använd frågorna nedanför för att planera koden ni behöver för att lösa uppgiften.
 
@@ -50,4 +94,118 @@ Börja med att planera er lösning, vilken kod behövs och vilka datatyper er da
 
 ### Uppgifter
 
-1. Kommer...
+Kortspelet 31 går till på följande sätt. Varje spelare har alltid 3 kort. När det är en spelares tur tar hen ett kort från sin hand som hen "slänger" och ersätter det med ett nytt kort från korteleken. Den spelare som får vädret 31 på sina 3 kort (där alla kort måste ha samma kortfärg, dvs spader, hjärter, ruter eller klöver) först är den som vinner.
+
+Kort med valören 2 t.o.m 10 har motsvarande värde.
+Klädda kort (knekt, dam och kung) har värdet 10.
+Ess har värdet 11.
+
+En kortlek består av 52 kort (13 kort av varje kortfärg).
+
+Avgör först vilken relation det är mellan Kort (Card) och kortlek (CardDeck). 
+
+Klassen Card är given enligt:
+
+```csharp
+public class Card
+{
+    private string _suit; // Ex Hjärter
+    private string _rank; // Ex 3 och Kung
+    private int _value; // Ex 5
+
+    public Card(string suit, string rank)
+    {
+        this._suit = suit;
+        this._rank = rank;
+        this._value = -1;
+    }
+
+    public Card(string suit, string rank, int value)
+    {
+        this._suit = suit;
+        this._rank = rank;
+        this._value = value;
+    }
+
+    public void SetValue(int value)
+    {
+        if (value > 0)
+            this._value = value;
+    }
+
+    public int GetValue()
+    {
+        return this._value;
+    }
+
+    public string GetSuit()
+    {
+        return this._suit;
+    }
+
+    public string GetRank()
+    {
+        return this._rank;
+    }
+    public string GetDescription()
+    {
+        return this._suit + " " + this._rank;
+    }
+
+}
+```
+Klassen CardDeck ska implementeras så att den kan användas för att spela kortspelet 31:
+
+```csharp
+public class CardDeck
+{
+    public static readonly string[] suits = {"Hjärter", "Klöver", "Ruter", "Spader"};
+    public static readonly string[] ranks = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Knekt", "Dam", "Kung", "Ess" };
+    
+    // medlemsvariabler ska läggas till här
+
+    public CardDeck()
+    {
+        // implementeras
+    }
+
+    public int NrOfCardsLeft()
+    {
+        // implementeras
+        return 0;
+    }
+
+    public bool HasCardsLeft()
+    {
+        // implementeras
+        return true;
+    }
+
+    private void CreateCards()
+    {
+        // implementeras
+    }
+
+    public void Shuffle()
+    {
+        // implementeras, 
+        //tillämpa association genom att använda ett Random-objekt
+    }
+
+    public Card GetCard()
+    {
+        // implementeras
+        return new Card("Hjärter", "3");
+    }
+
+    public void ResetDeck()
+    {
+        // implementeras
+    }
+    
+}
+
+```
+### Extra uppgift
+
+Tillför klassen Hand som ska motsvara en spelares kort. I spelet 31 ingår 3 kort men i andra spel kan det vara ett annat antal. Gör klassen användbar för olika varianter avseende antalet kort på handen. Det behöver vara möjligt att lägga till kort, ta bort kort, få veta antalet kort, få vädret på handen baserat på valör, etc
