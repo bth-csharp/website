@@ -185,7 +185,7 @@ public class BankAccount
         this._owner = name;
         this._balance = initialBalance;
         this._accountNumber = _nextAccountNumber.ToString();
-        this._accountNumberSeed++;
+        this._nextAccountNumber++;
     }
 
     public string GetOwner()
