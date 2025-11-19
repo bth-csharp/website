@@ -237,10 +237,10 @@ public class BankAccount
 För att testa klassen skapar vi objekt av klassen och anropar dess metoder Program.cs. Vi lägger till "using MyBank.src" för visa att alla klasser i MyBank/src kan användas i huvudprogrammet.
 
 ```csharp title="Följande kod i Program.cs testar klassen BankAccount"
-using MyBankApp.src;
+using MyBank.src;
 
-var account1 = new BankAccount("Marie", 1000);
-var account2 = new BankAccount("Betty", 2000);
+BankAccount account1 = new BankAccount("Marie", 1000);
+BankAccount account2 = new BankAccount("Betty", 2000);
 string bankName = BankAccount.BANK_NAME;
 
 Console.WriteLine($"\nThe name of the bank is {bankName}");
