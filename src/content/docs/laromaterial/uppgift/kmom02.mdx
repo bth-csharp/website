@@ -56,8 +56,8 @@ Klassen **Die** innehåller:
 - **MIN_VALUE** en privat konstant som anger den lägsta möjliga värdet för tärningen, i detta fall 1.
 - **_value** en privat medlemsvariabel som lagrar det aktuella värdet för tärningen. Värdet ska vara slumpat.
 - **_dieRandom** är ett klassattribut som är privat och håller en instans (ett objekt) av klassen *Random*. Det används för att generera slumptal.
-- **Die()** en publik konstruktor som instansierar ett Die-objekt, tilldela det privata attributet `_value` ett slumptal mellan `MIN_VALUE` och `MAX_VALUE`.
-- **Die(value)** en publik konstruktor med en int som inparameter som instansierar ett Die-objekt och ger den värdet av inparametern. Här ska konstanterna MAX_VALUE och MIN_VALUE användas för att kontrollera och hantera att det bara kan bli tärningar som har värden mellan 1 och 6. Om man försöker skapa en tärning genom Die(10) så ska det bli en tärning med värdet MAX_VALUE. På samma sätt ska MIN_VALUE användas om någon försöker använda ett värde mindre än MIN_VALUE.
+- **Die()** en publik konstruktor som tilldelar det privata attributet `_value` ett slumptal mellan `MIN_VALUE` och `MAX_VALUE`.
+- **Die(value)** en publik konstruktor med en int som inparameter som ger den värdet av inparametern. Här ska konstanterna MAX_VALUE och MIN_VALUE användas för att kontrollera och hantera att det bara kan bli tärningar som har värden mellan 1 och 6. Om man försöker skapa en tärning genom Die(10) så ska det bli en tärning med värdet MAX_VALUE. På samma sätt ska MIN_VALUE användas om någon försöker använda ett värde mindre än MIN_VALUE.
 - **GetValue()** en publik metod som returnerar det aktuella värdet för tärningen.
 - **GetString()** en publik metod som returnerar tärningens värde som en sträng.
 - **Roll()** en publik metod som slår tärningen vilket hanteras genom att **value** får ett nytt slumptal.
@@ -79,8 +79,8 @@ Klassen **Round** innehåller:
 - **NO_OF_DICE** en privat konstant som anger antalet tärningar som används i rundan, i detta fall 5.
 - **_hand** en privat lista av Die-objekt som representerar rundans tärningar.
 - **_points** en privat variabel som lagrar rundans poäng.
-- **Round()** en publik konstruktor som instansierar ett Round-objekt och initierar instansvariablerna. Poängen bör sättas till 0 och en lista med tärningsobjekt bör skapas. Listan ska vara lika lång som antalet tärningar i rundan.
-- **Round(values)** en publik konstruktor som instansierar ett Round-objekt där tärningarna tilldelas värden från inparametern values. Dessutom uppdateras rundans poäng till summan av de inskickade värdena.
+- **Round()** en publik konstruktor som initierar instansvariablerna. Poängen bör sättas till 0 och en lista med tärningsobjekt bör skapas. Listan ska vara lika lång som antalet tärningar i rundan.
+- **Round(values)** en publik konstruktor där tärningarna tilldelas värden från inparametern values. Dessutom uppdateras rundans poäng till summan av de inskickade värdena.
 - **GetPoints()** en publik metod som returnerar rundans poäng.
 - **ClearPoints()** en publik metod som nollställer rundans poäng.
 - **UpdatePoints()** en privat metod som uppdaterar poängen (_points) baserat på tärningarnas värden. Men om tärningarna innehåller en 1:a så ska poängen (_points) bli 0.
