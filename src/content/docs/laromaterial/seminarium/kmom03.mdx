@@ -52,7 +52,7 @@ if (myBookStore.HasBook("Kommisarien"))
 {
  ....
 }
-int nrOf = BooksStore.TotalNrOfBooks();
+int nrOf = BookStore.TotalNrOfBooks();
 int nrOfEx = 20;
 myBookStore.Add(new Book("Pippi", "Astrid Lindgren", nrOfEx));
 ```
@@ -94,7 +94,7 @@ Börja med att planera er lösning, vilken kod behövs och vilka datatyper er da
 
 ### Uppgifter
 
-Kortspelet 31 går till på följande sätt. Varje spelare har alltid 3 kort. När det är en spelares tur tar hen ett kort från sin hand som hen "slänger" och ersätter det med ett nytt kort från korteleken. Den spelare som får vädret 31 på sina 3 kort (där alla kort måste ha samma kortfärg, dvs spader, hjärter, ruter eller klöver) först är den som vinner.
+Kortspelet 31 går till på följande sätt. Varje spelare har alltid 3 kort. När det är en spelares tur tar hen ett kort från sin hand som hen "slänger" och ersätter det med ett nytt kort från korteleken. Den spelare som får värdet 31 på sina 3 kort (där alla kort måste ha samma kortfärg, dvs spader, hjärter, ruter eller klöver) först är den som vinner.
 
 Kort med valören 2 t.o.m 10 har motsvarande värde.
 Klädda kort (knekt, dam och kung) har värdet 10.
@@ -208,4 +208,4 @@ public class CardDeck
 ```
 ### Extra uppgift
 
-Tillför klassen Hand som ska motsvara en spelares kort. I spelet 31 ingår 3 kort men i andra spel kan det vara ett annat antal. Gör klassen användbar för olika varianter avseende antalet kort på handen. Det behöver vara möjligt att lägga till kort, ta bort kort, få veta antalet kort, få vädret på handen baserat på valör, etc
+Tillför klassen Hand som ska motsvara en spelares kort. I spelet 31 ingår 3 kort men i andra spel kan det vara ett annat antal. Gör klassen användbar för olika varianter avseende antalet kort på handen. Det behöver vara möjligt att lägga till kort, ta bort kort, få veta antalet kort, få värdet på handen baserat på valör, etc
