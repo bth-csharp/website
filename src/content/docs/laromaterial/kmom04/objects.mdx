@@ -1,0 +1,227 @@
+---
+title: "Övningsuppgifter - Objekt och klasser"
+description: Olika övningsuppgifter med klasser och objekt#
+sidebar:
+    order: 2
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+import csharpLogo from '@assets/csharpLogo.jpeg';
+
+För att öva sig i att programmera i C# och lösa uppgifter.
+
+<Figure
+	src={csharpLogo}
+	height="150px"
+	width="150px"
+	float="right"
+/>
+
+Du får en text och ska utifrån den tänka ut vilka klasser som är lämpliga att använda och vilka relationer klasserna har till varandra. 
+
+1. Identifiera de klasser som behövs för att implementera detta system. Ange uppenbara attribut och metoder.
+2. Beskriv relationerna mellan dessa klasser. (komposition, aggregation eller kanske association)
+3. Skriv pseudokod för klasserna och deras relationer.
+4. Rita ett klassdiagram.
+
+Gör ett eget förslag innan du tittar på lösningsförslaget.
+
+## Uppgift 1
+
+En skola vill skapa ett system för att hantera sina kurser och studenter. Varje kurs har ett namn, en kurskod och en lista över studenter som är registrerade i kursen. Varje student har ett namn, ett studentnummer och en lista med kurskoder för att visa vilka kurser de är registrerade i. Systemet ska kunna lägga till nya kurser, registrera studenter i kurser och visa vilka kurser en viss student är registrerad i.
+
+<details>
+<summary>Lösningsförslag</summary>
+
+### Klasser - uppgift 1
+
+1. Klass: Kurs  
+    Attribut: namn, kurskod, lista över studenter  
+    Metoder: lägg till student, visa studenter  
+2. Klass: Student  
+    Attribut: namn, studentnummer, lista med kurskoder  
+    Metoder: registrera i kurs, visa kurser  
+
+### Relationer - uppgift 1
+
+Kurs och Student: Aggregation, en tom diamant som pekar mot kurs.
+
+Motivering: En kurs innehåller studenter men studenterna kan existera oberoende av kursen. Om en kurs tas bort, existerar studenterna fortfarande och kan vara registrerade i andra kurser.
+
+### Pseudokod - uppgift 1
+
+```bash
+Klass Kurs:
+    Attribut:
+        - namn: string
+        - kurskod: string
+        - studenter: Lista av Studentobjekt
+    Metoder:
+        - lägg_till_student(student: Student):
+            - Lägg till student i studenter-listan
+            - Lägg till denna kurs i studentens kurslista
+
+        - visa_studenter():
+            - Returnera listan över studenter
+
+Klass Student:
+    Attribut:
+        - namn: string
+        - studentnummer: string
+        - kurser: Lista med kurskorder (Lista: string)
+
+    Metoder:
+        - registrera_i_kurs(kurs: string):
+            - Lägg till kurskoden i kurser-listan
+            - Lägg till denna student i kursens studentlista
+
+        - visa_kurser():
+            - Returnera listan över kurser
+```
+
+### Klassdiagram - uppgift 1
+
+![Class diagram Uppgift 1](./../../../images/kmom04/classdiagramExercise1.png "Class diagram Uppgift 1")
+
+</details>
+
+## Uppgift 2
+
+En bilverkstad vill skapa ett system för att hantera sina bilar och deras motorer. Varje bil har ett märke, en modell och en motor. Varje motor har ett serienummer och en typ. Om en bil tas bort från systemet, ska även dess motor tas bort.
+
+<details>
+<summary>Lösningsförslag</summary>
+
+### Klasser - uppgift 2
+
+1. Klass: Bil  
+    Attribut: märke, modell, motor  
+    Metoder: visa motorinformation  
+2. Klass: Motor  
+    Attribut: serienummer, typ
+
+### Relationer - uppgift 2
+
+En Bil har en Motor (komposition), en ifylld diamant som pekar mot Bil.
+
+Motivering: En bil innehåller en motor. Om ett bilobjekt tas bort, så tas också motorobjektet bort.
+
+### Pseudokod - uppgift 2
+
+```bash
+Klass Motor:
+    Attribut:
+        - serienummer: string
+        - typ: string
+
+Klass Bil:
+    Attribut:
+        - märke: string
+        - modell: string
+        - motor: Motor
+
+    Metoder:
+        - visa_motorinformation():
+            - Returnera motorns serienummer och typ
+
+```
+
+### Klassdiagram - uppgift 2
+
+![Class diagram Uppgift 2](./../../../images/kmom04/classdiagramExercise2.png "Class diagram Uppgift 2")
+
+</details>
+
+## Uppgift 3
+
+Vi har ett spel som utspelar sig i en spelvärld som innehåller monster och spelare. En spelare som har ett namn, en viss mängd hälsa och ett vapen. Vapnet är en del av spelaren och kan inte existera utan spelaren. Vapnet använder spelaren för att attackera monster. Vapnet har ett namn och en viss mängd skada som det kan orsaka. Ett monster är en fiende i spelet. Ett monster har ett namn och en viss mängd hälsa. Monstret kan attackera spelaren och minska spelarens hälsa. Spelvärlden innehåller flera monster och dessa monster kan existera oberoende av spelvärlden. Spelvärlden innehåller också flera spelare och kan liksom monster existera oberoende av spelvärlden.
+
+<details>
+<summary>Lösningsförslag</summary>
+
+### Klasser - uppgift 3
+
+1. Klass: Spelare
+    Attribut: namn, hälsa, vapen
+    Metoder: attackera, visa information
+2. Klass: Vapen
+    Attribut: namn, skada
+3. Klass: Monster
+    Attribut: namn, hälsa
+    Metoder: attackera, visa information
+4. Klass: Spelvärld
+    Attribut: namn, lista över monster
+    Metoder: lägg till monster, visa monster
+
+### Relationer - uppgift 3
+
+En Spelare har ett Vapen (komposition), en ifylld diamant som pekar mot Spelare.
+En Spelvärld har en lista över Monster (aggregation), en tom diamant som pekar mot SpelVärld.
+En Spelvärld har en lista över Spelare (aggregation), en tom diamant som pekar mot SpelVärld.
+
+Motivering: När spelarobjektet tas bort så tas även vapenobjektet bort. Objekten för spelare och monster skapas utanför spelvärlden och fortsätter att existera när objektet för spelvärlden tas bort.
+
+### Pseudokod - uppgift 3
+
+```bash
+Klass Vapen:
+    Attribut:
+        - namn: string
+        - skada: int
+
+Klass Spelare:
+    Attribut:
+        - namn: string
+        - hälsa: int
+        - vapen: Vapen
+
+    Metoder:
+        - attackera(monster: Monster):
+            - Minska monstrets hälsa med vapnets skada
+
+        - visa_information():
+            - Returnera spelarens namn, hälsa och vapeninformation
+
+Klass Monster:
+    Attribut:
+        - namn: string
+        - hälsa: int
+
+    Metoder:
+        - attackera(spelare: Spelare):
+            - Minska spelarens hälsa med en viss skada
+
+        - visa_information():
+            - Returnera monstrets namn och hälsa
+
+Klass Spelvärld:
+    Attribut:
+        - namn: string
+        - monster: Lista av Monster
+        - spelare: Lista av Spelare
+
+    Metoder:
+        - lägg_till_monster(monster: Monster):
+            - Lägg till monster i monster-listan
+
+        - lägg_till_spelare(spelare: Spelare):
+            - Lägg till spelare i spelare-listan
+
+        - visa_monster():
+            - Returnera listan över monster
+
+        - visa_spelare():
+            - Returnera listan över spelare
+```
+
+### Klassdiagram - uppgift 3
+
+![Class diagram Uppgift 3](./../../../images/kmom04/classdiagramExercise3.png "Class diagram Uppgift 3")
+
+</details>
+
+### Sammanfattning
+
+Då har vi tränat mer på hur vi kan designa ett program i klasser utifrån en text.
