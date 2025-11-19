@@ -36,7 +36,7 @@ public class Weather
         return $"Väder: {this._type}, {this._temperature} grader och {this._wind} m/s.";
     }
 
-    public Update(string type, double temperature, double wind)
+    public void Update(string type, double temperature, double wind)
     {
         // borde hämta infon från någon vädersida istället 
         this._type = type;
