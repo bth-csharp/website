@@ -33,50 +33,40 @@ Gå till den katalog du vill jobba i, till exempel `kmom04`. Du behöver skapa e
 
 ### Skapa ett nytt program för lab1
 
-```bash
+```bash title="Skapa programmet lab1"
 dotnet new console -n lab1
 ```
 
-Programmet, eller projektet som det också kan kallas, skapas i katalogen `lab1` och du kan flytta ned i den katalogen.
-
-```bash
+```bash title="Flytta till katalogen lab1"
 cd lab1
 ```
 
-Verifiera att du kan köra koden.
-
-```bash
+```bash title="Verifiera att du kan köra lab1"
 dotnet run
 ```
 
 ### Hämta filerna till labben
 
-Vi skall hämta ett par filer som behövs för att utföra labben. Utför följande kommandon för att hämta labben, välj vilken terminal du jobbar i.
+Vi skall hämta ett par filer som behövs för att utföra labben. Kör följande kommando:
 
-<details>
-<summary>Hämta labben (Bash)</summary>
 
-```bash
-wget -O Program.cs https://raw.githubusercontent.com/epkmagr/oocsharp2/refs/heads/main/CodeExamples/kmom04/lab1/Program.cs?token=GHSAT0AAAAAAC5S7EZPNESTVLA2LCWD7LEK2CRDUOA
-wget -O Module.cs https://raw.githubusercontent.com/epkmagr/oocsharp2/refs/heads/main/CodeExamples/kmom04/lab1/Module.cs?token=GHSAT0AAAAAAC5S7EZOXGMH7U6B3WE7QYO42CRDVVA
-wget -O Lab.cs https://raw.githubusercontent.com/epkmagr/oocsharp2/refs/heads/main/CodeExamples/kmom04/lab1/Lab.cs?token=GHSAT0AAAAAAC5S7EZP3HWS4STBQJZX5T2W2CRDV6A
+```bash title="Ladda ner filerna lab1"
+task download-lab -- lab1
 ```
 
-När du är klar kan det se ut så här.
-
-```bash
+Task-kommandot förutsätter att du har gjort ovanstående punkter. När du är klar kan det se ut så här.
+```bash title="Filerna i katalogen lab1"
 $ tree -L 1                                              
 .
 ├── Lab.cs
 ├── Module.cs
 ├── Program.cs
+├── README.md
+├── Solution.cs
 ├── bin
 ├── lab1.csproj
-├── lab1.sln
 └── obj          
 ```
-
-</details>
 
 Nu kan du öppna din VS Code utifrån denna katalogen.
 
@@ -150,61 +140,52 @@ Använd lösningen om du fastnar och inte lyckas ta dig vidare, eller som en stu
 <details>
 <summary>Hämta lösningsförslag (Bash)</summary>
 
-```bash
-# Stå i katalogen där du har labben
-wget -O Solution.cs https://raw.githubusercontent.com/epkmagr/oocsharp2/refs/heads/main/CodeExamples/kmom04/lab1/Solution.cs?token=GHSAT0AAAAAAC5S7EZON3Q3JM37ZV5VNH4G2CREMBQ
+```bash title="Ladda en lösning på lab1"
+task download-lab-solution -- lab1
 ```
 
 </details>
 
 ### lab2
 
-Skapa projektet på samma sätt som lab1.
+Skapa projektet `lab2` på samma sätt som lab1.
 
 <details>
-<summary>Hämta labben (Bash)</summary>
+<summary>Hämta labben</summary>
 
-```bash
-// Uppdatera patherna!!!
-wget -O Program.cs https://raw.githubusercontent.com/dbwebb-se/webtec2/refs/heads/main/lab/lab_02/Program.cs
-wget -O Module.cs https://raw.githubusercontent.com/dbwebb-se/webtec2/refs/heads/main/lab/lab_02/Module.cs
-wget -O Lab.cs https://raw.githubusercontent.com/dbwebb-se/webtec2/refs/heads/main/lab/lab_02/Lab.cs
+```bash title="Ladda ner filerna lab2"
+task download-lab -- lab2
 ```
+
 </details>
 
 <details>
-<summary>Hämta lösningsförslag (Bash)</summary>
+<summary>Hämta lösningsförslag</summary>
 
-```bash
-// Uppdatera patherna!!!
-# Stå i katalogen där du har labben
-wget -O Solution.cs https://raw.githubusercontent.com/dbwebb-se/webtec2/refs/heads/main/lab/lab_02/Solution.cs
+```bash title="Ladda en lösning på lab2"
+task download-lab-solution -- lab2
 ```
 
 </details>
 
 ### lab3
 
-Skapa projektet på samma sätt som lab1.
+Skapa projektet `lab3` på samma sätt som lab1.
 
 <details>
-<summary>Hämta labben (Bash)</summary>
+<summary>Hämta labben</summary>
 
-```bash
-// Uppdatera patherna!!!
-wget -O Program.cs https://raw.githubusercontent.com/dbwebb-se/webtec2/refs/heads/main/lab/lab_02/Program.cs
-wget -O Module.cs https://raw.githubusercontent.com/dbwebb-se/webtec2/refs/heads/main/lab/lab_02/Module.cs
-wget -O Lab.cs https://raw.githubusercontent.com/dbwebb-se/webtec2/refs/heads/main/lab/lab_02/Lab.cs
+```bash title="Ladda ner filerna lab3"
+task download-lab -- lab3
 ```
+
 </details>
 
 <details>
-<summary>Hämta lösningsförslag (Bash)</summary>
+<summary>Hämta lösningsförslag</summary>
 
-```bash
-// Uppdatera patherna!!!
-# Stå i katalogen där du har labben
-wget -O Solution.cs https://raw.githubusercontent.com/dbwebb-se/webtec2/refs/heads/main/lab/lab_02/Solution.cs
+```bash title="Ladda en lösning på lab3"
+task download-lab-solution -- lab3
 ```
 
 </details>
