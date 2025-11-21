@@ -1,0 +1,131 @@
+---
+title: "Kmom05: Arv och mer testning"
+description: Femte kmomet.
+sidebar:
+    order: 5
+    hidden: true
+---
+
+import { YouTube } from 'astro-embed';
+import { Steps } from '@astrojs/starlight/components';
+import { Icon } from '@astrojs/starlight/components';
+import { Badge } from '@astrojs/starlight/components';
+import Figure from '@components/CustomFigure.astro';
+
+import var1Image from '@assets/img/kmom01/infoUserHW.png';
+
+I detta kursmoment fokuserar vi mer på objektorienterad programmering och koncept som arv.
+
+Vi fortsätter att lära oss mer om testning och mer specifikt enhetstestning. Vi kommer att använda NUnit som är ett av det mest populära ramverken för enhetstestning för .NET. NUnit används för att skriva tester för dina metoder och klasser för att verifiera att de funkar korrekt.
+
+## Förberedelser
+
+Innan du börjar med kmom05 så behöver du ha jobbat igenom [Kmom03](/website/kmom/kmom03).
+<br/>
+
+
+<details>
+<summary>
+## Måndag
+</summary>
+
+:::tip
+När du ska jobba med kursen är det lättast om du öppnar VS Code från terminalen innan du börjar jobba.
+:::
+
+```bash
+cd dbwebb-kurser/csharp-<din akronym>
+code .
+```
+
+### Att göra
+
+<Steps>
+
+1. Läs och jobba igenom [Introduktion Arv](/website/laromaterial/kmom05/arv). Vi tittar på en bank med två olika sorters bankkonton.
+
+1. Läs och jobba igenom [Kapitel 2 - Arv och klassrelationer](/website/laromaterial/ooguide/kap2/) i guiden [Kom igång med objektorienterad programmering i C#](/website/laromaterial/ooguide/).
+
+1. Läs igenom hur du kan bearbeta kraven på Bankexemplet och göra en testplanering i artikeln [Gör en testplan för Bankexemplet](/website/laromaterial/kmom05/testplanbank).
+
+1. Repetera innehållet i artikeln om enhetstester och NUnit från ett tidigare kursmoment [C# - testning](/website/laromaterial/kmom02/testningdel1).
+
+
+</Steps>
+
+
+</details>
+<br/>
+
+
+
+
+<details>
+<summary>
+## Onsdag
+</summary>
+Jobba igenom [seminarium kmom05](/website/laromaterial/seminarium/kmom05). Det görs på onsdagens lektion.
+</details>
+<br/>
+
+
+
+
+
+<details>
+<summary>
+## Torsdag och fredag
+</summary>
+
+### Att göra
+
+<Steps>
+
+1. Läs och jobba igenom artikeln om enhetstester med C# och NUnit [C# - testning del 2](./website/laromaterial/kmom05/testningdel2).
+
+1. Lös uppgifterna under [Uppgifter](#uppgifter).
+
+</Steps>
+
+### Extra
+
+<Steps>
+
+1. Läs och jobba igenom artikeln om kodtäckning med [.NET reportgenerator](/website/laromaterial/kmom05//KodTackning.md).
+
+1. Om du vill ha extra kunskap om UML diagram, så går du igenom artikeln om [Beteendediagram](/website/laromaterial/kmom03/beteendediagram).
+
+</Steps>
+
+
+</details>
+<br/>
+
+
+## Uppgifter
+
+Följande uppgifter skall utföras och resultatet skall redovisas.
+
+1. På Canvas, gör quizzet `Kmom05 quiz`.
+
+:::danger
+Varje uppgift ska lösas med de C# konstruktioner som vi går igenom i respektive kmom.
+:::
+
+1. Uppgiften är att färdigställa ett planeringsverktyg med en "att göra"-lista Planeringsverktyget [**MyPlanner**](/website/laromaterial/uppgift/kmom05). Det innefattar att skriva testplan, enhetstester och att utveckla projektet färdigt.
+Spara alla filer under `kmom05`.
+
+
+
+## Resultat & Redovisning
+
+Läs [instruktionen om hur du skall redovisa](/website/laromaterial/instruktion/resultat-och-redovisning).  
+
+## Målet med kmom05
+
+Efter att ha jobbat igenom kmom05 så bör du kunna:
+
+* planera tester med testplan
+* skriva enhetstester med NUnit
+* mocka komplicerade enhetstester
+* automatgenerera XML-kommentarer för dokumentationen om vår kod
