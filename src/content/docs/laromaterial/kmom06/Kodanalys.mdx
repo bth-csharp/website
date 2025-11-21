@@ -1,0 +1,195 @@
+---
+title: "Övningsuppgifter - Objekt och klasser"
+description: Olika övningsuppgifter med klasser och objekt#
+sidebar:
+    order: 1
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+import csharpLogo from '@assets/csharpLogo.jpeg';
+
+För att öva sig i att programmera i C# och lösa uppgifter.
+
+<Figure
+	src={csharpLogo}
+	height="150px"
+	width="150px"
+	float="right"
+/>
+
+# Kodanalys
+
+Det finns verktyg som vi kan använda för att förbättra vår kodkvalitet och ett av dem är "Microsoft.CodeAnalysis.NetAnalyzers". Från och med .NET5 så finns den redan med men du behöver sätta på den ("enabla") den i din projektfil.
+
+
+## Lägg till kodanalysen
+
+Vi lägger till .NETs inbyggda kodanalys genom att stå i vårt projekt och köra kommandot:
+
+```csharp
+// i projektfilen till exempel Dice100/Dice100.csproj
+<PropertyGroup>
+    ...
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+</PropertyGroup>
+```
+
+När vi sedan bygger och kör vårt projekt med dotnet run (eller dotnet build) så analyseras vår kod automatiskt enligt standardreglerna. Du kan lägga till ytterligare regler om du vill men vi kör på standard. Om du vill läsa mer om standardregler, så läs [Code quality rules](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/). Eventuella kommentarer kommer i terminalen när vi kör "dotnet build" eller "dotnet run".
+
+Det är viktigt att notera att .NET Code Analysis Tool (CAT) är ett relativt nytt verktyg och dess funktionalitet och användning kan komma att förändras över tid. Du kan också hitta andra tredjepartsverktyg som erbjuder funktioner för att analyser koden i .NET-projekt men CAT är ett officiellt verktyg från .NET-teamet.
+
+
+## Kodexempel
+
+Vi känner till DRY (Don't Repeat Yourself) vilket innebär att vi inte ska skriva samma kod på flera ställen. Istället gör vi en metod som vi återanvänder. En klass ska ha ett ansvarsområde liksom att en metod ska göra en sak.
+
+| Dålig kod              | Bra kod                     | Förklaring               |
+|------------------------|-----------------------------|---------------------------|
+| class a         | public class Adult | Klassnamn med liten bokstav, namnet ej beskrivande samt åtkomstbehörighet som public saknas |
+| int a         | private int numberOfAdults | Variabelnamnet ej beskrivande samt åtkomstbehörighet saknas |
+| int number    | private int numberOfAdults | Variabelnamnet ej tillräckligt beskrivande, vadå antal, antal av vadå samt åtkomstbehörighet saknas |
+| Metod med 25 rader | Dela upp metoden i flera metoder | Blir lättare att läsa och underhålla koden. Riktlinje max 10 rader. |
+
+<details>
+<summary>
+
+### Bra kodkvalitet, några bra punkter</summary>
+
+Här är några viktiga aspekter och bästa praxis för att uppnå hög kodkvalitet: 
+
+1. Läsbarhet:
+
+   - Använd tydliga och beskrivande namn för variabler, metoder och klasser. 
+
+   - Följ kodningsstandarder och konventioner, som att använda PascalCase för metoder och camelCase för variabler.
+
+   - Kommentera koden där det behövs för att förklara komplexa logik eller beslut.
+
+2. Underhållbarhet:
+
+   - Modularisera koden genom att dela upp den i mindre, återanvändbara komponenter.
+
+   - Använd designmönster där det är lämpligt för att lösa vanliga problem på ett strukturerat sätt.
+
+   - Skriv enhetstester för att säkerställa att koden fungerar som förväntat och för att underlätta framtida ändringar.
+
+3. Effektivitet:
+
+   - Optimera prestanda genom att undvika onödiga beräkningar och använda effektiva datastrukturer.
+
+   - Hantera resurser som minne och nätverksanslutningar på ett effektivt sätt.
+
+4. Säkerhet:
+
+   - Validera indata för att förhindra säkerhetsproblem som SQL-injektion och XSS-attacker.
+
+   - Använd säkerhetsbibliotek och ramverk för att hantera vanliga säkerhetsproblem.
+
+5. Verktyg och processer:
+
+   - Använd statisk kodanalys för att automatiskt identifiera potentiella problem i koden.
+
+   - Genomför kodgranskningar regelbundet för att få feedback från andra utvecklare och förbättra kodens kvalitet[2].
+
+   - Genom att följa dessa riktlinjer kan vi säkerställa att vår C#-kod är av hög kvalitet och lätt att underhålla och vidareutveckla.
+
+</details>
+
+### Jämför två kodexempel, BadBank och GoodBank
+
+Nu tänkte vi att vi jämför två kodexempel, två implementationer av bankexemplet. Den  med lite fel/problem i heter "BadBank" och den som är bra heter "GoodBank". Koden finns i katalogen [CodeExamples/kmom04](./../../../CodeExamples/kmom06/). Ta upp den och titta på den, först det sämre exemplet och sen det bättre exemplet.
+
+
+### BadBank
+
+Det finns flera problem i [BadBank](./../../../CodeExamples/kmom06/BadBank/):
+
+1. Brist på inkapsling: Bankklassen manipulerar direkt BankAccount-array, vilket bryter mot inkapslingsprinciperna. (Lack of encapsulation)
+
+2. Ineffektiv hantering av array: Bankklassen använder en array med fast storlek för att lagra bankkonton, vilket kan leda till problem när banken överskrider gränsen.
+
+3. Brist på felhantering: Koden saknar korrekt felhantering, såsom hantering av otillräckligt saldo på kontot eller array bounds-fel (anrop av element i arrayen utanför gränserna, går att anropa element på plats 150).
+
+4. Dåligt arv: Klasserna InterestAccount och PayrollAccount ärver från BankAccount men deras beteenden är inte helt inkapslade eller sammanhängande.
+
+5. Brist på abstraktion: Koden saknar korrekt abstraktion, vilket gör det svårt att utöka eller modifiera funktionaliteten i framtiden.
+
+6. Namngivning av variabler följer inte namnstandarden.
+
+
+### GoodBank
+
+I den här förbättrade versionen, [GoodBank](./../../../CodeExamples/kmom06/GoodBank/) har vi:
+
+1. Förbättrad inkapsling: Bankklassen använder en List<BankAccount> för att lagra konton, vilket ger bättre inkapsling och flexibilitet. Dessutom kan vi ta bort attributet "numAccounts" eftersom antalet konton är längden på listan med bankkonton.
+
+2. Förbättrad felhantering: Korrekt felhantering implementeras för uttagsoperationer, inklusive otillräckligt saldo på kontot och övertrasseringsgränser.
+
+3. Bättre användning av arv: Klasserna InterestAccount och PayrollAccount ärver från BankAccount och ger sammanhängande beteenden för specifika kontotyper.
+
+4. Förbättrad abstraktion: Koden är strukturerad med bättre abstraktion, vilket gör den lättare att förstå och utöka i framtiden.
+
+5. Utnyttjande av "property": I BankAccount har vi nu egenskaper används för kontoattribut, för att förbättra läsbarheten och göra det lättare att underhålla. Även i Bank så gör vi om BankName till en "property".
+
+6. Förbättrad namngivning: Privata attribut har fått namn enligt C#  namngivning med understreck (Accounts blev _accounts i Bank.cs) samt konstanter har PascalCase.
+
+7. Avstår från förenkling: Verktyget föreslår att vi ska använda defaultkonstruktor. Men vi tycker att vi har kvar en egen konstruktor, då underlättar vid vidareutveckling. Däremot förenklar vi gärna listan i konstruktorn (från `new List<BankAccount>()` till `[]`.)
+
+
+## Kod utan `this`
+
+Hittills har vi nu har använt `this` för att accessa attribut och metoder inne i en klass men analysverktygen menar att det är onödigt. Frågan är om det är viktigare att koden är tydlig eller om det ska vara så lite kod som möjligt.
+
+Om vi applicerar det på vårt bankexempel så kan vi ändra det och ta bort `this`.
+
+```csharp
+// För tydlighets skull så skriver vi this här men det är inte nödvändigt
+    public void AddAccount(BankAccount account)
+    {
+        this._accounts.Add(account);
+    }
+
+// Vi kan lika gärna skriva så här utan this. Kompilatorn hittar rätt attribut ändå.
+    public void AddAccount(BankAccount account)
+    {
+        _accounts.Add(account);
+    }
+```
+
+Från och med detta kursmoment behöver vi inte använda this för att accessa attribut och metoder inuti klasser, om vi inte vill.
+
+## Förenklat new (från och med C# 9.0)
+
+Vi kan använda ett förenklat new-uttryck för att skapa en klass om typen är tydlig av sammanhanget. Om vi deklarerar typen av ett objekt så kan vi använda ett förenklat new-uttryck. Om vi däremot använder `var` istället för objektets typ, så måste vi ange typen efter new.
+
+```csharp
+// För denna rad säger kodanalysen: Simplify new expression (IDE0090)
+Weather weather = new Weather("Soligt", 18, 8);
+// Här förstår kompilatorn att det är ett objekt av typen Weather som ska skapas.
+Weather weather = new("Soligt", 18, 8);
+// Om vi deklarerar variabeln var så måste vi ange typen av objektet.
+var weather = new Weather("Soligt", 18, 8);
+```
+
+## Formatera koden
+
+`dotnet format` formaterar koden och korrigerar ibland kodstilen enligt det regler som finns fördefinierade i projektet. Vi använder standardreglerna som är inbyggda i .NET SDK, det vill säga den .NET mjukvara vi installerade i början.
+
+För att få en detaljerad utskrift vad som görs vid `dotnet format` kommandot så använder vi flaggan `-v d`.
+
+```bash
+// i terminalen i projektet
+dotnet format -v d
+dotnet format --verify-no-changes // identifierar problem men ändrar inget
+```
+
+För att själv kunna styra vilka regler som används finns en konfigureringsfil `.editorconfig` som ska ligga i rotkatalogen till ditt projekt.
+
+## Sammanfattning
+
+Då har vi tittat på hur vi kan förbättra kodkvalitet med kodanalys. Mer information om .NETs kodanalys i artikeln [Overview of .NET source code analysis](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview?tabs=net-9).
+
+Vi har också tittat på exempel på bra och dålig kod. Här är en artikel för er som vill titta på dålig kod som stegvis förbättras i denna artikel av Radosław Sadowski [C# Bad Practices: Learn How to Make Good Code by Using Examples of Bad Code](https://www.codeproject.com/Articles/1083348/Csharp-Bad-Practices-Learn-How-to-Make-Good-Code-b).
