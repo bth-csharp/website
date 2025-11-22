@@ -1,0 +1,29 @@
+@startuml
+
+class Spel 
+{
+
+}
+
+class Spelare {
+
+}
+
+class Vapen {
+
+}
+
+class Monster {
+
+}
+
+
+
+Spel "1   " *-- "1..n" Spelare
+Spel "1 " *-- "1..n   " Monster
+Spel "1 " *-- "1..n" Vapen
+Spelare "1" o-- "1..n " Vapen
+
+
+
+@enduml

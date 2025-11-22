@@ -19,7 +19,7 @@ För att öva sig i att programmera i C# och lösa uppgifter.
 	float="right"
 />
 
-Du får en text och ska utifrån den tänka ut vilka klasser som är lämpliga att använda och vilka relationer klasserna har till varandra. 
+Du får en text och ska utifrån den tänka ut vilka klasser som är lämpliga att använda och vilka relationer klasserna har till varandra.
 
 1. Identifiera de klasser som behövs för att implementera detta system. Ange uppenbara attribut och metoder.
 2. Beskriv relationerna mellan dessa klasser. (komposition, aggregation eller kanske association)
@@ -30,55 +30,70 @@ Gör ett eget förslag innan du tittar på lösningsförslaget.
 
 ## Uppgift 1
 
-En skola vill skapa ett system för att hantera sina kurser och studenter. Varje kurs har ett namn, en kurskod och en lista över studenter som är registrerade i kursen. Varje student har ett namn, ett studentnummer och en lista med kurskoder för att visa vilka kurser de är registrerade i. Systemet ska kunna lägga till nya kurser, registrera studenter i kurser och visa vilka kurser en viss student är registrerad i.
+En skola vill skapa ett system för att hantera sina kurser och studenter. Skolan har ett namn och har flera kurser och flera studenter. Varje kurs har ett namn, en kurskod och antalet högskolepoäng. Kursen har också en lista med studentnummer för att veta vilka studenter som läser kursen. Varje student har ett namn och ett studentnummer och de kan plugga vidare på en annan skola om de vill. Studenterna tillhör ett antagningssystem. Skolan vill kunna lägga till och ta bort kurser, anta studenter på skolan, ta bort studenter som slutat på skolan och registrera/avregistrera studenter på kurser. Dessutom visa vilka kurser en viss student är registrerad i samt vilka studenter som är registrerade på en viss kurs.
 
 <details>
 <summary>Lösningsförslag</summary>
 
 ### Klasser - uppgift 1
 
+1. Klass Skola
+    Attribut: namn, lista med kurser, lista med studenter
+    Metoder: lägg till kurs, ta bort kurs, hämta kurser, lägga till student på skolan, ta bort student från skolan, registrera student på en kurs, avregistrera student på en kurs, hämta kurser för en viss student, hämta studenter för en viss kurs
 1. Klass: Kurs  
-    Attribut: namn, kurskod, lista över studenter  
-    Metoder: lägg till student, visa studenter  
-2. Klass: Student  
-    Attribut: namn, studentnummer, lista med kurskoder  
-    Metoder: registrera i kurs, visa kurser  
+    Attribut: namn, kurskod, högskolepoäng, lista med studentnummer
+    Metoder: visa all information om kursen, hämta kurskod, hämta poäng
+1. Klass: Student  
+    Attribut: namn, studentnummer
+    Metoder: hämta namn, hämta studentnummer
 
 ### Relationer - uppgift 1
 
-Kurs och Student: Aggregation, en tom diamant som pekar mot kurs.
+Skola och Kurs: Komposition, en ifylld diamant som pekar mot Skola. En kurs existerar bara inom en skola. Om Skola-objektet tas bort, tas Kurs-objekten bort.
 
-Motivering: En kurs innehåller studenter men studenterna kan existera oberoende av kursen. Om en kurs tas bort, existerar studenterna fortfarande och kan vara registrerade i andra kurser.
+Skola och Student: Aggregation, en tom diamant som pekar mot kurs. Student-objekt skapas utanför Skola-objektet och när Skola-objektet tas bort, fortsätter student objektet leva vidare för att studera på en annan skola.
+
+Student och Kurs: Assocation? Nej?
 
 ### Pseudokod - uppgift 1
 
 ```bash
+Klass Skola:
+    Attribut:
+        - _namn: string privat
+        - _studenter: List<Student> privat
+        - _kurser: List<Kurs> privat
+    Metoder: (alla publika)
+        - läggTillKurs(string namn, string kurskod, int hp) // skapa ett Kurs-objekt med namn, kurskod och hp och lägg till det i listan _kurser 
+        - taBortKurs(string kurskod) // ta bort objektet med en viss kurskod ur listan _kurser 
+        - hämtaKurser(): List<Kurs> // returnera listan _kurser
+        - läggTillStudent(student: Student) // lägg till Student-objektet i listan _studenter
+        - taBortStudent(student: Student) // ta bort Student-objektet ur listan _studenter
+        - registreraStudentPåKurs(string: studentNummer, string: kurskod) // lägg till studentNummer i listan _aktivaStudenter på Kurs-objektet med rätt kurskod i listan _kurser
+        - avregistreraStudentFrånKurs(student: Student, string: kurskod) // ta bort studentNummer från listan _aktivaStudenter i Kurs-objektet med rätt kurskod i listan _kurser
+        - hämtaKurserFörStudent(string studentNummer): List<Kurs> // leta igenom listan _kurser, för varje kurs som har studentNummer i listan _aktivaStudenter lägg det i en ny lista som metoden returnerar
+        - hämtaStudenterFörKurs(string kurskod): List<Student> // leta igenom listan _kurser, för varje kurs som har studentNummer i listan _aktivaStudenter lägg det i en ny lista som metoden returnerar
+
 Klass Kurs:
     Attribut:
-        - namn: string
-        - kurskod: string
-        - studenter: Lista av Studentobjekt
-    Metoder:
-        - lägg_till_student(student: Student):
-            - Lägg till student i studenter-listan
-            - Lägg till denna kurs i studentens kurslista
-
-        - visa_studenter():
-            - Returnera listan över studenter
+        - _namn: string privat
+        - _kurskod: string privat
+        - _högskolepoäng: int privat
+        - _aktivaStudenter: List<string> privat
+    Metoder: (alla publika)
+        - visaInformation(): string // returnerar en sträng med namn, kurskod, poäng
+        - hämtaKurskod(): string
+        - hämtaPoäng(): int
+        - läggTillStudentNummer(string studentNummer): void // lägger till studentNummer i listan
 
 Klass Student:
     Attribut:
-        - namn: string
-        - studentnummer: string
-        - kurser: Lista med kurskorder (Lista: string)
+        - _namn: string privat
+        - _studentnummer: string privat
 
-    Metoder:
-        - registrera_i_kurs(kurs: string):
-            - Lägg till kurskoden i kurser-listan
-            - Lägg till denna student i kursens studentlista
-
-        - visa_kurser():
-            - Returnera listan över kurser
+    Metoder: (alla publika)
+        - hämtaNamn(): string
+        - hämtaStudentnummer(): string
 ```
 
 ### Klassdiagram - uppgift 1
@@ -88,6 +103,7 @@ import classdiagramExercise1 from '@assets/img/kmom04/classdiagramExercise1.png'
 <Figure
 	src={classdiagramExercise1}
     caption="Klassdiagram Uppgift 1"
+    width="300px"
 />
 
 </details>
@@ -109,27 +125,26 @@ En bilverkstad vill skapa ett system för att hantera sina bilar och deras motor
 
 ### Relationer - uppgift 2
 
-En Bil har en Motor (komposition), en ifylld diamant som pekar mot Bil.
+Bil har en Motor (komposition), en ifylld diamant som pekar mot Bil (står Car i klassdiagrammet).
 
-Motivering: En bil innehåller en motor. Om ett bilobjekt tas bort, så tas också motorobjektet bort.
+Motivering: En bil innehåller en motor. Om ett Bil-objekt tas bort, så tas också Motor-objektet bort.
 
 ### Pseudokod - uppgift 2
 
 ```bash
 Klass Motor:
     Attribut:
-        - serienummer: string
-        - typ: string
+        - serienummer: string privat
+        - typ: string privat
 
 Klass Bil:
     Attribut:
-        - märke: string
-        - modell: string
-        - motor: Motor
+        - märke: string privat
+        - modell: string privat
+        - motor: Motor privat
 
     Metoder:
-        - visa_motorinformation():
-            - Returnera motorns serienummer och typ
+        - visa_motorinformation() //Returnera en sträng med motorns serienummer och typ
 
 ```
 
@@ -146,84 +161,77 @@ import classdiagramExercise2 from '@assets/img/kmom04/classdiagramExercise2.png'
 
 ## Uppgift 3
 
-Vi har ett spel som utspelar sig i en spelvärld som innehåller monster och spelare. En spelare som har ett namn, en viss mängd hälsa och ett vapen. Vapnet är en del av spelaren och kan inte existera utan spelaren. Vapnet använder spelaren för att attackera monster. Vapnet har ett namn och en viss mängd skada som det kan orsaka. Ett monster är en fiende i spelet. Ett monster har ett namn och en viss mängd hälsa. Monstret kan attackera spelaren och minska spelarens hälsa. Spelvärlden innehåller flera monster och dessa monster kan existera oberoende av spelvärlden. Spelvärlden innehåller också flera spelare och kan liksom monster existera oberoende av spelvärlden.
+Vi har ett spel som innehåller flera monster, en spelare och fyra olika vapen. En spelare som har ett namn, en viss mängd hälsa och ett vapen. När spelaren "dör" lämnas vapnet tillbaka till spelet. Vapnet använder spelaren för att attackera monster och då ökar spelarens hälsa med 1. Vapnet har ett namn och en viss mängd skada som det kan orsaka. Ett monster är en fiende i spelet. Ett monster har ett namn, en farlighetsgrad och en specialeffekt. Monstret kan attackera spelaren och minska spelarens hälsa beroende på monstrets farlighetsgrad. Monstret har en specialeffekt som används ibland (slumpas fram) och då minskas spelarens hälsa dubbelt så mycket.
 
 <details>
 <summary>Lösningsförslag</summary>
 
 ### Klasser - uppgift 3
 
+1. Klass: Vapen
+    Attribut: namn, skada
 1. Klass: Spelare
     Attribut: namn, hälsa, vapen
-    Metoder: attackera, visa information
-2. Klass: Vapen
-    Attribut: namn, skada
-3. Klass: Monster
-    Attribut: namn, hälsa
-    Metoder: attackera, visa information
-4. Klass: Spelvärld
-    Attribut: namn, lista över monster
+    Metoder: attackera monster, visa information
+1. Klass: Monster
+    Attribut: namn, farlighetsgrad, specialeffekt
+    Metoder: skada spelare, visa information
+1. Klass: Spel
+    Attribut: namn, spelare, lista över monster, lista över vapen
     Metoder: lägg till monster, visa monster
 
 ### Relationer - uppgift 3
 
-En Spelare har ett Vapen (komposition), en ifylld diamant som pekar mot Spelare.
-En Spelvärld har en lista över Monster (aggregation), en tom diamant som pekar mot SpelVärld.
-En Spelvärld har en lista över Spelare (aggregation), en tom diamant som pekar mot SpelVärld.
-
-Motivering: När spelarobjektet tas bort så tas även vapenobjektet bort. Objekten för spelare och monster skapas utanför spelvärlden och fortsätter att existera när objektet för spelvärlden tas bort.
+Spelare och Vapen: aggregation, om ett Spelare-objekt dör så återlämnas Vapen-objektet till Spel-objektet
+Spel och Spelare: komposition, om ett Spel-objektet tas bort, så försvinner alla Spelare-objekten också.
+Spel och Monster: komposition, om ett Spel-objektet tas bort, så försvinner alla Monster-objekten också.
+Spel och Vapen: komposition, om ett Spel-objektet tas bort, så försvinner alla Vapen-objekten också.
 
 ### Pseudokod - uppgift 3
 
 ```bash
 Klass Vapen:
     Attribut:
-        - namn: string
-        - skada: int
+        - _namn: string privat
+        - _skada: int privat
 
 Klass Spelare:
     Attribut:
-        - namn: string
-        - hälsa: int
-        - vapen: Vapen
+        - _namn: string privat
+        - _hälsa: int privat
+        - _vapen: Vapen privat
 
     Metoder:
-        - attackera(monster: Monster):
-            - Minska monstrets hälsa med vapnets skada
-
-        - visa_information():
-            - Returnera spelarens namn, hälsa och vapeninformation
+        - AttackeraMonster() // öka hälsa med ett steg
+        - ÄndraHälsa(int: hälsoTal) // addera hälsa med hälsoTal. Om hälsoTal är negativt minskar hälsa och om det är positivt så ökar hälsa, returnera true om hälsa över 0 och annars false
+        - HämtaInformation() // Returnera en sträng med spelarens namn, hälsa och vapeninformation
 
 Klass Monster:
     Attribut:
-        - namn: string
-        - hälsa: int
+        - _namn: string privat
+        - _farlighetsgrad: int privat
+        - _specialeffekt: int privat
 
     Metoder:
-        - attackera(spelare: Spelare):
-            - Minska spelarens hälsa med en viss skada
+        - SkadaSpelare() // slumpa fram ett tal mellan 1 och 5 och varje gång talet blir 1, så körs specialeffekten. 
+        Om specialeffekt minska spelarens hälsa med monstrets farlighetsgrad * 2
+        annars minska spelarens hälsa med monstrets farlighetsgrad
+        Spelarens hälsa ändras med ÄndraHälsa(int: hälsoTal)
+        - HämtaInformation() // Returnera en sträng med monstrets namn och hälsa
 
-        - visa_information():
-            - Returnera monstrets namn och hälsa
-
-Klass Spelvärld:
+Klass Spel:
     Attribut:
-        - namn: string
-        - monster: Lista av Monster
-        - spelare: Lista av Spelare
+        - _vapen_: List>Vapen> privat
+        - _monster: List<Monster> privat
+        - _spelare: Spelare privat
 
     Metoder:
-        - lägg_till_monster(monster: Monster):
-            - Lägg till monster i monster-listan
-
-        - lägg_till_spelare(spelare: Spelare):
-            - Lägg till spelare i spelare-listan
-
-        - visa_monster():
-            - Returnera listan över monster
-
-        - visa_spelare():
-            - Returnera listan över spelare
+        - InitieraSpel() // skapa en lista med vapen, skapa en lista med monster, skapa en spelare
+        - KörSpelet() // spelaren går runt i spelet med sitt vapen, monstrena finns på olika ställen i spelet
+        Om ett monster upptäcker spelaren först, så anropas SkadaSpelare. Om SkadaSpelare returnerar false så är spelet slut.
+        Om spelaren upptäcker monstret först, så anropas AttackeraMonster på det Monster-objektet som upptäcks och spelaren hälsa ökas.
+        Loopen körs så länge spelarens hälsa är över 0.
+        - HämtaInformation():
 ```
 
 ### Klassdiagram - uppgift 3
@@ -233,6 +241,76 @@ import classdiagramExercise3 from '@assets/img/kmom04/classdiagramExercise3.png'
 <Figure
 	src={classdiagramExercise3}
     caption="Klassdiagram Uppgift 3"
+    width="400px"
+/>
+
+</details>
+
+## Uppgift 4
+
+Ett bibliotek äger många böcker. Varje bok har en titel, en författare och ett ISBN nummer. Författarna har ett namn och lever ett eget liv utanför biblioteket. Författarna tillhör en förening med författare. Biblioteket känner till författarna i föreningen. Biblioteket köper ibland nya böcker och gör sig av med böcker. Biblioteket lånar också ut böcker.
+
+<details>
+<summary>Lösningsförslag</summary>
+
+### Klasser - uppgift 4
+
+1. Klass: Bibliotek  
+    Attribut: lista med böcker
+    Metoder: lägg till bok, ta bort bok, hämta alla böcker, låna ut bok, lämna tillbaka utlånad bok
+1. Klass: Bok  
+    Attribut: titel, ISBN, författare
+    Metoder: visa information om boken  
+1. Klass: Författare  
+    Attribut: namn
+
+### Relationer - uppgift 4
+
+Bibliotek och Bok: komposition, om Bibliotek-objektet tas bort, tas alla böcker bort.
+
+Bok och Författare: association, om Bok-objektet tas bort, så tas referensen till Författare-objektet bort men själva Författare-objektet fortsätter att finnas till. Boken känner till sin författare, men författaren existerar även utan boken.
+
+### Pseudokod - uppgift 4
+
+```bash
+Klass Bibliotek:
+    Attribut:
+        - _böcker_: List<Bok> privat
+        - _utlånadeBöcker: List<Bok> privat
+
+    Metoder:
+        - LäggTillBok(string: titel, string: isbn, Författare: författare) // skapa ett Bok-objekt med titel, isbn och en referens till en författare och lägg till det listan _böcker
+        - TaBortBok(string: isbn) // ta bort Bok-objektet med isbn ut listan _böcker
+        - HämtaAllaBöcker() // returnera listan _böcker
+        - LånaUtBok(string: isbn) // ta bort Bok-objektet med isbn ur listan _böcker och lägg till i listan _utlånadeBöcker
+        - ÅterlämnaUtlånadBok(string: isbn) // ta bort Bok-objektet med isbn ur listan _utlånadeBöcker och lägg till i listan _böcker
+
+Klass Bok:
+    Attribut:
+        - _titel: string
+        - _isbn: string
+        - _författare: Författare
+
+    Metoder:
+        - HämtaInformation() // returnera en sträng med attributen
+
+Klass Författare:
+    Attribut:
+        - _namn: string
+
+    Metoder:
+        - HämtaInformation() // returnera en sträng med attributen
+
+```
+
+### Klassdiagram - uppgift 4
+
+import classdiagramExercise4 from '@assets/img/kmom04/classdiagramExercise4.png';
+
+<Figure
+	src={classdiagramExercise4}
+    caption="Klassdiagram Uppgift 4"
+    width="200px"
 />
 
 </details>

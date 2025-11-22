@@ -1,0 +1,21 @@
+@startuml
+
+class Skola 
+{
+
+}
+
+class Kurs {
+
+}
+
+class Student {
+
+}
+
+
+Skola "1   " *-- "1..n" Kurs
+Skola "1" o-- "0..m" Student
+
+
+@enduml
