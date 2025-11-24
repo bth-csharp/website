@@ -52,7 +52,7 @@ Skola och Kurs: Komposition, en ifylld diamant som pekar mot Skola. En kurs exis
 
 Skola och Student: Aggregation, en tom diamant som pekar mot kurs. Student-objekt skapas utanför Skola-objektet och när Skola-objektet tas bort, fortsätter student objektet leva vidare för att studera på en annan skola.
 
-Student och Kurs: Assocation? Nej?
+Student och Kurs: Ingen
 
 ### Pseudokod - uppgift 1
 
@@ -63,15 +63,15 @@ Klass Skola:
         - _studenter: List<Student> privat
         - _kurser: List<Kurs> privat
     Metoder: (alla publika)
-        - läggTillKurs(string namn, string kurskod, int hp) // skapa ett Kurs-objekt med namn, kurskod och hp och lägg till det i listan _kurser 
-        - taBortKurs(string kurskod) // ta bort objektet med en viss kurskod ur listan _kurser 
-        - hämtaKurser(): List<Kurs> // returnera listan _kurser
-        - läggTillStudent(student: Student) // lägg till Student-objektet i listan _studenter
-        - taBortStudent(student: Student) // ta bort Student-objektet ur listan _studenter
-        - registreraStudentPåKurs(string: studentNummer, string: kurskod) // lägg till studentNummer i listan _aktivaStudenter på Kurs-objektet med rätt kurskod i listan _kurser
-        - avregistreraStudentFrånKurs(student: Student, string: kurskod) // ta bort studentNummer från listan _aktivaStudenter i Kurs-objektet med rätt kurskod i listan _kurser
-        - hämtaKurserFörStudent(string studentNummer): List<Kurs> // leta igenom listan _kurser, för varje kurs som har studentNummer i listan _aktivaStudenter lägg det i en ny lista som metoden returnerar
-        - hämtaStudenterFörKurs(string kurskod): List<Student> // leta igenom listan _kurser, för varje kurs som har studentNummer i listan _aktivaStudenter lägg det i en ny lista som metoden returnerar
+        - LäggTillKurs(string namn, string kurskod, int hp) // skapa ett Kurs-objekt med namn, kurskod och hp och lägg till det i listan _kurser 
+        - TaBortKurs(string kurskod) // ta bort objektet med en viss kurskod ur listan _kurser 
+        - HämtaKurser(): List<Kurs> // returnera listan _kurser
+        - LäggTillStudent(student: Student) // lägg till Student-objektet i listan _studenter
+        - TaBortStudent(student: Student) // ta bort Student-objektet ur listan _studenter
+        - RegistreraStudentPåKurs(string: studentNummer, string: kurskod) // lägg till studentNummer i listan _aktivaStudenter på Kurs-objektet med rätt kurskod i listan _kurser
+        - AvregistreraStudentFrånKurs(student: Student, string: kurskod) // ta bort studentNummer från listan _aktivaStudenter i Kurs-objektet med rätt kurskod i listan _kurser
+        - HämtaKurserFörStudent(string studentNummer): List<Kurs> // leta igenom listan _kurser, för varje kurs som har studentNummer i listan _aktivaStudenter lägg det i en ny lista som metoden returnerar
+        - HämtaStudenterFörKurs(string kurskod): List<Student> // leta igenom listan _kurser, för varje kurs som har studentNummer i listan _aktivaStudenter lägg det i en ny lista som metoden returnerar
 
 Klass Kurs:
     Attribut:
@@ -80,10 +80,10 @@ Klass Kurs:
         - _högskolepoäng: int privat
         - _aktivaStudenter: List<string> privat
     Metoder: (alla publika)
-        - visaInformation(): string // returnerar en sträng med namn, kurskod, poäng
-        - hämtaKurskod(): string
-        - hämtaPoäng(): int
-        - läggTillStudentNummer(string studentNummer): void // lägger till studentNummer i listan
+        - VisaInformation(): string // returnerar en sträng med namn, kurskod, poäng
+        - HämtaKurskod(): string
+        - HämtaPoäng(): int
+        - LäggTillStudentNummer(string studentNummer): void // lägger till studentNummer i listan
 
 Klass Student:
     Attribut:
@@ -91,8 +91,8 @@ Klass Student:
         - _studentnummer: string privat
 
     Metoder: (alla publika)
-        - hämtaNamn(): string
-        - hämtaStudentnummer(): string
+        - HämtaNamn(): string
+        - HämtaStudentnummer(): string
 ```
 
 ### Klassdiagram - uppgift 1
@@ -143,7 +143,7 @@ Klass Bil:
         - motor: Motor privat
 
     Metoder:
-        - visa_motorinformation() //Returnera en sträng med motorns serienummer och typ
+        - HämtaInformation() //Returnera en sträng med motorns serienummer och typ
 
 ```
 
