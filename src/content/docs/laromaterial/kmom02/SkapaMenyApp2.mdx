@@ -439,6 +439,8 @@ public class Helpers
 
     private static void PrintDays()
     {
+        // Skriv ut som en sträng
+        Console.WriteLine("\nVeckodagarna på svenska: (sträng)");
         Console.WriteLine(string.Join(", ", Helpers.sweWeekdays));
     }
 }
@@ -466,7 +468,12 @@ public class Helpers
 
     private static void PrintDays()
     {
-        Console.WriteLine("\nVeckodagarna på svenska:");
+        // Skriv ut som en sträng
+        Console.WriteLine("\nVeckodagarna på svenska: (sträng)");
+        Console.WriteLine(string.Join(", ", Helpers.sweWeekdays));
+
+        // Skriv ut arrayen med foreach
+        Console.WriteLine("\nVeckodagarna på svenska: (array)");
         foreach (string day in Helpers.sweWeekdays) 
         {
             Console.WriteLine(day);
@@ -496,7 +503,7 @@ public class Helpers
 
     private static void PrintDays(List<string> dayList)
     {
-        Console.WriteLine("\nVeckodagarna på svenska:");
+        Console.WriteLine("\nVeckodagarna på svenska: (lista)");
         foreach (string day in dayList) 
         {
             Console.WriteLine(day);
@@ -511,7 +518,7 @@ import MenuApp2_4 from '@assets/img/kmom02/MenuApp2_4.png';
 
 <Figure
     src={MenuApp2_4}
-    caption="Klassdiagram Helpers med veckodagar på svenska"
+    caption="Så här ser det ut i terminalen med menyalternativ 4."
     width="350px"
 />
 
