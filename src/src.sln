@@ -1,0 +1,48 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{B489D86D-A092-F0FF-8364-791CEC263EE7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{71E8FC54-35F8-08B8-A837-959740D18469}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "laromaterial", "laromaterial", "{DFDFD10C-4568-CCCB-4982-63852EB6D055}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kmom06", "kmom06", "{5123F189-8100-2C6F-F6B8-D4D44A65F058}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeExamples", "CodeExamples", "{F0335E68-F8C6-EFC7-4865-FCB8474A0CDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodBank", "content\docs\laromaterial\kmom06\CodeExamples\GoodBank\GoodBank.csproj", "{AFA15CCB-AC28-26AA-58A7-F172CADBE95E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadBank", "content\docs\laromaterial\kmom06\CodeExamples\BadBank\BadBank.csproj", "{46399560-FE86-FB05-6BFB-1E33A190401E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFA15CCB-AC28-26AA-58A7-F172CADBE95E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFA15CCB-AC28-26AA-58A7-F172CADBE95E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFA15CCB-AC28-26AA-58A7-F172CADBE95E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFA15CCB-AC28-26AA-58A7-F172CADBE95E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46399560-FE86-FB05-6BFB-1E33A190401E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46399560-FE86-FB05-6BFB-1E33A190401E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46399560-FE86-FB05-6BFB-1E33A190401E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46399560-FE86-FB05-6BFB-1E33A190401E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{71E8FC54-35F8-08B8-A837-959740D18469} = {B489D86D-A092-F0FF-8364-791CEC263EE7}
+		{DFDFD10C-4568-CCCB-4982-63852EB6D055} = {71E8FC54-35F8-08B8-A837-959740D18469}
+		{5123F189-8100-2C6F-F6B8-D4D44A65F058} = {DFDFD10C-4568-CCCB-4982-63852EB6D055}
+		{F0335E68-F8C6-EFC7-4865-FCB8474A0CDA} = {5123F189-8100-2C6F-F6B8-D4D44A65F058}
+		{AFA15CCB-AC28-26AA-58A7-F172CADBE95E} = {F0335E68-F8C6-EFC7-4865-FCB8474A0CDA}
+		{46399560-FE86-FB05-6BFB-1E33A190401E} = {F0335E68-F8C6-EFC7-4865-FCB8474A0CDA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE1D559D-7098-4D47-B1DA-72D46DA928E7}
+	EndGlobalSection
+EndGlobal
