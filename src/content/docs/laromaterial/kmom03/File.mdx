@@ -20,7 +20,7 @@ Tänk ett program som hanterar en shoppinglista med möjlighet att mata in produ
     width="500px"
 />
 
-## Filer i **C#**
+## Filer i C#
 
 Det finns olika alternativ för I/O-operationer på fil i C#. De vanligaste är att använda File-klassen samt StreamReader och StreamWriter.
 
@@ -212,8 +212,8 @@ För att testköra om metoden `Present` och därmed också metoden `Read` använ
 using FileApp.src;
 
 Simple shoppingList = new Simple("simpleList.txt"); 
-//shoppingList.Save("Testprodukt 3"); Kommentera bort denna rad
-//shoppingList.Save("EnAnnanTestprodukt 2"); Kommentera bort denna rad
+shoppingList.Save("Testprodukt 3"); Kommentera bort denna rad
+shoppingList.Save("EnAnnanTestprodukt 2"); Kommentera bort denna rad
 shoppingList.Present();
 ```
 
@@ -226,11 +226,8 @@ EnAnnanTestprodukt 2
 
 ```
 
-Då har vi testat att skriva ut innehållet i filen om det finns innehåll. Nu testar vi att ta bort raden "        Console.Write("\nAnge antal: ");
-        quantity = Console.ReadLine();
+Då har vi testat att skriva ut innehållet i filen om det finns innehåll. Nu testar vi att kommentera bort raderna som börjar med `shoppingList.Save` och kör igen.
 
-        string saveInput = product + " " + quantity;
-        shoppingList.Save(saveInput);
 Terminalen bör visa:
 
 ```shell
