@@ -1,23 +1,25 @@
-<div>
-  <img align="left" height="150" src="./../../images/leaf_256x256.png" alt="dbwebb leaf">
-  <img align="right" height="150" src="./../../images/bth_logotyp-tillagg_ENG_black.jpg" alt="BTH logo">
-</div>
-<br/><br/>
-<br/><br/>
-<br/><br/>
+---
+title: "Interface, Enum och Collections"
+description: Interface, Enum och Collections
+sidebar:
+    order: 4
+    hidden: true
+---
 
-# Interface & Collections
+import Figure from '@components/CustomFigure.astro';
 
 Den här artikeln tar upp "Interface", "Enum" och "Collections" i C#.
 
 
 ## Interface
 
-Interface i C# är ett annat sätt att uppnå abstraktion och används när vi vill definiera en uppsättning av metoder och/eller egenskaper utan att specificera implementationen. Det ger en ren abstraktion av funktionalitet och separerar kontraktet från implementationen. Olika klasser kan implementera samma gränssnitt på olika sätt. Detta ger en hög grad av flexibilitet och möjliggör lätt utbytbarhet av komponenter. C# stöder inte arv från flera klasser men vi kan använda eller ärva flera gränssnitt.
+Interface i C# är ett annat sätt att uppnå abstraktion och används när vi vill definiera en uppsättning av metoder och/eller egenskaper (properties) utan att specificera implementationen. Det ger en ren abstraktion av funktionalitet och separerar kontraktet från implementationen. Olika klasser kan implementera samma gränssnitt på olika sätt. Detta ger en hög grad av flexibilitet och möjliggör lätt utbytbarhet av komponenter. C# stöder inte arv från flera klasser men vi kan använda eller ärva flera gränssnitt.
 
-Till skillnad från en abstrakt klass som också har attribut och därmed kan spara ett tillstånd, så har interface endast metoder. En fördel med interface är att en klass kan implementera flera interface men bara en abstrakt klass. Från och med C# 8.0 kan metoderna i ett interface vara också vara privata. Innan dess var alla metoder publika. Vi specificerar att våra metoder ska vara publika.
+Till skillnad från en abstrakt klass som också har attribut och därmed kan spara ett tillstånd, så har interface endast metoder. En fördel med interface är att en klass kan implementera flera interface men bara en abstrakt klass. Från och med C# 8.0 kan metoder i ett interface även vara privata. De privata metoderna kan bara användas inom interfacet, och används som default-implementation (till exempel en metod som anropar en del av de andra metoderna i interfacet för att returnera en enhetligt sammansatt sträng som innehåller resultaten av anropen). Innan dess var alla metoder publika. Vi specificerar att våra metoder ska vara publika även om det är default.
 
 Hur vi strukturerar våra filer är olika beroende på hur projektet vi jobbar i vill ha det. I det här exemplet lägger vi interfacet under src-katalogen.
+
+## SE ÖVER EXEMPLET 
 
 ### Skapa ett interface **IVehicle**
 
@@ -54,7 +56,7 @@ Vi har redan all kod i huvudprogrammet och behöver bara köra `dotnet run`. Och
 
 Enums är en specialklass som representerar en grupp av konstanter. Enum kan användas inne i en klass. Första konstanten har värdet 0 och andra värdet 1 och så vidare men ska vi använda värdet så måste vi konvertera det till en int först. Ett användningsområde till enums är till switch-satser. Läs mer om [enums](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/enums).
 
-Det kan vara bra att specificera väderförhållandena, så att det inte matas in konstiga väder. Så istället för att mata in en sträng som beskriver vädret så ska en av dessa alternativ användas. Om enum-typen används av flera klasser så bör den vara i en egen fil och det blir lättare att hitta den. Men om enum-typen bara ska användas i en klass då kan den vara överst i samma fil som den klassen. Hur ska vi göra? Vi tänker att någon ska mata in detta värde antingen i ett terminalprogram eller via en dropdown meny på en webbsida och därför lägger vi den i en egen fil.
+Det kan vara bra att specificera väderförhållandena, så att det inte matas in konstiga väder. Så istället för att mata in en sträng som beskriver vädret så ska en av dessa alternativ användas. Om enum-typen används av flera klasser så bör den vara i en egen fil och det blir lättare att hitta den. Men om enum-typen bara ska användas i en klass då kan den vara överst i samma fil som klassen. Hur ska vi göra? Vi tänker att någon ska mata in detta värde antingen i ett terminalprogram eller via en dropdown meny på en webbsida och därför lägger vi den i en egen fil.
 
 ```csharp
 // sist i OoGuide/src/WeatherConditions.cs
@@ -68,10 +70,7 @@ public enum WeatherConditions
 }
 ```
 
-<details>
-<summary>
-
-### Kod och test för enum-typen WeatherConditions</summary>
+### Kod och test för enum-typen WeatherConditions
 
 Vi börjar med att uppdatera klassen **Weather** med följande kod:
 
@@ -142,13 +141,18 @@ Weather weather = new(currentWeather, 18, 8);
 raceTrack.AddWeather(weather);
 raceTrack.RunRace();
 ```
+## KOLLA KLASSDIAGRAMMET 
 
-</details>
+## Klassdiagram  
+  
+  
+import classdiagramRaceTrackInterface from '@assets/img/ooguide/classdiagramRaceTrackInterface.png';
 
-## Klassdiagram
-
-![Klassdiagram med interface och enum](./../../images/guide/classdiagramRaceTrackInterface.png "Klassdiagram med interface och enum.")  
-*Klassdiagram för hela racingbanan med interface IVehicle och enum Speed.*
+<Figure
+    src={classdiagramRaceTrackInterface}
+    caption="Klassdiagram för hela racingbanan med interface IVehicle och enum Speed"
+    width="700px"
+/>
 
 ## Koden för racerbanan
 
@@ -165,12 +169,12 @@ En collection eller samling på svenska i C# är en datastruktur som används f�
 
 Vanliga collections är:
 
-- List<T>; listor är en dynamisk array som där vi kan lägga till, ta bort och ändra element. Mer om [listor](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-9.0).
-- Dictionary<TKey, TValue>; en dynamisk samling med nyckel-värde par som är användbart för snabba uppslag med unika nycklar.
-- HashSet<T>; en samling med unika element utan specifik ordning. Används för snabb uppslagning.
-- Queue<T>; kö är en samling enligt FIFO (First-In-First-Out) och funkar som en kö i affären där vi ställer dig sist när vi kommer och den som står först i kön får betala först.
-- Stack<T>; stack är en samling enligt LIFO (Last-In-First-Out) som funkar som en hög med papper där vi lägger ett papper överst i högen och när vi hämtar ett papper så tar vi det översta.
-- LinkedList<T>; en länkad lista som effektivt kan infoga och ta bort element var som helst i listan.
+- `List<T>`; listor är en dynamisk array som där vi kan lägga till, ta bort och ändra element. Mer om [listor](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-9.0).
+- `Dictionary<TKey, TValue>`; en dynamisk samling med nyckel-värde par som är användbart för snabba uppslag med unika nycklar.
+- `HashSet<T>`; en samling med unika element utan specifik ordning. Används för snabb uppslagning.
+- `Queue<T>`; kö är en samling enligt FIFO (First-In-First-Out) och funkar som en kö i affären där vi ställer dig sist när vi kommer och den som står först i kön får betala först.
+- `Stack<T>`; stack är en samling enligt LIFO (Last-In-First-Out) som funkar som en hög med papper där vi lägger ett papper överst i högen och när vi hämtar ett papper så tar vi det översta.
+- `LinkedList<T>`; en länkad lista som effektivt kan infoga och ta bort element var som helst i listan.
 
 Läs mer om [Collections](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/collections).
 
