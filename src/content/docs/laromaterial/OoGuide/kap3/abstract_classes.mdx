@@ -1,0 +1,149 @@
+---
+title: "Abstrakta klasser"
+description: Abstrakta klasser med kodexempel
+sidebar:
+    order: 1
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+Vi har tidigare konstaterat att klasser är som ritningar för objekt. *Abstrakta klasser* är i sin tur som ritningar för andra klasser.
+
+Det går inte att skapa objekt av en abstrakt klass, utan syftet med abstrakta klasser är bland annat att definiera ett publikt gränssnitt (API) som subklasser måste implementera. Detta görs genom att i den abstrakta klassen deklarera metoder utan någon implementation (abstrakta metoder). Konsekvensen blir att subklasserna måste definiera, dvs implementera, dessa (annars har de ärvt de abstrakta metoderna och blir därmed själva abstrakta klasser). På detta sättet kan vi garantera att metoder som vi förväntar oss finns och det är upp till varje subklass att implementera funktionaliteten på det sätt som är specifikt för just den subklassen.
+
+
+Abstrakta klasser används för att tvinga subklasserna att implementera vissa metoder. Konceptet överskuggning (virtual/override) är i sig inte tvingande (man kan välja att överskugga virtuella metoder i subklassen), men när det gäller abstrakta metoder (som implicit även är virtuella) krävs en definition för att den ärvande klassen inte ska bli abstrakt. Abstrakta klasser används ofta som bas för att definiera en hierarki av relaterade klasser. De representerar ofta en generell idé eller ett koncept, medan konkreta subklasser specificerar detaljerna och tillämpar den allmänna funktionaliteten.
+
+
+## Skapa en abstrakt klass med abstrakta metoder
+
+Vi har fått information från ägaren till racingbanan att även andra fordon, som motorcyklar, ska kunna tävla där. Vi gör en abstract klass **Vehicle** och bestämmer att alla fordonen måste ha metoderna `GetPosition`, `Description` och `Move`. Dessutom vill ägaren till racingbanan ha en bild på alla fordon och kräver därför också metoden `PrintAsciiModel`.
+
+```csharp
+// i OoGuide/src/Vehicle.cs
+namespace OoGuide.src;
+
+public abstract class Vehicle
+{
+    public abstract int GetPosition();
+
+    public abstract void Description();
+
+    public abstract void Move();
+
+    public abstract string PrintAsciiModel(string pos = "");
+}
+```
+
+Fördelen med att skapa en abstrakt klass med dessa metoder är att alla fordon som ärver den abstrakta klassen **Vehicle** kan då köra på vår racerbana. Alla de klasser som ärver **Vehicle** kan då funka med klassen **RaceTrack**.
+
+Nu uppdaterar vi så att klassen **Car** ärver från den abstrakta klassen **Vehicle** och då måste **Car** implementera metoderna `GetPosition`, `Description`, `Move` och `PrintAsciiModel`. För tydlighets skull så markeras dessa metoder med override i **Car**. Metoderna `Description` och `Move` i klassen **Car** var "virtual" innan och för att förtydliga att dessa fortfarande ska överskuggas i subklasserna så lägger vi till en kommentar om det.
+
+```csharp
+// i OoGuide/src/Car.cs
+namespace OoGuide.src;
+
+public class Car : Vehicle
+...
+    public override void Description() // may be overridden in sub class
+    {
+        Console.WriteLine($"Bilen är en {_model} och kostar {_price} kr.");
+    }
+
+    public override void Move()
+    {
+        _position += (int)Math.Round(_speed);
+        PrintAsciiModel(new string(' ', _position));
+    }
+
+    // Asci art method
+    public override void PrintAsciiModel(string pos = "")
+    {
+        Console.WriteLine(AsciiArt.GetAsciiModel(GetType().Name, pos));
+    }
+}
+```
+
+Nu uppdaterar vi klassen **RaceTrack** så att den har en lista med objekt av typen **Vehicle** istället. Dessutom uppdaterar vi variabeln `_vehicles` till att heta `_vehicles` och `aCar` till `aVehicle`. Metoden `MoveCars` heter nu `MoveVehicles`. Det ser ut så här nu:
+
+```csharp
+// i OoGuide/src/RaceTrack.cs
+namespace OoGuide.src;
+
+class RaceTrack
+{
+    private const string NAME = "DBWEBB Racing track";
+    private const int MINIMUM_FINISH = 20;
+    private Weather? _weather = null; // null för att markera inget väder satt ännu
+    private List<Vehicle> _vehicles;
+    private int _finishLine;
+    private int _winnerIndex;
+
+    public RaceTrack(int _finishLine)
+    {
+        _finishLine = finishLine;
+        if (finishLine < RaceTrack.MINIMUM_FINISH)
+        {
+            _finishLine = RaceTrack.MINIMUM_FINISH;
+        }
+        _vehicles = new List<Vehicle>();
+        CreateRace();
+        _winnerIndex = -1; // negativt visar ingen vinnare
+    }
+
+    private void CreateRace()
+    {
+        string personData = "Säte läge: 3, Däcktemperatur: default, Chassi: default";
+        Vehicle vehicle1 = new Sport(personData, "Ferrari", 899000);
+        _vehicles.Add(vehicle1);
+        Vehicle vehicle2 = new Passenger("Volvo", 99000);
+        _vehicles.Add(vehicle2);
+        Vehicle vehicle3 = new ElSuv(627, 28, true, "Ford Capri", 464000);
+        _vehicles.Add(vehicle3);
+    }
+
+    ...
+
+    private void MoveVehicles()
+    {
+        PrintFinishLine();
+        foreach (var aVehicle in _vehicles)
+        {
+            if (_winnerIndex < 0)
+            {
+                aVehicle.Description();
+                aVehicle.Move();
+                PrintFinishLine(false);
+            }
+        }
+    }
+
+    ...
+```
+
+Vi anropar metoden `Move` utan att exakt veta vilken typ av objekt vi anropar `Move` på och det är en typ av *Polymorfism*.
+
+## Klassdiagram
+
+Med den nya abstrakta klassen **Vehicle** ser klassdiagrammet ut så här:
+
+import classdiagramRaceTrackAbstract from '@assets/img/ooguide/classdiagramRaceTrackAbstract.png';
+
+<Figure
+    src={classdiagramRaceTrackAbstract}
+    caption="Klassdiagram över Race med abstrakt klass"
+    width="500px"
+/>
+
+
+## Testkör racingbanan
+
+Innan vi går vidare vill vi testa att allt funkar genom att testköra racingbanan. Den ska funka precis som innan. Kör igång med `dotnet run`i katalogen OoGuide och denna gången har vi kanske en annan vinnare. Troligen inte, sportbilen har ju högre hastigheter.
+
+
+## Sammanfattning
+
+"Syftet med en abstrakt klass är att tillhandahålla en gemensam definition av en basklass som flera subklasser kan dela." allt enligt guiden [Abstract and Sealed Classes and Class Members (C# Programming Guide)](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/abstract-and-sealed-classes-and-class-members).
+
+Abstrakta klasser är bra att ha när vi vill att subklasserna, eller de härledda klasserna som de också kan kallas, ska ha en viss uppsättning attribut och metoder.

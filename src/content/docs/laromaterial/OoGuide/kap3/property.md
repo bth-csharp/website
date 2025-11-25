@@ -1,0 +1,291 @@
+---
+title: "Property"
+description: Property med kodexempel
+sidebar:
+    order: 2
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+# Automatic properties
+
+I C# finns något som heter automatimplementerade egenskaper (automatically implemented properties). En automatimplementerad egenskap (property) skapar vi genom att direkt efter vi deklarerar variabeln anger om det ska vara en egenskap, som ska kunna läsas, skriva i eller både ock. Vi kan också ange för varje egenskap om den är private, protected eller public.
+En property uppdateras genom punktnotation, till exempel `Klassnamn.NameOfProperty`.
+
+
+## Kodexempel
+
+Så här är ett exempel på hur det kan se ut. Vi gör en klass **Driver** som har de publika egenskaperna `Name`, `Team` och `Salary`. Eftersom att de är publika så har det stor bokstav först i namnet. `Name` och `Salary` har en getmetod som automatgenereras men ingen setmetod. Alltså kan vi hämta informationen i `Name` och `Salary` men inte ändra den. `Team` har både get- och set-metoder automatgenererade och kan då både läsas och uppdateras.
+
+```csharp
+// i OoGuide/src/Driver.cs
+namespace OoGuide.src;
+
+public class Driver 
+{
+    public string Name { get; }
+
+    public string Team { get; set; }
+    public int Salary { get; } // lön i svenska kronor
+
+
+    public Driver(string name, int salary)
+    {
+        Name = name;
+        Team = "ingen";
+        Salary = salary;
+    }
+
+    public string GetDriverInfo()
+    {
+        return $"Föraren heter {Name}, tillhör {Team} och har lönen {Salary} kr.";
+    }
+}
+```
+
+Lägg till följande kod i slutet av Program.cs för att testa den nya klassen **Driver**.
+
+```csharp
+// i OoGuide/Program.cs
+...
+// Testa automatgenererade properties
+Driver driver1 = new Driver("Max Verstappen", 1000000);
+Console.WriteLine(driver1.GetDriverInfo());
+// Ger utskriften: Föraren heter Max Verstappen, tillhör ingen och har lönen 1000000 kr.
+driver1.Team = "Red Bull Racing";
+Console.WriteLine(driver1.GetDriverInfo());
+// Ger utskriften: Föraren heter Max Verstappen, tillhör Red Bull Racing och har lönen 1000000 kr.
+```
+
+import classdiagramDriver from '@assets/img/ooguide/classdiagramDriver.png';
+
+<Figure
+    src={classdiagramDriver}
+    caption="Klassdiagram med klassen Driver"
+    width="200px"
+/>
+
+När vi deklarerar en egenskap enligt exemplet ovan så skapar kompilatorn ett privat, anonymt säkerhetskopieringsfält som bara kan nås via egenskapens get- och set-metod.
+
+
+## För- och nackdelar med automatimplementerade egenskaper
+
+### Fördelar
+
+- Kortare kod: Auto-implementerade egenskaper minskar mängden kod som behövs för att definiera en egenskap genom att eliminera behovet av att manuellt deklarera en privat variabel med get- och set-metoder.
+
+- Ökad läsbarhet: Den kortare syntaxen för auto-implementerade egenskaper gör koden mer koncis och läsbar.
+
+- Enklare underhåll: Genom att minska mängden kod minskar auto-implementerade egenskaper också mängden kod som måste underhållas. Detta kan leda till färre fel och enklare förståelse av koden.
+
+### Nackdelarna
+
+- Begränsad funktionalitet: Auto-implementerade egenskaper kan inte inkludera anpassad logik i getmetoden eller setmetoden. Om du senare behöver lägga till validering, konvertering eller annan logik i getmetoden eller settern, måste du konvertera den auto-implementerade egenskapen till en fullständigt manuell egenskap, vilket kan vara mer omständligt.
+
+- Ökad risk för överkodning: När utvecklare använder auto-implementerade egenskaper för att snabbt lägga till egenskaper i en klass kan det leda till överkodning, där onödig eller duplicerad kod skapas.
+
+- Kodunderhåll och felsökning: Auto-implementerade egenskaper kan ibland leda till svårigheter med underhåll och felsökning, särskilt när kraven på koden ändras över tiden. Om du behöver lägga till validering, logik för att kontrollera värden, eller andra funktioner i getmetoden eller setmetoden, kan du behöva omvandla den automatimplementerade egenskapen till en manuell egenskap, vilket kan kräva betydande arbete och risk för fel.
+
+- Begränsad flexibilitet: Auto-implementerade egenskaper kan vara mindre flexibla än manuella egenskaper.
+
+Sammanfattningsvis, automatimplementerade egenskaper i C# ger oss möjlighet att skapa enkla, koncisa egenskaper med minimal kod, samtidigt som du behåller inkapsling och möjligheten att dölja interna detaljer när det behövs.
+
+### God praxis för properties
+
+Properties ska vara enkla och förutsägbara och innehålla minimalt med logik.
+
+1. Använd get och set där det behövs
+
+```csharp
+public Name { get; set;}
+```
+
+2. Lägg till lite logik om det behövs.
+
+```csharp
+private int _age;
+public int Age
+{
+    get => _age;
+    set => _age = (value > 0) ? value : 0;
+}
+```
+
+3. Vanligt är att begränsa åtkomst med private till set
+
+```csharp
+public Salary { get; private set;}
+```
+
+4. Använd properties för att exponera och kontrollera åtkomst till data i en klass men attributen på en klass bör vara privata och lagra data.
+
+5. Properties kallas också för "smarta fält" (smart fields) eller smarta attribut eftersom de har samma syntax som attribut men med flexibiliteten hos metoder. Fält är egenskaper i en klass och vi kallar det också attribut.
+
+## Förare i vår racerbana
+
+Vi lägger till förare till vår racerbana. En abstrakt klass kan lagra ett tillstånd och alltså ha ett fält (attribut) med en förare. Vi låter den bli publik så att klassen **RaceTrack** sen kan skriva ut vilken förare som vann. Vi skapar ett **Driver** objekt med godtycklig indata.
+
+<details>
+<summary>
+
+### Kod och test för nya klassen Driver</summary>
+
+Så här ser **Vehicle** ut nu:
+
+```csharp
+// i OoGuide/src/Vehicle.cs
+namespace OoGuide.src;
+
+public abstract class Vehicle
+{
+    public Driver Driver { get; set; }
+
+    public Vehicle()
+    {
+        Driver = new Driver("tom", 0);
+    }
+
+    public abstract int GetPosition();
+    ...
+```
+
+Därefter uppdaterar vi klassen **RaceTrack** som läser in förarna från json-filen och skapar en lista med objekt av klassen **Driver**.
+
+```csharp
+// i OoGuide/src/RaceTrack.cs
+...
+    private int _winnerIndex;
+    private List<Driver> _drivers;
+
+    public RaceTrack(int finishLine)
+    {
+        _finishLine = finishLine;
+        if (finishLine < RaceTrack.MINIMUM_FINISH)
+        {
+            _finishLine = RaceTrack.MINIMUM_FINISH;
+        }
+        ReadDriversFromFile();
+        _vehicles = new List<Vehicle>();
+        CreateRace();
+        _winnerIndex = -1; // negativt visar ingen vinnare
+    }
+    ... 
+    private void ReadDriversFromFile()
+    {
+        string jsonData = "";
+
+         _drivers = new List<Driver>();
+        if (File.Exists("drivers.json"))
+        {
+            // Läs JSON från filen
+            using (StreamReader reader = new StreamReader("drivers.json"))
+            {
+                jsonData = reader.ReadToEnd();
+            }
+
+            // Konvertera JSON till objekt
+            _drivers = JsonSerializer.Deserialize<List<Driver>>(jsonData) ?? new List<Driver>();
+        }
+    }
+
+    public void PresentDrivers()
+    {
+        string info = "Racet innehåller inga förare!";
+
+        if (_drivers.Count > 0)
+        {
+            info = "Racet innehåller följande förare:";
+        }
+        Console.WriteLine(info);
+        foreach (var driver in _drivers)
+        {
+            Console.WriteLine(driver.GetDriverInfo());
+        }
+        Console.WriteLine("Förare från _vehicles:");
+    }
+    ...
+```
+
+För att verifiera att förarna läses in på rätt sätt så implementerar vi metoden `PresentDrivers` som skriver ut alla förare. Vi testar koden i huvudprogrammet. Observera att metoden `RunRace` är utkommenterad och testerna av klassen **Driver** borttagna.
+
+```csharp
+// i OoGuide/Program.cs
+using OoGuide.src;
+
+RaceTrack raceTrack = new RaceTrack(100);
+Weather weather = new Weather("Soligt", 18, 8);
+
+raceTrack.AddWeather(weather);
+//raceTrack.RunRace();
+raceTrack.PresentDrivers();
+// ger utskriften:
+// Föraren heter Lewis Hamilton, tillhör Ferrari och har lönen 579450000 kr.
+// Föraren heter Max Verstappen, tillhör Red Bull Racing och har lönen 627737500 kr.
+// Föraren heter Charles Leclerc, tillhör Ferrari och har lönen 328355000 kr.
+```
+
+Bra nu vet vi att inläsningen av förare funkar. Då vill vi lägga till en förare till varje fordon och dessutom skriva ut vilken förare som vann.
+
+```csharp
+// i OoGuide/src/RaceTrack.cs
+...
+    private void CreateRace()
+    {
+        string personData = "Säte läge: 3, Däcktemperatur: default, Chassi: default";
+        Vehicle vehicle1 = new Sport(personData, "Ferrari", 899000);
+        vehicle1.Driver = _drivers[0];
+        _vehicles.Add(vehicle1);
+        Vehicle vehicle2 = new Passenger("Volvo", 99000);
+        vehicle2.Driver = _drivers[1];
+        _vehicles.Add(vehicle2);
+        Vehicle vehicle3 = new ElSuv(627, 28, true, "Ford Capri", 464000);
+        vehicle3.Driver = _drivers[2];
+        _vehicles.Add(vehicle3);
+    }
+    ... 
+    public void RunRace()
+    {
+        while (_winnerIndex < 0)
+        {
+            Console.Clear(); // Rensar terminalen
+            Description();
+            MoveVehicles();
+            CheckIfFinished();
+            Thread.Sleep(100); // Pausar i 0,1 sekunder för att vi ska se förflyttningarna
+        }
+        Console.WriteLine("\n\nVINNAREN:");
+        Console.WriteLine(_vehicles[_winnerIndex].Driver.GetDriverInfo());
+        _vehicles[_winnerIndex].Description();
+    }
+    ...
+```
+
+```csharp
+// i OoGuide/Program.cs
+using OoGuide.src;
+
+RaceTrack raceTrack = new RaceTrack(100);
+Weather weather = new Weather("Soligt", 18, 8);
+
+raceTrack.AddWeather(weather);
+raceTrack.PresentDrivers();
+raceTrack.RunRace();
+```
+
+Ja, nu ser det ut som innan med tillägget att vinnande förare skrivs ut.
+
+</details>
+
+## Klassdiagram
+
+Med den nya klassen **Driver** som innehåller properties ser klassdiagrammet ut så här:
+
+![Klassdiagram med den nya klassen Driver](./../../images/guide/classdiagramRaceTrackProperty.png "Klassdiagram med den nya klassen Driver.")  
+*Klassdiagram med den nya klassen Driver tillsammans med RaceTrack, Car samt subklasserna Passenger, Sport, Suv och ElSuv.*
+
+## Sammanfattning
+
+Ett vanligt sätt är att låta getmetoden vara publik medan setmetoden är privat. Properties används särskilt i publika API:er men även i JSON-objekt.
+
+För en längre och lite mer djupgående förklaring av `Properties` kan ni läsa [Properties (C# Programming Guide)](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/properties).

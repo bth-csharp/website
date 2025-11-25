@@ -1,0 +1,183 @@
+<div>
+  <img align="left" height="150" src="./../../images/leaf_256x256.png" alt="dbwebb leaf">
+  <img align="right" height="150" src="./../../images/bth_logotyp-tillagg_ENG_black.jpg" alt="BTH logo">
+</div>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+
+# Interface & Collections
+
+Den här artikeln tar upp "Interface", "Enum" och "Collections" i C#.
+
+
+## Interface
+
+Interface i C# är ett annat sätt att uppnå abstraktion och används när vi vill definiera en uppsättning av metoder och/eller egenskaper utan att specificera implementationen. Det ger en ren abstraktion av funktionalitet och separerar kontraktet från implementationen. Olika klasser kan implementera samma gränssnitt på olika sätt. Detta ger en hög grad av flexibilitet och möjliggör lätt utbytbarhet av komponenter. C# stöder inte arv från flera klasser men vi kan använda eller ärva flera gränssnitt.
+
+Till skillnad från en abstrakt klass som också har attribut och därmed kan spara ett tillstånd, så har interface endast metoder. En fördel med interface är att en klass kan implementera flera interface men bara en abstrakt klass. Från och med C# 8.0 kan metoderna i ett interface vara också vara privata. Innan dess var alla metoder publika. Vi specificerar att våra metoder ska vara publika.
+
+Hur vi strukturerar våra filer är olika beroende på hur projektet vi jobbar i vill ha det. I det här exemplet lägger vi interfacet under src-katalogen.
+
+### Skapa ett interface **IVehicle**
+
+```csharp
+// i OoGuide/src/IVehicle.cs
+public interface IVehicle
+{
+    public int GetPosition();
+    public void Description();
+    public void Move();
+    public void PrintAsciiModel(string pos = "");
+}
+```
+
+Namn på interface bör starta med ett stort I, därav **IVehicle**. Medlemmar i interface, här `GetPosition`, `Description`, `Move` och `PrintAsciiModel`, är per default *public* och *abstract*.  Vi specificerar att våra metoder ska vara publika för tydlighets skull.
+
+### Uppdatera **Car** med interfacet **IVehicle**
+
+Klassen **Car** kan implementera en abstrakt klass och flera interface samtidigt. I detta fallet är abstrakta klassen **Vehicle** och interfacet **IVehicle** väldigt lika men för att visa hur det kan se ut så lägger vi till interfacet.
+
+```csharp
+// i OoGuide/src/Car.cs
+namespace OoGuide.src;
+
+public class Car : Vehicle, IVehicle
+...
+```
+
+### Testa racerbanan med interface
+
+Vi har redan all kod i huvudprogrammet och behöver bara köra `dotnet run`. Och det funkar precis som innan men det beror ju på att klassen **Car** redan har implementerat metoderna i interfacet **IVehicle**. Lägger vi till en ny metod i interfacet så måste vi också implementera den metoden i **Car**.
+
+## Enums
+
+Enums är en specialklass som representerar en grupp av konstanter. Enum kan användas inne i en klass. Första konstanten har värdet 0 och andra värdet 1 och så vidare men ska vi använda värdet så måste vi konvertera det till en int först. Ett användningsområde till enums är till switch-satser. Läs mer om [enums](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/enums).
+
+Det kan vara bra att specificera väderförhållandena, så att det inte matas in konstiga väder. Så istället för att mata in en sträng som beskriver vädret så ska en av dessa alternativ användas. Om enum-typen används av flera klasser så bör den vara i en egen fil och det blir lättare att hitta den. Men om enum-typen bara ska användas i en klass då kan den vara överst i samma fil som den klassen. Hur ska vi göra? Vi tänker att någon ska mata in detta värde antingen i ett terminalprogram eller via en dropdown meny på en webbsida och därför lägger vi den i en egen fil.
+
+```csharp
+// sist i OoGuide/src/WeatherConditions.cs
+public enum WeatherConditions
+{
+    Soligt, // 0
+    Halvklart, // 1
+    Molnigt, // 2
+    Regn, // 3
+    Skyfall // 4
+}
+```
+
+<details>
+<summary>
+
+### Kod och test för enum-typen WeatherConditions</summary>
+
+Vi börjar med att uppdatera klassen **Weather** med följande kod:
+
+```csharp
+// i OoGuide/src/Weather.cs
+namespace OoGuide.src;
+
+public class Weather
+{
+    private WeatherConditions _type;
+    private double _temperature;
+    private double _wind;
+
+    public Weather(WeatherConditions type, double temperature, double wind)
+    {
+        this._type = type;
+        this._temperature = temperature;
+        this._wind = wind;
+    }
+    ...
+    public Update(WeatherConditions type, double temperature, double wind)
+    {
+        // borde hämta infon från någon vädersida istället 
+        this._type = type;
+        this._temperature = temperature;
+        this._wind = wind;
+    }
+}
+```
+
+Därefter testar vi den uppdaterade klassen **Weather** i huvudprogrammet:
+
+```csharp
+// i OoGuide/Program.cs
+using OoGuide.src;
+
+RaceTrack raceTrack = new(100);
+// Vi skapar en variabel av enum-typen WeatherConditions och skriver ut dess värden.
+WeatherConditions currentWeather = WeatherConditions.Soligt;
+Console.WriteLine($"enum: {currentWeather.ToString()} och har värdet {(int)currentWeather}.");
+// ger utskriften: enum: Soligt och har värdet 0.
+
+// Vi skapar ett nytt väderobjekt med variabeln currentWeather och skriver ut dess prognos.
+Weather weather = new(currentWeather, 18, 8);
+Console.WriteLine(weather.GetForecast());
+// ger utskriften: Väder: Soligt, 18 grader och 8 m/s.
+
+// Vi kan använda enum-typen direkt som inparameter också. Vi uppdaterar vårt
+// väderobjekt och skriver ut dess prognos.
+weather.Update(WeatherConditions.Halvklart, 15, 4);
+Console.WriteLine(weather.GetForecast());
+// ger utskriften: Väder: Halvklart, 15 grader och 4 m/s.
+// raceTrack.AddWeather(weather);
+// raceTrack.PresentDrivers();
+// raceTrack.RunRace();
+```
+
+Nu vet vi att enum-typen funkar som vi tänkt oss och då rensar vi i huvudprogrammet och testkör igen.
+
+```csharp
+// i OoGuide/Program.cs
+using OoGuide.src;
+
+RaceTrack raceTrack = new(100);
+WeatherConditions currentWeather = WeatherConditions.Soligt;
+Weather weather = new(currentWeather, 18, 8);
+
+raceTrack.AddWeather(weather);
+raceTrack.RunRace();
+```
+
+</details>
+
+## Klassdiagram
+
+![Klassdiagram med interface och enum](./../../images/guide/classdiagramRaceTrackInterface.png "Klassdiagram med interface och enum.")  
+*Klassdiagram för hela racingbanan med interface IVehicle och enum Speed.*
+
+## Koden för racerbanan
+
+Så här ser det ut när vi kör programmet i terminalen:
+
+[![asciicast](https://asciinema.org/a/Oqqp8s1UNkxH8gXNy1RcuJTHe.svg)](https://asciinema.org/a/Oqqp8s1UNkxH8gXNy1RcuJTHe)
+
+Koden i sin helhet ligger i katalogen med kodexempel under [CodeExamples/kmom06/OoGuide](./../../CodeExamples/kmom06/OoGuide).
+
+
+## Collections
+
+En collection eller samling på svenska i C# är en datastruktur som används för att lagra och hantera objekt. En generisk typparameter markerar vi med T (stort T) och det innebär att detta kan funka för vilken typ som helst. Vi behöver inte specificera typen om vi använder T.
+
+Vanliga collections är:
+
+- List<T>; listor är en dynamisk array som där vi kan lägga till, ta bort och ändra element. Mer om [listor](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-9.0).
+- Dictionary<TKey, TValue>; en dynamisk samling med nyckel-värde par som är användbart för snabba uppslag med unika nycklar.
+- HashSet<T>; en samling med unika element utan specifik ordning. Används för snabb uppslagning.
+- Queue<T>; kö är en samling enligt FIFO (First-In-First-Out) och funkar som en kö i affären där vi ställer dig sist när vi kommer och den som står först i kön får betala först.
+- Stack<T>; stack är en samling enligt LIFO (Last-In-First-Out) som funkar som en hög med papper där vi lägger ett papper överst i högen och när vi hämtar ett papper så tar vi det översta.
+- LinkedList<T>; en länkad lista som effektivt kan infoga och ta bort element var som helst i listan.
+
+Läs mer om [Collections](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/collections).
+
+## Sammanfattning
+
+I det här kapitlet har vi pratat om:
+
+- interface, är en klass vars namn börjar på *I* och innehåller metoder som ska implementeras av de klasser som vill använda interfacet. Läs mer om [Interface](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/types/interfaces).
+- enum, en specialklass som representerar en grupp av konstanter.
+- collections, som listor och dictionary.
