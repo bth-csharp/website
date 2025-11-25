@@ -1,0 +1,96 @@
+---
+title: "Testplanering"
+description: Tolka kraven och planera testningen
+sidebar:
+    order: 2
+    hidden: true
+---
+
+
+Det viktigt att tolka kraven och planera enhetstester för att säkerställa att vårt program blir fritt från buggar samt lätt att vidareutveckla och underhålla. I den här kursen utvecklar vi enhetstester. Enhetstester hjälper oss att hitta buggar tidigt och säkerställer att programmet följer kraven.
+
+
+## Förstå kraven
+
+Det är viktigt att gå igenom kraven på programmet ordentligt innan vi börjar koda. Det är en viktig del av utvecklingsprocessen.
+
+
+### Olika sätt att förstå kraven bättre
+
+Förmågan att tolka krav är något som utvecklas ju mer vi tränar på det och tränar på att programmera. Nedan beskrivs olika sätt som kan hjälpa till att tolka krav. Ofta används de olika sätten i kombination med varandra.
+
+
+#### Vad ska programmet göra?
+
+Genom att ta reda på hur programmet ska funka och vad det ska göra så är det enklare att förstå kraven. Ta reda på hur programmet ska användas ur användarens perspektiv. Ett sätt att är att göra beteendediagram som [Use case diagram](/website/laromaterial/kmom03/beteendediagram). En användare kan vara en person men också en annan klass.
+
+
+#### Dela upp kraven
+
+Genom att dela upp kraven i mindre krav så kan kraven ofta lättare att förstå.
+
+
+#### Prototyping
+
+Ibland kan vi behöva koda lite för att få en uppfattning om programmet och hur designen ska se ut.
+
+
+#### Omformulera
+
+Det hjälper att skriva av kraven med egna ord. Genom att omformulera dem får vi en större förståelse.
+
+
+## Vad är bra enhetstester?
+
+Bra enhetstester hjälper oss att verifiera en specifik del av koden och ger återkoppling på om koden funkar eller inte. Vid vidareutveckling så är enhetstesterna en stor hjälp för att se att den ursprungliga funktionaliteten fortfarande funkar.
+
+Ett bra enhetstest:
+
+- har ett beskrivande namn och innehåller meningsfulla tester
+- har en bra dokumentation så att andra utvecklare lätt kan förstå testet
+- är litet och oberoende av andra tester
+- har testdata som är verklig och ser ut som när programmet körs
+- testar undantag och gränser
+
+
+### Hur blir vi bättre på att tolka kraven?
+
+Vi blir bättre på att tolka krav med mer erfarenhet och genom att diskutera med kollegor. När vi omformulerar kraven så får vi också en större förståelse.
+
+Visualisera kraven genom diagram och bilder. Det är också viktigt med återkoppling (feedback) och att vi lär av våra misstag.
+
+Ofta behöver vi öka vårt tekniska kunnande för att förstå kraven. Dessutom är det bra att titta på och lära från andra projekt.
+
+
+## Gör en testplan
+
+I en testplan beskriver vi vilket testverktyg du ska använda och vad vi ska testa. Testplanen bör för varje testfall förutsättningar (arrange), beskriva hur vi gör (act) och vad utfallet ska bli (assert). Testplanen ska visa att kraven som ställs på det vi ska testa är uppfyllda. Helst ska testfallen vara automatiska men om det finns manuella testfall så ska det också beskrivas i testplanen.
+
+Det är lämpligt att göra en testplan som en tabell. Det blir överskådligt. Om vi känner till koden så gör vi en tabell per klass, annars gör vi en tabell för hela programmet. Ibland väljer vi att dela upp det i en tabell med positiva testfall och en med negativa testfall.
+
+
+### Exempel på hur en testplan kan se ut
+
+| Testfall | Beskrivning | Väntat resultat | Status | Kommentarer |
+|--------|---------|----------------------|--------- |------ |
+| Testfallets namn | Tillstånd (arrange) och vad som ska göras i testfallet (act) | Vilket resultat förväntas (assert) | Ok/inte ok | Vilket krav vi testar. Kommentarer |
+
+Kolumnen "Kommentarer" kan delas upp i "Krav" och "Kommentarer" också. Det är viktigt att visa vilket krav eller vilka krav som testas i testfallet. Exempel på kommentarer kan vara ett oväntat beteende, om vi hittat ett fel som faktiskt kräver ändring av kraven eller att testfallet behöver göras om. Om det finns manuella tester, finns ofta en kolumn för att visa vem som gjort dem.
+
+
+### Exempel på hur även bra planerade testfall kan gå fel
+
+- Testfallet kan vara otillräckliga eller ha dålig testtäckning vilket gör att vi tror att koden är korrekt.
+- Testfallet funkar bra i utvecklingsmiljön men kanske inte i produktionsmiljön.
+- Testfallet kan vara dåligt isolerade från andra tester eller operativsystemet vilket kan ge inkonsekventa resultat.
+- Testfallet går fel för att det funkar bara vid vissa tidpunkter eller datum.
+- Kraven har uppdaterats men inte testfallen.
+- Komplexa program med flera beroenden kan vara svårt att återskapa i ett testfall.
+
+
+## Sammanfattning
+
+Nu har vi tittat på planering av enhetstestning:
+
+- förstå kraven
+- göra en testplan

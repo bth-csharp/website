@@ -1,0 +1,124 @@
+---
+title: "Testplan - Bankexemplet"
+description: Gör en testplan för bankexemplet
+sidebar:
+    order: 3
+    hidden: true
+---
+
+
+Vi använder NUnit för vår enhetstestning och våra tester ska vara automatiska. Vi testar ett programmet med Banken som vi tittat på tidigare i kursen.
+Vi börjar med att tolka kraven, sen tittar vi på klassdiagrammen och sen beteendediagrammen för att bättre förstå vad som ska testas.
+
+
+## Kraven för Bank
+
+1. Utvecklas objektorienterat i C#
+2. Banken har ett namn.
+3. Varje konto har ett 6-siffrigt nummer som unikt identifierar bankkontot.
+4. Banken skapar konto med ägarens namn och initiala saldo.
+5. Banken ska skriva ut information om antalet kontot, alla konton och konton som tillhör en viss ägare samt saldot för ett visst konto.
+6. Banken accepterar insättningar med positiva summor.
+7. Banken accepterar uttag. Uttag kan inte resultera i ett negativt saldo.
+8. Det initiala saldot måste vara positivt, annars skapas inte kontot.
+9. Olika konton har olika händelser varje månad. InterestAccount ökar saldot med en ränta.
+10. Olika konton har olika händelser varje månad. PayrollAccount tar ut en avgift.
+
+
+### Förstå och bearbeta kraven
+
+#### Vad ska programmet göra?
+
+Här kan visualisering av use case som skapa konto hjälpa, se [Beteendediagram](/website/laromaterial/kmom03/beteendediagram). Ta reda på vad som ska hända vid insättning och uttag. Vad innebär det att göra ett uttag? Vid ett uttag så ska ägaren till kontot tala om hur mycket pengar den vill ta ut. Banken vill kolla att kontot finns och att det finns pengar på kontot innan uttaget av pengarna kan ske.
+
+
+#### Dela upp kraven
+
+Genom att dela upp kraven i mindre krav blir det också enklare att planera enhetstester för kraven. Ta till exempel krav 5 där en massa information ska skrivas ut. Det skulle kunna delas upp i delkrav:
+
+Krav 5. Banken ska skriva ut information om:
+
+  * Krav 5.1 antalet kontot
+  * Krav 5.2 alla konton
+  * Krav 5.3 konton som tillhör en viss ägare.
+  * Krav 5.4 skriva ut saldot för ett konto
+
+
+#### Omformulera
+
+Vi provar att omformulera krav 7 om uttag. Det ser ut så här:
+
+Krav 7. Banken accepterar uttag. Uttag kan inte resultera i ett negativt saldo.
+
+Efter omformulering kan det se ut så här:
+
+Krav 7. Vi kan göra uttag av pengar i banken. Vi kan bara ta den summa vi har på kontot, inte ett större belopp än som finns på kontot.
+
+När vi formulerar om kravet märker vi att det inte står något i kravet om vi försöker ta ut ett negativt belopp. Här borde kravet uppdateras med att vi ska kunna ta ut positiva belopp.
+
+
+### Designen för Bank
+
+Vi känner till designen av programmet **MyBank** som består av med 4 klasser; **Bank**, **BankAccount**, **InterestAccount** och **PayrollAccount**. Det är viktigt att varje klass har en egen testklass som testar den för att säkerställa funktionaliteten vid refaktorering och vidareutveckling. Även om testfall för **BankAccount** testar även subklasser så är det viktigt att subklasserna **InterestAccount** och **PayrollAccount** har sina egna testfall.
+
+
+### Testplan för Bank
+
+Alla testfall testar krav 1 eftersom programmet är utvecklat i C#.
+
+#### Testfall för klassen Bank
+
+| Testfall | Beskrivning | Väntat resultat | Status | Kommentarer |
+|--------|---------|----------------------|--------- |------ |
+| TestCreateBank | Skapa en bank med namn | En instans skapas. Verifiera rätt namn och noll konton. | Ok/inte ok | Krav 2 |
+| TestDescription | Skapa en bank med namn | En instans skapas. Verifiera att beskrivningen som skrivs ut är rätt. O konton.| Ok/inte ok | Krav 2 & 5 |
+| TestAddAccounts | Skapa en bank med namn. Lägg till 2 konton. Mocka kontona. | En instans skapas. Verifiera rätt namn och 2 konton. | Ok/inte ok | Krav 4 |
+| TestPrintAccountInfo | Skapa en bank med namn. Lägg till 2 konton. Mocka kontona. | En instans skapas. Verifiera att de 2 kontonas information skrivs ut. | Ok/inte ok | Krav 5 |
+| TestGetBankAccounts-ForOwner | Skapa en bank med namn. Lägg till 3 konton varav 2 med samma ägare. Mocka kontona. | En instans skapas. Verifiera att en lista med ägarens 2 konton returneras. | Ok/inte ok | Krav 5 |
+| TestGetBankAccounts-ForOwnerNegative | Skapa en bank med namn. Lägg till 3 konton varav 2 med samma ägare. Mocka kontona. | En instans skapas. Verifiera att en lista som returneras är tom då vi har en ägare utan konton. | Ok/inte ok | Krav 5 |
+| TestPrintAccountInfo-ForOwner | Skapa en bank med namn. Lägg till 3 konton varav 2 med samma ägare. Mocka kontona. | En instans skapas. Verifiera att information om ägarens 2 kontonas skrivs ut. | Ok/inte ok | Krav 5 |
+| TestPrintBalance | Skapa en bank med namn. Lägg till 2 konton. Mocka kontona. | En instans skapas. Verifiera att 2 konton skapats och att saldot för ena kontot skrivs ut. | Ok/inte ok | Krav 5 |
+| TestPrintBalance-Negative | Skapa en bank med namn. Lägg till 2 konton. Mocka kontona. | En instans skapas. Verifiera att 2 konton skapats och att saldot för ett kontot som inte finns inte skrivs ut. | Ok/inte ok | Krav 5 |
+
+
+#### Testfall för klassen BankAccount
+
+| Testfall | Beskrivning | Väntat resultat | Status | Kommentarer |
+|--------|---------|----------------------|--------- |------ |
+| TestCreateBankAccount | Skapa ett bankkonto med ägare och positivt saldo | En instans skapas. Verifiera rätt ägare och saldo. | Ok/inte ok | Krav 4 |
+| TestCreateBankAccountNegative | Skapa ett bankkonto med ägare och negativt saldo | En instans skapas inte och ett exception fångas. Exception heter CreateBankAccountException och lämnar meddelandet "Bank account must be created with balance >= 0." | Ok/inte ok | Krav 4 & 8 |
+| TestCheckUniqueBankAccountNumber | Skapa 2 bankkonton med ägare och positiva saldon | 2 instanser skapas. Verifiera att dess kontonummer inte är lika | Ok/inte ok | Krav 3 |
+| TestPrintBankAccountDescription | Skapa ett bankkonto med ägare och positivt saldo. Skriv ut dess beskrivning. | En instans skapas med rätt ägare och saldo. Verifiera att beskrivningen är rätt. | Ok/inte ok | Krav 5 |
+| TestCreateBankAccount | Skapa ett bankkonto med ägare och positivt saldo | En instans skapas med rätt ägare och saldo | Ok/inte ok | Krav 4 |
+| TestDeposit | Skapa ett bankkonto med ägare och positivt saldo. Sätt in en positiv summa. | En instans skapas med rätt ägare och saldo. Verifiera att saldot ökat med summan som sattes in. | Ok/inte ok | Krav 6 |
+| TestDepositNegative | Skapa ett bankkonto med ägare och positivt saldo. Sätt in en negativ summa. | En instans skapas med rätt ägare och saldo. Verifiera att saldot inte ändras. | Ok/inte ok | Krav 6 |
+| TestWithdraw | Skapa ett bankkonto med ägare och positivt saldo. Ta ut en positiv summa som finns på kontot. | En instans skapas med rätt ägare och saldo. Verifiera att saldot minskat med summan som tagits ut. | Ok/inte ok | Krav 7 |
+| TestWithdrawNegative | Skapa ett bankkonto med ägare och positivt saldo. Ta ut en positiv summa som är större än den som finns på kontot. | En instans skapas med rätt ägare och saldo. Verifiera att saldot är oförändrat. | Ok/inte ok | Krav 7 |
+
+
+#### Testfall för klassen InterestAccount
+
+| Testfall | Beskrivning | Väntat resultat | Status | Kommentarer |
+|--------|---------|----------------------|--------- |------ |
+| TestInterestAccount | Skapa ett InterestAccount med ägare och saldo | En instans skapas. Verifiera rätt ägare och saldo. | Ok/inte ok | Krav 2 |
+| TestPrintDescription | Skapa ett InterestAccount med ägare och positivt saldo. Skriv ut dess beskrivning. | En instans skapas med rätt ägare och saldo. Verifiera att beskrivningen är rätt. | Ok/inte ok | Krav 2 & 5 |
+| TestPerformMonthEndTransactions | Skapa ett InterestAccount med ägare och saldo mindre än 100m. Utför PerformMonthEndTransactions | En instans skapas. Verifiera att saldot ökat med räntan 0.0015m. | Ok/inte ok | Krav 9 |
+| TestPerformMonthEndTransactionsBig | Skapa ett InterestAccount med ägare och saldo mer än 100m. Utför PerformMonthEndTransactions | En instans skapas. Verifiera att saldot ökat med räntan 0.02m. | Ok/inte ok | Krav 9 |
+
+
+#### Testfall för klassen PayrollAccount
+
+| Testfall | Beskrivning | Väntat resultat | Status | Kommentarer |
+|--------|---------|----------------------|--------- |------ |
+| TestInterestAccount | Skapa ett PayrollAccount med ägare och saldo | En instans skapas. Verifiera rätt ägare och saldo. | Ok/inte ok | Krav 2 |
+| TestPrintDescription | Skapa ett PayrollAccount med ägare och positivt saldo. Skriv ut dess beskrivning. | En instans skapas med rätt ägare och saldo. Verifiera att beskrivningen är rätt. | Ok/inte ok | Krav 2 & 5 |
+| TestPerformMonthEndTransactions | Skapa ett PayrollAccount med ägare och saldo mindre än 100m. Utför PerformMonthEndTransactions | En instans skapas. Verifiera att saldot är samma, ingen avgift ska tas ut. | Ok/inte ok | Krav 10 |
+| TestPerformMonthEndTransactionsBig | Skapa ett PayrollAccount med ägare och saldo mer än 100m. Utför PerformMonthEndTransactions | En instans skapas. Verifiera att saldot minskat med avgiften 0.001m. | Ok/inte ok | Krav 10 |
+
+
+## Sammanfattning
+
+Nu har vi tittat på planering av enhetstestning:
+
+- förstå kraven genom Use case och visualisering, delkrav och omformulering
+- göra en testplan, en testplan per klass

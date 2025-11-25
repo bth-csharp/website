@@ -1,0 +1,666 @@
+---
+title: "C# - testning del 2"
+description: Fördjupning i enhetstestning i NUnit och träna på att skriva enhetstester
+sidebar:
+    order: 2
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+
+Nu ska vi fördjupa oss i enhetstestning i NUnit och träna på att skriva enhetstester. I [C# - testning](/website/laromaterial/kmom02/testningdel1) gick vi igenom enhetstestning, hur vi skapade ett testprojekt med några enhetstester samt körde testerna. Läs igenom den artikeln som repetition.
+
+Anledningen till att vi enhetstestar är att verifiera att vårt program gör det som kraven specificerar. klassen med dess attribut och metoder gör det den ska. Enhetstester säkerställer att varje del av koden fungerar som den ska. Dessutom har flera studier visat att ju tidigare vi hittar buggarna desto billigare blir utvecklingskostnaden. Enhetstesterna kan ses som en slags dokumentation på vad klassen gör.
+
+import nunitLogo from '@assets/nunitLogo.png';
+
+<Figure
+    src={nunitLogo}
+    height="150px"
+    width="150px"
+    float="right"
+/>
+
+Nackdelen är att utvecklingen tar lite längre tid och att det kräver kunskap om C# koden, kraven och NUnit för att skriva testfall.
+
+
+## NUnit
+
+[NUnit](https://nunit.org/) är ett open-source testramverk för enhetstestning och användbart för C# och andra .NET-språk. Med NUnit skapar vi ett testprojekt med testklasser. Vi har en eller flera testklasser för en klass. NUnit erbjuder ett testbibliotek med konstruktioner för att skapa tester och för att verifiera med assertmetoder.
+
+NUnit projektet är en del av .NET Foundation som ger vägledning och stöd för att säkerställa NUnits projektets framtid. Aktuell version är NUnit 3 som skapades av Charlie Poole, Rob Prouse, Simone Busoli och Neil Colvin samt flera andra har bidragit till förbättringar.
+
+I vårt fall så har vi valt NUnit för vår enhetstestning och våra tester ska vara automatiska. Vi testar ett program med 4 klasser; **Bank**, **BankAccount**, **InterestAccount** och **PayrollAccount**.
+
+
+## Information om testfall
+
+Vi skriver testfall genom att:
+
+1. skapa ett tillstånd (Arrange)
+1. utföra en eller flera handlingar (Act)
+1. verifiera utfallet (Assert).
+
+
+### Attribut
+
+Olika attribut identifierar testklasser och testmetoder. Här är några exempel:
+
+- **TestFixture**, identifierar att klassen är en testklass
+- **Test**, identifierar att det är en testmetod
+- **TestCase**, identifierar att det är en testmetod med inparametrar
+- **Setup**, identifierar en metod som körs före varje testfall
+- **Teardown**, identifierar en metod som körs efter varje testfall
+- **OneTimeSetup**, identifierar en metod som körs en gång först i testklassen
+- **OneTimeTearDown**, identifierar en metod som körs en gång sist i testklassen
+
+Här är [beskrivningar av alla attribut](https://docs.nunit.org/articles/nunit/writing-tests/attributes.html).
+
+
+### Assertions
+
+Vi kommer att använda den nyare modellen, "Constraint model" då den har tydligare felmeddelanden och fortfarande är under utveckling. I NUnit är använder vi "constraints" för att verifiera ett utfall (assertion). Några exempel på användbara "constraints":
+
+- **Equal**, jämför om värden är lika. Exemplen nedan visar fler "constraints" **Not** och **IgnoreCase**.
+
+```csharp
+Assert.That(2 + 2, Is.EqualTo(4.0));
+Assert.That(2 + 2, Is.Not.EqualTo(5));
+Assert.That("Hello!", Is.Not.EqualTo("HELLO!"));  // Not constraint
+Assert.That("Hello!", Is.EqualTo("HELLO!").IgnoreCase); // IgnoreCase constrain
+```
+
+- **True**, verifierar om något är sant och det finns **False** som verifierar om något är falskt.
+
+```csharp
+flag = true;
+Assert.That(flag, Is.True); // testfallet går rätt
+Assert.That(flag, Is.False); // testfallet går fel
+```
+
+- **SubString**, verifierar om utfallet innehåller en substring.
+
+```csharp
+string phrase = "Make your tests fail before passing!";
+
+Assert.That(phrase, Does.Contain("tests fail"));
+Assert.That(phrase, Does.Not.Contain("tests pass"));
+Assert.That(phrase, Does.StartWith("Make")); // StartWith constraint
+Assert.That(phrase, Does.EndWith("!"));
+```
+
+- **Or**, verifierar om antingen det ena eller det andra utfallet är korrekt och i så fall blir testet korrekt.
+
+```csharp
+Assert.That(3, Is.LessThan(5).Or.GreaterThan(10));
+```
+
+- **Count**, verifierar att listan har ett visst antal element.
+
+```csharp
+Assert.That(list, Has.Count.EqualTo(3)); // om listan innehåller exakt 3 element
+Assert.That(list, Does.Contain(5)); // om listan innehåller värdet 5
+```
+
+Här finns också GreaterThan, LessThan, False och liknande constraints. Läs mer om olika [Constraints](https://docs.nunit.org/articles/nunit/writing-tests/constraints/Constraints.html).
+
+
+### Indata till testfall
+
+NUnit erbjuder också TestCaseAttribute för att tillhandahålla inline-data till testmetoder. Här är ett exempel på hur man använder det:
+
+```csharp
+[TestCase(12, 3, 4)]
+[TestCase(12, 2, 6)]
+[TestCase(12, 4, 3)]
+public void DivideTest(int n, int d, int q)
+{
+    Assert.That(n / d, Is.EqualTo(q));
+}
+```
+
+Första gången testfallet körs så divideras 12 med 3 och svaret ska bli 4. Andra gången testfallet körs så divideras 12 med 2 och svaret ska då bli 6.
+
+
+## Kör testfall
+
+:::note
+Vi föredrar att köra testfallen i terminalen med `dotnet test` och det är det vi går igenom i den här kursen.
+:::
+
+Men vill du köra testerna enklare i VS Code så kan installera en extension som heter .NET Core Test Explorer. Se mer info [här](https://www.codemag.com/Article/2009101/Interactive-Unit-Testing-with-.NET-Core-and-VS-Code).
+
+
+### Skapa testprojekt
+
+Vi börjar med projektet vi ska testa. Först skapar vi en katalog som heter Testing i practice-katalogen med `mkdir Testing`. Antingen kopierar vi vår egen kod från **MyBank** med `cp -r MyBank Testing/MyBank2`.
+
+För att köra tester skapar vi ett testprojekt **MyBank.Tests** som ska testa vårt bankprojekt **MyBank2**. **MyBank** låter vi vara för det tillhör artikeln om arv. När vi börjar denna artikel så har **MyBank2** samma innehåll som **MyBank** men olika namespaces.
+
+Det skapas en testklass när vi skapar vårt testprojekt och den byter vi namn på till BankAccountTests.cs. Vi lägger också till en referens till vårt bankprojekt så att testklasserna hittar koden i **MyBank2** som ska testas.
+
+```shell title="Skapa ett testprojekt MyBank2.Tests i katalogen kmom05/practice/Testing"
+dotnet new nunit -o MyBank2.Tests
+cd MyBank2.Tests
+mv Unittest1.cs BankAccountTests.cs
+dotnet add reference ../MyBank2/MyBank2.csproj
+```
+
+<details>
+<summary>Katalogstrukturen i Testing ser ut så här:</summary>
+
+```csharp
+// stå i kmom05/Testing/MyBank2.Tests
+tree .. -L 2 // för att titta på MyBank2 och MyBank2.Tests
+.
+├── MyBank2
+│   ├── MyBank2.csproj
+│   ├── Program.cs
+│   ├── src
+│   ├── bin
+│   └── obj
+└── MyBank2.Tests
+    ├── BankAccountTests.cs
+    ├── MyBank2.Tests.csproj
+    ├── bin
+    └── obj
+```
+
+</details>
+
+Dubbelkolla att referensen till MyBank2 finns i projektfilen `MyBank2.Tests.csproj` till MyBank2.Tests. Dessutom kan filen `MyBank2.Tests.sln` också finnas och den används i Visual Studio men inte i VS Code, som vi använder. Du kan ta bort `MyBank2.Tests.sln`.
+
+
+### Kör alla testfallen
+
+```shell title="Kör att testfallen, stå i testprojektet MyBank2.Tests"
+dotnet test
+dotnet test --logger "console;verbosity=normal" // kör testerna med snygg utskrift
+```
+
+
+### Kör enstaka testfall
+
+```shell title="Kör att enstaka testfall, stå i testprojektet MyBank2.Tests"
+dotnet test --filter Create // kör testfall med Create i testnamnet
+dotnet test --filter Name~TestCreateBankAccount // kör testfallet med namnet TestCreateBankAccount
+dotnet test --filter Priority=2 // kör tester som kommenteras med [Priority(2)].
+```
+
+## Skapa testfall till MyBank2
+
+### Testfall, TestCreateBankAccount
+
+Vi läser i testplanen [Testplan - Bankexemplet](/website/laromaterial/kmom05/testplanbank) för klassen **BankAccount** och skapar det första testfallet som ska verifiera att en instans av klassen **BankAccount** skapas och att antalet konto i banken är noll.
+
+<details>
+<summary>Koden för testklassen BankAccountTests med testfallet TestCreateBankAccount.</summary>
+
+```csharp
+// i kmom05/MyBank2.Tests/BankTests.cs
+using MyBank2.src;
+
+[TestFixture]
+public class BankAccountTests
+{
+    [Test]
+    public void TestCreateBankAccount()
+    {
+        // Arrange 
+        var account = new BankAccount("Test person", 1000);
+        // Assert and no Act
+        Assert.That(account.GetOwner(), Does.Contain("Test person"));
+        Assert.That(account.GetBalance(), Is.EqualTo(1000));
+    }
+}
+```
+
+</details>
+
+Testkör och testfallet gick bra. Testkör de olika kommandona ovan för att verifiera detta första testfall. Det är bra att kunna köra ett specifikt testfall när de utvecklas.
+
+### Testfall, TestCreateBankAccountNegative
+
+Nu går vi vidare till nästa testfall enligt testplanen och det är `TestCreateBankAccountNegative`.
+
+<details>
+<summary>Koden för testfallet TestCreateBankAccountNegative.</summary>
+
+```csharp
+// i kmom05/Testing/MyBank2.Tests/BankTests.cs
+using MyBank2.src;
+
+[TestFixture]
+public class BankAccountTests
+{
+    [Test]
+    public void TestCreateBankAccountNegative()
+    {
+        // Arrange & Assert
+        Assert.That(() => new BankAccount("Test person", -1000), 
+            Throws.TypeOf<CreateBankAccountException>()
+            .With.Message.EqualTo("Bankkontot ska skapas med saldo >= 0."));
+    }
+}
+```
+
+</details>
+
+Testkör och då får vi problem. Testerna kompilerar inte eftersom vi inte har ett Exception som heter "CreateBankAccountException". Då lägger vi till ett exception med rätt meddelande.
+
+```csharp
+// i kmom05/Testing/MyBank2/src/CreateBankAccountException.cs
+namespace MyBank2.src;
+
+public class CreateBankAccountException : Exception
+{
+    public CreateBankAccountException(string message) : base(message)
+    {
+    }
+}
+```
+
+Eftersom vi ändrat i projektet **MyBank2** så måste vi kompilera om det innan vi testkör testprojektet på nytt.
+
+När vi kör testprojektet på nytt så kompilerar det men testfallet går inte igenom. Vi undersöker varför. I testplanen står det att ett exception ska kastas när ett objekt av **BankAccount** skapas med negativt saldo. Objekt skapas i konstruktorn och där saknas kontrollen av saldot.
+
+Då behöver vi uppdaterar konstruktorn i klassen **BankAccount** så att den kastar detta fel med felmeddelandet i om någon skapar ett **BankAccount** objekt med negativt saldo.
+
+<details>
+<summary>Koden för konstruktorn till klassen BankAccount.</summary>
+
+```csharp
+// i kmom05/Testing/MyBank2/src/BankAccount.cs
+namespace MyBank2.src;
+
+public class BankAccount
+{
+    private static int _accountNumberSeed = 1234567890;
+    protected string _owner;
+    protected decimal _balance;
+    private string _accountNumber;
+
+    public BankAccount(string name, decimal initialBalance)
+    {
+        if (initialBalance < 0)
+        {
+            throw new CreateBankAccountException("Bankkontot ska skapas med saldo >= 0.");
+        }
+        _owner = name;
+        _balance = initialBalance;
+        _accountNumber = _accountNumberSeed.ToString();
+        _accountNumberSeed++;
+    }
+    ...
+```
+
+</details>
+
+Kompilera om projektet **MyBank2** och kör testprojektet på nytt - och nu går testfallet igenom.
+
+### Testfall, TestCreateBank
+
+Vi läser i testplanen [Gör en testplan för Bankexemplet](/website/laromaterial/kmom05/testplanbank) för klassen **Bank** och skapar det första testfallet som ska verifiera att en instans av klassen **Bank** skapas och att antalet konto i banken är noll.
+
+Vi har ingen klass **Bank** i projektektet **MyBank2** men vi skapar den så här.
+
+<details>
+<summary>Koden för bank klassen:</summary>
+
+```csharp
+// i kmom05/Testing/MyBank2/src/Bank.cs
+namespace MyBank2.src;
+
+public class Bank
+{
+public class Bank
+{
+    public const string BANK_NAME = "Dbwebb Bank";
+    private List<BankAccount> _accounts;
+
+    public Bank(string bankName)
+    {
+        this._accounts = new List<BankAccount>();
+    }
+
+    public void AddAccount(BankAccount newAccount)
+    {
+        this._accounts.Add(newAccount);
+    }
+
+    public string GetNoOfAccounts()
+    {
+        return this._accounts.Count.ToString();
+    }
+
+    public string GetDescription()
+    {
+        return $"Banken heter {BANK_NAME} och har {GetNoOfAccounts()} konton.";
+    }
+}
+```
+
+</details>
+
+Här visas hela testklassen **BankTests** med testfallet **TestCreateBank**. I Setupmetoden skapas en instans av klassen **Bank** med namnet från konstanten BANK_NAME. I testfallet `TestCreateBank` verifierar vi att bankens namn blev det vi satte samt att antalet konto i en tom bank är 0.
+
+<details>
+<summary>Koden för testklassen BankTest med testfallet TestCreateBank:</summary>
+
+```csharp
+// i kmom05/Testing/MyBank2.Tests/BankTests.cs
+using MyBanks2.src;
+
+[TestFixture]
+public class BankTests
+{
+    private Bank _bank;
+    private const string BANK_NAME = "Test bank";
+
+    [SetUp]
+    public void Setup()
+    {
+        // Arrange
+        _bank = new Bank();
+    }
+
+    [Test]
+    public void TestCreateBank()
+    {
+        // Assert and Act
+        Assert.That(Bank.BANK_NAME, Does.Contain(BANK_NAME));
+        Assert.That(_bank.GetNoOfAccounts(), Does.Contain("0"));
+    }
+}
+```
+
+</details>
+
+Testkör och nu går de tre testfallen vi har igenom. Bra!
+
+### Testfall, TestCreateBankDescription
+
+Vi läser vidare i testplanen och ser att nästa testfall är `TestCreateBankDescription`. Det är bra att testa beskrivningen i ett eget testfall eftersom den kan komma att ändras.
+
+<details>
+<summary>Koden för testfallet TestCreateBankDescription:</summary>
+
+```csharp
+// i kmom05/Testing/MyBank2.Tests/BankTests.cs
+using MyBanks2.src;
+
+[TestFixture]
+public class BankTests
+{
+    ...
+
+    [Test]
+    public void TestCreateBankDescription()
+    {
+        // Assert and Act
+        Assert.That(_bank.GetDescription(), Does.Contain($"Banken heter {Bank.BANK_NAME} och har {_bank.GetNoOfAccounts()} konton."));
+    }
+}
+```
+
+</details>
+
+Vi testkör och ser att testfallet går grönt, det vill säga går igenom.
+
+## Mockning
+
+För att mocka testfall i NUnit kan du använda NUnit’s inbyggda mock-bibliotek eller andra populära bibliotek som Moq eller Rhino Mocks.
+
+Mockning används i mjukvarutestning för att simulera beteendet hos externa beroenden, som andra klasser, databaser eller filer. Istället för att kommunicera med en riktig databas så mockar vi databasen och kommunicerar med mockobjektet av databasen.
+
+
+### Skillnad mockning och stubbning
+
+**Fake** är en generisk term som kan användas för att beskriva antingen en stubb eller ett mockobjekt.
+
+Ett mockobjekt, **mock**, är ett objekt som imiterar beteendet hos riktiga objekt. De används för att verifiera interaktionerna mellan klasser eller beteendet hos klasser. Före starten av ett test ställer vi in förväntningarna på en mock och instruerar den att bete sig på ett visst sätt när något händer. Det innebär att vi kan kontrollera om vissa metoder har anropats, hur många gånger de har anropats och med vilka parametrar. Ett mockobjekt imiterar ett verkligt objekt.
+
+**Stubbing** ger fördefinierade svar på anrop som görs under testet. Vi använder stubbar när vi vill ersätta ett beroende med en enkel implementation som returnerar fördefinierade värden. Det är mindre fokuserat på interaktion och mer på att tillhandahålla nödvändiga data för testet.
+
+
+### Steg för att mocka
+
+#### Installera Moq
+
+Vi börjar med att installera "Moq" för att kunna använda det.
+
+```shell
+// stå i testprojektet MyBank2.Tests
+dotnet add package Moq
+```
+
+Verifiera att den är installerad genom att kolla i projektfilen.
+
+
+### Skapa en mock i ett testfall
+
+Vi kan skapa en mock av ett objekt med hjälp av mock-biblioteket. Till exempel, om vi använder Moq kan vi skapa en mock med `var mock = new Mock<YourClass>();`.
+
+Vi antar att skapa konto med klassen **BankAccount** har yttre beroenden och därför behöver vi mocka skapa konto.
+
+Vi gör ett exempel och skapar testfallet `TestAddAccounts`. Testfallen finns beskrivna i artikeln [Gör en testplan för Bankexemplet](/website/laromaterial/kmom05/testplanbank). Vi lägger till att vi använder Moq genom `using Moq;`.
+
+<details>
+<summary>Koden för testfallet TestAddAccounts:</summary>
+
+```csharp
+// i kmom05/Testing/MyBank2.Tests/BankTests.cs
+using Moq;
+using MyBank.src;
+
+[TestFixture]
+public class BankTests
+{
+    ...
+
+    [Test]
+    public void TestAddAccounts()
+    {
+        // Arrange
+        var mockAccount1 = new Mock<BankAccount>("Owner 1", 12000m);
+        var mockAccount2 = new Mock<BankAccount>("Owner 2", 2000m);
+
+        // Act
+        _bank.AddAccount(mockAccount1.Object);
+        _bank.AddAccount(mockAccount2.Object);
+
+        // Assert
+        Assert.That(_bank.GetNoOfAccounts(), Does.Contain("2"));
+    }
+}
+```
+
+I testfallet `TestAddAccounts` skapar vi ett mockobjekt för klassen **BankAccount** istället för ett objekt av själva klassen. "var" används här för att förenkla koden och göra den mer lättläst. Kompilatorn kan härleda att mockBank är av typen `Mock<BankAccount>` eftersom den tilldelas ett nytt objekt av denna typ.
+Inom `<>` efter new Mock så visar vi typen på mitt mockobjekt, i exemplet är det **BankAccount**. För att enkel hålla koll på att det är ett mockobjekt så får det namnet "mockAccount" med mock i början. Vi har skapat ett mockobjekt av typen **BankAccount** som heter "mockAccount1" men för att komma åt vårt BankAccount-objekt så använder vi `mockAccount1.Object`.
+
+</details>
+
+<details>
+<summary>Koden för testfallet TestNoOfAccounts:</summary>
+
+```csharp
+// i kmom05/Testing/MyBank2.Tests/BankTests.cs
+...
+
+    [Test]
+    public void TestAddAccounts()
+    {
+        // Arrange
+        var mockAccount1 = new Mock<BankAccount>("Owner 1", 12000m);
+        var mockAccount2 = new Mock<BankAccount>("Owner 2", 2000m);
+
+        // Act
+        _bank.AddAccount(mockAccount1.Object);
+        _bank.AddAccount(mockAccount2.Object);
+
+        // Assert
+        Assert.That(_bank.GetNoOfAccounts(), Does.Contain("2"));
+    }
+}
+```
+
+I testfallet `TestAddAccounts` skapar vi ett mockobjekt för klassen **BankAccount** istället för ett objekt av själva klassen. "var" används här för att förenkla koden och göra den mer lättläst. Kompilatorn kan härleda att mockBank är av typen `Mock<BankAccount>` eftersom den tilldelas ett nytt objekt av denna typ.
+Inom `<>` efter new Mock så visar vi typen på mitt mockobjekt, i exemplet är det **BankAccount**. För att enkel hålla koll på att det är ett mockobjekt så får det namnet "mockAccount" med mock i början. Vi har skapat ett mockobjekt av typen **BankAccount** som heter "mockAccount1" men för att komma åt vårt BankAccount-objekt så använder vi `mockAccount1.Object`.
+
+</details>
+
+Om vi vill mocka en metod utan interface, så måste vi göra metoden virtual.
+
+### Mocka metod med virtual
+
+Om vi vill mocka en metod måste vi göra den virtual. I det här fallet vill vi mocka `GetNoOfAccounts` och då gör vi så här:
+
+```csharp
+// i kmom05/Testing/MyBank2/Bank.cs
+using MyBanks2.src;
+
+...
+    public virtual string GetNoOfAccounts()
+    {
+        return this._accounts.Count.ToString();
+    }
+...
+```
+
+Och testfallet ser ut så här:
+
+```csharp
+// i kmom05/Testing/MyBank2.Tests/BankTests.cs
+...
+
+    [Test]
+    public void TestNoOfAccounts()
+    {
+        // Arrange
+        var mockBank = new Mock<Bank>() { CallBase = true };
+        mockBank.Setup(b => b.GetNoOfAccounts()).Returns("2");
+
+        // Act
+        var noOfAccounts = mockBank.Object.GetNoOfAccounts();
+
+        // Assert
+        Assert.That(noOfAccounts, Does.Contain("2"));
+    }
+}
+```
+
+`Mock<Bank>` skapar en mock, ett testobjekt, av klassen **Bank**.  
+`CallBase = true` betyder att om inte en metod eller egenskap är mockad, så anropas den riktiga implementationen av klassen **Bank**. Det är användbart om vi vill testa vissa delar av den riktiga klassen men ändå kontrollera och mocka andra delar av klassen.
+
+<details>
+<summary>
+
+### Bestäm ett mockobjekts beteende med ett interface (ÖVERKURS)
+
+</summary>
+
+Vi kan bestämma hur en mockad metod ska bete sig när den anropas. Till exempel, mock.Setup(m => m.YourMethod()).Returns(yourValue);. Vi kan mocka en konkret klass som **Bank** men ofta är det bättre att använda interfaces för att skapa mer underhållbar och testbar kod. Det gör våra enhetstester fokuserade på beteendet snarare än implementeringen, vilket är en nyckelfaktor i effektiv testning.
+Vi använder därför ett interface som heter **IBank** vilket är mer i linje med principer för god koddesign. Med **IBank** kan vi konfigurera mockobjektet att returnera specifika värden eller verifiera att vissa metoder anropas, vilket gör det möjligt att testa koden på ett kontrollerat och förutsägbart sätt.
+
+Vi börjar med att skapa ett interface **IBank** under katalogen "Testing/MyBank2/src". Till en början lägger vi bara till de metoder som vi testar och så kan vi utöka interfacet allt eftersom.
+
+**Kom ihåg** att kompilera om koden under Testing/MyBank2 efter att interfacet lagts till.
+
+```csharp
+// i Testing/MyBank2/src/IBank.cs
+namespace MyBank2.src;
+
+public interface IBank
+{
+    string GetNoOfAccounts();
+    void PrintDescription();
+}
+```
+
+#### Skapa testfallet TestDescription
+
+Nu skapar vi testfallet `TestDescription` genom att göra ett mockobjekt av interfacet **IBank**. Meddelandet som skrivs ut läggs i en variabel för bättre läsbarhet. Med raden `mockBank.Setup(m => m.PrintDescription()).Callback(() => Console.WriteLine(message));` så bestämmer vi att när metoden PrintDescription() anropas på mockobjektet "mockBank" så skrivs detta meddelande ut i terminalen. Det är precis det PrintDescription() gör i klassen **Bank**. Vi anropar PrintDescription() på mockobjektet "mockBank" och verifierar att metoden körts.
+
+<details>
+<summary>Koden för testfallet TestDescription:</summary>
+
+```csharp
+// i MyBank2.Tests/BankTests.cs
+...
+    [Test]
+    public void TestDescriptionWithInterface()
+    {
+        // Arrange
+        var mockBank = new Mock<IBank>();
+        string message = $"The name of the bank is {BANK_NAME}";
+        mockBank.Setup(m => m.PrintDescription()).Callback(() => Console.WriteLine(message));
+
+        // Act
+        mockBank.Object.PrintDescription();
+
+        // Assert att Verify använts en gång
+        mockBank.Verify(b => b.PrintDescription(), Times.Once());
+    }
+}
+```
+
+</details>
+
+Med "Verify" kan vi verifiera att en metod har anropats, att en egenskap har fått ett visst värde, eller att en händelse har utlösts. Vi kan också använda "Verify" för att kontrollera att en metod har anropats med specifika argument, ett visst antal gånger, eller att den inte har anropats alls. Se exempel nedan:
+
+```csharp
+// Verifiera att en metod har anropats minst en gång
+mockBank.Verify(bank => bank.PrintDescription(), Times.AtLeastOnce());
+
+// Verifiera att en metod inte har anropats
+mockBank.Verify(bank => bank.PrintDescription(), Times.Never());
+
+// Verifiera att en metod har anropats med specifika argument
+mockBank.Verify(bank => bank.Deposit(It.Is<decimal>(amount => amount > 0)), Times.Once());
+```
+
+#### Skapa testfallet TestNoOfAccounts
+
+För att visa att vi kan blanda Verify och Assert i ett testfall så lägger vi till metoden `GetNoOfAccounts` i IBank och bygger om projektet **MyBank2**.
+
+<details>
+<summary>Koden för testfallet TestNoOfAccounts:</summary>
+
+```csharp
+// i MyBank2.Tests/BankTests.cs
+...
+    [Test]
+    public void TestNoOfAccountsWithInterface(()
+    {
+        // Arrange
+        var mockBank = new Mock<IBank>();
+        mockBank.Setup(m => m.GetNoOfAccounts()).Returns("3");
+
+        // Act
+        mockBank.Object.GetNoOfAccounts();
+
+        // Assert
+        mockBank.Verify(m => m.GetNoOfAccounts(), Times.AtLeastOnce());
+        Assert.That(mockBank.Object.GetNoOfAccounts(), Does.Contain("3")); 
+    }
+}
+```
+
+</details>
+
+</details>
+
+## Sammanfattning
+
+Nu har vi tittat på mer enhetstestning C#:
+
+- NUnit med assertions enligt den nyare "Constraint model"
+- att skriva testfall
+- att köra testfall (dotnet test), alla, en klass eller ett testfall
+- vi har provat på att använda .NET Core Test Explorer för att kunna köra testfall i VS code.
+- mocka klasser i testfall
+
+Koden för Testing/MyBank2 laddar du ned det med `task download-code -- kmom05/Testing/MyBank2` och koden för Testing/MyBank2.Tests laddar du ned det med `task download-code -- kmom05/Testing/MyBank2.Tests`.
+
+Vill du läsa mer om enhetstester på Microsofts sätt, kolla [här](https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices).

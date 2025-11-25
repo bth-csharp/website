@@ -1,0 +1,211 @@
+---
+title: "Kmom05: Planeringsverktyg MyPlanner"
+description: Femte uppgiften
+sidebar:
+    order: 0050
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+
+Du ska göra ett planeringsverktyg som innehåller en todo-lista. Du ska lösa det med arv och testa dina klasser.
+Läs igenom hela uppgiften så att du får hela bilden av hela uppgiften innan du börjar.
+
+import todoList from '@assets/img/kmom05/todoList.png';
+
+<Figure
+    src={todoList}
+/>
+
+## Förkunskaper
+
+Du har jobbat igenom [Kmom05](/website/kmom/kmom05) eller har motsvarande kunskaper.
+
+
+## Introduktion
+
+Du ska skapa ett planeringsverktyg med arv och klasser. Dina klasser ska uppfylla beskrivningarna nedanför. Beskrivningarna är vad som måste finnas, du får och är **rekommenderade** att skapa ytterligare metoder och attribut där du tycker att det behövs. Vilken konstruktor vill du ha? Eller är det någon setmetod som saknas?
+
+**Tips:** Under utvecklingen av programmet så använd gärna huvudprogrammet till att testa så att varje klass funkar som du tänkt.  
+
+
+### MyTask
+
+Klassen **MyTask** innehåller en uppgift med titel, beskrivning, datum den ska vara klar och om den är klar eller inte.
+
+#### Klassdiagram MyTask
+
+import classdiagramMyTask from '@assets/img/kmom05/classdiagramMyTask.png';
+
+<Figure
+    src={classdiagramMyTask}
+/>
+
+Klassen **MyTask** innehåller:
+
+- **Update()** uppdaterar uppgiften. Fundera på om det behövs fler metoder, kanske en metod per subklass? (metodöverlagring). Det är ok om du inte uppdaterar attributet `title` men resten av attributen ska gå att uppdatera.
+- **Completed()** uppdaterar uppgiften till klar.
+- **GetDescription()** returnerar en sträng med en beskrivning av uppgiften med all information (uppgiftens namn, beskrivning, datum den ska vara klar och om den är klar). Datumet ska vara på enligt ISO 8601 vilket är svensk standard.
+
+### PrivateTask
+
+Subklassen **PrivateTask** specificerar att det är en privat uppgift med en plats som egenskap. **PrivateTask** ärver från **MyTask**.
+
+#### Klassdiagram PrivateTask
+
+import classdiagramPrivateTask from '@assets/img/kmom05/classdiagramPrivateTask.png';
+
+<Figure
+    src={classdiagramPrivateTask}
+/>
+
+
+Subklassen **PrivateTask** innehåller:
+
+- **GetDescription()** överskuggar basklassens metod och returnerar inte bara basklassens information utan också platsen.
+
+### WorkTask
+
+Subklassen **WorkTask** specificerar att det är en arbetsuppgift med egenskaperna prioritet, estimerad tid, arbetad tid och ett projektnamn. **WorkTask** ärver från **MyTask**.
+
+#### Klassdiagram WorkTask
+
+import classdiagramWorkTask from '@assets/img/kmom05/classdiagramWorkTask.png';
+
+<Figure
+    src={classdiagramWorkTask}
+/>
+
+Subklassen **WorkTask** innehåller:
+
+- **GetProgression** beräknar hur klar uppgiften är i procent. Om beräknad tid är 40 timmar och arbetad tid är 10 timmar, så är progressionen 25% och metoden ska då returnera 25.
+- **Completed** överskugga basklassen metod eftersom uppgiften inte kan sättas till klar förrän progressionen kommit upp i 80%. Annars anses uppgiften felplanerad och behöver uppdateras innan den kan sättas i completed.
+- **GetDescription()** överskuggar basklassens metod och returnerar inte bara basklassens information utan också prioritet, progression och projektnamn.
+
+### MyTaskHandler
+
+Klassen **MyTaskHandler** innehåller en lista med uppgifter. Du kan lägga till uppgifter i listan, ta bort uppgifter ur listan och uppdatera uppgifter i listan. Du kan också få en lista med alla uppgifter samt alla avklarade uppgifter. Men den enda metoden som är med i klassdiagram är `GetNoOfTask`. Du får själv bestämma vilka metoder du ska ha här.
+
+#### Klassdiagram MyTaskHandler
+
+import classdiagramMyTaskHandler from '@assets/img/kmom05/classdiagramMyTaskHandler.png';
+
+<Figure
+    src={classdiagramMyTaskHandler}
+/>
+
+Klassen **MyTaskHandler** innehåller minst:
+
+- **GetNoOfTasks** returnerar antalet uppgifter.
+
+
+### Planner
+
+Klassen **Planner** innehåller ett objekt av klassen **MyTaskHandler**. Här tänkte din kollega göra testdriven utveckling därför är klassen stubbad, med tomma metoder. Metoden *Run()* innehåller en loop som körs tills du väljer att avsluta, **e**.
+
+Menyalternativ:
+
+- 1 - Skapa en uppgift
+- 2 - Uppdatera en uppgift
+- 3 - Ta bort en uppgift
+- 4 - Skriv ut alla uppgifter
+- 5 - Sätt en uppgift till klar
+- e - Avsluta programmet
+
+**OBS!** All in- och utmatning i terminalen ska ske i klassen **Planner**. Det finns ett exempel på [Planner här](./../../../CodeExamples/kmom05/Planner.cs).
+
+
+#### Klassdiagram Planner
+
+Klassen **Planner** är ganska klar och dess klassdiagram ser ut så här. Du får lägga till flera metoder och attribut om du vill.
+
+import classdiagramPlanner from '@assets/img/kmom05/classdiagramPlanner.png';
+
+<Figure
+    src={classdiagramPlanner}
+/>
+
+
+### Testplan MyPlanner
+
+Det finns en påbörjad testplan till projektet **MyPlanner** som heter  [Testplan MyPlanner](./../../../CodeExamples/kmom05/TestplanMyPlanner.pdf). Fortsätt gärna fylla i den eller kopiera innehållet och lägg i ett eget dokument. Lägg testplanen `TestplanMyPlanner.pdf` på samma ställe som koden på detta sätt:
+
+```shell
+// i din kmom05 katalog
+├── MyPlanner
+├── MyPlanner.Tests
+└── TestplanMyPlanner.pdf
+```
+
+
+### Huvudprogrammet
+
+Huvudprogrammet, **Program.cs**, använder bara klassen **Planner** och startar planeringsverktyget med metoden `Run`.
+
+
+## Förutsättning
+
+Kopiera den påbörjade testplanen [Testplan MyPlanner](./../../../CodeExamples/kmom05/TestplanMyPlanner.pdf). Testplanen finns också i Wordformat på samma ställe om du föredrar det.
+Och här hittar du har början på [Planner.cs](./../../../CodeExamples/kmom05/Planner.cs).
+
+
+## Krav
+
+Det underlättar om du gör dessa krav i ordning.
+
+1. Skapa klassen **MyTask** och använd huvudprogrammet för att testa hur klassen funkar.
+
+2. Skapa ett testprojekt **MyPlanner.Tests** och skapa en testklass för **MyTask** och gör testfall.
+
+3. Se till att kodtäckningen funkar. Skapa en kodtäckningsrapport för **MyPlanner.Tests**. Generera en webbsida med ReportGenerator och kolla på kodtäckningen.
+
+4. Se till att kodtäckningen blir 100% för **MyTask**. Utöka testplanen med dina testfall, implementera dem och testkör dem. Generera en ny rapport och kolla att alla kodrader i **MyTask** är testade.
+
+5. Då är det dags för subklassen **PrivateTask**.
+    - Implementera subklassen.
+    - Gör en testklass för **PrivateTask** och se till att kodtäckningen blir 100%. Generera en ny rapport med ReportGenerator och kolla resultatet.
+    - Uppdatera testplanen med ett kapitel om testerna för subklassen **PrivateTask**.
+
+6. Då är det dags för subklassen **WorkTask**.
+    - Implementera subklassen.
+    - Gör en testklass för **WorkTask** och se till att kodtäckningen blir 100%. Generera en ny rapport med ReportGenerator och kolla resultatet.
+    - Uppdatera testplanen med ett kapitel om testerna för subklassen **WorkTask**.
+
+7. Nästa klass på tur är **MyTaskHandler**. Troligen måste du utöka klasserna ovan och klassen **MyTaskHandler** för att få **MyTaskHandler** att fungera. **MyTaskHandler** ska anropas ifrån klassen **Planner**. Till exempel ska den privata metoden `HandleCreateTask` läsa in information från användaren och skapa ett objekt av någon av subklasserna. Då ska det finnas lämpliga metoder i **MyTaskHandler** för det. **Kom ihåg** - all in- och utmatning ska ske i klassen **Planner**.  
+Nu ska du prova att utveckla testdrivet. Kanske måste du stubba metoderna (göra tomma metoder) för att få kompileringen att gå igenom.
+    - Uppdatera testplanen med ett kapitel om testerna för klassen **MyTaskHandler**.
+    - Gör en testklass för **MyTaskHandler** och se till att kodtäckningen blir 90% eller mer. Generera en ny rapport med ReportGenerator för att kolla det.
+    - Implementera klassen.
+    - Generera en ny rapport med ReportGenerator när du är klar.
+
+8. Implementera klassen **Planner** enligt klassdiagrammet så att alla menyalternativ funkar. Testkör ditt planeringsverktyg.
+
+9. Mocka en metod i **MyTaskHandler**. Gör det enkelt och använd bara "Moq". Lägg metoden i testklassen för **MyTaskHandler.
+
+## Kod
+
+Det finns ett menyprogram med klassen **Planner** om du vill ha det att utgå ifrån. Du börja uppgiften med att kopiera ner koden från [Planner här](./../../../CodeExamples/kmom05/Planner.cs) och lägg dem under katalogen kmom05. Titta igenom koden och [Testplan för MyPlanner](./../../../CodeExamples/kmom05/TestplanMyPlanner.pdf) som är påbörjad!
+
+
+## Demo på MyPlanner
+
+Så här ser det ut när vi kör programmet i terminalen:
+
+Video kommer här!
+
+## Extrauppgift
+
+1. Försök att nå 100% testtäckning för hela projektet.
+
+
+## Inlämning
+
+
+## Tips från coachen
+
+Felsöka med hjälp av utskrifter av `Console.WriteLine()`. Använd gärna debugger i VS Code.
+
+Glöm inte att använda 'dotnet format' för att formatera din kod.
+
+Lycka till och hojta till i forumet om du behöver hjälp!

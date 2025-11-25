@@ -1,0 +1,242 @@
+---
+title: "Introduktion Arv"
+description: Introduktion Arv med ett bankkonto som specialiseras
+sidebar:
+    order: 1
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+
+Arv möjliggör återanvändning av kod genom att låta en klass ärva egenskaper och metoder från en annan klass. Klassen som ärver kallar vi **subklass** och klassen vi ärver ifrån **basklass**. Vi kan se det som att subklassen är en utökning eller en specialisering av basklassen.
+
+Om vi tar klasserna **DeckOfCards** och **Card** från artikeln [Introduktion till Objektorienterad programmering](/website/laromaterial/kmom02/inledningoo#exempel-med-en-kortlek), hur kan vi utöka dem. Jo, till exempel kan vi utöka klassen **Card** till visa spelkorten grafiskt och skapa en klass **CardGraphic** som ärver från **Card**. **Card** är då basklass och **CardGraphic** subklass. Vi kan säga att ett grafiskt spelkort "är-ett" spelkort. Vi skulle också kunna göra en subklass till klassen **DeckOfCards** som innehåller jokrar och kalla den **DeckOfCardsWithJokers**. En kortlek med jokrar "är-en" kortlek.
+
+För att visa arv så utökar vi Bankexemplet från artikel [Introduktion till UML och klassdiagram](/website/laromaterial/kmom02/umlklassdiagram) från kmom02. Vi introducerar ett lönekonto och eftersom "lönekonto är-ett Bankkonto" så är det arv. Dessutom introducerar vi ett räntesparkonto, som också ärver från Bankkonto. De nya kontona har olika aktiviteter varje månad, på räntekontot så får vi ränta varje månad och på lönekontot tas en avgift varje månad.
+
+Skapa gärna ett projekt **MyBank** under kmom05 och testkör koden.
+
+
+## Arv med BankAccount
+
+Vi vill specialisera vårt bankkonto till att vara ett räntekonto eller ett lönekonto. Ett räntekonto "är-ett" bankkonto och därför kan räntekonto ärva bankkonto. Då återanvänder vi koden i klassen **BankAccount** och gör två subklasser **InterestAccount** och **PayrollAccount** och utökar dessa subklasser med det som är specifikt för de båda kontotyperna. Om vi vill lägga till en tredje kontotyp är det enkelt att göra.
+
+
+### Klassdiagram för BankAccount, InterestAccount och PayrollAccount
+
+import classdiagramBankAccountMedArvSimple from '@assets/img/kmom05/classdiagramBankAccountMedArvSimple.png';
+
+<Figure
+    src={classdiagramBankAccountMedArvSimple}
+    caption="Klassdiagram BankAccount med arv."
+/>
+
+### Implementation
+
+Klassen **BankAccount** behöver vi inte uppdatera den skapade vi i [kmom03](/website/laromaterial/kmom03/relationerklassdiagram) men vi behöver skapa de två subklasserna.
+
+```csharp title="Skapa klassen InterestAccount i src-katalogen"
+namespace MyBank.src;
+
+public class InterestAccount : BankAccount
+{
+    public InterestAccount(string name, decimal initialBalance) : base(name, initialBalance)
+    {
+    }
+
+    public void PrintDescription()
+    {
+        Console.WriteLine($"Detta räntekonto skapades till {_owner} med saldot {_balance} kr.");
+    }
+}
+```
+
+```csharp title="Skapa klassen PayrollAccount i src-katalogen"
+namespace MyBank.src;
+
+public class PayrollAccount : BankAccount
+{
+
+    public PayrollAccount(string name, decimal initialBalance) : base(name, initialBalance)
+    {
+    }
+
+    public void PrintDescription()
+    {
+        Console.WriteLine($"Detta lönekonto skapades till {_owner} med saldot {_balance} kr.");
+    }
+}
+```
+
+Med konstruktionen `: base` visar vi att vi använder basklassens konstruktor.
+
+Subklasserna kommer åt basklassens attribut som är skyddade (protected) inuti subklassen men inte de privata (private). Det ska vi testa nu.
+
+```csharp title="Lägg följande rader i huvudprogrammet i Program.cs"
+using MyBank.src;
+
+var account = new BankAccount("Marie", 1000);
+
+account.PrintAccountDescription();
+
+var payroll = new PayrollAccount("Marie BTH", 10000);
+payroll.PrintAccountDescription();
+payroll.PrintDescription();
+
+var interest = new InterestAccount("Marie savings", 120000);
+interest.PrintAccountDescription();
+interest.PrintDescription();
+```
+
+När vi försöker köra ovan så ser vi att det går bra att komma åt basklassens skyddade variabel men inte den privata. Vi får felmeddelandet **"error CS0122: 'BankAccount._balance' is inaccessible due to its protection level"**. Vi behöver komma åt beloppet på kontot i subklasserna och ändrar därför variabeln till att ha åtkomstnivån `protected` istället.
+
+```csharp title="Byt från private till protected i BankAccount på _owner och _balance"
+namespace MyBank.src;
+
+public class BankAccount
+{
+    private static int _nextAccountNumber = 100000;
+    protected string _owner;
+    protected decimal _balance; 
+    ...
+```
+
+När vi nu testkör programmet så får vi följande utskrift:
+
+```shell title="dotnet run ger följande utskrifter i terminalen"
+Kontot med nummer 100000 skapades till Marie med saldot 1000 kr.
+Kontot med nummer 100001 skapades till Marie BTH med saldot 10000 kr.
+Detta lönekonto skapades till Marie BTH med saldot 10000 kr.
+Kontot med nummer 100002 skapades till Marie savings med saldot 120000 kr.
+Detta räntekonto skapades till Marie savings med saldot 120000 kr.
+```
+
+Raderna som börjar med "Kontot..." kommer från basklassen och raderna som börjar med "Detta..." kommer från subklassen. På samma sätt som subklasserna kommer åt attribut i basklassen som är `protected`, kommer subklassen åt metoder som är `protected`. Åtkomstnivån `protected` används i arv då subklasserna kommer åt basklassens metoder och attribut som är skyddade med `protected`.
+
+
+## Metodöverlagring med BankAccount
+
+De olika kontotyperna har olika aktiviteter i slutet av månaden men själva aktiviteten är ska alla konton göra. Då kan vi skapa en metod, `PerformMonthEndTransactions()`, i basklassen som vi sedan överlagras i subklasserna. För att visa att vi vill att en metod ska överlagras så markerar vi den **virtual** i basklassen och **override** i subklasserna. Om vi vill lägga till en tredje subklass och glömmer att implementera metoden `PerformMonthEndTransactions()` i den, så får vi kompileringsfel när metoden är **virtual** i basklassen.
+
+
+### Klassdiagram för BankAccount, InterestAccount och PayrollAccount
+
+import classdiagramBankMedArv from '@assets/img/kmom05/classdiagramBankMedArv.png';
+
+<Figure
+    src={classdiagramBankMedArv}
+    caption="Klassdiagram BankAccount med metoden PerformMonthEndTransactions markerad virual och  subklasserna InterestAccount and PayrollAccount med PerformMonthEndTransactions markerad override."
+/>
+
+
+### Implementation
+
+Vi skapar en virtuell metod `PerformMonthEndTransactions()` i klassen **BankAccount** som returnerar false som standard. Eftersom vi har en returtyp på `PerformMonthEndTransactions()` så måste ha en return-sats i den.
+
+```csharp title="Lägg till en virtual metod PerformMonthEndTransactions i klassen BankAccount"
+namespace MyBank.src;
+
+public class BankAccount
+{
+    private static int _nextAccountNumber = 100000;
+    protected string _owner;
+    protected decimal _balance;
+    private string _accountNumber;
+
+    public BankAccount(string name, decimal initialBalance)
+    {
+        _owner = name;
+        _balance = initialBalance;
+        _accountNumber = _nextAccountNumber.ToString();
+        _nextAccountNumber++;
+    }
+    ...
+
+    public virtual bool PerformMonthEndTransactions() { return false; }
+}
+```
+
+Nu ska vi implementera metoden i subklasserna. I klassen **InterestAccount** så får alla en liten ränta och de som har mer pengar får mer ränta. Räntan sätts även in på kontot.
+
+```csharp title="Klassen InterestAccount gör override på metoden PerformMonthEndTransactions"
+namespace MyBank.src;
+
+public class InterestAccount : BankAccount
+{
+    public InterestAccount(string name, decimal initialBalance) : base(name, initialBalance)
+    {
+    }
+
+    public override bool PerformMonthEndTransactions()
+    {
+        decimal interest = 0.0015m;
+
+        if (this._balance > 100m)
+        {
+            interest = this._balance * 0.02m;
+        }
+
+        return Deposit(interest);
+    }
+}
+```
+
+På lönekontot erbjuder Banken olika tjänster och därför tar de ut en liten avgift varje månad. De som har mycket pengar på lönekontot betalar en större avgift. Notera att vi lägger till ett m efter flyttalet och det är av typen "decimal" som används vid beräkningar med stor precision.
+
+```csharp title="Klassen PayrollAccount gör override på metoden PerformMonthEndTransactions"
+namespace MyBank.src;
+
+public class PayrollAccount : BankAccount
+{
+
+    public PayrollAccount(string name, decimal initialBalance) : base(name, initialBalance)
+    {
+    }
+
+    public override bool PerformMonthEndTransactions()
+    {
+        decimal fee = 0.0m;
+
+        if (this._balance > 100m)
+        {
+            fee = 0.001m;
+        }
+
+        return Withdraw(fee);
+    }
+}
+```
+
+För att testa implementationen har vi denna koden i huvudprogrammet:
+
+```csharp title="Vi testar metoden PerformMonthEndTransactions i huvudprogrammet"
+using MyBank.src;
+
+var account = new BankAccount("Marie", 1000);
+
+account.PrintAccountDescription();
+
+var payroll = new PayrollAccount("Marie BTH", 10000);
+payroll.PerformMonthEndTransactions();
+payroll.PrintAccountDescription();
+
+var interest = new InterestAccount("Marie savings", 120000);
+interest.PerformMonthEndTransactions();
+interest.PrintAccountDescription();
+```
+
+
+
+```shell title="När vi nu testkör programmet så får vi följande utskrift:"
+Kontot med nummer 100000 skapades till Marie med saldot 1000 kr.
+Kontot med nummer 100001 skapades till Marie BTH med saldot 9999.999 kr.
+Kontot med nummer 100002 skapades till Marie savings med saldot 122400.00 kr.
+```
+
+
+## Sammanfattning
+
+I den här artikeln har vi tittat på arv i C# och hur vi visar det i ett UML klassdiagram.
+Vi har lärt oss begrepp som basklass och subklass samt metodöverlagring.  
+Om du vill titta på koden i sin helhet och ladda ner den så kör du `task download-code -- kmom05/MyBank`.

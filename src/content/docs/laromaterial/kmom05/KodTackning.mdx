@@ -1,0 +1,69 @@
+---
+title: "C# - Kodtäckning"
+description: C# - Kodtäckning (Code coverage)
+sidebar:
+    order: 5
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+
+Kodtäckning (Code coverage) är bra för att säkerställa att koden är väl testad och fungerar som förväntat. Det hjälper till att förbättra kodkvaliteten, underlätta underhåll och refaktorisering. Ett bra verktyg är **dotnet-reportgenerator**.
+
+## Installera .NET reportgenerator
+
+För att kolla kodtäckning behöver vi installera ett verktyg som heter ReportGenerator.
+
+```shell
+// stå i testprojektet MyBank2.Tests
+dotnet tool install -g dotnet-reportgenerator-globaltool
+reportgenerator -help // verifiera installationen
+```
+
+## Generera en kodtäckningsrapport
+
+Vi kör om testerna och genererar formatet med flaggan `--collect:"XPlat Code Coverage"`. Under `TestResults`skapas en katalog som kan heta `c8e05096-1936-4477-a60f-8e6bab7d64e8` eller något liknande och där ligger de filer som ReportGenerator kan läsa. Katalognamnet `c8e05096-1936-4477-a60f-8e6bab7d64e8` skapas automatiskt med ett unikt id för att undvika konflikter mellan körningar.
+
+```shell
+# stå i testprojektet MyBank2.Tests
+dotnet test --collect:"XPlat Code Coverage"
+```
+
+## Generera en HTML-rapport
+
+Peka ut filen `coverage.cobertura.xml` när rapporten ska genereras. Den ligger under `MyBank2.Tests/TestResults/c8e05096-1936-4477-a60f-8e6bab7d64e8/coverage.cobertura.xml`. **Byt ut** c8e05096-1936-4477-a60f-8e6bab7d64e8 mot rätt katalognamn i TestResults (se i katalogen TestResults vilket det är).
+
+```shell
+// stå i testprojektet MyBank2.Tests
+reportgenerator "-reports:./TestResults/c8e05096-1936-4477-a60f-8e6bab7d64e8/coverage.cobertura.xml" "-targetdir:coverageReport" "-reporttypes:Html"
+```
+
+Under `TestResults`skapas en katalog som kan heta `c8e05096-1936-4477-a60f-8e6bab7d64e8` för varje gång du genererar nytt underlag till ReportGenerator.  Vi får spara den i ett annat namn om vi vill att det ska bli mer lättläst. Ibland är det bra att spara de gamla katalogerna för jämförelse men ibland är det bra att rensa.
+
+**Tips** För att det ska gå enklare gör vi så här:
+
+1. Kör `dotnet test --collect:"XPlat Code Coverage"`
+
+2. Byt namn på katalogen som skapas till `latest`  
+Om det finns en gammal latest katalog rensar vi bort den först eller byter namn på den om vi vill spara den.
+
+3. Kör igång reportgeneratorn med latest istället. `reportgenerator "-reports:./TestResults/latest/coverage.cobertura.xml" "-targetdir:coverageReport" "-reporttypes:Html"`
+
+## Titta på HTML-rapporten
+
+Titta på rapporten genom att öppna filen `index.html` som ligger under katalogen `coverageReport` i katalogen `MyPlanner.Test` i projektet med Filhanteraren (File Explorer/Finder) eller liknande.
+
+import codeCoverage from '@assets/img/kmom03/codeCoverage.png';
+
+<Figure
+    src={codeCoverage}
+    caption="Rapport kodtäckning MyBank2 genererad av ReportGenerator."
+/>
+
+
+## Sammanfattning
+
+Nu har vi tittat på hur vi kan kolla testtäckningen på våra klasser i C#.
+
+Koden finns under [Testing/MyBank2](./../../../CodeExamples/kmom05/Testing/MyBank2) och [Testing/MyBank2.Tests](./../../../CodeExamples/kmom05/Testing/MyBank2.Tests).
