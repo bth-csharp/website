@@ -15,8 +15,7 @@ Kodtäckning (Code coverage) är bra för att säkerställa att koden är väl t
 
 För att kolla kodtäckning behöver vi installera ett verktyg som heter ReportGenerator.
 
-```shell
-// stå i testprojektet MyBank2.Tests
+```shell title="Installera ReportGenerator i testprojektet MyBank2.Tests"
 dotnet tool install -g dotnet-reportgenerator-globaltool
 reportgenerator -help // verifiera installationen
 ```
@@ -25,8 +24,7 @@ reportgenerator -help // verifiera installationen
 
 Vi kör om testerna och genererar formatet med flaggan `--collect:"XPlat Code Coverage"`. Under `TestResults`skapas en katalog som kan heta `c8e05096-1936-4477-a60f-8e6bab7d64e8` eller något liknande och där ligger de filer som ReportGenerator kan läsa. Katalognamnet `c8e05096-1936-4477-a60f-8e6bab7d64e8` skapas automatiskt med ett unikt id för att undvika konflikter mellan körningar.
 
-```shell
-# stå i testprojektet MyBank2.Tests
+```shell title="Generera en kodtäckningsrapport i testprojektet MyBank2.Tests"
 dotnet test --collect:"XPlat Code Coverage"
 ```
 
@@ -34,12 +32,11 @@ dotnet test --collect:"XPlat Code Coverage"
 
 Peka ut filen `coverage.cobertura.xml` när rapporten ska genereras. Den ligger under `MyBank2.Tests/TestResults/c8e05096-1936-4477-a60f-8e6bab7d64e8/coverage.cobertura.xml`. **Byt ut** c8e05096-1936-4477-a60f-8e6bab7d64e8 mot rätt katalognamn i TestResults (se i katalogen TestResults vilket det är).
 
-```shell
-// stå i testprojektet MyBank2.Tests
+```shell title="Generera en HTML-rapport i testprojektet MyBank2.Tests"
 reportgenerator "-reports:./TestResults/c8e05096-1936-4477-a60f-8e6bab7d64e8/coverage.cobertura.xml" "-targetdir:coverageReport" "-reporttypes:Html"
 ```
 
-Under `TestResults`skapas en katalog som kan heta `c8e05096-1936-4477-a60f-8e6bab7d64e8` för varje gång du genererar nytt underlag till ReportGenerator.  Vi får spara den i ett annat namn om vi vill att det ska bli mer lättläst. Ibland är det bra att spara de gamla katalogerna för jämförelse men ibland är det bra att rensa.
+Under `TestResults`skapas en katalog som kan heta `c8e05096-1936-4477-a60f-8e6bab7d64e8` för varje gång vi genererar nytt underlag till ReportGenerator.  Vi får spara den i ett annat namn om vi vill att det ska bli mer lättläst. Ibland är det bra att spara de gamla katalogerna för jämförelse men ibland är det bra att rensa.
 
 **Tips** För att det ska gå enklare gör vi så här:
 
@@ -52,9 +49,9 @@ Om det finns en gammal latest katalog rensar vi bort den först eller byter namn
 
 ## Titta på HTML-rapporten
 
-Titta på rapporten genom att öppna filen `index.html` som ligger under katalogen `coverageReport` i katalogen `MyPlanner.Test` i projektet med Filhanteraren (File Explorer/Finder) eller liknande.
+Titta på rapporten genom att öppna filen `index.html` som ligger under katalogen `coverageReport` i katalogen `MyBank2.Tests` i projektet med Filhanteraren (File Explorer/Finder) eller liknande.
 
-import codeCoverage from '@assets/img/kmom03/codeCoverage.png';
+import codeCoverage from '@assets/img/kmom05/codeCoverage.png';
 
 <Figure
     src={codeCoverage}
@@ -66,4 +63,5 @@ import codeCoverage from '@assets/img/kmom03/codeCoverage.png';
 
 Nu har vi tittat på hur vi kan kolla testtäckningen på våra klasser i C#.
 
-Koden finns under [Testing/MyBank2](./../../../CodeExamples/kmom05/Testing/MyBank2) och [Testing/MyBank2.Tests](./../../../CodeExamples/kmom05/Testing/MyBank2.Tests).
+Titta på rapporten genom att öppna filen `index.html` som ligger under katalogen `coverageReport` i katalogen `MyBank2.Tests` i projektet med Filhanteraren (File Explorer/Finder) eller liknande.
+Koden för Testing/MyBank2 laddar vi ned det med `task download-code -- kmom05/Testing/MyBank2` och koden för Testing/MyBank2.Tests laddar vi ned det med `task download-code -- kmom05/Testing/MyBank2.Tests`. De båda projekten hamnar då i katalogen `kmom05/Testing/codeExamples/`. Vi öppnar den nedladdade rapporten genom att klicka på `kmom05/Testing/codeExamples/MyBank2.Tests/index.html` i filhanteraren.
