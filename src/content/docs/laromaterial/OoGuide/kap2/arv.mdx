@@ -1,0 +1,341 @@
+---
+title: "När kan/ska man använda arv?"
+description: När kan/ska man använda arv?
+sidebar:
+    order: 1
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+Arv används när flera klasser har gemensamma grund och är sedan specialiserade i någon grad. Till exempel så har olika typer av bilar likheter och skillnader, alla är bilar men de har olika egenskaper. Då kan man ha en basklass som heter **Car** och tre subklasser för olika biltyper, som sportbil, personbil och Suv.
+Vi har attribut och metoder som är gemensamma i basklassen. Sen specialiserar eller utökar vi subklasserna med specifika attribut och metoder för just den subklassen.
+
+Arv används för att återanvända kod och göra koden mer dynamisk.
+
+Vi fortsätter med vårt exempel med bilar på en racingbana men koden är rensad så att bara det vi behöver i fortsättningen är kvar. Tack vare rensningen i **Program** och **Car** så blir klassdiagrammen enklare.
+
+Nedanför kan ni se hur relationerna mellan klassen **Car** och dess subklasser ser ut i ett klassdiagram.
+
+import classdiagramCarArv_1 from '@assets/img/ooguide/classdiagramCarArv_1.png';
+
+<Figure
+    src={classdiagramCarArv_1}
+    caption="Klassdiagram över Car med subklasserna Passenger, Sport och Suv."
+/>
+
+
+## Skapa arv mellan klasser
+
+Vi använder **Car** som basklass och skapar subklasserna **Sport** för sportbilar, **Passenger** för personbilar och **Suv** för SUVs. Subklasserna är ju olika typer av bilar, så därför kan vi ta bort attributet `_type` på klassen **Car**.
+
+Skapa ett nytt project som heter "OoGuide" under kmom05. Om du har glömt hur du gör så kan du titta i [Introduktion - Klasser och objekt, Skapa projekt](/website/laromaterial/ooguide/intro/klass/#skapa-projekt).
+
+
+## Basklassen Car
+
+Vi börjar med att skapa basklassen **Car** och funderar på vad som är gemensamt. Det är egenskaperna antalet hjul, bilräknaren, modellen, priset och position. Skapa filen till klassen **Car** i src-katalogen.
+
+```csharp title="Klassen Car ser ut så här:"
+namespace OoGuide.src;
+
+public class Car
+{
+    private const int WHEELS = 4;
+    private static int _carCount = 0;
+
+    private string _model;
+    private int _price;
+    private int _position;
+
+    public Car(string model, int price, string type = "Passenger")
+    {
+        this._model = model;
+        this._price = price;
+        this._position = 0;
+        Car._carCount += 1;
+    }
+
+    // Static methods
+    public static int GetCarCount()
+    {
+        return Car._carCount;
+    }
+
+    public static int GetWheels()
+    {
+        return Car.WHEELS;
+    }
+
+    // Get methods
+    public int GetPosition()
+    {
+        return this._position;
+    }
+
+    // Other methods
+    public void Description()
+    {
+        Console.WriteLine($"Bilen är en {this._model} och kostar {this._price} kr.");
+    }
+
+
+    public void Move()
+    {
+        this._position += 10; // Metod med pga kompilering fel annars
+    }
+}
+```
+
+Då har vi grunden i basklassen **Car**. Vi fortsätter med att skapa de tre subklasserna i varsin fil. Vi börjar med att titta på metoden `PrintAsciiModel` som vi hade i klassen **Car** och så lägger vi till en specifik metod på varje subklass.
+
+
+## Subklasserna Sport, Passenger och Suv
+
+Subklasserna är en extension eller en specialisering av basklassen **Car**. I ett verkligt exempel hade vi specialiserat subklasserna mer. En sportbil (klassen **Sport**) har egenskaper som stark motor, lätt vikt, förmåga att snabbt nå höga hastigheter och har hög bränsleförbrukning. En personbil (klassen **Passenger**) har egenskaper som hög komfort, bra lastutrymme, hastigheter för vardagskörning och låg bränsleförbrukning. En Suv (klassen **Suv**) har egenskaper som terrängkapacitet, högre sittläge, kraftfulla motorer och har ganska hög bränsleförbrukning.
+
+Så egentligen skulle vi gjort subklasserna mer specialiserade men vi kör det enkelt för att det inte ska bli så mycket kod.
+
+
+## Subklassen Sport
+
+Sportbilar har ofta massa inställningar som kan göras på bland annat förarstolen, däcktemperatur och chassit. Vi samlar all den informationen i en sträng och ger klassen **Sport** den egenskapen.
+
+För att visa att **Sport** ärver från **Car** så skriver vi **": Car"** efter klassnamnet. Och för att visa att basklassens konstruktor också ska köras så skriver vi ": base()" efter konstruktorns namn och parameterlista. I det här fallet har basklassens konstruktor inparametrarna "model" och "price" eftersom de sätts i basklassens konstruktor.
+
+Så här ser klassen **Sport** ut:
+
+```csharp title="Subklassen Sport ärver från Car och ser ut så här:"
+namespace OoGuide.src;
+
+public class Sport : Car
+{
+    private string _personData; // personlig data för att anpassa bilen efter föraren
+
+    public Sport(string personData, string model, int price) : base(model, price)
+    {
+        this._personData = personData;
+    }
+
+    public void SetPersonData(string newPersonData)
+    {
+        if (newPersonData.Length > 20 )
+        {
+            this._personData = newPersonData;
+        }
+    }
+
+    // Asci art method
+    public void PrintAsciiModel(string pos = "")
+    {
+        Console.WriteLine(AsciiArt.GetAsciiModel(this.GetType().Name, pos));
+    }
+}
+```
+
+I metoden `SetPersonData` lägger vi en kontroll så att strängen som ska ändra `_personData` inte är för kort. Metoden `PrintAsciiModel` så skriver klassen **Suv** ut sin ASCII-bild genom att anropa klassen **AsciiArt**.
+
+### Testa basklassen Car och subklassen Sport
+
+Vi testar att skapa ett objekt av basklassen **Car** samt ett objekt av subklassen **Sport**. Subklassen **Sport** kan använda sina metoder men också basklassens metoder.
+
+```csharp title="Testkör basklassen Car och subklassen Sport i huvudprogrammet"
+using OoGuide.src;
+
+// Skapa ett objekt av basklassen Car och anropa metoden Description
+Car car = new Car("Volvo", 99000);
+car.Description();
+// ger utskriften: Bilen är en Volvo och kostar 99000 kr.
+
+// Skapa ett objekt av subklassen Sport och anropa dess metod PrintAsciiModel
+string persondata = "Säte läge: 3, Däcktemperatur: default, Chassi: default";
+Sport sport = new Sport(persondata, "Ferrari", 899000);
+sport.PrintAsciiModel();
+// ger utskriften: 
+//  .-'--`-._
+//  '-O---O--'
+//
+
+// Anropa basklassens metod Description
+sport.Description();
+// ger utskriften: Bilen är en Ferrari och kostar 899000 kr.
+```
+
+## Subklassen Passenger
+
+På personbilar finns ofta ett läge för att köra miljövänligt men eftersom denna personbil ska köra ett lopp så är det läget inte på till att börja med. Vi lägger också till en metod `ToggleEchoDriving` för att stänga av och sätta på miljövänlig körning. Föraren kanske vill köra miljövänligt och spara bränsle på väg hem från loppet?
+
+<details>
+<summary>
+
+### Koden för subklassen Passenger
+
+</summary>
+
+```csharp title="Subklassen Passenger ärver från Car och ser ut så här:"
+namespace OoGuide.src;
+
+public class Passenger : Car
+{
+    private bool _echoDrivingOn; // true om echo driving är på
+
+    public Passenger(string model, int price) : base(model, price)
+    {
+        this._echoDrivingOn = false; // bästa race läget
+    }
+
+    public void ToggleEchoDriving()
+    {
+        string message = "Det är en passagerarbil och echo driving är";
+        this._echoDrivingOn = !this._echoDrivingOn;
+
+        message += this._echoDrivingOn ? " på." : " av.";
+        Console.WriteLine(message);
+    }
+
+    // Asci art method
+    public void PrintAsciiModel(string pos = "")
+    {
+        Console.WriteLine(AsciiArt.GetAsciiModel(this.GetType().Name, pos));
+    }
+}
+```
+
+</details>
+
+<details>
+<summary>
+
+### Test av subklassen Passenger
+
+</summary>
+
+Vi lägger till en utskrift för att visa om echo driving är på eller inte och testa subklassen **Passenger**.  
+Vi testar att skapa ett objekt av basklassen **Car** samt ett objekt av subklassen **Sport**. Subklassen **Sport** kan använda sina metoder men också basklassens metoder.
+
+```csharp title="Testkör basklassen Car och subklassen Passenger i huvudprogrammet"
+using OoGuide.src;
+
+...
+// Skapa ett objekt av subklassen Passenger och anropa dess metod ToggleEchoDriving
+Passenger passenger = new Passenger("BMW", 499000);
+passenger.ToggleEchoDriving();
+// ger utskriften: Det är en passagerarbil och echo driving är på.
+
+// Testa även och verifiera bild och beskrivning
+passenger.PrintAsciiModel();
+passenger.Description();
+```
+
+</details>
+
+## Subklassen Suv
+
+De flesta terrängbilar fyrhjulsdrift som går att stänga av och sätta på genom i bilen och det åskådliggör vi med en metod. Kanske vill föraren stänga av fyrhjulsdriften för att sladda mindre i kurvorna eller bara för att spara på bränslet?
+
+<details>
+<summary>
+
+### Koden för subklassen Suv
+
+</summary>
+
+```csharp title="Subklassen Suv ärver från Car och ser ut så här:"
+namespace OoGuide.src;
+
+public class Suv : Car
+{
+    private bool _fourWheelOn; // true om fyrhjulsdrift är på
+    
+    public Suv(bool fourWheelOn, string model, int price) : base(model, price)
+    {
+        this._fourWheelOn = fourWheelOn;
+    }
+
+    public bool ToggleFourWheel()
+    {
+        string message = "Det är en SUV och fyrhjulsdrift är";
+        this._fourWheelOn = !this._fourWheelOn;
+        message += this._fourWheelOn ? " på." : " av.";
+        Console.WriteLine(message);
+
+        return this._fourWheelOn;
+    }
+
+    // Asci art method
+    public void PrintAsciiModel(string pos = "")
+    {
+        Console.WriteLine(AsciiArt.GetAsciiModel(this.GetType().Name, pos));
+    }
+}
+```
+
+</details>
+
+<details>
+<summary>
+
+### Test av subklassen Suv
+
+</summary>
+
+Vi testar att skapa ett objekt av basklassen **Car** samt ett objekt av subklassen **Sport**. Subklassen **Sport** kan använda sina metoder men också basklassens metoder.
+
+```csharp title="Testkör basklassen Car och subklassen Suv i huvudprogrammet"
+using OoGuide.src;
+
+...
+// Skapa ett objekt av subklassen Suv och anropa dess metod ToggleFourWheel
+Suv suv = new Suv(true, "Ford Kuga", 299000);
+suv.ToggleFourWheel();
+// ger utskriften: Det är en SUV och fyrhjulsdrift är av.
+
+// Testa även att verifiera bild och beskrivning
+suv.PrintAsciiModel();
+suv.Description();
+```
+
+</details>
+
+## Huvudprogrammet
+
+Koden i Program.cs för att testa basklassen och de tre subklasserna ser ut så här:
+
+```csharp title="Testa basklassen Car och subklasserna Sport, Passenger och Suv"
+using OoGuide.src;
+
+// Skapa ett objekt av basklassen Car och anropa metoden Description
+Car car = new Car("Volvo", 99000);
+car.Description();
+
+// Skapa ett objekt av subklassen Sport och anropa dess metod PrintAsciiModel
+string persondata = "Säte läge: 3, Däcktemperatur: default, Chassi: default";
+Sport sport = new Sport(persondata, "Ferrari", 899000);
+sport.PrintAsciiModel();
+
+// Anropa basklassens metod Description
+sport.Description();
+
+// Skapa ett objekt av subklassen Passenger och anropa dess metod ToggleEchoDriving
+Passenger passenger = new Passenger("BMW", 499000);
+passenger.ToggleEchoDriving();
+
+// Testa även och verifiera bild och beskrivning
+passenger.PrintAsciiModel();
+passenger.Description();
+
+// Skapa ett objekt av subklassen Suv och anropa dess metod ToggleFourWheel
+Suv suv = new Suv(true, "Ford Kuga", 299000);
+suv.ToggleFourWheel();
+
+// Testa även och verifiera bild och beskrivning
+suv.PrintAsciiModel();
+suv.Description();
+```
+
+
+Inför nästa kapitel så kommenterar vi ut eller tar bort all kod i huvudprogrammet förutom raden med using-satsen.
+
+## Sammanfattning
+
+Vi använder arv för att återanvända kod. Vi återanvänder egenskaper och metoder från klassen **Car** i subklasserna **Sport**, **Passenger** och **Suv**. Subklasserna har vi gjort för att vi vill utöka basklassen och ge subklasserna specifika egenskaper och metoder. Subklasserna kan använda metoder från basklassen.

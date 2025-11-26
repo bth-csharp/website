@@ -148,7 +148,11 @@ dotnet add reference ../MyBank2/MyBank2.csproj
 ```
 
 <details>
-<summary>Katalogstrukturen i Testing ser ut så här:</summary>
+<summary>
+
+#### Katalogstrukturen i Testing ser ut så här:
+
+</summary>
 
 ```csharp
 // stå i kmom05/Testing/MyBank2.Tests
@@ -195,7 +199,11 @@ dotnet test --filter Priority=2 // kör tester som kommenteras med [Priority(2)]
 Vi läser i testplanen [Testplan - Bankexemplet](/website/laromaterial/kmom05/testplanbank) för klassen **BankAccount** och skapar det första testfallet som ska verifiera att en instans av klassen **BankAccount** skapas och att antalet konto i banken är noll.
 
 <details>
-<summary>Koden för testklassen BankAccountTests med testfallet TestCreateBankAccount.</summary>
+<summary>
+
+#### Koden för testklassen BankAccountTests med testfallet TestCreateBankAccount.
+
+</summary>
 
 ```csharp
 // i kmom05/MyBank2.Tests/BankTests.cs
@@ -225,7 +233,11 @@ Testkör och testfallet gick bra. Testkör de olika kommandona ovan för att ver
 Nu går vi vidare till nästa testfall enligt testplanen och det är `TestCreateBankAccountNegative`.
 
 <details>
-<summary>Koden för testfallet TestCreateBankAccountNegative.</summary>
+<summary>
+
+#### Koden för testfallet TestCreateBankAccountNegative.
+
+</summary>
 
 ```csharp
 // i kmom05/Testing/MyBank2.Tests/BankTests.cs
@@ -268,7 +280,11 @@ När vi kör testprojektet på nytt så kompilerar det men testfallet går inte 
 Då behöver vi uppdaterar konstruktorn i klassen **BankAccount** så att den kastar detta fel med felmeddelandet i om någon skapar ett **BankAccount** objekt med negativt saldo.
 
 <details>
-<summary>Koden för konstruktorn till klassen BankAccount.</summary>
+<summary>
+
+#### Koden för konstruktorn till klassen BankAccount.
+
+</summary>
 
 ```csharp
 // i kmom05/Testing/MyBank2/src/BankAccount.cs
@@ -306,7 +322,11 @@ Vi läser i testplanen [Gör en testplan för Bankexemplet](/website/laromateria
 Vi har ingen klass **Bank** i projektektet **MyBank2** men vi skapar den så här.
 
 <details>
-<summary>Koden för bank klassen:</summary>
+<summary>
+
+#### Koden för bank klassen:
+
+</summary>
 
 ```csharp
 // i kmom05/Testing/MyBank2/src/Bank.cs
@@ -346,7 +366,11 @@ public class Bank
 Här visas hela testklassen **BankTests** med testfallet **TestCreateBank**. I Setupmetoden skapas en instans av klassen **Bank** med namnet från konstanten BANK_NAME. I testfallet `TestCreateBank` verifierar vi att bankens namn blev det vi satte samt att antalet konto i en tom bank är 0.
 
 <details>
-<summary>Koden för testklassen BankTest med testfallet TestCreateBank:</summary>
+<summary>
+
+#### Koden för testklassen BankTest med testfallet TestCreateBank:
+
+</summary>
 
 ```csharp
 // i kmom05/Testing/MyBank2.Tests/BankTests.cs
@@ -384,7 +408,11 @@ Testkör och nu går de tre testfallen vi har igenom. Bra!
 Vi läser vidare i testplanen och ser att nästa testfall är `TestCreateBankDescription`. Det är bra att testa beskrivningen i ett eget testfall eftersom den kan komma att ändras.
 
 <details>
-<summary>Koden för testfallet TestCreateBankDescription:</summary>
+<summary>
+
+#### Koden för testfallet TestCreateBankDescription:
+
+</summary>
 
 ```csharp
 // i kmom05/Testing/MyBank2.Tests/BankTests.cs
@@ -447,7 +475,11 @@ Vi antar att skapa konto med klassen **BankAccount** har yttre beroenden och dä
 Vi gör ett exempel och skapar testfallet `TestAddAccounts`. Testfallen finns beskrivna i artikeln [Gör en testplan för Bankexemplet](/website/laromaterial/kmom05/testplanbank). Vi lägger till att vi använder Moq genom `using Moq;`.
 
 <details>
-<summary>Koden för testfallet TestAddAccounts:</summary>
+<summary>
+
+#### Koden för testfallet TestAddAccounts:
+
+</summary>
 
 ```csharp
 // i kmom05/Testing/MyBank2.Tests/BankTests.cs
@@ -482,7 +514,11 @@ Inom `<>` efter new Mock så visar vi typen på mitt mockobjekt, i exemplet är 
 </details>
 
 <details>
-<summary>Koden för testfallet TestNoOfAccounts:</summary>
+<summary>
+
+#### Koden för testfallet TestNoOfAccounts:
+
+</summary>
 
 ```csharp
 // i kmom05/Testing/MyBank2.Tests/BankTests.cs
@@ -583,7 +619,11 @@ public interface IBank
 Nu skapar vi testfallet `TestDescription` genom att göra ett mockobjekt av interfacet **IBank**. Meddelandet som skrivs ut läggs i en variabel för bättre läsbarhet. Med raden `mockBank.Setup(m => m.PrintDescription()).Callback(() => Console.WriteLine(message));` så bestämmer vi att när metoden PrintDescription() anropas på mockobjektet "mockBank" så skrivs detta meddelande ut i terminalen. Det är precis det PrintDescription() gör i klassen **Bank**. Vi anropar PrintDescription() på mockobjektet "mockBank" och verifierar att metoden körts.
 
 <details>
-<summary>Koden för testfallet TestDescription:</summary>
+<summary>
+
+##### Koden för testfallet TestDescription:
+
+</summary>
 
 ```csharp
 // i MyBank2.Tests/BankTests.cs
@@ -625,7 +665,11 @@ mockBank.Verify(bank => bank.Deposit(It.Is<decimal>(amount => amount > 0)), Time
 För att visa att vi kan blanda Verify och Assert i ett testfall så lägger vi till metoden `GetNoOfAccounts` i IBank och bygger om projektet **MyBank2**.
 
 <details>
-<summary>Koden för testfallet TestNoOfAccounts:</summary>
+<summary>
+
+##### Koden för testfallet TestNoOfAccounts:
+
+</summary>
 
 ```csharp
 // i MyBank2.Tests/BankTests.cs
