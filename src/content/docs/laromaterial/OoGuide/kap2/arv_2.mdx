@@ -7,4 +7,235 @@ sidebar:
 ---
 
 import Figure from '@components/CustomFigure.astro';
+import { YouTube } from 'astro-embed';
 
+
+Vi har tittat på arv i en nivå och det kallas "single inheritance". Klasserna **Sport**, **Passenger** och **Suv** ärver från basklassen **Car**. Arvet kan vara i flera nivåer då en subklass kan bli basklass till en annan subklass. Arv i flera nivåer kallas också "multilevel inheritance".
+
+En subklass i C# kan inte ärva från mer en basklass men C# erbjuder då "interface" och abstrakta klasser istället. Det tittar vi mer på i nästa kapitel.
+
+
+## Arv i flera nivåer (multilevel inheritance)
+
+Klassen **Car** är basklassen och **Suv** är dess subklass, då ärver **Suv** från **Car**. Men klassen **Suv** kan vara basklass till en subklass **ElSuv**, då ärver **ElSuv** från **Suv** och även från **Car**.
+
+Nedanför kan ni se hur relationerna mellan klassen **Car** och dess subklasser ser ut i ett klassdiagram. Lägg märke till subklassen **ElSuv** som ärver klassen **Suv**.
+
+import classdiagramCarArv_3 from '@assets/img/ooguide/classdiagramCarArv_3.png';
+
+<Figure
+    src={classdiagramCarArv_3}
+    caption="Klassdiagram över Car med subklasserna Passenger, Sport, Suv och ElSuv."
+/>
+
+### Subklassen **ElSuv**
+
+Subklassen **ElSuv** får två attribut och det är räckvidden i km och tiden det tar att snabbladda suven i minuter. För att inte räckvidd och laddningstid i snabbladdare ska bli negativa tal så lägger vi en kontroll i konstruktorn och använder oss av **ternary operator**. En förenklad if-sats som är bra att använda vid enkla if-satser. Om villkoret inom parentesen är sant så tilldelas `this._range = range` men om det är falskt så tilldelas `this._range = 0` istället.
+
+```csharp
+// i OoGuide/src/ElSuv.cs
+namespace OoGuide.src;
+
+public class ElSuv : Suv
+{
+    private double _range; // räckvidd i km
+    private double _chargingTime;  // snabbladdare tid i minuter
+
+
+    public ElSuv(double range, double time, bool fourWheelOn, string model, int price) : base(fourWheelOn, model, price)
+    {
+        this._range = ( range > 0 ) ? range : 0;
+        this._chargingTime = ( time > 0) ? time : 0;
+    }
+
+    public override void Description() // overrides Description in base class
+    {
+        string message = $"Det är en el SUV med räckvidd: {this._range:F1} km och laddtid (snabbladdare): {this._chargingTime:F1} minuter.";
+
+        base.Description();       
+        Console.WriteLine(message);
+    }
+}
+```
+
+Vi överskuggar metoden `Description` med specifik information om subklassen. Även i denna metod kan vi lägga till raden `base.Description();` om vi vill ha med utskrifterna från basklassernas `Description` metoder.
+
+### Testa subklassen **ElSuv**
+
+Vi skapar ett objekt av subklassen **ElSuv** med märket "Ford Capri" som har en räckvidd på 627 km och  en laddningstid på ca 28 minuter.
+
+```csharp
+// i OoGuide/Program.cs
+using OoGuide.src;
+
+...
+// Skapa ett objekt av subklassen ElSuv, spara i en variabel av typen ElSuv och anropa dess metod Description
+ElSuv elSuv = new ElSuv(627, 28, true, "Ford Capri", 464000);
+elSuv.Description();
+// ger utskriften:
+// Bilen är en Ford Capri och kostar 464000 kr.
+// Det är en SUV, hastighet: 1,76 och fyrhjulsdrift är på.
+// Det är en el SUV med räckvidd: 627,0 km och laddtid (snabbladdare): 28,0 minuter.
+
+// Testa även objektets typ samt basklassens typ
+Console.WriteLine($"Objektet elSuv är av typen {elSuv.GetType().Name} och dess basklass är {elSuv.GetType().BaseType}.");
+// ger utskriften: Objektet elSuv är av typen ElSuv och dess basklass är OoGuide.src.Suv.
+```
+
+När vi anropar metoden `Description` på variabeln "elSuv" så är det metoden på subklassen **ElSuv** som anropas. Vi kan spara samma objekt av subklassen **ElSuv** i variabler av typen **Car** och **Suv** och få samma resultat.
+
+Vi kan skapa ett objekt av klassen **Suv** som är subklass till **Car** och samtidigt basklass till **ElSuv** och då får vi:
+
+```csharp
+// i OoGuide/Program.cs
+using OoGuide.src;
+
+...
+// Skapa ett objekt av subklassen Suv, spara i en variabel av typen Car och gör samma utskrift med namn och basklass
+Car car2 = new Suv(true, "Ford Kuga", 299000);
+Console.WriteLine($"Objektet car2 är av typen {car2.GetType().Name} och dess basklass är {car2.GetType().BaseType}.");
+// ger utskriften: Objektet car2 är av typen Suv och dess basklass är OoGuide.src.Car.
+```
+
+Metoden `Description` på klassen **Suv** anropas då.
+
+## System.Object - den ultimata basklassen
+
+**System.Object** är den mest grundläggande klassen i .NET – alla andra klasser i C# ärver direkt eller indirekt från den. Det betyder att varje typ i C# (inklusive användardefinierade klasser) har tillgång till metoder och funktioner som definieras i System.Object.
+
+Viktiga metoder i **System.Object** är `ToString()`, som returnerar en strängrepresentation av objektet, och `Equals()`, som jämför objektet med ett annat objekt. Vi kan testa dem i vårt huvudprogram:
+
+```csharp
+// i OoGuide/Program.cs
+using OoGuide.src;
+
+...
+Console.WriteLine($"Testar ToString() på objektet car2: {car2.ToString()}.");
+// ger utskriften: Testar ToString() på objektet car2: OoGuide.src.Suv.
+
+Console.WriteLine($"Testar Equals() på objektet car2 och car: {car2.Equals(car)}.");
+// ger utskriften: Testar Equals() på objektet car2 och car: False.
+```
+
+Även metoden `GetType` som returnerar objektets typ kommer ifrån **System.Object**. För att verifiera det så skapar vi ett bilobjekt och kollar dess basklass:
+
+```csharp
+// i OoGuide/Program.cs
+using OoGuide.src;
+
+...
+Car car3 = new Car("Ford Kuga", 299000);
+Console.WriteLine($"Objektet car3 är av typen {car3.GetType().Name} och dess basklass är {car3.GetType().BaseType}.");
+// ger utskriften: Objektet car3 är av typen Car och dess basklass är System.Object.
+```
+
+## Uppdatera resten av koden med den nya subklassen **ElSuv**
+
+Vi behöver uppdatera metoden `CreateCars` i klassen **RaceTrack** och skapar där ett objekt av klassen **ElSuv** istället för **Suv**.
+
+```csharp
+// i OoGuide/src/RaceTrack.cs
+namespace OoGuide.src;
+
+class RaceTrack
+{
+    ...
+    private void CreateRace()
+    {
+        string personData = "Säte läge: 3, Däcktemperatur: default, Chassi: default";
+        Car car1 = new Sport(personData, "Ferrari", 899000);
+        this._cars.Add(car1);
+        Car car2 = new Passenger("Volvo", 99000);
+        this._cars.Add(car2);
+        Car car3 = new ElSuv(627, 28, true, "Ford Capri", 464000);
+        this._cars.Add(car3);
+    }
+    ...
+}
+```
+
+Dessutom uppdaterar vi ASCII-bilden i klassen **AsciiArt** för att markera att det är en elektrisk Suv, ett objekt av klassen **ElSuv**.
+
+```csharp
+// i OoGuide/src/AsciiArt.cs
+namespace OoGuide.src;
+
+public static class AsciiArt
+{
+
+    public string GetAsciiModel(string type, string pos = "")
+    ...
+        else if (type.ToLower() == "elsuv")
+        {
+            return $@"
+{pos}  ______
+{pos} /|_||_\`.__
+{pos}(   _ El _ _\
+{pos}=`-(_)--(_)-' 
+";
+
+        }
+        else // Passenger
+        ...
+}
+Så här kan det se ut när det är klart.
+
+<YouTube
+    id="???"
+    title="Så här ser vår bilbana ut nu."
+/>
+
+```
+
+I hvudprogrammet kommenterar vi bort raderna där vi testar arv och har bara kvar:
+
+```csharp
+// i OoGuide/Program.cs
+using OoGuide.src;
+
+RaceTrack raceTrack = new RaceTrack(100);
+Weather weather = new Weather("Soligt", 18, 8);
+
+raceTrack.AddWeather(weather);
+raceTrack.RunRace();
+```
+
+Nu ser det ut som innan med den skillnaden att vi har ett objekt av klassen **ElSuv** och dess ASCII-bild istället för ett objekt av klassen **Suv**.
+
+## Video på bilbanan
+
+Så här kan det se ut när det är klart.
+
+<YouTube
+    id="???"
+    title="Så här ser vår bilbana ut nu."
+/>
+
+
+## Koden
+
+Så här ser klassdiagrammet för vår racerbana ut nu:
+
+import classdiagramRaceTrackArv_2 from '@assets/img/ooguide/classdiagramRaceTrackArv_2.png';
+
+<Figure
+    src={classdiagramRaceTrackArv_2}
+    caption="Klassdiagram över racerbanan med arv i flera nivåer."
+/>
+
+## Koden
+
+Koden i sin helhet kan laddas ner med `task download-code -- kmom05/OoGuide`.
+
+
+## Sammanfattning
+
+Vi använder arv för att återanvända kod och vi kan ärva i flera nivåer (multilevel inheritance). Fördelarna med arv i flera nivåer är att funktionalitet från basklasserna kan användas och därmed minska duplicering av kod. Om vi strukturerar klasserna logiskt så får vi en tydlig hierarki som är lätt att bygga ut. Nackdelarna kan vara ökad komplexitet och stark koppling vilket kan minska flexibiliteten.
+
+Vi använder `base.` för att komma åt metoder och attribut på basklassen. Åtkomstnivån på dessa måste vara åtminstone protected för att subklassen ska komma åt dem.
+
+Alla klasser i C# ärver från **System.Object** vilket ger tillgång till metoder som `ToString()` och `Equals()`.
+
+Vi använder `virtual` för att visa att basklassens metod kan överskuggas och visar med `override` i subklassen att vi överskuggar och ändrar beteendet i subklassen.
+
+Om vi har en klass och vi absolut inte vill att någon annan klass ska kunna ärva från den, så kan vi använda **sealed**. Vi skriver **sealed class NameOfClass** istället för **public class NameOfClass**.

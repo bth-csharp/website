@@ -7,7 +7,6 @@ sidebar:
 ---
 
 import Figure from '@components/CustomFigure.astro';
-import { YouTube } from 'astro-embed';
 
 
 Information hiding eller inkapsling är när man gömmer intern data i klassen, så att den inte kan användas på fel sätt eller användas utanför den egna klassen. Låt oss säga att vi har en klass som har ett attribut som innehåller någon känslig data. Då vill vi inte att det ska gå att använda den hur som helst. Vi vill kanske kontrollera hur värdet sätts, man måste göra en speciell uträkning för att få ett nytt värde, eller att värdet bara är hemligt och man ska inte komma åt det utanför instansmetoder. Vi vill kunna begränsa tillgången till attribut eller metoder utanför klassdefinitionen.
@@ -560,14 +559,6 @@ raceTrack.AddWeather(weather);
 raceTrack.RunRace();
 ```
 
-Så här kan det se ut när det är klart.
-
-<YouTube
-    id="???"
-    title="Så här ser vår bilbana ut nu."
-/>
-
-
 Nu ser klassdiagrammet för bilbanan ut så här:
 
 import classdiagramRaceTrackArv_1 from '@assets/img/ooguide/classdiagramRaceTrackArv_1.png';
@@ -576,11 +567,6 @@ import classdiagramRaceTrackArv_1 from '@assets/img/ooguide/classdiagramRaceTrac
     src={classdiagramRaceTrackArv_1}
     caption="Klassdiagram över racerbanan med arv"
 />
-
-
-## Koden
-
-Koden i sin helhet kan laddas ner med `task download-code -- kmom05/OoGuide`.
 
 
 ## Sammanfattning

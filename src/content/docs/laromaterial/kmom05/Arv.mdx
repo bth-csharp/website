@@ -15,7 +15,7 @@ Om vi tar klasserna **DeckOfCards** och **Card** från artikeln [Introduktion ti
 
 För att visa arv så utökar vi Bankexemplet från artikel [Introduktion till UML och klassdiagram](/website/laromaterial/kmom02/umlklassdiagram) från kmom02. Vi introducerar ett lönekonto och eftersom "lönekonto är-ett Bankkonto" så är det arv. Dessutom introducerar vi ett räntesparkonto, som också ärver från Bankkonto. De nya kontona har olika aktiviteter varje månad, på räntekontot så får vi ränta varje månad och på lönekontot tas en avgift varje månad.
 
-Skapa gärna ett projekt **MyBank** under kmom05 och testkör koden.
+Skapa gärna ett projekt **MyBank** under "kmom05/practice" och testkör koden.
 
 
 ## Arv med BankAccount
@@ -233,6 +233,30 @@ Kontot med nummer 100000 skapades till Marie med saldot 1000 kr.
 Kontot med nummer 100001 skapades till Marie BTH med saldot 9999.999 kr.
 Kontot med nummer 100002 skapades till Marie savings med saldot 122400.00 kr.
 ```
+
+## En tumregel från ”god OOP-design”
+
+"Exponera inte data — exponera beteende."
+Fundera alltid på vad subklassen behöver göra, inte vilka attribut den ska kunna ändra.
+
+### Varför `protected` attribut ofta är dålig design?
+
+Att exponera attribut direkt (även som protected till subklassen) skapar flera problem:
+
+1. Subklasserna blir hårt beroende av basklassens implementation. Om basklassen ändrar hur datan ska lagras eller valideras så riskerar du att subklasser går sönder.
+
+1. En basklass vill ofta garantera att dess tillstånd alltid är "giltigt". Om subklasser kan manipulera attribut direkt är det svårt att upprätthålla dessa regler.
+
+1. Arv gör klasser mer sammanbundna. Ju mer du ger subklassen direkt åtkomst till basklassens data, desto mer låser du designen.
+
+### Rekommenderad praxis
+
+`private` attribut i kombination med `protected` metoder ger bättre kontroll.
+
+Skydda tillstånd via:
+
+- `private` attribut
+- `protected` metoder, om subklassen bara ska utöka beteende
 
 
 ## Sammanfattning
