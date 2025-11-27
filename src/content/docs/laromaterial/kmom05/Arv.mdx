@@ -11,7 +11,7 @@ import Figure from '@components/CustomFigure.astro';
 
 Arv möjliggör återanvändning av kod genom att låta en klass ärva egenskaper och metoder från en annan klass. Klassen som ärver kallar vi **subklass** och klassen vi ärver ifrån **basklass**. Vi kan se det som att subklassen är en utökning eller en specialisering av basklassen.
 
-Om vi tar klasserna **DeckOfCards** och **Card** från artikeln [Introduktion till Objektorienterad programmering](/website/laromaterial/kmom02/inledningoo#exempel-med-en-kortlek), hur kan vi utöka dem. Jo, till exempel kan vi utöka klassen **Card** till visa spelkorten grafiskt och skapa en klass **CardGraphic** som ärver från **Card**. **Card** är då basklass och **CardGraphic** subklass. Vi kan säga att ett grafiskt spelkort "är-ett" spelkort. Vi skulle också kunna göra en subklass till klassen **DeckOfCards** som innehåller jokrar och kalla den **DeckOfCardsWithJokers**. En kortlek med jokrar "är-en" kortlek.
+Om vi tar klasserna **DeckOfCards** och **Card** från artikeln [Introduktion till Objektorienterad programmering](/website/laromaterial/kmom02/inledningoo#exempel-med-en-kortlek) och funderar på hur vi kan utöka dem. Vi kan till exempel utöka klassen **Card** till att visa spelkorten grafiskt och skapa en klass **CardGraphic** som ärver från **Card**. **Card** är då basklass och **CardGraphic** subklass. Vi kan säga att ett grafiskt spelkort "är-ett" spelkort. Vi skulle också kunna göra en subklass till klassen **DeckOfCards** som innehåller jokrar och kalla den **DeckOfCardsWithJokers**. En kortlek med jokrar "är-en" kortlek.
 
 För att visa arv så utökar vi Bankexemplet från artikel [Introduktion till UML och klassdiagram](/website/laromaterial/kmom02/umlklassdiagram) från kmom02. Vi introducerar ett lönekonto och eftersom "lönekonto är-ett Bankkonto" så är det arv. Dessutom introducerar vi ett räntesparkonto, som också ärver från Bankkonto. De nya kontona har olika aktiviteter varje månad, på räntekontot så får vi ränta varje månad och på lönekontot tas en avgift varje månad.
 
@@ -20,7 +20,7 @@ Skapa gärna ett projekt **MyBank** under "kmom05/practice" och testkör koden.
 
 ## Arv med BankAccount
 
-Vi vill specialisera vårt bankkonto till att vara ett räntekonto eller ett lönekonto. Ett räntekonto "är-ett" bankkonto och därför kan räntekonto ärva bankkonto. Då återanvänder vi koden i klassen **BankAccount** och gör två subklasser **InterestAccount** och **PayrollAccount** och utökar dessa subklasser med det som är specifikt för de båda kontotyperna. Om vi vill lägga till en tredje kontotyp är det enkelt att göra.
+Vi vill specialisera vårt bankkonto till att vara ett räntekonto eller ett lönekonto. Ett räntekonto "är-ett" bankkonto och därför kan räntekonto ärva bankkonto. Då återanvänder vi koden i klassen **BankAccount** och gör två subklasser **InterestAccount** och **PayrollAccount** och utökar dessa subklasser med det som är specifikt för respektive kontotyp. Om vi vill lägga till en tredje kontotyp är det enkelt att göra.
 
 
 ### Klassdiagram för BankAccount, InterestAccount och PayrollAccount
@@ -69,9 +69,9 @@ public class PayrollAccount : BankAccount
 }
 ```
 
-Med konstruktionen `: base` visar vi att vi använder basklassens konstruktor.
+Med konstruktionen `: BankAccount` visar vi att klassen ärver från `BankAccount` och med konstruktionen  `: base` (direkt efter konstruktorns parameterlista) visar vi att vi anropar basklassens konstruktor.
 
-Subklasserna kommer åt basklassens attribut som är skyddade (protected) inuti subklassen men inte de privata (private). Det ska vi testa nu.
+Subklasserna kommer åt basklassens attribut och metoder som är publika (public) och som är skyddade (protected) men inte de som är privata (private). Nu testar vi att vi kommer åt skyddade attribut men inte privata attribut.
 
 ```csharp title="Lägg följande rader i huvudprogrammet i Program.cs"
 using MyBank.src;
@@ -112,8 +112,7 @@ Kontot med nummer 100002 skapades till Marie savings med saldot 120000 kr.
 Detta räntekonto skapades till Marie savings med saldot 120000 kr.
 ```
 
-Raderna som börjar med "Kontot..." kommer från basklassen och raderna som börjar med "Detta..." kommer från subklassen. På samma sätt som subklasserna kommer åt attribut i basklassen som är `protected`, kommer subklassen åt metoder som är `protected`. Åtkomstnivån `protected` används i arv då subklasserna kommer åt basklassens metoder och attribut som är skyddade med `protected`.
-
+Raderna som börjar med "Kontot..." kommer från basklassen och raderna som börjar med "Detta..." kommer från subklassen. Åtkomstnivån `protected` används i arv då subklasserna ska komma åt basklassens metoder och attribut.
 
 ## Metodöverlagring med BankAccount
 
