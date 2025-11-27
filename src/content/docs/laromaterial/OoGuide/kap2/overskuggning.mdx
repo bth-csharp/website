@@ -1,0 +1,249 @@
+---
+title: "Överskuggning av metoder"
+description: Överskuggning av metoder
+sidebar:
+    order: 2
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+Överskuggning är att skriva över en metod från en basklass i en subklass för att anpassa funktionaliteten för subklassen. Vi har en metod som heter `Description` i basklassen och skapar varsin `Description` metod i subklasserna. I subklasserna tar metoderna med data som är specifik för de subklasserna. Om objektet som anropar `Description` är av basklassens typ, så anropas basklassens Description metod. Medan om objektet som anropar `Description` är av subklassens typ, så anropas subklassens Description metod.
+
+Överskuggning en typ av polymorfism.
+
+## Polymorfism i **C#**
+
+Polymorfism är ett av de grundläggande koncepten inom objektorienterad programmering (OOP) och innebär att en funktion eller metod kan ha olika former eller beteenden beroende på sammanhanget. I C# finns det två huvudsakliga typer av polymorfism: **statisk polymorfism** och **dynamisk polymorfism**.
+
+**Statisk polymorfism** uppnås genom **metodöverlagring** (method overloading). Det innebär att flera metoder kan ha samma namn men olika parametrar. Kompilatorn bestämmer vilken metod som ska anropas baserat på antalet och typen av argument som skickas till metoden.
+
+**Dynamisk polymorfism** uppnås genom **överskuggning** (method overriding). Det innebär att en metod i en basklass kan överskuggas av en metod i en subklass. Vilken metod som ska anropas bestäms när programmet körs baserat på objektets typ.
+
+Polymorfism gör det möjligt att skriva flexibel och återanvändbar kod. Ett vanligt exempel är att använda en lista med basklassobjekt och anropa metoder på dessa objekt utan att behöva veta deras exakta typ vid kompilering.
+
+## Överskugga `Description`
+
+Vi har en metod `Description`  i basklassen **Car**.
+
+```csharp
+// i OoGuide/src/Car.cs
+    ...
+    public void Description()
+    {
+        Console.WriteLine($"Bilen är en {this._model} och kostar {this._price} kr.");
+    }
+}
+```
+
+Nu lägger vi till metoden `Description` i alla subklasserna. Så här ser den ut i "src/Sport.cs".
+
+```csharp
+// i OoGuide/src/Sport.cs
+    ...
+    public void Description()
+    {
+        Console.WriteLine("Det är en sportbil. Personlig data:");
+        Console.WriteLine(this._personData);
+    }
+}
+```
+
+Nu kan vi få en varning om att metoden `Description` på subklassen **Sport** gömmer (hiding) metoden `Description` på basklassen **Car** men den ignorerar vi nu.
+
+För att testa metoden `Description` så skapar vi objekt av klassen **Sport** och testkör huvudprogrammet:
+
+```csharp
+// i OoGuide/Program.cs
+using OoGuide.src;
+
+// Skapa ett objekt av subklassen Sport och anropa Description
+string persondata = "Säte läge: 3, Däcktemperatur: default, Chassi: default";
+Sport sport = new Sport(persondata, "Ferrari", 899000);
+sport.Description();
+// ger utskriften: Det är en sportbil. Personlig data:
+// Säte läge: 3, Däcktemperatur: default, Chassi: default
+```
+
+Metoden på subklassen **Sport** körs. Om vi har en variabel av typen **Car** men skapar ett objekt av klassen **Sport**. Vad händer då? Kommer subklassens metod att användas även denna gång?
+
+```csharp
+// i OoGuide/Program.cs
+using OoGuide.src;
+
+...
+string persondata2 = "Säte läge: 1, Däcktemperatur: max, Chassi: max";
+Car sportsCar = new Sport(persondata2, "Porsche", 599000);
+sportsCar.Description();
+// ger utskriften: Bilen är en Porsche och kostar 599000 kr.
+```
+
+Även om vi skapat ett objekt av subklassen **Sport** så är det basklassens metod som körs eftersom variabeln är av typen **Car**. Var det så vi tänkte? Nej, inte riktigt för vi vill att subklassens metod `Description` ska köras. Det var det varningen på `Description` i subklassen handlar om. Hur vill vi göra?
+
+Jo, vi vill att subklassens metod används. Vi har en lista av typen **Car** i klassen **RaceTrack**. I den listan har vi ett objekt av typen **Passenger**, ett objekt av typen **Sport** och ett objekt av typen **Suv**. När vi itererar över listan av typen **Car** och anropar`Description`, så vill vi att subklassens metod används.
+
+Lösningen på det är att tydligt säga till att subklassens metod ska användas med `virtual` och `override`. När en metod i basklassen är markerad `virtual`, så visar vi att subklassen kan ändra metodens beteende genom att använda `override`.
+
+
+## virtual och override
+
+I C# kan en metod i en subklass överskugga en metod i en basklass utan att använda de explicita nyckelorden `virtual` i basklassen och `override` i den subklassen, så länge metoden i basklassen är markerad som public, protected, eller internal. Det är god praxis att använda `virtual` och `override` explicit eftersom det gör koden mer läsbar och tydligt kommunicerar intentionen att tillåta överskuggning.
+
+Vi tar exemplet ovan och gör enligt det rekommenderade sättet vid planerad överskuggning och då ser det ut så här när `virtual` är tillagt:
+
+```csharp
+// i OoGuide/src/Car.cs
+    ...
+    public virtual void Description() // may be overridden in sub class
+    {
+        Console.WriteLine($"Bilen är en {this._model} och kostar {this._price} kr.");
+    }
+}
+```
+
+Och så här ser den ut i "src/Sport.cs" när `override` är tillagt:
+
+```csharp
+// i OoGuide/src/Sport.cs
+    ...
+    public override void Description() // overrides Description in base class
+    {
+        Console.WriteLine("Det är en sportbil. Personlig data:");
+        Console.WriteLine(this._personData);
+    }
+}
+```
+
+Nu kommer subklassens metod `Description` köras i båda exemplen och utskriften blir:
+
+```csharp
+// ger utskriften:
+// Det är en sportbil. Personlig data:
+// Säte läge: 3, Däcktemperatur: default, Chassi: default
+// Det är en sportbil. Personlig data:
+// Säte läge: 1, Däcktemperatur: max, Chassi: max
+```
+
+Nu skrivs informationen från subklassens `Description` metod ut. Men hade det inte varit bra med model och pris från basklassens `Description` metod också?
+
+### Anropa basklassens metod i subklassen
+
+Antag att vi vill se informationen från båda metoderna, både basklassens och subklassens metod `Description`. Då behöver vi uppdatera subklassens metod med ett anrop till basklassens metod.
+
+Så här ser koden i klassen **Sport** ut då:
+
+```csharp
+// i OoGuide/src/Sport.cs
+    ...
+    public override void Description() // overrides Description in base class
+    {
+        base.Description(); // Anropar basklassens metod
+        Console.WriteLine("Det är en sportbil. Personlig data:");
+        Console.WriteLine(this._personData);
+    }
+}
+```
+
+Vi kör samma huvudprogram som ovan och då blir resultatet:
+
+```csharp
+// ger utskriften:
+// Bilen är en Ferrari och kostar 899000 kr.
+// Det är en sportbil. Personlig data:
+// Säte läge: 3, Däcktemperatur: default, Chassi: default
+// Bilen är en Porsche och kostar 599000 kr.
+// Det är en sportbil. Personlig data:
+// Säte läge: 1, Däcktemperatur: max, Chassi: max
+```
+
+
+<details>
+<summary>
+
+#### Koden för Description i de andra subklasserna
+
+</summary>
+
+Vi lägger till metoden `Description` i subklassen **Passenger** och rensar i metoden `ToggleEchoDriving`. Så här ser det ut i subklassen **Passenger**:
+
+```csharp
+// i OoGuide/src/Passenger.cs
+    ...
+    public void ToggleEchoDriving()
+    {
+        this._echoDrivingOn = !this._echoDrivingOn;
+    }
+
+    public override void Description() // overrides Description in base class
+    {
+        string message = "Det är en passagerarbil med echo driving";
+
+        message += this._echoDrivingOn ? " på." : " av.";
+        Console.WriteLine(message);
+    }
+    ...
+}
+```
+
+Vi lägger till metoden `Description` i subklassen **Suv** och rensar i metoden `ToggleFourWheel`. Så här ser det ut i subklassen **Suv**:
+
+```csharp
+// i OoGuide/src/Passenger.cs
+    ...
+    public void ToggleFourWheel()
+    {
+        this._fourWheelOn = !this._fourWheelOn;
+    }
+
+    public override void Description() // overrides Description in base class
+    {
+        string message = "Det är en SUV och fyrhjulsdrift är";
+
+        message += this._fourWheelOn ? " på." : " av.";
+        Console.WriteLine(message);
+    }
+    ...
+}
+```
+
+</details>
+
+<details>
+<summary>
+
+#### Test av Description i de andra subklasserna
+
+</summary>
+
+Vi testar i samma huvudprogram och ser om det blir som vi tänkt oss.
+
+```csharp
+// i OoGuide/Program.cs
+using OoGuide.src;
+
+// Skapa ett objekt av subklassen Passenger och anropa Description
+Passenger passenger = new Passenger("BMW", 499000);
+passenger.Description();
+// Ger utskriften: Det är en passagerarbil och echo driving är av.
+
+// Skapa ett objekt av subklassen Suv och anropa Description
+Suv suv = new Suv(true, "Ford Kuga", 299000);
+suv.Description();
+// Ger utskriften: Det är en SUV och fyrhjulsdrift är på.
+```
+
+</details>
+
+
+## Sammanfattning
+
+`virtual` och `override` markeras inte på något speciellt sätt i klassdiagrammet. Ibland så ser vi "&lt;&lt;override&gt;&gt;" i subklassen efter metodens namn och returtyp. Så här ser klassdiagrammet ut nu:
+
+import classdiagramCarArv_2 from '@assets/img/ooguide/classdiagramCarArv_2.png';
+
+<Figure
+    src={classdiagramCarArv_2}
+    caption="Klassdiagram över Car med subklasserna Passenger, Sport och Suv."
+/>
+
+Då har vi överskuggat metoder från basklassen i subklassen och vi markerar det med nyckelorden `virtual` i basklassen och `override` i subklassen. `virtual` i basklassen markerar att metoden kan överskuggas i eventuella subklasser och `override` i subklassen markerar att subklassen överskuggar basklassens metod.

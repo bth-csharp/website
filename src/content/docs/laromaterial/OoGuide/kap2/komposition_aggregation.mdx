@@ -1,0 +1,83 @@
+---
+title: "Relationer mellan klasser"
+description: Relationer mellan klasser
+sidebar:
+    order: 4
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+
+Arv är när klasser har en *är-en* relation och komposition/aggregation är när klasserna har en *har-en* relation. Om klassen **Person** har en subklass **Student**, då är relationen "Student är-en Person". Subklassen **Student** är en utökning av klassen **Person**. Vi kan också säga att subklassen **Student** ärver klassen **Person**.
+
+Om klassen **Person** har ett attribut vars värde är ett objekt av klassen Dog, då är relationen "Person har-en Dog". Man brukar säga att **Person** objektet äger Dog objektet. Då är det antingen komposition och aggregation.
+
+Relationen mellan klasser bör vara enkelriktad. I objektorienterad programmering bör vi undvika dubbelriktad relation då koden blir för komplex, svår att underhålla och trots att C# har garbage collector så kan det bli minnesluckor. Om du vill ha en dubbelriktad relation, då bör du tänka om och ändra din design!
+
+
+## Komposition och aggregation
+
+Det är komposition när klasserna är starkt kopplade. Om ägandeklassen slutar att existera så slutar även det ägda objektet att existera. Till exempel klassen **House** (ägandeklass) och klassen **Room** (ägd), ett **Room** objekt kan inte existera utan att vara i ett House objekt.
+
+Det är aggregation när klasserna är svagt kopplade. Om ägandeklassen slutar att existera då fortsätter det ägda objektet att existera. I exemplet, "Person har-en Dog", så är det aggregation då **Dog** fortsätter existera om **Person** slutar existera.
+
+Om det *ägda* objektet skapas i *ägarens* konstruktor är det oftast komposition medan om det *ägda* objektet skickas som ett argument till konstruktorn är det oftast aggregation.
+
+
+## Hur ser det ut i vårt ett exempel?
+
+Jo, klassen **RaceTrack** har en lista med bilar, objekt av subklasser till klassen **Car**. Eftersom att de skapas i konstruktorn så försvinner de objekten när klassen **RaceTrack** försvinner och därmed är det komposition. Vi kan säga "RaceTrack har-en lista med objekt av typen **Car**" och därför är det komposition.
+
+Subklasserna **Sport**, **Passenger** och **Suv** har en "är-en" relation med basklassen **Car**. Vi kan säga att "Sport är-en Car" och därför är det arv. Eftersom att subklasserna är en specialisering av basklassen så är det arv.
+
+Klassen **RaceTrack** "har-ett" väder objekt men vädret fortsätter ju leva även när **RaceTrack** dör. Alltså har klassen **RaceTrack** en aggregationsrelation med klassen **Weather**.
+
+Association är en generell relation som visar att en eller flera klasser har relationer till varandra. Det är den svagaste relationen. I vårt exempel med racerbanan så används klassen **AsciiArt** och de klasser som gör det har en associationsrelation med **AsciiArt**.
+
+
+## Hur ser det ut med kortleksexemplet?
+
+I kortleksexemplet så har vi en klass **DeckOfCards** som har spelkort. Därmed har klassen **DeckOfCards** en kompositionsrelation med klassen **Card**. Klassen **Card** har vi specialiserat och gjort grafiska bilder på spelkorten och den subklassen kallar vi **CardGraphic**. Subklassen **CardGraphic** är en utökning av klassen **Card** och ett grafiskt spelkort "är-ett" spelkort och därmed är det arv.
+Om vi omdesignar och väljer enbart komposition så skulle klassen **CardGraphic** innehålla bilder som klassen **Card** kan använda. Det funkar också.
+
+
+## Arv mot komposition
+
+Som utvecklare vill vi återanvända så mycket kod som möjligt men samtidigt undvika komplex kod. Arv skapar en starkare koppling mellan klasser, medan komposition ger en lösare koppling. Komposition har en tätare koppling mellan objekten, medan aggregation tillåter mer flexibilitet i livslängden för objekten. Vi får tänka på hur starkt vi vill koppla ihop objekten. Komposition är mer “ägande”, medan aggregation är mer “samling”.
+
+
+### Jämförelse arv och komposition
+
+|      Arv       | Komposition     |
+|----------------|-----------------|
+| Relation "är-en" | Relation "har-en" |
+| Ett objekt från subklassen får egenskaper från basklassen samt subklassen är en utökning av basklassen. | Ett objekt används i ett annat objekt |
+| Klassarv definieras vid körning   | Definieras dynamiskt vid körning |
+| Starkare koppling mellan bas- och subklass | Svagare koppling mellan klasser |
+
+
+### Guidelines
+
+När vad som ska användas inte är spikat i sten utan det handlar om vilket du som utvecklare tycker passar bäst och vad du känner dig bekväm med. Ni kan följa dessa tre guidelines.
+
+1. Använd komposition när det finns en klar *har-en* relation där kod används på olika ställen och i olika situationer.
+2. Använd arv när det finns en klar *är-en* relation med återanvändbar kod mellan klasser i en hierarki.
+3. Använd arv där det funkar bäst och komposition där det funkar bäst och det är ett designval vilket som ska väljas. Hur ska klasserna funka och vilken relation har de? Om det finns osäkerhet i vilken design som är bäst så välj komposition.
+4. Försök att undvika multipla arv, det blir snabb komplicerat och det krävs en mycket bra kodbas kunskap för att jobba med koden. Använd det när det finns behov att ärva från flera klasser för att göra koden mer effektiv.
+
+### Sammanställning av symboler
+
+<br></br>
+import allRelations from '@assets/img/kmom03/allRelations.png';
+
+<Figure
+    src={allRelations}
+    caption="Bilden visar symboler för komposition, aggregation och association."
+    width="500px"
+/>
+
+
+## Sammanfattning
+
+Använd arv för att återanvända kod mellan klasser och använd komposition för att paketera kod i moduler som kan återanvändas av olika klasser.

@@ -1,0 +1,588 @@
+---
+title: "Information hiding del 2"
+description: Information hiding del 2
+sidebar:
+    order: 3
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+import { YouTube } from 'astro-embed';
+
+
+Information hiding eller inkapsling är när man gömmer intern data i klassen, så att den inte kan användas på fel sätt eller användas utanför den egna klassen. Låt oss säga att vi har en klass som har ett attribut som innehåller någon känslig data. Då vill vi inte att det ska gå att använda den hur som helst. Vi vill kanske kontrollera hur värdet sätts, man måste göra en speciell uträkning för att få ett nytt värde, eller att värdet bara är hemligt och man ska inte komma åt det utanför instansmetoder. Vi vill kunna begränsa tillgången till attribut eller metoder utanför klassdefinitionen.
+
+I tabellen nedanför finns en kort sammanfattning på åtkomstnivåerna.
+
+| Implementation | Typ     | Syfte                                                                                 |
+|----------------|---------|---------------------------------------------------------------------------------------|
+| public Name    | publik (public)  | Kan nås av vem som helst (använd med försiktighet)           |
+| protected _name | skyddad (protected) | Funkar som privat men metoden/variabeln kan också nås från klasser som ärver från klassen där de deklareras                             |
+| private _name   | privat (private) | Nås endast från klassen där de deklareras (default om inget annat anges) |
+
+Åtkomstnivån "protected" används vid arv för att subklasserna ska komma åt egenskaper och metoder i basklassen.
+
+
+## Ökad åtkomstnivå till "protected"
+
+### Testa subklassens åtkomst av basklassens attribut
+
+Vi börjar med att testa vad subklassen kommer åt av basklassens privata attribut. Subklassen bör ju inte komma åt något eftersom alla attribut på basklassen är privata men vi testar.
+
+```csharp
+// i OoGuide/Program.cs
+using OoGuide.src;
+
+// Skapa ett objekt av subklassen Sport och anropa Description
+string persondata = "Säte läge: 3, Däcktemperatur: default, Chassi: default";
+Sport sport = new Sport(persondata, "Ferrari", 899000);
+sport._position;
+// ger kompileringsfelet: error CS0122: 'Car._position' is inaccessible due to its protection level
+```
+
+Det var väntat. Nu testar vi att ändra åtkomstnivån för `_position` i klassen **Car** till **protected**. Då ska alla klasser som ärver **Car** komma åt `_position`.
+
+```csharp
+// i OoGuide/src/Car.cs
+    ...
+    protected int _position;
+    ...
+```
+
+Vi testkör igen och får samma kompileringsfel. Varför då?  
+Jo, åtkomsten gäller inuti subklassen. Huvudprogrammet är en klass som heter **Program** och den ärver inte **Car**. Vi uppdaterar metoden `Description` i subklassen och testar att skriva ut ett privat (private) och skyddat (protected) attribut från **Car** i subklassen.
+
+```csharp
+// i OoGuide/src/Sport.cs
+    ...
+    public override void Description()
+    {
+        Console.WriteLine("Det är en sportbil. Personlig data:");
+        Console.WriteLine(this._personData);
+        // Testing
+        Console.WriteLine($"Testar åtkomst protected, _position: {base._position}");
+        Console.WriteLine($"Testar åtkomst private, _price: {base._price}");
+    }
+}
+```
+
+Vi kommer åt basklassen attribut och metoder med "base." liknande "this." i egna klassen.  
+Då testkör vi:
+
+```csharp
+// i OoGuide/Program.cs
+using OoGuide.src;
+
+// Skapa ett objekt av subklassen Sport och anropa Description
+string persondata = "Säte läge: 3, Däcktemperatur: default, Chassi: default";
+Sport sport = new Sport(persondata, "Ferrari", 899000);
+sport.Description();
+// ger kompilieringsfelet: error CS0122: 'Car._price' is inaccessible due to its protection level
+```
+
+Vi kommer inte åt privata attribut men vi kommer åt de som är protected. Vi kommenterar bort raden med `_price` från metoden `Description` i subklassen och testkör igen. Då får vi utskriften:
+
+```csharp
+// i OoGuide/Program.cs
+...
+sport.Description();
+// ger utskriften:
+// Det är en sportbil. Personlig data:
+// Säte läge: 3, Däcktemperatur: default, Chassi: default
+// Testar åtkomst protected, _position: 0
+```
+
+Att subklassen kommer åt bilens position `_position` i basklassen kan vi utnyttja när varje subklass ska räkna ut sin hastighet.
+
+
+## Var ska hastigheten beräknas?
+
+Ska vi beräkna hastigheten i basklassen eller i subklasserna? Det är naturligt att subklasserna har sina egna hastighetskonstanter eftersom det är data som är specifik för subklassen.
+
+### CalculateSpeed i subklasserna
+
+Vi testar att implementera `CalculateSpeed` i subklassen **Sport**. Klassen **Sport** har sina egna hastighetskonstanter `MAX_SPEED` och `MIN_SPEED`. En sportbil är lite snabbare och därför har den högre min- och maxvärde. För att kunna se hastigheten utökar vi utskriften i `Description` så att vi ser hastigheten där.
+
+Koden i **Sport** ser ut så här:
+
+```csharp
+// i OoGuide/src/Sport.cs
+    ...
+    private const float MAX_SPEED = 5.5F;
+    private const float MIN_SPEED = 2.5F;
+    private float _speed;
+
+    ...
+    public Sport(string personData, string model, int price) : base(model, price)
+    {
+        this._personData = personData;
+        this._speed = this.CalculateSpeed();
+    }
+
+    ...
+    public override void Description() // overrides Description in base class
+    {
+        Console.WriteLine($"Det är en sportbil, hastighet: {this._speed:F2}. Personlig data:");
+        Console.WriteLine(this._personData);
+        // Testing
+        //Console.WriteLine($"Testar åtkomst protected, _position: {base._position}");
+        //Console.WriteLine($"Testar åtkomst private, _price: {base._price}");
+    }
+
+    private float CalculateSpeed()
+    {
+        Random random = new Random();
+
+        return (float)(Sport.MIN_SPEED + (random.NextDouble() * (Sport.MAX_SPEED - Sport.MIN_SPEED)));
+    }    
+}
+```
+
+I C# kan vi formatera värden direkt i din interpolerande strängen, den som börjar med ett $-tecken. I det här fallet betyder **:F2** att hastigheten avrundas till 2 decimaler innan den inbyggda metoden `ToString` anropas automatiskt. Vi kommenterar bort raden/raderna
+
+Vi testkör koden genom att köra huvudprogrammet och får då utskriften:
+
+```csharp
+// i OoGuide/Program.cs
+...
+// ger utskriften:
+// Det är en sportbil, hastighet: 4,59. Personlig data:
+// Säte läge: 3, Däcktemperatur: default, Chassi: default
+```
+
+**OBS** eftersom hastigheten slumpas fram så får vi olika resultat varje gång vi kör om.
+
+
+### CalculateSpeed i alla subklasser?
+
+Om vi nu ska gå vidare på denna lösningen, att beräkna hastigheten i subklasserna, då ska vi kopiera samma metod till alla subklasser. Alla subklasser kan ha egna hastighetskonstanter men ska de ha samma metod?
+
+MEN det tar emot att kopiera samma metod `CalculateSpeed` i alla subklasser. Vi ska inte repetera kod (DRY) utan vi testar en lösning där vi lägger `CalculateSpeed` i basklassen istället.
+
+DRY betyder Don't Repeat Yourself och är en viktig princip inom all mjukvaruutveckling, inte bara objektorienterad programmering. DRY kod att ofta mer läsbar och lättare att förstå och underhålla. Genom att hålla koden DRY så minskar du felkällorna.
+
+### CalculateSpeed i basklassen
+
+Vi tar bort `CalculateSpeed` i subklassen **Sport** och lägger den basklassen **Car**. Vi lägger till defaultvärden på min- och maxhastighet.
+
+Metoden `CalculateSpeed` i **Car** ser ut så här:
+
+```csharp
+// i OoGuide/src/Car.css
+    ...
+    protected float CalculateSpeed(float minSpeed = 0.5f, float maxSpeed = 3.5f)
+    {
+        Random random = new Random();
+
+        return (float)(minSpeed + (random.NextDouble() * (maxSpeed - minSpeed)));
+    }
+```
+
+Koden i **Sport** ser ut så här:
+
+```csharp
+// i OoGuide/src/Sport.cs
+    ...
+        public Sport(string personData, string model, int price) : base(model, price)
+    {
+        this._personData = personData;
+        this._speed = base.CalculateSpeed(Sport.MIN_SPEED, Sport.MAX_SPEED);
+    }
+
+    ...
+```
+
+Vi behöver inte uppdatera vårt huvudprogram utan bara kör det och får då utskriften:
+
+```csharp
+// i OoGuide/Program.cs
+...
+// ger utskriften:
+// Det är en sportbil, hastighet: 3,06. Personlig data:
+// Säte läge: 3, Däcktemperatur: default, Chassi: default
+```
+
+### För- och nackdelar
+
+Det är en fördel att placera metoden `CalculateSpeed` i basklassen eftersom då subklasserna använder samma kod istället för att vi duplicerar kod. Underhållet blir enklare då vi kan uppdatera en metod istället för en per subklass.
+
+Men en nackdel kan vara att vi vill beräkna hastigheten annorlunda i någon av subklasserna. Då kan vi lösa det genom att göra `CalculateSpeed` virtual i basklassen och så får de subklasser som vill överskugga (override) `CalculateSpeed`.
+
+Vi väljer att lägga `CalculateSpeed` i basklassen med åtkomstnivå protected och virtual för möjlig överskuggning.
+
+Vi gör metoden `CalculateSpeed` i **Car** virtual och då den ser ut så här:
+
+```csharp
+// i OoGuide/src/Car.css
+    ...
+    protected virtual float CalculateSpeed(float minSpeed = 0.5f, float maxSpeed = 3.5f)
+    {
+        Random random = new Random();
+
+        return (float)(minSpeed + (random.NextDouble() * (maxSpeed - minSpeed)));
+    }
+```
+
+Metoden anropas på samma sätt i subklassen och vi kan köra samma huvudprogram och utskriften blir samma som innan.
+
+### Uppdatera och testa de andra subklasserna
+
+Vi uppdaterar även de andra subklasserna. **Passenger** använder defaultvärdena i metoden `CalculateSpeed` och använder `CalculateSpeed` i basklassen precis som **Sport**.
+
+<details>
+<summary>
+
+#### Uppdaterad kod och test av Passenger
+
+</summary>
+
+```csharp
+// i OoGuide/src/Passenger.cs
+namespace OoGuide.src;
+
+public class Passenger : Car
+{
+    private bool _echoDrivingOn; // true om echo driving är på
+    private float _speed;
+
+    public Passenger(string model, int price) : base(model, price)
+    {
+        this._echoDrivingOn = false; // bästa race läget
+        this._speed = base.CalculateSpeed(); // använder defaultparametrarna
+    }
+    ...
+
+    public override void Description() // overrides Description in base class
+    {
+        string message = $"Det är en passagerarbil, hastighet: {this._speed:F2} och echo driving är";
+
+        message += this._echoDrivingOn ? " på." : " av.";
+        Console.WriteLine(message);
+    }
+    ...
+}
+```
+
+Glöm inte att uppdatera till en interpolerande sträng för att kunna skriva ut hastighet med 2 decimaler.  
+Vi lägger till följande kod i huvudprogrammet och testkör våra uppdateringar.
+
+```csharp
+// i OoGuide/Program.cs
+...
+Passenger passenger = new Passenger("Volvo", 99000);
+passenger.Description();
+// ger utskriften: Det är en passagerarbil, hastighet: 1,28 och echo driving är av.
+```
+
+</details>
+
+Denna Suv har lite längre accelerationssträcka och en lägre topphastighet. Här testar vi också att beräkna hastigheten annorlunda eftersom denna Suv är tyngre. Alltså överskuggar vi metoden `CalculateSpeed` i basklassen och gör en ny och markerar den `override` i subklassen.
+
+<details>
+<summary>
+
+#### Uppdaterad kod och test av Suv
+
+</summary>
+
+```csharp
+// i OoGuide/src/Suv.cs
+namespace OoGuide.src;
+
+public class Suv : Car
+{
+    private const float MAX_SPEED = 3.0f;
+    private const float MIN_SPEED = 1.0f;
+    private bool _fourWheelOn; // true om fyrhjulsdrift är på
+    private float _speed;
+
+
+    public Suv(bool fourWheelOn, string model, int price) : base(model, price)
+    {
+        this._fourWheelOn = fourWheelOn;
+        this._speed = this.CalculateSpeed(Suv.MIN_SPEED, Suv.MAX_SPEED);
+    }
+    ...
+    public override void Description() // overrides Description in base class
+    {
+        string message = $"Det är en SUV, hastighet: {this._speed:F2} och fyrhjulsdrift är";
+
+        message += this._fourWheelOn ? " på." : " av.";
+        Console.WriteLine(message);
+    }
+    ...
+    protected override float CalculateSpeed(float minSpeed = 0.5f, float maxSpeed = 3.5f)
+    {
+        Random random = new Random();
+
+        return (float)(minSpeed + (random.NextDouble() * 0.9 * (maxSpeed - minSpeed)));
+    }
+}
+```
+
+Eftersom denna Suv är tyngre så beräknar vi hastigheten med en tyngdkonstant på 0.9 som ger en något lägre hastighet.  
+Vi lägger till följande kod i huvudprogrammet och testkör våra uppdateringar.
+
+```csharp
+// i OoGuide/Program.cs
+...
+Suv suv = new Suv(true, "Ford Kuga", 299000);
+suv.Description();
+// ger utskriften: Det är en SUV, hastighet: 2,14 och fyrhjulsdrift är på.
+```
+
+</details>
+
+## Uppdatera koden för att kunna köra bilarna igen
+
+Vi behöver uppdatera klassen **RaceTrack** så att vi skapar objekt av subklasserna och lägger i vår lista av bilar. Därefter behöver vi se till att metoden `Move` funkar igen och se att bilarna kör på vår racerbana.
+
+
+### Uppdatera *RaceTrack*
+
+Vi börjar med att kopiera koden vi gjort i klassen *RaceTrack* från kapitel 1. Är det något vi behöver göra där? Just det, vi ska objekt av subklasserna och lägga i listan av bilar. Vi uppdaterar metoden *CreateCars*.
+
+```csharp
+// i OoGuide/src/RaceTrack.cs
+    ...
+    private void CreateCars()
+    {
+        string personData = "Säte läge: 3, Däcktemperatur: default, Chassi: default";
+        Car car1 = new Sport(personData, "Sport model", 99000);
+        this._cars.Add(car1);
+        Car car2 = new Passenger("Passenger model", 89000);
+        this._cars.Add(car2);
+        Car car3 = new Suv(true, "Suv model", 79000);
+        this._cars.Add(car3);
+    }
+
+    public List<Car> GetCars()
+    {
+        return this._cars;
+    }
+    ...
+} 
+```
+
+Dessutom lägger vi till metoden `GetCars` eftersom vi vill kolla vilka typer (vilka subklasser) objekten i listan med **Car**-objekt innehåller.
+
+Vi gör om huvudprogrammet och kör det:
+
+```csharp
+using OoGuide.src;
+
+RaceTrack raceTrack = new RaceTrack(100);
+
+Console.WriteLine("Bilarna på racerbanan:");
+foreach (var car in raceTrack.GetCars())
+{
+    Console.WriteLine($"Bilobjektet är av typen: {car.GetType().Name}");
+    car.Description();
+}
+// ger utskriften:
+// Presentation av de 3 bilarna på racerbanan:
+// Bilobjektet är av typen: Sport
+// Det är en sportbil, hastighet: 2,60. Personlig data:
+// Säte läge: 3, Däcktemperatur: default, Chassi: default
+// Bilobjektet är av typen: Passenger
+// Det är en passagerarbil, hastighet: 3,37 och echo driving är av.
+// Bilobjektet är av typen: Suv
+// Det är en SUV, hastighet: 2,58 och fyrhjulsdrift är på.
+```
+
+Så där ja, nu har en lista med bilar av olika typer och nu tar vi tag i metoden `Move`.
+
+### Metoden `Move`
+
+Var ska vi lägga metoden `Move`, i basklassen eller i subklasserna? Vi vill ju hålla koden DRY så vi lägger den i basklassen och eftersom alla subklasserna har attributet `_speed` så flyttar vi det till basklassen. Vi uppdaterar också konstruktorn i alla subklasser till att `base._speed` får den i subklassen beräknade hastigheten.
+
+Så här ser det ut i klassen **Car**:
+
+```csharp
+// i OoGuide/src/Car.cs
+    ...
+    protected int _position;
+    protected float _speed;
+
+    public Car(string model, int price, string type = "Passenger")
+    {
+        this._model = model;
+        this._price = price;
+        this._position = 0;
+        this._speed = 1F;
+        Car._carCount += 1;
+    }
+    ...
+    public void Move()
+    {
+        this._position += (int)this._speed;
+        this.PrintAsciiModel(new string(' ', this._position));
+    }
+
+    // Asci art method
+    public void PrintAsciiModel(string pos = "")
+    {
+        Console.WriteLine(AsciiArt.GetAsciiModel(this.GetType().Name, pos));
+    }
+}
+```
+
+Eftersom objektet vet själv vilken typ den har, så flyttar vi metoden `PrintAsciiModel` från alla subklasser till basklassen.
+
+<details>
+<summary>
+
+#### Så här ser den uppdaterade koden i subklasserna ut:
+
+</summary>
+
+Så här ser det ut i klassen **Sport**:
+
+```csharp
+// i OoGuide/src/Sport.cs
+namespace OoGuide.src;
+
+public class Sport : Car
+{
+    private const float MAX_SPEED = 5.5F;
+    private const float MIN_SPEED = 2.5F;
+
+    private string _personData; // personlig data för att anpassa bilen efter föraren
+
+    public Sport(string personData, string model, int price) : base(model, price)
+    {
+        this._personData = personData;
+        base._speed = base.CalculateSpeed(Sport.MIN_SPEED, Sport.MAX_SPEED);
+    }
+
+    public void SetPersonData(string newPersonData)
+    {
+        if (newPersonData.Length > 20 )
+        {
+            this._personData = newPersonData;
+        }
+    }
+
+    public override void Description() // overrides Description in base class
+    {
+        Console.WriteLine($"Det är en sportbil, hastighet: {this._speed:F2}. Personlig data:");
+        Console.WriteLine(this._personData);
+    }
+}
+```
+
+Så här ser det ut i klassen **Passenger**:
+
+```csharp
+// i OoGuide/src/Passenger.cs
+namespace OoGuide.src;
+
+public class Passenger : Car
+{
+    private bool _echoDrivingOn; // true om echo driving är på
+
+    public Passenger(string model, int price) : base(model, price)
+    {
+        this._echoDrivingOn = false; // bästa race läget
+        base._speed = base.CalculateSpeed(); // använder defaultparametrarna
+    }
+
+    public void ToggleEchoDriving()
+    {
+        this._echoDrivingOn = !this._echoDrivingOn;
+    }
+
+    public override void Description() // overrides Description in base class
+    {
+        string message = $"Det är en passagerarbil, hastighet: {this._speed:F2} och echo driving är";
+
+        message += this._echoDrivingOn ? " på." : " av.";
+        Console.WriteLine(message);
+    }
+}
+```
+
+Så här ser det ut i klassen **Suv**:
+
+```csharp
+// i OoGuide/src/Suv.cs
+namespace OoGuide.src;
+
+public class Suv : Car
+{
+    private const float MAX_SPEED = 3.0f;
+    private const float MIN_SPEED = 1.0f;    
+    private bool _fourWheelOn; // true om fyrhjulsdrift är på
+
+
+    public Suv(bool fourWheelOn, string model, int price) : base(model, price)
+    {
+        this._fourWheelOn = fourWheelOn;
+        base._speed = this.CalculateSpeed(Suv.MIN_SPEED, Suv.MAX_SPEED);
+    }
+
+    public void ToggleFourWheel()
+    {
+        this._fourWheelOn = !this._fourWheelOn;
+    }
+
+    public override void Description() // overrides Description in base class
+    {
+        string message = $"Det är en SUV, hastighet: {this._speed:F2} och fyrhjulsdrift är";
+
+        message += this._fourWheelOn ? " på." : " av.";
+        Console.WriteLine(message);
+    }
+
+    protected override float CalculateSpeed(float minSpeed = 0.5f, float maxSpeed = 3.5f)
+    {
+        Random random = new Random();
+
+        return (float)(minSpeed + (random.NextDouble() * 0.9 * (maxSpeed - minSpeed)));
+    }
+}
+```
+
+</details>
+
+### Testa huvudprogrammet
+
+Kör igen och testa!
+
+```csharp
+// i OoGuide/Program.cs
+using OoGuide.src;
+
+RaceTrack raceTrack = new RaceTrack(100);
+Weather weather = new Weather("Soligt", 18, 8);
+
+raceTrack.AddWeather(weather);
+raceTrack.RunRace();
+```
+
+Så här kan det se ut när det är klart.
+
+<YouTube
+    id="???"
+    title="Så här ser vår bilbana ut nu."
+/>
+
+
+Nu ser klassdiagrammet för bilbanan ut så här:
+
+import classdiagramRaceTrackArv_1 from '@assets/img/ooguide/classdiagramRaceTrackArv_1.png';
+
+<Figure
+    src={classdiagramRaceTrackArv_1}
+    caption="Klassdiagram över racerbanan med arv"
+/>
+
+
+## Koden
+
+Koden i sin helhet kan laddas ner med `task download-code -- kmom05/OoGuide`.
+
+
+## Sammanfattning
+
+Då har vi sett hur vi använder åtkomstnivå "protected" så att subklasserna kommer åt basklassens egenskaper. Vi har också sett att vi fick lägga till en metod `virtual` för att visa att den metoden kan implementeras och överskuggas (override) i subklasserna.
