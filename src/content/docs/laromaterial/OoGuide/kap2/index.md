@@ -5,8 +5,8 @@ sidebar:
     order: 1
 ---
 
-Precis som i naturens värld kan vi inom programmering ärva egenskaper från en “förälder”. En klass kan ärva metoder och attribut från en annan klass, dess objekt kallas ofta för förälder- och barn-objekt. De korrekta termerna är basklass (förälder) och subklass (barn). För att beskriva relationen mellan två klasser som “är-en” är det oftast en arvs relation.
-Kan man beskriva relationen som "har-en" är relationen istället komposition eller aggregation. Komposition och aggregation används när ett objekt innehåller ett annat objekt. Om kopplingen mellan objekten är stark, så är det aggregation. Är relationen svag så är det komposition.
+Precis som i naturens värld kan vi inom programmering ärva egenskaper från en “förälder”. En klass kan ärva metoder och attribut från en annan klass, dess objekt kallas ofta för förälder- och barn-objekt. De korrekta termerna är basklass (förälder) och subklass (barn). När man kan beskriva relationen mellan två klasser som “är-en” resulterar det oftast i en arvsrelation.
+Kan man beskriva relationen som "har-en" är relationen istället komposition eller aggregation. Komposition och aggregation används när ett objekt innehåller ett annat objekt. Om kopplingen mellan objekten är stark, så är det komposition. Är relationen svagare så är det aggregation.
 
 Vi tittar på de olika relationerna och några fler begrepp inom den objektorienterade världen.
 
