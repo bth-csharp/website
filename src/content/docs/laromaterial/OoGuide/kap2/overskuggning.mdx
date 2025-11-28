@@ -8,9 +8,9 @@ sidebar:
 
 import Figure from '@components/CustomFigure.astro';
 
-Överskuggning är att skriva över en metod från en basklass i en subklass för att anpassa funktionaliteten för subklassen. Vi har en metod som heter `Description` i basklassen och skapar varsin `Description` metod i subklasserna. I subklasserna tar metoderna med data som är specifik för de subklasserna. Om objektet som anropar `Description` är av basklassens typ, så anropas basklassens Description metod. Medan om objektet som anropar `Description` är av subklassens typ, så anropas subklassens Description metod.
+Överskuggning är att i en subklass skriva över (överskugga) en metod från en basklass för att anpassa funktionaliteten till subklassen. Vi har en metod som heter `Description` i basklassen och skapar varsin `Description` metod i subklasserna. I subklasserna tar metoderna med den data som är specifik för respektive subklasser. Om objektet som anropar `Description` är av basklassens typ, så anropas basklassens Description metod. Medan om objektet som anropar `Description` är av subklassens typ, så anropas subklassens Description metod.
 
-Överskuggning en typ av polymorfism.
+Överskuggning är en typ av polymorfism.
 
 ## Polymorfism i **C#**
 
@@ -36,7 +36,7 @@ Vi har en metod `Description`  i basklassen **Car**.
 }
 ```
 
-Nu lägger vi till metoden `Description` i alla subklasserna. Så här ser den ut i "src/Sport.cs".
+Nu lägger vi till metoden `Description` i alla subklasser. Så här ser metoden ut i "src/Sport.cs".
 
 ```csharp
 // i OoGuide/src/Sport.cs
@@ -51,7 +51,7 @@ Nu lägger vi till metoden `Description` i alla subklasserna. Så här ser den u
 
 Nu kan vi få en varning om att metoden `Description` på subklassen **Sport** gömmer (hiding) metoden `Description` på basklassen **Car** men den ignorerar vi nu.
 
-För att testa metoden `Description` så skapar vi objekt av klassen **Sport** och testkör huvudprogrammet:
+För att testa metoden `Description` skapar vi objekt av klassen **Sport** och testkör huvudprogrammet:
 
 ```csharp
 // i OoGuide/Program.cs
@@ -65,7 +65,7 @@ sport.Description();
 // Säte läge: 3, Däcktemperatur: default, Chassi: default
 ```
 
-Metoden på subklassen **Sport** körs. Om vi har en variabel av typen **Car** men skapar ett objekt av klassen **Sport**. Vad händer då? Kommer subklassens metod att användas även denna gång?
+Metoden i subklassen **Sport** körs. Om vi har en variabel av typen **Car** men skapar ett objekt av klassen **Sport**. Vad händer då? Kommer subklassens metod att användas även denna gång?
 
 ```csharp
 // i OoGuide/Program.cs
@@ -82,7 +82,7 @@ sportsCar.Description();
 
 Jo, vi vill att subklassens metod används. Vi har en lista av typen **Car** i klassen **RaceTrack**. I den listan har vi ett objekt av typen **Passenger**, ett objekt av typen **Sport** och ett objekt av typen **Suv**. När vi itererar över listan av typen **Car** och anropar`Description`, så vill vi att subklassens metod används.
 
-Lösningen på det är att tydligt säga till att subklassens metod ska användas med `virtual` och `override`. När en metod i basklassen är markerad `virtual`, så visar vi att subklassen kan ändra metodens beteende genom att använda `override`.
+Lösningen på det är att tydligt säga till att subklassens metod ska användas vilket vi gör med `virtual` och `override`. När en metod i basklassen är markerad `virtual`, så visar vi att subklassen kan ändra metodens beteende genom att använda `override`.
 
 
 ## virtual och override
@@ -237,7 +237,7 @@ suv.Description();
 
 ## Sammanfattning
 
-`virtual` och `override` markeras inte på något speciellt sätt i klassdiagrammet. Ibland så ser vi "&lt;&lt;override&gt;&gt;" i subklassen efter metodens namn och returtyp. Så här ser klassdiagrammet ut nu:
+`virtual` och `override` markeras inte på något speciellt sätt i klassdiagrammet, men ibland ser vi "&lt;&lt;override&gt;&gt;" i subklassen efter metodens namn och returtyp. Så här ser klassdiagrammet ut nu:
 
 import classdiagramCarArv_2 from '@assets/img/ooguide/classdiagramCarArv_2.png';
 
