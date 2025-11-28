@@ -114,9 +114,9 @@ Detta räntekonto skapades till Marie savings med saldot 120000 kr.
 
 Raderna som börjar med "Kontot..." kommer från basklassen och raderna som börjar med "Detta..." kommer från subklassen. Åtkomstnivån `protected` används i arv då subklasserna ska komma åt basklassens metoder och attribut.
 
-## Metodöverlagring med BankAccount
+## Metodöverskuggning med BankAccount
 
-De olika kontotyperna har olika aktiviteter i slutet av månaden men själva aktiviteten är ska alla konton göra. Då kan vi skapa en metod, `PerformMonthEndTransactions()`, i basklassen som vi sedan överlagras i subklasserna. För att visa att vi vill att en metod ska överlagras så markerar vi den **virtual** i basklassen och **override** i subklasserna. Om vi vill lägga till en tredje subklass och glömmer att implementera metoden `PerformMonthEndTransactions()` i den, så får vi kompileringsfel när metoden är **virtual** i basklassen.
+De olika kontotyperna har olika aktiviteter i slutet av månaden men själva aktiviteten är ska alla konton göra. Då kan vi skapa en metod, `PerformMonthEndTransactions()`, i basklassen som vi sedan överskuggas (override) i subklasserna. För att visa att vi vill att en metod ska överskuggas så markerar vi den **virtual** i basklassen och **override** i subklasserna. Om vi vill lägga till en tredje subklass och glömmer att implementera metoden `PerformMonthEndTransactions()` i den, så får vi kompileringsfel när metoden är **virtual** i basklassen.
 
 
 ### Klassdiagram för BankAccount, InterestAccount och PayrollAccount
@@ -131,7 +131,7 @@ import classdiagramBankMedArv from '@assets/img/kmom05/classdiagramBankMedArv.pn
 
 ### Implementation
 
-Vi skapar en virtuell metod `PerformMonthEndTransactions()` i klassen **BankAccount** som returnerar false som standard. Eftersom vi har en returtyp på `PerformMonthEndTransactions()` så måste ha en return-sats i den.
+Vi skapar en virtuell metod `PerformMonthEndTransactions()` i klassen **BankAccount** som returnerar false som standard. Eftersom vi har en returtyp på `PerformMonthEndTransactions()` så måste vi ha en return-sats i den.
 
 ```csharp title="Lägg till en virtual metod PerformMonthEndTransactions i klassen BankAccount"
 namespace MyBank.src;
@@ -181,7 +181,7 @@ public class InterestAccount : BankAccount
 }
 ```
 
-På lönekontot erbjuder Banken olika tjänster och därför tar de ut en liten avgift varje månad. De som har mycket pengar på lönekontot betalar en större avgift. Notera att vi lägger till ett m efter flyttalet och det är av typen "decimal" som används vid beräkningar med stor precision.
+På lönekontot erbjuder Banken olika tjänster och därför tar de ut en liten avgift varje månad. De som har mycket pengar på lönekontot betalar en större avgift. Notera att vi lägger till ett m efter flyttalet för att få typen "decimal" som används vid beräkningar med stor precision.
 
 ```csharp title="Klassen PayrollAccount gör override på metoden PerformMonthEndTransactions"
 namespace MyBank.src;
@@ -207,7 +207,7 @@ public class PayrollAccount : BankAccount
 }
 ```
 
-För att testa implementationen har vi denna koden i huvudprogrammet:
+För att testa implementationen har vi denna kod i huvudprogrammet:
 
 ```csharp title="Vi testar metoden PerformMonthEndTransactions i huvudprogrammet"
 using MyBank.src;
@@ -261,5 +261,5 @@ Skydda tillstånd via:
 ## Sammanfattning
 
 I den här artikeln har vi tittat på arv i C# och hur vi visar det i ett UML klassdiagram.
-Vi har lärt oss begrepp som basklass och subklass samt metodöverlagring.  
+Vi har lärt oss begrepp som basklass och subklass samt metodöverskuggning.  
 Om du vill titta på koden i sin helhet och ladda ner den så kör du `task download-code -- kmom05/MyBank`.
