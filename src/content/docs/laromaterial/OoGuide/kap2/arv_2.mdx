@@ -58,11 +58,11 @@ public class ElSuv : Suv
 }
 ```
 
-Vi överskuggar metoden `Description` med specifik information om subklassen. Även i denna metod kan vi lägga till raden `base.Description();` om vi vill ha med utskrifterna från basklassernas `Description` metoder.
+Vi överskuggar metoden `Description` med specifik information för subklassen. Även i denna metod kan vi lägga till raden `base.Description();` om vi vill ha med utskrifterna från basklassernas `Description` metoder.
 
 ### Testa subklassen **ElSuv**
 
-Vi skapar ett objekt av subklassen **ElSuv** med märket "Ford Capri" som har en räckvidd på 627 km och  en laddningstid på ca 28 minuter.
+Vi skapar ett objekt av subklassen **ElSuv** med märket "Ford Capri" som har en räckvidd på 627 km och en laddningstid på 28 minuter.
 
 ```csharp
 // i OoGuide/Program.cs
@@ -82,7 +82,7 @@ Console.WriteLine($"Objektet elSuv är av typen {elSuv.GetType().Name} och dess 
 // ger utskriften: Objektet elSuv är av typen ElSuv och dess basklass är OoGuide.src.Suv.
 ```
 
-När vi anropar metoden `Description` på variabeln "elSuv" så är det metoden på subklassen **ElSuv** som anropas. Vi kan spara samma objekt av subklassen **ElSuv** i variabler av typen **Car** och **Suv** och få samma resultat.
+När vi anropar metoden `Description` för objektet som nås via variabeln "elSuv" så är det metoden i subklassen **ElSuv** som anropas. Vi kan referera till samma objekt av subklassen **ElSuv** via variabler av typen **Car** och av typen **Suv** och få samma resultat.
 
 Vi kan skapa ett objekt av klassen **Suv** som är subklass till **Car** och samtidigt basklass till **ElSuv** och då får vi:
 
@@ -97,7 +97,7 @@ Console.WriteLine($"Objektet car2 är av typen {car2.GetType().Name} och dess ba
 // ger utskriften: Objektet car2 är av typen Suv och dess basklass är OoGuide.src.Car.
 ```
 
-Metoden `Description` på klassen **Suv** anropas då.
+Metoden `Description` i klassen **Suv** anropas då.
 
 ## System.Object - den ultimata basklassen
 
@@ -178,12 +178,6 @@ public static class AsciiArt
         else // Passenger
         ...
 }
-Så här kan det se ut när det är klart.
-
-<YouTube
-    id="???"
-    title="Så här ser vår bilbana ut nu."
-/>
 
 ```
 
@@ -200,7 +194,7 @@ raceTrack.AddWeather(weather);
 raceTrack.RunRace();
 ```
 
-Nu ser det ut som innan med den skillnaden att vi har ett objekt av klassen **ElSuv** och dess ASCII-bild istället för ett objekt av klassen **Suv**.
+Nu ser det ut som tidigare med den skillnaden att vi har ett objekt av klassen **ElSuv** och dess ASCII-bild istället för ett objekt av klassen **Suv**.
 
 ## Video på bilbanan
 
@@ -232,7 +226,7 @@ Koden i sin helhet kan laddas ner med `task download-code -- kmom05/OoGuide`.
 
 Vi använder arv för att återanvända kod och vi kan ärva i flera nivåer (multilevel inheritance). Fördelarna med arv i flera nivåer är att funktionalitet från basklasserna kan användas och därmed minska duplicering av kod. Om vi strukturerar klasserna logiskt så får vi en tydlig hierarki som är lätt att bygga ut. Nackdelarna kan vara ökad komplexitet och stark koppling vilket kan minska flexibiliteten.
 
-Vi använder `base.` för att komma åt metoder och attribut på basklassen. Åtkomstnivån på dessa måste vara åtminstone protected för att subklassen ska komma åt dem.
+Vi använder `base.` för att komma åt metoder och attribut på basklassen. Åtkomstnivån på dessa måste vara protected eller public för att subklassen ska komma åt dem.
 
 Alla klasser i C# ärver från **System.Object** vilket ger tillgång till metoder som `ToString()` och `Equals()`.
 
