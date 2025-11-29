@@ -9,37 +9,37 @@ sidebar:
 import Figure from '@components/CustomFigure.astro';
 
 
-Arv är när klasser har en *är-en* relation och komposition/aggregation är när klasserna har en *har-en* relation. Om klassen **Person** har en subklass **Student**, då är relationen "Student är-en Person". Subklassen **Student** är en utökning av klassen **Person**. Vi kan också säga att subklassen **Student** ärver klassen **Person**.
+Arv är när klasser har en *är-en* relation och komposition/aggregation är när klasserna har en *har-en* relation. Om klassen **Person** har en subklass **Student**, då är relationen "Student är-en Person". Subklassen **Student** är en utökning eller specialisering av klassen **Person**. Vi säger att subklassen **Student** ärver klassen **Person**.
 
-Om klassen **Person** har ett attribut vars värde är ett objekt av klassen Dog, då är relationen "Person har-en Dog". Man brukar säga att **Person** objektet äger Dog objektet. Då är det antingen komposition och aggregation.
+Om klassen **Person** har ett attribut vars värde är ett objekt av klassen Dog, då är relationen "Person har-en Dog". Man brukar säga att **Person**-objektet äger eller har **Dog**-objektet. Då är det antingen komposition eller aggregation.
 
-Relationen mellan klasser bör vara enkelriktad. I objektorienterad programmering bör vi undvika dubbelriktad relation då koden blir för komplex, svår att underhålla och trots att C# har garbage collector så kan det bli minnesluckor. Om du vill ha en dubbelriktad relation, då bör du tänka om och ändra din design!
+Relationen mellan klasser bör vara enkelriktad. I objektorienterad programmering bör vi undvika dubbelriktad relation då koden blir för komplex, svår att underhålla och trots att C# har garbage collector så kan det bli minnesluckor. Om du har en dubbelriktad relation, då bör du tänka om och ändra din design!
 
 
 ## Komposition och aggregation
 
-Det är komposition när klasserna är starkt kopplade. Om ägandeklassen slutar att existera så slutar även det ägda objektet att existera. Till exempel klassen **House** (ägandeklass) och klassen **Room** (ägd), ett **Room** objekt kan inte existera utan att vara i ett House objekt.
+Det är komposition när klasserna är starkt kopplade. Om ägandeklassen slutar att existera så slutar även det ägda objektet att existera. Till exempel klassen **House** (ägandeklass) och klassen **Room** (ägd), ett **Room**-objekt kan inte existera utan att vara i ett **House**-objekt.
 
-Det är aggregation när klasserna är svagt kopplade. Om ägandeklassen slutar att existera då fortsätter det ägda objektet att existera. I exemplet, "Person har-en Dog", så är det aggregation då **Dog** fortsätter existera om **Person** slutar existera.
+Det är aggregation när klasserna är svagt kopplade. Om ägandeklassen slutar att existera så fortsätter det ägda objektet att existera. I exemplet, "Person har-en Dog", så är det aggregation då **Dog**-objektet fortsätter existera om **Person**-objektet slutar existera.
 
-Om det *ägda* objektet skapas i *ägarens* konstruktor är det oftast komposition medan om det *ägda* objektet skickas som ett argument till konstruktorn är det oftast aggregation.
+Om det *ägda* objektet skapas i *ägaren* är det oftast komposition medan om det *ägda* objektet skickas som ett argument (till konstruktorn eller en metod) är det oftast aggregation.
 
 
 ## Hur ser det ut i vårt ett exempel?
 
-Jo, klassen **RaceTrack** har en lista med bilar, objekt av subklasser till klassen **Car**. Eftersom att de skapas i konstruktorn så försvinner de objekten när klassen **RaceTrack** försvinner och därmed är det komposition. Vi kan säga "RaceTrack har-en lista med objekt av typen **Car**" och därför är det komposition.
+Jo, klassen **RaceTrack** har en lista med bilar som är objekt av subklasser till klassen **Car**. Bilobjekten skapas i konstruktorn och försvinner när **RaceTrack**-objektet försvinner. Därmed är det komposition. 
 
-Subklasserna **Sport**, **Passenger** och **Suv** har en "är-en" relation med basklassen **Car**. Vi kan säga att "Sport är-en Car" och därför är det arv. Eftersom att subklasserna är en specialisering av basklassen så är det arv.
+Subklasserna **Sport**, **Passenger** och **Suv** har en "är-en" relation med basklassen **Car**. Vi kan säga att "Sport är-en Car" och därför är det arv. Subklasserna är en specialisering av basklassen.
 
-Klassen **RaceTrack** "har-ett" väder objekt men vädret fortsätter ju leva även när **RaceTrack** dör. Alltså har klassen **RaceTrack** en aggregationsrelation med klassen **Weather**.
+Klassen **RaceTrack** "har-ett" väder-objekt men vädret fortsätter ju existera även när **RaceTrack**-objektet dör. Alltså har klassen **RaceTrack** en aggregationsrelation till klassen **Weather**.
 
-Association är en generell relation som visar att en eller flera klasser har relationer till varandra. Det är den svagaste relationen. I vårt exempel med racerbanan så används klassen **AsciiArt** och de klasser som gör det har en associationsrelation med **AsciiArt**.
+Association är en generell relation som visar att en eller flera klasser har relationer till varandra. Det är den svagaste relationen. I vårt exempel med racerbanan så *används* klassen **AsciiArt**. De klasser som använder **AsciiArt** har en associationsrelation till klassen **AsciiArt**.
 
 
 ## Hur ser det ut med kortleksexemplet?
 
-I kortleksexemplet så har vi en klass **DeckOfCards** som har spelkort. Därmed har klassen **DeckOfCards** en kompositionsrelation med klassen **Card**. Klassen **Card** har vi specialiserat och gjort grafiska bilder på spelkorten och den subklassen kallar vi **CardGraphic**. Subklassen **CardGraphic** är en utökning av klassen **Card** och ett grafiskt spelkort "är-ett" spelkort och därmed är det arv.
-Om vi omdesignar och väljer enbart komposition så skulle klassen **CardGraphic** innehålla bilder som klassen **Card** kan använda. Det funkar också.
+I kortleksexemplet har vi en klass **DeckOfCards** som har spelkort. Därmed har klassen **DeckOfCards** en kompositionsrelation med klassen **Card**. Klassen **Card** har vi specialiserat och genom att tillföra grafiska bilder på spelkorten. Den subklassen kallar vi **CardGraphic**. Subklassen **CardGraphic** är en utökning av klassen **Card** och ett grafiskt spelkort "är-ett" spelkort. Därmed är det arv.
+Om vi omdesignar och väljer enbart komposition så skulle klassen **CardGraphic** innehålla bilder som klassen **Card** kan använda. Det fungerar också.
 
 
 ## Arv mot komposition
@@ -59,7 +59,7 @@ Som utvecklare vill vi återanvända så mycket kod som möjligt men samtidigt u
 
 ### Guidelines
 
-När vad som ska användas inte är spikat i sten utan det handlar om vilket du som utvecklare tycker passar bäst och vad du känner dig bekväm med. Ni kan följa dessa tre guidelines.
+När vad som ska användas inte är spikat i sten utan det handlar om vilket du som utvecklare tycker passar bäst och vad du känner dig bekväm med kan du följa dessa tre guidelines.
 
 1. Använd komposition när det finns en klar *har-en* relation där kod används på olika ställen och i olika situationer.
 2. Använd arv när det finns en klar *är-en* relation med återanvändbar kod mellan klasser i en hierarki.
