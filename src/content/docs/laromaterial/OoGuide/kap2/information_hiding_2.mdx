@@ -137,7 +137,7 @@ Koden i **Sport** ser ut så här:
 }
 ```
 
-I C# kan vi formatera värden direkt i din interpolerande strängen, den som börjar med ett $-tecken. I det här fallet betyder **:F2** att hastigheten avrundas till 2 decimaler innan den inbyggda metoden `ToString` anropas automatiskt. Vi kommenterar bort raden/raderna
+I C# kan vi formatera värden direkt i din interpolerande strängen, den som börjar med ett $-tecken. I det här fallet betyder **:F2** att hastigheten avrundas till 2 decimaler innan den inbyggda metoden `ToString` anropas automatiskt. 
 
 Vi testkör koden genom att köra huvudprogrammet och får då utskriften:
 
@@ -149,7 +149,7 @@ Vi testkör koden genom att köra huvudprogrammet och får då utskriften:
 // Säte läge: 3, Däcktemperatur: default, Chassi: default
 ```
 
-**OBS** eftersom hastigheten slumpas fram så får vi olika resultat varje gång vi kör om.
+**OBS** eftersom hastigheten slumpas fram får vi olika resultat varje gång vi kör om.
 
 
 ### CalculateSpeed i alla subklasser?
@@ -162,7 +162,7 @@ DRY betyder Don't Repeat Yourself och är en viktig princip inom all mjukvaruutv
 
 ### CalculateSpeed i basklassen
 
-Vi tar bort `CalculateSpeed` i subklassen **Sport** och lägger den basklassen **Car**. Vi lägger till defaultvärden på min- och maxhastighet.
+Vi tar bort `CalculateSpeed` i subklassen **Sport** och lägger den i basklassen **Car**. Vi lägger till defaultvärden på min- och maxhastighet.
 
 Metoden `CalculateSpeed` i **Car** ser ut så här:
 
@@ -191,7 +191,7 @@ Koden i **Sport** ser ut så här:
     ...
 ```
 
-Vi behöver inte uppdatera vårt huvudprogram utan bara kör det och får då utskriften:
+Vi behöver inte uppdatera vårt huvudprogram utan kör det och får då utskriften:
 
 ```csharp
 // i OoGuide/Program.cs
@@ -203,13 +203,11 @@ Vi behöver inte uppdatera vårt huvudprogram utan bara kör det och får då ut
 
 ### För- och nackdelar
 
-Det är en fördel att placera metoden `CalculateSpeed` i basklassen eftersom då subklasserna använder samma kod istället för att vi duplicerar kod. Underhållet blir enklare då vi kan uppdatera en metod istället för en per subklass.
+Det är en fördel att placera metoden `CalculateSpeed` i basklassen eftersom subklasserna använder samma kod istället för att vi duplicerar kod. Underhållet blir enklare då vi kan uppdatera en enda metod istället för en metod per subklass.
 
-Men en nackdel kan vara att vi vill beräkna hastigheten annorlunda i någon av subklasserna. Då kan vi lösa det genom att göra `CalculateSpeed` virtual i basklassen och så får de subklasser som vill överskugga (override) `CalculateSpeed`.
+Men en nackdel kan vara att vi vill beräkna hastigheten annorlunda i någon av subklasserna. Då kan vi lösa det genom att göra `CalculateSpeed` virtual i basklassen och då kan de subklasser som vill överskugga (override) `CalculateSpeed` göra det.
 
-Vi väljer att lägga `CalculateSpeed` i basklassen med åtkomstnivå protected och virtual för möjlig överskuggning.
-
-Vi gör metoden `CalculateSpeed` i **Car** virtual och då den ser ut så här:
+Vi väljer att lägga `CalculateSpeed` i basklassen **Car** med åtkomstnivå protected och virtual för möjlig överskuggning. Då ser den ut så här:
 
 ```csharp
 // i OoGuide/src/Car.css
@@ -222,11 +220,11 @@ Vi gör metoden `CalculateSpeed` i **Car** virtual och då den ser ut så här:
     }
 ```
 
-Metoden anropas på samma sätt i subklassen och vi kan köra samma huvudprogram och utskriften blir samma som innan.
+Metoden anropas på samma sätt i subklassen och vi ändrar inte i huvudprogrammet. Utskriften blir samma som innan.
 
 ### Uppdatera och testa de andra subklasserna
 
-Vi uppdaterar även de andra subklasserna. **Passenger** använder defaultvärdena i metoden `CalculateSpeed` och använder `CalculateSpeed` i basklassen precis som **Sport**.
+Vi uppdaterar även de andra subklasserna. **Passenger** använder defaultvärdena i metoden `CalculateSpeed` och anropar `CalculateSpeed` i basklassen precis som klassen **Sport**.
 
 <details>
 <summary>
@@ -339,7 +337,7 @@ Vi behöver uppdatera klassen **RaceTrack** så att vi skapar objekt av subklass
 
 ### Uppdatera *RaceTrack*
 
-Vi börjar med att kopiera koden vi gjort i klassen *RaceTrack* från kapitel 1. Är det något vi behöver göra där? Just det, vi ska objekt av subklasserna och lägga i listan av bilar. Vi uppdaterar metoden *CreateCars*.
+Vi börjar med att kopiera koden vi gjort i klassen *RaceTrack* från kapitel 1. Nu ska vi ha objekt av subklasserna som placeras i listan av bilar. Vi uppdaterar metoden *CreateCars*.
 
 ```csharp
 // i OoGuide/src/RaceTrack.cs
@@ -389,11 +387,11 @@ foreach (var car in raceTrack.GetCars())
 // Det är en SUV, hastighet: 2,58 och fyrhjulsdrift är på.
 ```
 
-Så där ja, nu har en lista med bilar av olika typer och nu tar vi tag i metoden `Move`.
+Så där ja, nu har vi en lista med bilar av olika typer och nu tar vi tag i metoden `Move`.
 
 ### Metoden `Move`
 
-Var ska vi lägga metoden `Move`, i basklassen eller i subklasserna? Vi vill ju hålla koden DRY så vi lägger den i basklassen och eftersom alla subklasserna har attributet `_speed` så flyttar vi det till basklassen. Vi uppdaterar också konstruktorn i alla subklasser till att `base._speed` får den i subklassen beräknade hastigheten.
+Var ska vi lägga metoden `Move`? I basklassen eller i subklasserna? Vi vill ju hålla koden DRY så vi lägger den i basklassen och eftersom alla subklasserna har attributet `_speed` flyttar vi det till basklassen. Vi uppdaterar också konstruktorn i alla subklasser till att `base._speed` får den i subklassen beräknade hastigheten.
 
 Så här ser det ut i klassen **Car**:
 
@@ -571,4 +569,4 @@ import classdiagramRaceTrackArv_1 from '@assets/img/ooguide/classdiagramRaceTrac
 
 ## Sammanfattning
 
-Då har vi sett hur vi använder åtkomstnivå "protected" så att subklasserna kommer åt basklassens egenskaper. Vi har också sett att vi fick lägga till en metod `virtual` för att visa att den metoden kan implementeras och överskuggas (override) i subklasserna.
+Då har vi sett hur vi använder åtkomstnivå "protected" för att ge subklasserna tillgång till attribut och metoder, men där dessa däremot inte kan nås utifrån. Vi har också sett att vi kan göra en metod `virtual` så att den metoden kan implementeras och överskuggas (override) i subklasserna.
