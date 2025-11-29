@@ -93,7 +93,7 @@ Assert.That(phrase, Does.EndWith("!"));
 - **Or**, verifierar om antingen det ena eller det andra utfallet är korrekt och i så fall blir testet korrekt.
 
 ```csharp
-Assert.That(3, Is.LessThan(5).Or.GreaterThan(10));
+Assert.That(3, Is.LessThan(10).Or.GreaterThan(5));
 ```
 
 - **Count**, verifierar att listan har ett visst antal element.
