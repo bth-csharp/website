@@ -22,7 +22,7 @@ import nunitLogo from '@assets/nunitLogo.png';
     float="right"
 />
 
-Nackdelen är att utvecklingen tar lite längre tid och att det kräver kunskap om C# koden, kraven och NUnit för att skriva testfall.
+Nackdelen är att utvecklingen tar lite längre tid och att det kräver kunskap om C#, kraven och NUnit för att skriva testfall.
 
 
 ## NUnit
@@ -71,7 +71,7 @@ Assert.That("Hello!", Is.Not.EqualTo("HELLO!"));  // Not constraint
 Assert.That("Hello!", Is.EqualTo("HELLO!").IgnoreCase); // IgnoreCase constrain
 ```
 
-- **True**, verifierar om något är sant och det finns **False** som verifierar om något är falskt.
+- **True**, verifierar om något är sant och det finns även **False** som verifierar om något är falskt.
 
 ```csharp
 flag = true;
@@ -138,7 +138,7 @@ Vi börjar med projektet vi ska testa. Först skapar vi en katalog som heter Tes
 
 För att köra tester skapar vi ett testprojekt **MyBank.Tests** som ska testa vårt bankprojekt **MyBank2**. **MyBank** låter vi vara för det tillhör artikeln om arv. När vi börjar denna artikel så har **MyBank2** samma innehåll som **MyBank** men olika namespaces.
 
-Det skapas en testklass när vi skapar vårt testprojekt och den byter vi namn på till BankAccountTests.cs. Vi lägger också till en referens till vårt bankprojekt så att testklasserna hittar koden i **MyBank2** som ska testas.
+Det skapas en testklass när vi skapar vårt testprojekt och den byter vi namn på till BankAccountTests.cs. Vi lägger också till en referens till vårt bankprojekt så att testklasserna hittar koden som ska testas i **MyBank2**.
 
 ```shell title="Skapa ett testprojekt MyBank2.Tests i katalogen kmom05/practice/Testing"
 dotnet new nunit -o MyBank2.Tests
@@ -226,7 +226,7 @@ public class BankAccountTests
 
 </details>
 
-Testkör och testfallet gick bra. Testkör de olika kommandona ovan för att verifiera detta första testfall. Det är bra att kunna köra ett specifikt testfall när de utvecklas.
+Testkör och se att testfallet gick bra. Testkör de olika kommandona ovan för att verifiera detta första testfall. Det är bra att kunna köra ett specifikt testfall när det utvecklas.
 
 ### Testfall, TestCreateBankAccountNegative
 
@@ -259,7 +259,7 @@ public class BankAccountTests
 
 </details>
 
-Testkör och då får vi problem. Testerna kompilerar inte eftersom vi inte har ett Exception som heter "CreateBankAccountException". Då lägger vi till ett exception med rätt meddelande.
+Vi testkör och upptäcker att vi får problem. Testerna kompilerar inte eftersom vi inte har ett Exception som heter "CreateBankAccountException". Då lägger vi till ett sådant exception med rätt meddelande.
 
 ```csharp
 // i kmom05/Testing/MyBank2/src/CreateBankAccountException.cs
@@ -275,9 +275,9 @@ public class CreateBankAccountException : Exception
 
 Eftersom vi ändrat i projektet **MyBank2** så måste vi kompilera om det innan vi testkör testprojektet på nytt.
 
-När vi kör testprojektet på nytt så kompilerar det men testfallet går inte igenom. Vi undersöker varför. I testplanen står det att ett exception ska kastas när ett objekt av **BankAccount** skapas med negativt saldo. Objekt skapas i konstruktorn och där saknas kontrollen av saldot.
+När vi kör testprojektet på nytt så kompilerar det, men testfallet går inte igenom. Vi undersöker varför. I testplanen står det att ett exception ska kastas när ett objekt av **BankAccount** skapas med negativt saldo. Objekt skapas med konstruktorn och där saknas kontrollen av saldot.
 
-Då behöver vi uppdaterar konstruktorn i klassen **BankAccount** så att den kastar detta fel med felmeddelandet i om någon skapar ett **BankAccount** objekt med negativt saldo.
+Då behöver vi uppdaterar konstruktorn i klassen **BankAccount** så att den kastar detta fel med felmeddelandet om någon försöker skapa ett **BankAccount**-objekt med negativt saldo.
 
 <details>
 <summary>
@@ -313,7 +313,7 @@ public class BankAccount
 
 </details>
 
-Kompilera om projektet **MyBank2** och kör testprojektet på nytt - och nu går testfallet igenom.
+Kompilera om projektet **MyBank2** och kör testprojektet på nytt. Nu går testfallet igenom.
 
 ### Testfall, TestCreateBank
 
@@ -401,7 +401,7 @@ public class BankTests
 
 </details>
 
-Testkör och nu går de tre testfallen vi har igenom. Bra!
+Vi testkör och nu går de tre testfallen igenom. Bra!
 
 ### Testfall, TestCreateBankDescription
 
@@ -434,7 +434,7 @@ public class BankTests
 
 </details>
 
-Vi testkör och ser att testfallet går grönt, det vill säga går igenom.
+Vi testkör och ser att testfallet ger grönt, det vill säga det går igenom.
 
 ## Mockning
 
@@ -447,7 +447,7 @@ Mockning används i mjukvarutestning för att simulera beteendet hos externa ber
 
 **Fake** är en generisk term som kan användas för att beskriva antingen en stubb eller ett mockobjekt.
 
-Ett mockobjekt, **mock**, är ett objekt som imiterar beteendet hos riktiga objekt. De används för att verifiera interaktionerna mellan klasser eller beteendet hos klasser. Före starten av ett test ställer vi in förväntningarna på en mock och instruerar den att bete sig på ett visst sätt när något händer. Det innebär att vi kan kontrollera om vissa metoder har anropats, hur många gånger de har anropats och med vilka parametrar. Ett mockobjekt imiterar ett verkligt objekt.
+Ett mockobjekt, **mock**, är ett objekt som imiterar beteendet hos riktiga objekt. Mockobjekt används för att verifiera interaktionerna mellan klasser eller beteendet hos klasser. Före starten av ett test ställer vi in förväntningarna på en mock och instruerar den att bete sig på ett visst sätt när något händer. Det innebär att vi kan kontrollera om vissa metoder har anropats, hur många gånger de har anropats och med vilka parametrar. Ett mockobjekt imiterar ett verkligt objekt.
 
 **Stubbing** ger fördefinierade svar på anrop som görs under testet. Vi använder stubbar när vi vill ersätta ett beroende med en enkel implementation som returnerar fördefinierade värden. Det är mindre fokuserat på interaktion och mer på att tillhandahålla nödvändiga data för testet.
 
@@ -470,7 +470,7 @@ Verifiera att den är installerad genom att kolla i projektfilen.
 
 Vi kan skapa en mock av ett objekt med hjälp av mock-biblioteket. Till exempel, om vi använder Moq kan vi skapa en mock med `var mock = new Mock<YourClass>();`.
 
-Vi antar att skapa konto med klassen **BankAccount** har yttre beroenden och därför behöver vi mocka skapa konto.
+Vi antar att "skapa konto" med klassen **BankAccount** har yttre beroenden och därför behöver vi mocka "skapa konto".
 
 Vi gör ett exempel och skapar testfallet `TestAddAccounts`. Testfallen finns beskrivna i artikeln [Gör en testplan för Bankexemplet](/website/laromaterial/kmom05/testplanbank). Vi lägger till att vi använder Moq genom `using Moq;`.
 
@@ -508,8 +508,8 @@ public class BankTests
 }
 ```
 
-I testfallet `TestAddAccounts` skapar vi ett mockobjekt för klassen **BankAccount** istället för ett objekt av själva klassen. "var" används här för att förenkla koden och göra den mer lättläst. Kompilatorn kan härleda att mockBank är av typen `Mock<BankAccount>` eftersom den tilldelas ett nytt objekt av denna typ.
-Inom `<>` efter new Mock så visar vi typen på mitt mockobjekt, i exemplet är det **BankAccount**. För att enkel hålla koll på att det är ett mockobjekt så får det namnet "mockAccount" med mock i början. Vi har skapat ett mockobjekt av typen **BankAccount** som heter "mockAccount1" men för att komma åt vårt BankAccount-objekt så använder vi `mockAccount1.Object`.
+I testfallet `TestAddAccounts` skapar vi ett mockobjekt för klassen **BankAccount** istället för ett objekt av själva klassen. `var` används här för att förenkla koden och göra den mer lättläst. Kompilatorn kan härleda att mockBank är av typen `Mock<BankAccount>` eftersom den tilldelas ett nytt objekt av denna typ.
+Inom `<>` efter new Mock så visar vi typen på mockobjektet, vilket i exemplet är **BankAccount**. För att enkelt hålla koll på att det är ett mockobjekt får det namnet "mockAccount" (med mock i början av namnet). Vi har bland annat skapat ett mockobjekt av typen **BankAccount** som heter "mockAccount1" och för att komma åt vårt BankAccount-objekt använder vi `mockAccount1.Object`.
 
 </details>
 
@@ -541,8 +541,8 @@ Inom `<>` efter new Mock så visar vi typen på mitt mockobjekt, i exemplet är 
 }
 ```
 
-I testfallet `TestAddAccounts` skapar vi ett mockobjekt för klassen **BankAccount** istället för ett objekt av själva klassen. "var" används här för att förenkla koden och göra den mer lättläst. Kompilatorn kan härleda att mockBank är av typen `Mock<BankAccount>` eftersom den tilldelas ett nytt objekt av denna typ.
-Inom `<>` efter new Mock så visar vi typen på mitt mockobjekt, i exemplet är det **BankAccount**. För att enkel hålla koll på att det är ett mockobjekt så får det namnet "mockAccount" med mock i början. Vi har skapat ett mockobjekt av typen **BankAccount** som heter "mockAccount1" men för att komma åt vårt BankAccount-objekt så använder vi `mockAccount1.Object`.
+I testfallet `TestAddAccounts` skapar vi ett mockobjekt för klassen **BankAccount** istället för ett objekt av själva klassen. `var` används här för att förenkla koden och göra den mer lättläst. Kompilatorn kan härleda att mockBank är av typen `Mock<BankAccount>` eftersom den tilldelas ett nytt objekt av denna typ.
+Inom `<>` efter new Mock så visar vi typen på mitt mockobjekt, vilket i exemplet är **BankAccount**. För att enkel hålla koll på att det är ett mockobjekt får det namnet "mockAccount" (med mock i början av namnet). Vi har bland annat skapat ett mockobjekt av typen **BankAccount** som heter "mockAccount1" och för att komma åt vårt BankAccount-objekt så använder vi `mockAccount1.Object`.
 
 </details>
 
