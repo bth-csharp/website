@@ -3,6 +3,7 @@ title: "C# - testning del 2"
 description: Fördjupning i enhetstestning i NUnit och träna på att skriva enhetstester
 sidebar:
     order: 2
+    hidden: true
 ---
 
 import Figure from '@components/CustomFigure.astro';
@@ -545,6 +546,154 @@ Inom `<>` efter new Mock så visar vi typen på mitt mockobjekt, vilket i exempl
 
 </details>
 
+Om vi vill mocka en metod utan interface, så måste vi göra metoden virtual.
+
+### Mocka metod med virtual
+
+Om vi vill mocka en metod måste vi göra den virtual. I det här fallet vill vi mocka `GetNoOfAccounts` och då gör vi så här:
+
+```csharp
+// i kmom05/Testing/MyBank2/Bank.cs
+using MyBanks2.src;
+
+...
+    public virtual string GetNoOfAccounts()
+    {
+        return this._accounts.Count.ToString();
+    }
+...
+```
+
+Och testfallet ser ut så här:
+
+```csharp
+// i kmom05/Testing/MyBank2.Tests/BankTests.cs
+...
+
+    [Test]
+    public void TestNoOfAccounts()
+    {
+        // Arrange
+        var mockBank = new Mock<Bank>() { CallBase = true };
+        mockBank.Setup(b => b.GetNoOfAccounts()).Returns("2");
+
+        // Act
+        var noOfAccounts = mockBank.Object.GetNoOfAccounts();
+
+        // Assert
+        Assert.That(noOfAccounts, Does.Contain("2"));
+    }
+}
+```
+
+`Mock<Bank>` skapar en mock, ett testobjekt, av klassen **Bank**.  
+`CallBase = true` betyder att om inte en metod eller egenskap är mockad, så anropas den riktiga implementationen av klassen **Bank**. Det är användbart om vi vill testa vissa delar av den riktiga klassen men ändå kontrollera och mocka andra delar av klassen.
+
+<details>
+<summary>
+
+### Bestäm ett mockobjekts beteende med ett interface (ÖVERKURS)
+
+</summary>
+
+Vi kan bestämma hur en mockad metod ska bete sig när den anropas. Till exempel, mock.Setup(m => m.YourMethod()).Returns(yourValue);. Vi kan mocka en konkret klass som **Bank** men ofta är det bättre att använda interfaces för att skapa mer underhållbar och testbar kod. Det gör våra enhetstester fokuserade på beteendet snarare än implementeringen, vilket är en nyckelfaktor i effektiv testning.
+Vi använder därför ett interface som heter **IBank** vilket är mer i linje med principer för god koddesign. Med **IBank** kan vi konfigurera mockobjektet att returnera specifika värden eller verifiera att vissa metoder anropas, vilket gör det möjligt att testa koden på ett kontrollerat och förutsägbart sätt.
+
+Vi börjar med att skapa ett interface **IBank** under katalogen "Testing/MyBank2/src". Till en början lägger vi bara till de metoder som vi testar och så kan vi utöka interfacet allt eftersom.
+
+**Kom ihåg** att kompilera om koden under Testing/MyBank2 efter att interfacet lagts till.
+
+```csharp
+// i Testing/MyBank2/src/IBank.cs
+namespace MyBank2.src;
+
+public interface IBank
+{
+    string GetNoOfAccounts();
+    void PrintDescription();
+}
+```
+
+#### Skapa testfallet TestDescription
+
+Nu skapar vi testfallet `TestDescription` genom att göra ett mockobjekt av interfacet **IBank**. Meddelandet som skrivs ut läggs i en variabel för bättre läsbarhet. Med raden `mockBank.Setup(m => m.PrintDescription()).Callback(() => Console.WriteLine(message));` så bestämmer vi att när metoden PrintDescription() anropas på mockobjektet "mockBank" så skrivs detta meddelande ut i terminalen. Det är precis det PrintDescription() gör i klassen **Bank**. Vi anropar PrintDescription() på mockobjektet "mockBank" och verifierar att metoden körts.
+
+<details>
+<summary>
+
+##### Koden för testfallet TestDescription:
+
+</summary>
+
+```csharp
+// i MyBank2.Tests/BankTests.cs
+...
+    [Test]
+    public void TestDescriptionWithInterface()
+    {
+        // Arrange
+        var mockBank = new Mock<IBank>();
+        string message = $"The name of the bank is {BANK_NAME}";
+        mockBank.Setup(m => m.PrintDescription()).Callback(() => Console.WriteLine(message));
+
+        // Act
+        mockBank.Object.PrintDescription();
+
+        // Assert att Verify använts en gång
+        mockBank.Verify(b => b.PrintDescription(), Times.Once());
+    }
+}
+```
+
+</details>
+
+Med "Verify" kan vi verifiera att en metod har anropats, att en egenskap har fått ett visst värde, eller att en händelse har utlösts. Vi kan också använda "Verify" för att kontrollera att en metod har anropats med specifika argument, ett visst antal gånger, eller att den inte har anropats alls. Se exempel nedan:
+
+```csharp
+// Verifiera att en metod har anropats minst en gång
+mockBank.Verify(bank => bank.PrintDescription(), Times.AtLeastOnce());
+
+// Verifiera att en metod inte har anropats
+mockBank.Verify(bank => bank.PrintDescription(), Times.Never());
+
+// Verifiera att en metod har anropats med specifika argument
+mockBank.Verify(bank => bank.Deposit(It.Is<decimal>(amount => amount > 0)), Times.Once());
+```
+
+#### Skapa testfallet TestNoOfAccounts
+
+För att visa att vi kan blanda Verify och Assert i ett testfall så lägger vi till metoden `GetNoOfAccounts` i IBank och bygger om projektet **MyBank2**.
+
+<details>
+<summary>
+
+##### Koden för testfallet TestNoOfAccounts:
+
+</summary>
+
+```csharp
+// i MyBank2.Tests/BankTests.cs
+...
+    [Test]
+    public void TestNoOfAccountsWithInterface(()
+    {
+        // Arrange
+        var mockBank = new Mock<IBank>();
+        mockBank.Setup(m => m.GetNoOfAccounts()).Returns("3");
+
+        // Act
+        mockBank.Object.GetNoOfAccounts();
+
+        // Assert
+        mockBank.Verify(m => m.GetNoOfAccounts(), Times.AtLeastOnce());
+        Assert.That(mockBank.Object.GetNoOfAccounts(), Does.Contain("3")); 
+    }
+}
+```
+
+</details>
+
+</details>
 
 ## Sammanfattning
 

@@ -3,7 +3,6 @@ title: "Mera arv"
 description: Mera arv, arv i flera nivåer
 sidebar:
     order: 5
-    hidden: true
 ---
 
 import Figure from '@components/CustomFigure.astro';
@@ -28,7 +27,7 @@ import classdiagramCarArv_3 from '@assets/img/ooguide/classdiagramCarArv_3.png';
     caption="Klassdiagram över Car med subklasserna Passenger, Sport, Suv och ElSuv."
 />
 
-### Subklassen **ElSuv**
+### Subklassen ElSuv
 
 Subklassen **ElSuv** får två attribut och det är räckvidden i km och tiden det tar att snabbladda suven i minuter. För att inte räckvidd och laddningstid i snabbladdare ska bli negativa tal så lägger vi en kontroll i konstruktorn och använder oss av **ternary operator**. En förenklad if-sats som är bra att använda vid enkla if-satser. Om villkoret inom parentesen är sant så tilldelas `this._range = range` men om det är falskt så tilldelas `this._range = 0` istället.
 
@@ -60,7 +59,7 @@ public class ElSuv : Suv
 
 Vi överskuggar metoden `Description` med specifik information för subklassen. Även i denna metod kan vi lägga till raden `base.Description();` om vi vill ha med utskrifterna från basklassernas `Description` metoder.
 
-### Testa subklassen **ElSuv**
+### Testa subklassen ElSuv
 
 Vi skapar ett objekt av subklassen **ElSuv** med märket "Ford Capri" som har en räckvidd på 627 km och en laddningstid på 28 minuter.
 
@@ -129,7 +128,7 @@ Console.WriteLine($"Objektet car3 är av typen {car3.GetType().Name} och dess ba
 // ger utskriften: Objektet car3 är av typen Car och dess basklass är System.Object.
 ```
 
-## Uppdatera resten av koden med den nya subklassen **ElSuv**
+## Uppdatera resten av koden med den nya subklassen ElSuv
 
 Vi behöver uppdatera metoden `CreateCars` i klassen **RaceTrack** och skapar där ett objekt av klassen **ElSuv** istället för **Suv**.
 
