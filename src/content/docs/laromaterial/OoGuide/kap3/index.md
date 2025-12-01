@@ -2,7 +2,7 @@
 title: "Kapitel 3 - Mer objektorientering"
 description: Kapitel 3 - Mer objektorientering med innehållsförteckning
 sidebar:
-    order: 1
+    order: 4
     hidden: true
 ---
 
