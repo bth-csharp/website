@@ -180,10 +180,12 @@ Det underlättar om du gör dessa krav i ordning.
 4. Då är det dags för subklassen **WorkTask**.
     - Implementera subklassen.
     - Testa den i huvudprogrammet
-    - Gör en testklass för **WorkTask** med minst 4 testfall. När du testar metoderna `GetProgression()` använder du minst 3 olika indata till samma testfall.
+    - Gör en testklass för **WorkTask** med minst 3 testfall. När du testar metoderna `GetProgression()` använder du minst 3 olika indata till samma testfall.
     - Uppdatera testplanen med ett kapitel om testerna för subklassen **WorkTask**.
 
-5. Nästa klass på tur är **MyTaskHandler**. Troligen måste du utöka klasserna ovan och klassen **MyTaskHandler** för att få **MyTaskHandler** att fungera. **MyTaskHandler** ska anropas ifrån klassen **Planner**. Till exempel ska den privata metoden `HandleCreateTask` läsa in information från användaren och skapa ett objekt av någon av subklasserna. Då ska det finnas lämpliga metoder i **MyTaskHandler** för det. **Kom ihåg** - all in- och utmatning ska ske i klassen **Planner**.  
+5. Metoden `GetDescription()` i basklassen ska överskuggas i subklasserna genom anropa basklassens metod och sen skriva ut något specifikt för subklassen. Gör ett testfall i testklassen som testar **WorkTask** som testar att subklassen överskuggar basklassens metod `GetDescription()`. 
+
+6. Nästa klass på tur är **MyTaskHandler**. Troligen måste du utöka klasserna ovan och klassen **MyTaskHandler** för att få **MyTaskHandler** att fungera. **MyTaskHandler** ska anropas ifrån klassen **Planner**. Till exempel ska den privata metoden `HandleCreateTask` läsa in information från användaren och skapa ett objekt av någon av subklasserna. Då ska det finnas lämpliga metoder i **MyTaskHandler** för det. **Kom ihåg** - all in- och utmatning ska ske i klassen **Planner**.  
 Nu ska du prova att utveckla testdrivet. Kanske måste du stubba metoderna (göra tomma metoder) för att få kompileringen att gå igenom.
     - Uppdatera testplanen med ett kapitel om testerna för klassen **MyTaskHandler**.
     - Gör en testklass för **MyTaskHandler** och se till att kodtäckningen blir 90% eller mer. Generera en ny rapport med ReportGenerator för att kolla det.

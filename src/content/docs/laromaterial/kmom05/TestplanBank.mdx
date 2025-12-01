@@ -69,15 +69,15 @@ Alla testfall testar krav 1 eftersom programmet är utvecklat i C#.
 
 | Testfall | Beskrivning | Väntat resultat | Status | Kommentarer |
 |--------|---------|----------------------|--------- |------ |
-| TestCreateBank | Skapa en bank med namn | En instans skapas. Verifiera rätt namn och noll konton. | Ok/inte ok | Krav 2 |
-| TestDescription | Skapa en bank med namn | En instans skapas. Verifiera att beskrivningen som skrivs ut är rätt. O konton.| Ok/inte ok | Krav 2 & 5 |
-| TestAddAccounts | Skapa en bank med namn. Lägg till 2 konton. Mocka kontona. | En instans skapas. Verifiera rätt namn och 2 konton. | Ok/inte ok | Krav 4 |
-| TestPrintAccountInfo | Skapa en bank med namn. Lägg till 2 konton. Mocka kontona. | En instans skapas. Verifiera att de 2 kontonas information skrivs ut. | Ok/inte ok | Krav 5 |
-| TestGetBankAccounts-ForOwner | Skapa en bank med namn. Lägg till 3 konton varav 2 med samma ägare. Mocka kontona. | En instans skapas. Verifiera att en lista med ägarens 2 konton returneras. | Ok/inte ok | Krav 5 |
-| TestGetBankAccounts-ForOwnerNegative | Skapa en bank med namn. Lägg till 3 konton varav 2 med samma ägare. Mocka kontona. | En instans skapas. Verifiera att den lista som returneras är tom då vi anropar GetBankAccounts med en ägare som inte finns i listan. | Ok/inte ok | Krav 5 |
-| TestPrintAccountInfo-ForOwner | Skapa en bank med namn. Lägg till 3 konton varav 2 med samma ägare. Mocka kontona. | En instans skapas. Verifiera att information om ägarens 2 kontonas skrivs ut. | Ok/inte ok | Krav 5 |
-| TestPrintBalance | Skapa en bank med namn. Lägg till 2 konton. Mocka kontona. | En instans skapas. Verifiera att 2 konton skapats och att saldot för ena kontot skrivs ut. | Ok/inte ok | Krav 5 |
-| TestPrintBalance-Negative | Skapa en bank med namn. Lägg till 2 konton. Mocka kontona. | En instans skapas. Verifiera att 2 konton skapats och att saldot för ett kontot som inte finns inte skrivs ut. | Ok/inte ok | Krav 5 |
+| TestCreateBank | Skapa en bank | En instans skapas. Verifiera rätt namn och noll konton. | Ok/inte ok | Krav 2 |
+| TestDescription | Skapa en bank | En instans skapas. Verifiera att beskrivningen som skrivs ut är rätt. O konton.| Ok/inte ok | Krav 2 & 5 |
+| TestAddAccounts | Skapa en bank. Lägg till 2 konton. Mocka kontona. | En instans skapas. Verifiera rätt namn och 2 konton. | Ok/inte ok | Krav 4 |
+| TestPrintAccountInfo | Skapa en bank. Lägg till 2 konton. Mocka kontona. | En instans skapas. Verifiera att de 2 kontonas information skrivs ut. | Ok/inte ok | Krav 5 |
+| TestGetBankAccounts-ForOwner | Skapa en bank. Lägg till 3 konton varav 2 med samma ägare. Mocka kontona. | En instans skapas. Verifiera att en lista med ägarens 2 konton returneras. | Ok/inte ok | Krav 5 |
+| TestGetBankAccounts-ForOwnerNegative | Skapa en bank. Lägg till 3 konton varav 2 med samma ägare. Mocka kontona. | En instans skapas. Verifiera att den lista som returneras är tom då vi anropar GetBankAccounts med en ägare som inte finns i listan. | Ok/inte ok | Krav 5 |
+| TestPrintAccountInfo-ForOwner | Skapa en bank. Lägg till 3 konton varav 2 med samma ägare. Mocka kontona. | En instans skapas. Verifiera att information om ägarens 2 kontonas skrivs ut. | Ok/inte ok | Krav 5 |
+| TestPrintBalance | Skapa en bank. Lägg till 2 konton. Mocka kontona. | En instans skapas. Verifiera att 2 konton skapats och att saldot för ena kontot skrivs ut. | Ok/inte ok | Krav 5 |
+| TestPrintBalance-Negative | Skapa en bank. Lägg till 2 konton. Mocka kontona. | En instans skapas. Verifiera att 2 konton skapats och att saldot för ett kontot som inte finns inte skrivs ut. | Ok/inte ok | Krav 5 |
 
 
 #### Testfall för klassen BankAccount
