@@ -155,8 +155,8 @@ Huvudprogrammet, **Program.cs**, använder bara klassen **Planner** och startar 
 
 ## Förutsättning
 
-Kopiera den påbörjade testplanen [Testplan MyPlanner](./../../../CodeExamples/kmom05/TestplanMyPlanner.pdf). Testplanen finns också i Wordformat på samma ställe om du föredrar det.
-Och här hittar du har början på [Planner.cs](./../../../CodeExamples/kmom05/Planner.cs).
+Ladda ner en start på klassen **Planner** med `task download-code -- kmom05/Planner.cs`.  
+Ladda ner den påbörjade testplanen med `task download-code -- kmom05/TestplanMyPlanner.pdf` eller `task download-code -- kmom05/TestplanMyPlanner.docx`.
 
 
 ## Krav
@@ -186,19 +186,11 @@ Det underlättar om du gör dessa krav i ordning.
 5. Metoden `GetDescription()` i basklassen ska överskuggas i subklasserna genom anropa basklassens metod och sen skriva ut något specifikt för subklassen. Gör ett testfall i testklassen som testar **WorkTask** som testar att subklassen överskuggar basklassens metod `GetDescription()`. 
 
 6. Nästa klass på tur är **MyTaskHandler**. Troligen måste du utöka klasserna ovan och klassen **MyTaskHandler** för att få **MyTaskHandler** att fungera. **MyTaskHandler** ska anropas ifrån klassen **Planner**. Till exempel ska den privata metoden `HandleCreateTask` läsa in information från användaren och skapa ett objekt av någon av subklasserna. Då ska det finnas lämpliga metoder i **MyTaskHandler** för det. **Kom ihåg** - all in- och utmatning ska ske i klassen **Planner**.  
-Nu ska du prova att utveckla testdrivet. Kanske måste du stubba metoderna (göra tomma metoder) för att få kompileringen att gå igenom.
-    - Uppdatera testplanen med ett kapitel om testerna för klassen **MyTaskHandler**.
-    - Gör en testklass för **MyTaskHandler** och se till att kodtäckningen blir 90% eller mer. Generera en ny rapport med ReportGenerator för att kolla det.
-    - Implementera klassen.
-    - Generera en ny rapport med ReportGenerator när du är klar.
+    - Uppdatera testplanen med ett kapitel om testerna för klassen **MyTaskHandler**. Tänk ut minst 3 testfall och beskriv de och dess utfall.
+    - Gör en testklass för **MyTaskHandler** och implementera ett av testfallen genom att använda "Moq".
+    - Implementera klassen eller så implementerar du klassen först och sen testfallet.
 
-1. Implementera klassen **Planner** enligt klassdiagrammet så att alla menyalternativ funkar. Testkör ditt planeringsverktyg.
-
-2. Mocka en metod i **MyTaskHandler**. Gör det enkelt och använd bara "Moq". Lägg metoden i testklassen för **MyTaskHandler.
-
-## Kod
-
-Det finns ett menyprogram med klassen **Planner** om du vill ha det att utgå ifrån. Du börja uppgiften med att kopiera ner koden från [Planner här](./../../../CodeExamples/kmom05/Planner.cs) och lägg dem under katalogen kmom05. Titta igenom koden och [Testplan för MyPlanner](./../../../CodeExamples/kmom05/TestplanMyPlanner.pdf) som är påbörjad!
+7. Implementera klassen **Planner** enligt klassdiagrammet så att alla menyalternativ funkar. Testkör ditt planeringsverktyg.
 
 
 ## Demo på MyPlanner
@@ -220,9 +212,6 @@ Så här kan det se ut när det är klart.
 1. Se till att kodtäckningen blir 100% för **MyTask**. Utöka testplanen med dina testfall, implementera dem och testkör dem. Generera en ny rapport och kolla att alla kodrader i **MyTask** är testade.
    
 1. Försök att nå 100% testtäckning för hela projektet.
-
-
-## Inlämning
 
 
 ## Tips från coachen
