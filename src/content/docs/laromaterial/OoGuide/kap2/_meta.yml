@@ -1,5 +1,4 @@
-# Display this directory first in the sidebar group.
-label: Kapitel 2 - Objekt i objekt
-order: 2
+# Display this directory third in the sidebar group.
+label: Kapitel 2 - Arv och klassrelationer
+order: 3
 collapsed: true
-hidden: true

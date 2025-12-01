@@ -1,4 +1,4 @@
-# Display this directory first in the sidebar group.
+# Display this directory second in the sidebar group.
 label: Kapitel 1 - Objekt i objekt
-order: 3
+order: 2
 collapsed: true
