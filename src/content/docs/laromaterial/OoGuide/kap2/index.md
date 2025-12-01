@@ -2,7 +2,7 @@
 title: "Kapitel 2 - Arv och klassrelationer"
 description: Kapitel 2 - Arv och klassrelationer med innehållsförteckning
 sidebar:
-    order: 1
+    order: 2
 ---
 
 Precis som i naturens värld kan vi inom programmering ärva egenskaper från en “förälder”. En klass kan ärva metoder och attribut från en annan klass, dess objekt kallas ofta för förälder- och barn-objekt. De korrekta termerna är basklass (förälder) och subklass (barn). När man kan beskriva relationen mellan två klasser som “är-en” resulterar det oftast i en arvsrelation.
