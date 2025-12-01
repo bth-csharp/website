@@ -11,6 +11,6 @@ Här tittar vi på mer begrepp inom objektorienterad programmering som abstrakta
 
 ## Innehåll
 
-- [Abstrakta klasser](./abstract_classes)
-- [Automatic properties](./property)
-- [Interface & Collections](./annat)
+- [Abstrakta klasser](/website/laromaterial/ooguide/kap3/abstract_classes)
+- [Automatic properties](website/laromaterial/ooguide/kap3//property)
+- [Interface & Collections](website/laromaterial/ooguide/kap3//annat)
