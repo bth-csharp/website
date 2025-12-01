@@ -187,7 +187,7 @@ Det underlättar om du gör dessa krav i ordning.
 
 6. Nästa klass på tur är **MyTaskHandler**. Troligen måste du utöka klasserna ovan och klassen **MyTaskHandler** för att få **MyTaskHandler** att fungera. **MyTaskHandler** ska anropas ifrån klassen **Planner**. Till exempel ska den privata metoden `HandleCreateTask` läsa in information från användaren och skapa ett objekt av någon av subklasserna. Då ska det finnas lämpliga metoder i **MyTaskHandler** för det. **Kom ihåg** - all in- och utmatning ska ske i klassen **Planner**.  
     - Uppdatera testplanen med ett kapitel om testerna för klassen **MyTaskHandler**. Tänk ut minst 3 testfall och beskriv de och dess utfall.
-    - Gör en testklass för **MyTaskHandler** och implementera ett av testfallen genom att använda "Moq".
+    - Gör en testklass för **MyTaskHandler** och implementera ett testfall på `GetNoOfTasks()` genom att använda "Moq".
     - Implementera klassen eller så implementerar du klassen först och sen testfallet.
 
 7. Implementera klassen **Planner** enligt klassdiagrammet så att alla menyalternativ funkar. Testkör ditt planeringsverktyg.
