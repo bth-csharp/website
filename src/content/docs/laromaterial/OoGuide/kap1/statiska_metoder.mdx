@@ -138,8 +138,8 @@ Metoden `CalculatePriceReduction()` har priset som inparameter och returnerar et
 
 ```csharp title="Testkör den statiska metoden i huvudprogrammet"
 ...
-Console.WriteLine($"Prisreduktion: {Car.CalculatePriceReduction(bmw.GetPrice())} kr.");
-// ger utskriften: Prisreduktion: 66000 kr.
+Console.WriteLine($"Bilens nya värde: {Car.CalculatePriceReduction(bmw.GetPrice())} kr.");
+// ger utskriften: Bilens nya värde: 66000 kr.
 ```
 
 Vi hämtar priset på vår bmw (Car-objekt) med getmetoden och använder det som inparameter till den statiska metoden *CalculatePriceReduction(...)*. Den statiska metoden anropas, som tidigare, med klassens namn följt av en punkt och därefter namnet på metoden.
