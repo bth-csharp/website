@@ -49,7 +49,7 @@ class WorkTask
     + WorkTask(estimatedTime: int, timeWorked: int, title: string, description: string, dueDate: DateTime)
     + Update(description: string, dueDate: DateTime, specifics: string): bool
     + GetProgression(): int
-    + IsCompleted(): bool
+    + Completed(): void
     + GetDescription() : string
 }
 
