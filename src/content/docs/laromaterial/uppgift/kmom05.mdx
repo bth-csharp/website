@@ -209,8 +209,8 @@ else
 
 2. Skapa ett testprojekt **MyPlanner.Tests** och skapa en testklass för **MyTask** och gör testfall.
     - testfall 1: skapa MyTask och verifiera innehållet
-    - testfall 2: verifiera att Completed returnerar false om uppgiften inte är klar
-    - testfall 3: verifiera att Completed returnerar true om uppgiften är klar
+    - testfall 2: verifiera att Completed sätter attributet `_completed` till false om uppgiften inte är klar
+    - testfall 3: verifiera att Completed sätter attributet `_completed` till true om uppgiften är klar
     - tesfall 4: givet ett visst tillstång för MyTask, returnerar MyTask rätt info med `GetDescription()`.
     - testfall 5: uppdatera MyTask och verifiera att uppdateringen går ok
     - testfall 6: uppdatera MyTask med en felaktig beskrivning (parametern `description`) och verifiera att uppdateringen inte går igenom.
