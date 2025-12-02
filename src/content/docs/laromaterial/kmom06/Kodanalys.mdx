@@ -43,7 +43,12 @@ Vi känner till DRY (Don't Repeat Yourself) vilket innebär att vi inte ska skri
 | int number    | private int numberOfAdults | Variabelnamnet ej tillräckligt beskrivande, antal av vad? samt åtkomstbehörighet saknas |
 | Metod med 25 rader | Dela upp metoden i flera metoder | Svårt att läsa och underhålla koden. Riktlinje är max 10 rader. |
 
-### Bra kodkvalitet, några bra punkter
+<details>
+<summary> 
+
+### Bra kodkvalitet, några bra punkter 
+
+</summary>
 
 Här är några viktiga aspekter och bästa praxis för att uppnå hög kodkvalitet: 
 
@@ -83,14 +88,16 @@ Här är några viktiga aspekter och bästa praxis för att uppnå hög kodkvali
 
 Genom att följa dessa riktlinjer kan vi säkerställa att vår C#-kod är av hög kvalitet och lätt att underhålla och vidareutveckla.
 
+</details>
+
 ### Jämför två kodexempel, BadBank och GoodBank
 
-Nu tänkte vi att vi jämför två kodexempel, två implementationer av bankexemplet. Den  med lite fel/problem i heter "BadBank" och den som är bra heter "GoodBank". Koden finns i katalogen [CodeExamples/kmom06](/website/laromaterial/CodeExamples/kmom06/). Ta upp den och titta på den, först det sämre exemplet och sen det bättre exemplet.
+Nu tänkte vi att vi jämför två kodexempel, två implementationer av bankexemplet. Den  med lite fel/problem i heter "BadBank" och den som är bra heter "GoodBank". Koden finns i katalogen [CodeExamples/kmom04](./../../../CodeExamples/kmom06/). Ta upp den och titta på den, först det sämre exemplet och sen det bättre exemplet.
 
 
 ### BadBank
 
-Det finns flera problem i [BadBank](/website/laromaterial/CodeExamples/kmom06/BadBank/):
+Det finns flera problem i [BadBank](./../../../CodeExamples/kmom06/BadBank/) 
 
 1. Brist på inkapsling: Bankklassen manipulerar direkt BankAccount-array, vilket bryter mot inkapslingsprinciperna. (Lack of encapsulation)
 
@@ -107,9 +114,9 @@ Det finns flera problem i [BadBank](/website/laromaterial/CodeExamples/kmom06/Ba
 
 ### GoodBank
 
-I den här förbättrade versionen, [GoodBank](/website/laromaterial/CodeExamples/kmom06/GoodBank/) har vi:
+I den här förbättrade versionen, [GoodBank](./../../../CodeExamples/kmom06/GoodBank/) har vi:
 
-1. Förbättrad inkapsling: Bankklassen använder en List< BankAccount> för att lagra konton, vilket ger bättre inkapsling och flexibilitet. Dessutom kan vi ta bort attributet "numAccounts" eftersom antalet konton är längden på listan med bankkonton.
+1. Förbättrad inkapsling: Bankklassen använder en `List<BankAccount>` för att lagra konton, vilket ger bättre inkapsling och flexibilitet. Dessutom kan vi ta bort attributet "numAccounts" eftersom antalet konton är längden på listan med bankkonton.
 
 2. Förbättrad felhantering: Korrekt felhantering implementeras för uttagsoperationer, inklusive otillräckligt saldo på kontot och övertrasseringsgränser.
 
