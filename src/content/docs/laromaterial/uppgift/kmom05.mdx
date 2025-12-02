@@ -29,10 +29,22 @@ Du har jobbat igenom [Kmom05](/website/kmom/kmom05) eller har motsvarande kunska
 
 ## Introduktion
 
-Du ska skapa ett planeringsverktyg med arv och klasser. Dina klasser ska uppfylla beskrivningarna nedanför. Beskrivningarna är vad som måste finnas, du får och är **rekommenderade** att skapa ytterligare metoder och attribut där du tycker att det behövs. Vilken konstruktor vill du ha? Eller är det någon setmetod som saknas?
+Du ska skapa ett planeringsverktyg med arv och klasser med följande menyalternativ. Det finns två olika uppgifterssorter, arbetsuppgift och personlig uppgift.
+
+Menyalternativ:
+
+- 1 - Skapa en uppgift
+- 2 - Uppdatera en uppgift
+- 3 - Ta bort en uppgift
+- 4 - Skriv ut alla uppgifter
+- 5 - Sätt en uppgift till klar
+- e - Avsluta programmet
+
+Dina klasser ska uppfylla beskrivningarna nedanför. Beskrivningarna är vad som måste finnas, du får och är **rekommenderad** att skapa ytterligare metoder och attribut där du tycker att det behövs. Vilken konstruktor behöver du ha? Eller är det någon setmetod som saknas?
 
 **Tips:** Under utvecklingen av programmet så använd gärna huvudprogrammet till att testa så att varje klass funkar som du tänkt.  
 
+Kodregler
 
 ### MyTask
 
@@ -49,9 +61,12 @@ import classdiagramMyTask from '@assets/img/kmom05/classdiagramMyTask.png';
 
 Klassen **MyTask** innehåller:
 
-- **Update()** uppdaterar uppgiften. Fundera på om det behövs fler metoder, kanske en metod per subklass? (metodöverlagring). Det är ok om du inte uppdaterar attributet `title` men resten av attributen ska gå att uppdatera.
+- **Update(string description, DateTime dueDate)** uppdaterar uppgiften. SKRIV OM. Fundera på om det behövs fler metoder, kanske en metod per subklass (överskuggning)? (eller metodöverlagring). Det är ok om du inte uppdaterar attributet `title` men resten av attributen ska gå att uppdatera.
 - **Completed()** uppdaterar uppgiften till klar.
 - **GetDescription()** returnerar en sträng med en beskrivning av uppgiften med all information (uppgiftens namn, beskrivning, datum den ska vara klar och om den är klar). Datumet ska vara på enligt ISO 8601 vilket är svensk standard.
+
+NYTT
+public virtual Update(mytask attribut, string specifics="")
 
 ### PrivateTask
 
@@ -76,7 +91,7 @@ Subklassen **PrivateTask** innehåller:
 Subklassen **WorkTask** specificerar att det är en arbetsuppgift med egenskaperna prioritet, estimerad tid, arbetad tid och ett projektnamn. **WorkTask** ärver från **MyTask**.
 
 #### Klassdiagram WorkTask
-
+BORT MED projektnamn och prio
 import classdiagramWorkTask from '@assets/img/kmom05/classdiagramWorkTask.png';
 
 <Figure
@@ -110,19 +125,11 @@ Klassen **MyTaskHandler** innehåller minst:
 
 ### Planner
 
-Klassen **Planner** innehåller ett objekt av klassen **MyTaskHandler**. Här tänkte din kollega göra testdriven utveckling därför är klassen stubbad, med tomma metoder. Metoden *Run()* innehåller en loop som körs tills du väljer att avsluta, **e**.
+Klassen **Planner** innehåller ett objekt av klassen **MyTaskHandler**. Här tänkte din kollega göra testdriven utveckling därför är klassen stubbad, med tomma metoder. Metoden *Run()* innehåller en loop som körs tills användaren väljer att avsluta.
 
-Menyalternativ:
+**OBS!** All in- och utmatning i terminalen ska ske i klassen **Planner**. Klassen **Planner** finns att ladda ner `task download-code -- kmom05/Planner.cs`. Denna ska användas. Klar eller inte? Ladda ner Helpers.cs också??
 
-- 1 - Skapa en uppgift
-- 2 - Uppdatera en uppgift
-- 3 - Ta bort en uppgift
-- 4 - Skriv ut alla uppgifter
-- 5 - Sätt en uppgift till klar
-- e - Avsluta programmet
-
-**OBS!** All in- och utmatning i terminalen ska ske i klassen **Planner**. Det finns ett exempel på klassen **Planner** att ladda ner `task download-code -- kmom05/Planner.cs` om du vill ha.
-
+Inmatning från fil???
 
 #### Klassdiagram Planner
 
@@ -163,27 +170,27 @@ Ladda ner den påbörjade testplanen med `task download-code -- kmom05/TestplanM
 
 Det underlättar om du gör dessa krav i ordning.
 
-1. Skapa klassen **MyTask** och använd huvudprogrammet för att testa hur klassen funkar.
+1. Skapa klassen **MyTask** och använd huvudprogrammet för att testa hur klassen funkar i huvudprogrammet (Program.cs).
 
 2. Skapa ett testprojekt **MyPlanner.Tests** och skapa en testklass för **MyTask** och gör testfall.
     - testfall 1: skapa MyTask och verifiera innehållet
     - testfall 2: verifiera att Completed returnerar false om uppgiften inte är klar
     - testfall 3: verifiera att Completed returnerar true om uppgiften är klar
-    - tesfall 4: givet ett visst tillstång för MyTask, returnerar MyTask rätt info.
+    - tesfall 4: givet ett visst tillstång för MyTask, returnerar MyTask rätt info med `GetDescription()`.
 
 3. Då är det dags för subklassen **PrivateTask**.
     - Implementera subklassen.
     - Testa den i huvudprogrammet
-    - Gör en testklass för **PrivateTask** med minst 2 testfall
+    - Gör en testklass för **PrivateTask** med minst 2 relevanta testfall
     - Uppdatera testplanen med ett kapitel om testerna för subklassen **PrivateTask**.
 
 4. Då är det dags för subklassen **WorkTask**.
     - Implementera subklassen.
     - Testa den i huvudprogrammet
-    - Gör en testklass för **WorkTask** med minst 3 testfall. När du testar metoderna `GetProgression()` använder du minst 3 olika indata till samma testfall.
-    - Uppdatera testplanen med ett kapitel om testerna för subklassen **WorkTask**.
+    - Gör en testklass för **WorkTask** med minst 3 relevanta testfall. När du testar metoderna `GetProgression()` använder du minst 3 olika indata till samma testfall.
+    - Uppdatera testplanen med ett kapitel om testerna för subklassen **WorkTask**. 
 
-5. Metoden `GetDescription()` i basklassen ska överskuggas i subklasserna genom anropa basklassens metod och sen skriva ut något specifikt för subklassen. Gör ett testfall i testklassen som testar **WorkTask** som testar att subklassen överskuggar basklassens metod `GetDescription()`. 
+5. Protected metod i MyTask som säkerställer att ett datum inte kan sättas före dagens datum, bara datum från och med idag och framåt. Konstruktorn i MyTask ska använda denna metod. Om datum är fel så sätts dagens datum.
 
 6. Nästa klass på tur är **MyTaskHandler**. Troligen måste du utöka klasserna ovan och klassen **MyTaskHandler** för att få **MyTaskHandler** att fungera. **MyTaskHandler** ska anropas ifrån klassen **Planner**. Till exempel ska den privata metoden `HandleCreateTask` läsa in information från användaren och skapa ett objekt av någon av subklasserna. Då ska det finnas lämpliga metoder i **MyTaskHandler** för det. **Kom ihåg** - all in- och utmatning ska ske i klassen **Planner**.  
     - Uppdatera testplanen med ett kapitel om testerna för klassen **MyTaskHandler**. Tänk ut minst 3 testfall och beskriv de och dess utfall.
