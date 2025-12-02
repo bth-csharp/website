@@ -113,12 +113,11 @@ import classdiagramWorkTask from '@assets/img/kmom05/classdiagramWorkTask.png';
 
 Subklassen **WorkTask** innehåller:
 
-- sätt `_timeWorked` till 0 när arbetsuppgiften skapas.
 - **Update(string description, DateTime dueDate, string specifics="")**  överskuggar basklassens metod. Innehållet i `specifics` motsvarar det `_timeWorked` och `_estimatedTime` ska ersättas med. Formatet i `specifics` är "timeWorked:estimatedTime", till exempel "10:20". Uppdatering är endast möjlig om `timeWorked` är mindre eller lika med `estimatedTime`. 
 Tänk på att anropa basklassens metod `Update` avseende `description` och `dueDate`. Om uppdateringen går bra så returneras `true`, annars `false`.
 - **GetProgression()** beräknar hur klar uppgiften är i procent. Om beräknad tid är 40 timmar och arbetad tid är 10 timmar, så är progressionen 25% och metoden ska då returnera 25. Korrekt avrundning ska göras till närmaste heltal.
 - **Completed()** överskugga basklassen metod eftersom uppgiften inte kan sättas till klar förrän progressionen kommit upp i 80%. Annars anses uppgiften felplanerad och behöver uppdateras innan den kan sättas i completed.
-- **GetDescription()** överskuggar basklassens metod och returnerar inte bara basklassens information utan också prioritet, progression och projektnamn.
+- **GetDescription()** överskuggar basklassens metod och returnerar inte bara basklassens information utan också progressionen.
 
 ### MyTaskHandler
 
