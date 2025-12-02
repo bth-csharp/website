@@ -74,11 +74,11 @@ import classdiagramMyTask from '@assets/img/kmom05/classdiagramMyTask.png';
 
 Klassen **MyTask** innehåller:
 
-- **MyTask(string title, string description, DateTime dueDate)** skapar uppgiften. Du kan förutsätta att alla attribut innehåller värden, inget är tomt. En uppgift är inte klar när den skapas.
-- **Update(string description, DateTime dueDate, string specifics="")** uppdaterar uppgiften. Metoden ska överskuggas i subklasserna. Om uppdateringen går bra så returneras `true`. Uppdateringen går bra om attribut uppdateras till ett nytt värde eller till samma värde som det hade innan.  
+- **MyTask(string title, string description, DateTime dueDate)** skapar uppgiften. Du kan räkna med att attributet `title` är unik. Du kan också förutsätta att alla attribut innehåller värden, inget är tomt.
+- **Update(string description, DateTime dueDate, string specifics="")** uppdaterar uppgiften. Metoden ska överskuggas i subklasserna. Om uppdateringen går bra så returneras `true`. Uppdateringen går bra om attributet uppdateras till ett nytt värde eller till samma värde som det hade innan.  
 Om uppdateringen inte går bra returneras `false`. Ingen uppdatering ska ske om parametern `description` är en tom sträng eller om parametern `dueDate` är tidigare än dagens datum.  
 Den tredje parametern `specifics` hanteras av subklassen.
-- **Completed()** ändrar uppgiften till klar.
+- **Completed()** uppdaterar uppgiften till klar.
 - **GetDescription()** returnerar en sträng med en beskrivning av uppgiften med all information (uppgiftens namn, beskrivning, datum den ska vara klar och om den är klar). Datumet ska vara på enligt ISO 8601 vilket är svensk standard.
 
 
@@ -102,7 +102,7 @@ Subklassen **PrivateTask** innehåller:
 
 ### WorkTask
 
-Subklassen **WorkTask** specificerar att det är en arbetsuppgift med egenskaperna estimerad tid och arbetad tid. **WorkTask** ärver från **MyTask**.
+Subklassen **WorkTask** specificerar att det är en arbetsuppgift med egenskaperna prioritet, estimerad tid, arbetad tid och ett projektnamn. **WorkTask** ärver från **MyTask**.
 
 #### Klassdiagram WorkTask
 
@@ -116,21 +116,67 @@ Subklassen **WorkTask** innehåller:
 
 - **Update(string description, DateTime dueDate, string specifics="")**  överskuggar basklassens metod. Innehållet i `specifics` motsvarar det `_timeWorked` och `_estimatedTime` ska ersättas med. Formatet i `specifics` är "timeWorked:estimatedTime", till exempel "10:20". Uppdatering är endast möjlig om `timeWorked` är mindre eller lika med `estimatedTime`. 
 Tänk på att anropa basklassens metod `Update` avseende `description` och `dueDate`. Om uppdateringen går bra så returneras `true`, annars `false`.
-- **GetProgression()** beräknar hur klar uppgiften är i procent. Om beräknad tid är 40 timmar och arbetad tid är 10 timmar, så är progressionen 25% och metoden ska då returnera 25. Korrekt avrundning ska göras till närmaste heltal.
-- **Completed()** överskugga basklassen metod eftersom uppgiften inte kan sättas till klar förrän progressionen kommit upp i 80%. Annars anses uppgiften felplanerad och behöver uppdateras innan den kan sättas i completed.
+- **GetProgression** beräknar hur klar uppgiften är i procent. Om beräknad tid är 40 timmar och arbetad tid är 10 timmar, så är progressionen 25% och metoden ska då returnera 25.
+- **Completed** överskugga basklassen metod eftersom uppgiften inte kan sättas till klar förrän progressionen kommit upp i 80%. Annars anses uppgiften felplanerad och behöver uppdateras innan den kan sättas i completed.
 - **GetDescription()** överskuggar basklassens metod och returnerar inte bara basklassens information utan också prioritet, progression och projektnamn.
 
 ### MyTaskHandler
 
-:::note
-Kommer inom kort!
-:::
+Klassen **MyTaskHandler** innehåller en lista med uppgifter. Du kan lägga till uppgifter i listan, ta bort uppgifter ur listan och uppdatera uppgifter i listan. Du kan också få en lista med alla uppgifter samt alla avklarade uppgifter.
+
+#### Klassdiagram MyTaskHandler
+
+import classdiagramMyTaskHandler from '@assets/img/kmom05/classdiagramMyTaskHandler.png';
+
+<Figure
+    src={classdiagramMyTaskHandler}
+    width="250px"
+/>
+
+Klassen **MyTaskHandler** innehåller minst:
+
+- **GetNoOfTasks()** returnerar antalet uppgifter.
+- **GetTaskContent(string title)** returnerar en lista med strängar som motsvarar respektive attribut i objektet som har titeln `title`.
+
 
 ### Planner
 
-:::note
-Kommer inom kort!
-:::
+Klassen **Planner** innehåller ett objekt av klassen **MyTaskHandler**. Här tänkte din kollega göra testdriven utveckling därför är klassen stubbad, med tomma metoder. Metoden *Run()* innehåller en loop som körs tills användaren väljer att avsluta.
+
+**OBS!** All in- och utmatning i terminalen ska ske i klassen **Planner**. 
+
+#### Klassdiagram Planner
+
+Klassen **Planner** är klar men du får lägga till relevanta attribut och metoder. Klassdiagram ser ut så här:
+
+import classdiagramPlanner from '@assets/img/kmom05/classdiagramPlanner.png';
+
+<Figure
+    src={classdiagramPlanner}
+    width="350px"
+/>
+
+
+### Testplan MyPlanner
+
+Det finns en påbörjad testplan till projektet **MyPlanner** att ladda ner `task download-code -- kmom05/TestplanMyPlanner.pdf` eller `task download-code -- kmom05/TestplanMyPlanner.docx`. Fortsätt gärna fylla i den eller kopiera innehållet och lägg i ett eget dokument. Lägg testplanen `TestplanMyPlanner.pdf` på samma ställe som koden på detta sätt:
+
+```shell
+// i din kmom05 katalog
+├── MyPlanner
+├── MyPlanner.Tests
+└── TestplanMyPlanner.pdf
+```
+
+
+### Huvudprogrammet
+
+Huvudprogrammet, **Program.cs**, använder bara klassen **Planner** och startar planeringsverktyget med metoden `Run`.
+
+
+## Förutsättning
+ 
+Ladda ner den påbörjade testplanen med `task download-code -- kmom05/TestplanMyPlanner.pdf` eller `task download-code -- kmom05/TestplanMyPlanner.docx`.
 
 
 ## Krav
@@ -216,23 +262,18 @@ else
     - Implementera subklassen.
     - Testa den i huvudprogrammet
     - Gör en testklass för **PrivateTask** med minst 2 relevanta testfall
+    - Uppdatera testplanen med ett kapitel om testerna för subklassen **PrivateTask**.
 
 4. Då är det dags för subklassen **WorkTask**.
     - Implementera subklassen.
     - Testa den i huvudprogrammet
     - Gör en testklass för **WorkTask** med minst 3 relevanta testfall. När du testar metoderna `GetProgression()` använder du minst 3 olika indata till samma testfall.
+    - Uppdatera testplanen med ett kapitel om testerna för subklassen **WorkTask**. 
 
-5. 
+5. Nu ska du utveckla en klass **MyTaskHandler** som hantera alla uppgifter. Du laddar ner klassen med `task download-code -- kmom05/MyTaskHandler.cs`. Vissa metoderna är implementerade och andra ska du implementera. Du kommer att få kompileringsfel och förväntas förstå vad det är du behöver lägga till i dina klasser.
 
-:::note
-Kommer inom kort!
-:::
-
-6. 
-
-:::note
-Kommer inom kort!
-:::
+6. Avsluta med att ladda ner klassen **Planner** med `task download-code -- kmom05/Planner.cs`. Testkör ditt planeringsverktyg så att alla menyalternativ funkar.
+Klassen **Planner** använder en hjälpklass som du laddar ner med `task download-code -- kmom05/Helpers.cs`.
 
 
 ## Demo på MyPlanner
@@ -240,10 +281,6 @@ Kommer inom kort!
 Så här ser det ut när vi kör programmet i terminalen:
 
 Så här kan det se ut när det är klart.
-
-:::note
-Kommer inom kort!
-:::
 
 <YouTube
     id="???"
@@ -253,9 +290,15 @@ Kommer inom kort!
 
 ## Extrauppgift
 
-:::note
-Kommer inom kort!
-:::
+1. Se till att kodtäckningen funkar. Skapa en kodtäckningsrapport för **MyPlanner.Tests**. Generera en webbsida med ReportGenerator och kolla på kodtäckningen.
+   
+1. Se till att kodtäckningen blir 100% för **MyTask**. Utöka testplanen med dina testfall, implementera dem och testkör dem. Generera en ny rapport och kolla att alla kodrader i **MyTask** är testade.
+
+1. Uppdatera testplanen med ett kapitel om testerna för klassen **MyTaskHandler**. Tänk ut minst 3 testfall och beskriv de och dess utfall.
+
+1. Gör en testklass för **MyTaskHandler** och implementera ett testfall på `GetNoOfTasks()` genom att använda "Moq".
+   
+1. Försök att nå 100% testtäckning för hela projektet.
 
 
 ## Tips från coachen
