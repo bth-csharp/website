@@ -29,7 +29,7 @@ Du har jobbat igenom [Kmom05](/website/kmom/kmom05) eller har motsvarande kunska
 
 ## Introduktion
 
-Du ska skapa ett planeringsverktyg med arv och klasser med följande menyalternativ. Det finns två olika uppgifterssorter, arbetsuppgift och personlig uppgift.
+Du ska skapa ett planeringsverktyg med arv och klasser med följande menyalternativ. Det finns två olika typer av uppgifter; arbetsuppgift och personlig uppgift.
 
 Menyalternativ:
 
@@ -44,7 +44,20 @@ Dina klasser ska uppfylla beskrivningarna nedanför. Beskrivningarna är vad som
 
 **Tips:** Under utvecklingen av programmet så använd gärna huvudprogrammet till att testa så att varje klass funkar som du tänkt.  
 
-Kodregler
+<details>
+<summary>
+
+### Kodregler
+
+</summary>
+
+- Använd this och base
+- Använd [namngivningsreglerna](/website/laromaterial/kmom02/inledningoo/#namngivning)
+- En konstruktor i varje klass
+- Använd metoder för att få ner antalet kodrader, till exempel minst en metod i varje switchgren. 
+
+
+</details>
 
 ### MyTask
 
@@ -61,12 +74,11 @@ import classdiagramMyTask from '@assets/img/kmom05/classdiagramMyTask.png';
 
 Klassen **MyTask** innehåller:
 
-- **Update(string description, DateTime dueDate)** uppdaterar uppgiften. SKRIV OM. Fundera på om det behövs fler metoder, kanske en metod per subklass (överskuggning)? (eller metodöverlagring). Det är ok om du inte uppdaterar attributet `title` men resten av attributen ska gå att uppdatera.
+- **MyTask(string title, string description, DateTime dueDate)** skapar uppgiften. Du kan räkna med att attributet `title` är unikt. Alla attributen innehåller dessutom värden, inget är tomt.
+- **Update(string description, DateTime dueDate, string specifics="")** uppdaterar uppgiften. Metoden ska överskuggas i subklasserna. Attributet `title` kan inte uppdateras. Om någon av attributen inte innehåller värden så går uppdateringen fel och **Update** returnerar `false`. Om uppdateringen går bra så returneras `true`. Uppdateringen går bra om attributet uppdateras till ett nytt värde eller till samma värde som det hade innan.
 - **Completed()** uppdaterar uppgiften till klar.
 - **GetDescription()** returnerar en sträng med en beskrivning av uppgiften med all information (uppgiftens namn, beskrivning, datum den ska vara klar och om den är klar). Datumet ska vara på enligt ISO 8601 vilket är svensk standard.
 
-NYTT
-public virtual Update(mytask attribut, string specifics="")
 
 ### PrivateTask
 
@@ -78,12 +90,12 @@ import classdiagramPrivateTask from '@assets/img/kmom05/classdiagramPrivateTask.
 
 <Figure
     src={classdiagramPrivateTask}
-    width="250px"
 />
 
 
 Subklassen **PrivateTask** innehåller:
 
+- **Update(string description, DateTime dueDate, string specifics="")**  överskuggas i subklassen. Om någon av attributen inte innehåller värden så går uppdateringen fel och **Update** returnerar `false`. Om uppdateringen går bra så returneras `true`. Uppdateringen går bra om attributet uppdateras till ett nytt värde eller till samma värde som det hade innan.
 - **GetDescription()** överskuggar basklassens metod och returnerar inte bara basklassens information utan också platsen.
 
 ### WorkTask
@@ -91,16 +103,16 @@ Subklassen **PrivateTask** innehåller:
 Subklassen **WorkTask** specificerar att det är en arbetsuppgift med egenskaperna prioritet, estimerad tid, arbetad tid och ett projektnamn. **WorkTask** ärver från **MyTask**.
 
 #### Klassdiagram WorkTask
-BORT MED projektnamn och prio
+
 import classdiagramWorkTask from '@assets/img/kmom05/classdiagramWorkTask.png';
 
 <Figure
     src={classdiagramWorkTask}
-    width="250px"
 />
 
 Subklassen **WorkTask** innehåller:
 
+- **Update(string description, DateTime dueDate, string specifics="")**  överskuggas i subklassen. Om någon av attributen inte innehåller värden så går uppdateringen fel och **Update** returnerar `false`. Om uppdateringen går bra så returneras `true`. Uppdateringen går bra om attributet uppdateras till ett nytt värde eller till samma värde som det hade innan.
 - **GetProgression** beräknar hur klar uppgiften är i procent. Om beräknad tid är 40 timmar och arbetad tid är 10 timmar, så är progressionen 25% och metoden ska då returnera 25.
 - **Completed** överskugga basklassen metod eftersom uppgiften inte kan sättas till klar förrän progressionen kommit upp i 80%. Annars anses uppgiften felplanerad och behöver uppdateras innan den kan sättas i completed.
 - **GetDescription()** överskuggar basklassens metod och returnerar inte bara basklassens information utan också prioritet, progression och projektnamn.

@@ -1,0 +1,68 @@
+@startuml
+
+class Planner
+{
+    - _myTaskHandler : MyTaskHandler
+
+    - {static} PrintMenu() : void
+    + void Run() : void
+    - HandleCreateTask() : void
+    - HandleUpdateTask() : void
+    - HandleDeleteTask() : void
+    - PrintAllTasks() : void
+    - SetTaskToCompleted() : void
+    + GetNoOfTasks() : int
+}
+
+class MyTaskHandler 
+{
+    - _tasks : List<MyTask>
+    
+    + GetNoOfTasks(): int
+    + CreateTask(string title, string description, DateTime ready): void
+    + UpdateTask(): bool
+    + DeleteTask(): bool
+    + GetTasks(): List<MyTask>
+}
+
+class MyTask 
+{
+    - _title: string
+    - _description: string
+    - _dueDate: DateTime
+    - _completed: bool
+    
+    + MyTask(title: string, description: string, ready: DateTime): MyTask
+    + Update(description: string, dueDate: DateTime, specifics: string): bool
+    + Completed(): void
+    + GetDescription() : string
+}
+
+
+MyTaskHandler *-- MyTask
+
+class WorkTask
+{
+    - _estimatedTime: int
+    - _timeWorked: int
+
+    + WorkTask(estimatedTime: int, timeWorked: int, title: string, description: string, ready: DateTime): MyTask
+    + Update(description: string, dueDate: DateTime, specifics: string): bool
+    + GetProgression(): int
+    + IsCompleted(): bool
+    + GetDescription() : string
+}
+
+class PrivateTask
+{
+    - _location: string
+
+    + PrivateTask(location: string, title: string, description: string, ready: DateTime): MyTask
+    + Update(description: string, dueDate: DateTime, specifics: string): bool
+    + GetDescription() : string
+}
+
+MyTask <|-- WorkTask
+MyTask <|-- PrivateTask
+
+@enduml
