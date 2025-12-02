@@ -117,7 +117,7 @@ Raderna som börjar med "Kontot..." kommer från basklassen och raderna som bör
 
 ## Metodöverskuggning med BankAccount
 
-De olika kontotyperna har olika aktiviteter i slutet av månaden men själva aktiviteten är ska alla konton göra. Då kan vi skapa en metod, `PerformMonthEndTransactions()`, i basklassen som vi sedan överskuggas (override) i subklasserna. För att visa att vi vill att en metod ska överskuggas så markerar vi den **virtual** i basklassen och **override** i subklasserna. Om vi vill lägga till en tredje subklass och glömmer att implementera metoden `PerformMonthEndTransactions()` i den, så får vi kompileringsfel när metoden är **virtual** i basklassen.
+De olika kontotyperna har olika aktiviteter i slutet av månaden men själva aktiviteten är olika för de olika kontona. Då kan vi skapa en metod, `PerformMonthEndTransactions()`, i basklassen som vi sedan överskuggar (override) i subklasserna. För att visa att vi vill att en metod ska överskuggas så markerar vi den **virtual** i basklassen. När metoden är **virtual** i basklassen så är det ett erbjudande om att subklassen kan överskugga metoden. Om metoden ska överskuggas i subklassen så används **override** subklassens metod.
 
 
 ### Klassdiagram för BankAccount, InterestAccount och PayrollAccount
