@@ -10,8 +10,8 @@ import Figure from '@components/CustomFigure.astro';
 import csharpLogo from '@assets/csharpLogo.jpeg';
 
 
-I C# används XML-kommentarer för att skapa dokumentation för metoder, klasser, egenskaper och andra typer. Dessa XML-kommentarer skrivs ovanför den kod som de dokumenterar och kan innehålla information om parametrar, returvärden, undantag, exempel och annan relevant information.
-Vi märkte i förra kursmomentet att det var mycket att skriva och därför ska vi generera dessa XML-kommentarer automatiskt.
+I C# används XML-kommentarer för att skapa dokumentation för metoder, klasser, egenskaper och andra typer. Dessa XML-kommentarer skrivs ovanför den kod som de dokumenterar och kan innehålla information om parametrar, returvärden, undantag, exempel och annan som är relevant.
+Vi ska nu se hur vi kan generera XML-kommentarer automatiskt.
 
 
 ## Installera extension i VS code
@@ -21,7 +21,7 @@ Vi behöver installera en extension i Visual Studio Code som heter `C# XML Docum
 
 ### Konfigurera ditt projekt
 
-Vi börjar med att kopiera vårt projekt "MyBank" och lägger den i rotkatalogen för kmom06.
+Vi börjar med att kopiera vårt projekt "MyBank" och lägger det i rotkatalogen för kmom06.
 
 Vi behöver göra ett tillägg i projektfilen som ser ut så här:
 
@@ -34,7 +34,7 @@ Vi behöver göra ett tillägg i projektfilen som ser ut så här:
   </PropertyGroup>
 ```
 
- Nu när vi satt `GenerateDocumentationFile` till **true** så kommer den att varna för alla publika attribut och egenskaper som vi missat att dokumentera. Det allra bästa är att lägga till dokumentation för dem men för att slippa varningar så kan vi lägga till:
+ När vi satt `GenerateDocumentationFile` till **true** så kommer den att varna för alla publika attribut och egenskaper som vi missat att dokumentera. Det allra bästa är att lägga till dokumentation för dessa, men för att undvika varningar kan vi lägga till:
 
 ```bash
 // i kmom06/MyBank/src/MyBank.csproj
@@ -48,13 +48,13 @@ Vi behöver göra ett tillägg i projektfilen som ser ut så här:
 
 ## Generera XML-kommentarer
 
-Gå in i din fil och skriv `///` (3 stycken slash) raden över det du vill dokumentera och så genereras en kommentar. Kolla i dokumentationen för tillägget så visar de hur vi ska göra.
-Vi får själva skriva i vad metoden ska göra och vad den returnerar samt vad attributet är till för. Men vi slipper i alla fall skriva strukturen runt kommentaren.
+Gå in i din fil och skriv `///` (3 stycken slash) raden över det du vill dokumentera. Då genereras en kommentar. Kolla i dokumentationen för tillägget så visar det hur du ska göra.  
+Du får själv fylla i vad respektive metod, utför och vad den returnerar. Du får även fylla i vad attributet är till för. Vi slipper i alla fall skriva strukturen runt kommentaren genom att skriva `///`.
 
 
 ### Exempel attribut
 
-Vi tittar på klassen *Bank* i MyBank och attributet BankName. Skriv `///`.
+Vi tittar på klassen **Bank** i MyBank och attributet `BankName`. Skriv `///`.
 
 ```csharp
 // i kmom06/MyBank/src/Bank.cs
@@ -65,7 +65,7 @@ public class Bank
     public string BankName;
 ```
 
-Och då blir den genererade kommentaren:
+Då blir den genererade kommentaren:
 
 ```csharp
 // i kmom06/MyBank/src/Bank.cs
@@ -92,11 +92,11 @@ public class Bank
     public string BankName;
 ```
 
-Vi väljer att inte ha med value då vi tycker att det blir samma som i summary för ett attribut.
+Vi väljer att inte ha med *value* då vi tycker att det blir samma som i summary för ett attribut.
 
 ### Exempel metod
 
-Vi titta på klassen **Bank** i MyBank och metoden. Skriv `///`.
+Vi titta på klassen **Bank** i MyBank och metoden `GetNoOfAccounts()`. Skriv `///`.
 
 ```csharp
 // i kmom06/MyBank/src/Bank.cs
@@ -108,7 +108,7 @@ public class Bank
     public string GetNoOfAccounts()
 ```
 
-Och då blir den genererade kommentaren:
+Då blir den genererade kommentaren:
 
 ```csharp
 // i kmom06/MyBank/src/Bank.cs
@@ -138,7 +138,7 @@ public class Bank
     public string GetNoOfAccounts()
 ```
 
-Om metoden returnerar ett objekt av en klass **BAnkAccount** så kan kommentaren se ut så här:
+Om metoden returnerar ett objekt av klasstypen **BankAccount** så kan kommentaren se ut så här:
 
 ```csharp
     /// <returns>A <see cref="BankAccount"/> object with account information.</returns>
@@ -153,7 +153,7 @@ Den genererade kommentaren för en metod med parameter ser ut så här:
     /// <param name="newAccount"></param>
 ```
 
-Och ifylld så ser den ut så här:
+Ifylld ser den ut så här:
 
 ```csharp
 // i kmom06/MyBank/src/Bank.cs
@@ -168,7 +168,7 @@ public class Bank
     public void AddAccount(BankAccount newAccount)
 ```
 
-Och ibland blir det dubbla `<summary>` taggar när vi genererar en kommentar över klassen. Men i vilket fall är det bättre än att skriva alla taggar själv.
+Ibland blir det dubbla `<summary>` taggar när vi genererar en kommentar över klassen. Men det är i alla fall bättre än att skriva alla taggar själv.
 
 ### Andra exempel
 
@@ -197,7 +197,7 @@ docfx init
 <details>
 <summary>Input till docfx kommandot</summary>
 
-Om vi svarar med `.` på frågan ".NET projects location (src):" för då får vi projektet vi står i "MyBank".
+Om vi svarar med `.` på frågan ".NET projects location (src):" för då får vi projektet vi står i, vilket är "MyBank".
 
 ```bash
 This utility will walk you through creating a docfx project.
@@ -244,7 +244,7 @@ Det är viktigt att det stämmer med path till våra klasser, dubbelkolla att di
 }
 ```
 
-Nu får du dokumentation genererat för alla projekt i din katalog. Vi får för "FileApp", "Badbank", "GoodBank" och resten av projekten i katalogen. Om vi bara vill ha för "MyBank", så gör vi såhär:
+Nu får du dokumentation genererad för alla projekt i din katalog. Vi får för "FileApp", "Badbank", "GoodBank" och resten av projekten i katalogen. Om vi bara vill ha för "MyBank" gör vi så här:
 
 
 ```csharp
@@ -271,7 +271,7 @@ Nu får du dokumentation genererat för alla projekt i din katalog. Vi får för
 }
 ```
 
-Vi har endast kvar raden `"files: ["MyBank.csproj"]` om vi endast vill ha dokumentation för projektet "MyBank".
+Vi har endast kvar raden `"files: ["MyBank.csproj"]` om vi bara vill ha dokumentation för projektet "MyBank".
 
 
 ### DocFX, starta dokumentationen
@@ -294,7 +294,7 @@ import mybankdocsfx from '@assets/img/kmom06/MyBankDocFx.png';
     width="600px"
 />
 
-Klasserna ligger under fliken "API" överst i navbaren. Klicka på den och det ser ut så här:
+Klasserna ligger under fliken "API" överst i navbaren. Klicka på den. Det ser då ut så här:
 
 import mybankdocsfxapi from '@assets/img/kmom06/MyBankDocFxApi.png';
 
@@ -304,7 +304,7 @@ import mybankdocsfxapi from '@assets/img/kmom06/MyBankDocFxApi.png';
     width="600px"
 />
 
-**OBS** Om du får problem och inte ser något på dokumentsidan som har med dina klasser att göra, så stäng ner servern, ta bort katalogerna (MyBank/_api och MyBank/_site), kör om metadata kommandot `docfx metadata` och starta servern igen.
+**OBS** Om du får problem och inte ser något på dokumentsidan som har med dina klasser att göra, prova att stänga ner servern, ta bort katalogerna (MyBank/_api och MyBank/_site), kör om metadata kommandot `docfx metadata` och starta servern igen.
 
 
 ### Sammanfattning
