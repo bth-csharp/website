@@ -1,0 +1,68 @@
+---
+title: "Skillnad på const och readonly"
+description: Skillnad på const och readonly
+sidebar:
+    order: 2
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+import csharpLogo from '@assets/csharpLogo.jpeg';
+
+Både const och readonly används för att deklarera variabler som inte kan ändras efter att de har initialiserats. Här är skillnaderna mellan dem:
+
+## const (konstant)
+
+- Definieras vid tilldelningstid och måste ha ett värde när det deklareras.
+- Är en kompileringstidskonstant, vilket innebär att värdet kan beräknas vid kompilering.
+- Är alltid implicit statiskt.
+- Använder syntaxen ClassName.ConstantName för att komma åt värdet.
+- Om värdet ändras måste alla klienter kompileras om.
+- Exempel:
+
+```csharp
+// Constants
+public const int CM_IN_A_METER = 100;
+public const string COURSE_NAME = "csharp";
+```
+
+## readonly (skrivskyddad)
+
+- Värdet kan tilldelas antingen vid deklarationen eller i konstruktorn
+- Kan definieras vid kompileringen eller runtime.
+- Är en runtime-konstant, vilket innebär att det kan tilldelas ett värde första gången men inte ändras efter det.
+- Behöver inte vara statiskt.
+- Använder en referens till en minnesplats.
+- Om värdet ändras behöver bara den ursprungliga assemblyn omkompileras.
+- Exempel:
+
+```csharp
+public class Rectangle
+{
+    // Readonly fält för höjd
+    public readonly double HEIGHT;
+
+    // Konstant värde för bredden
+    public const double WIDTH = 1000;
+
+    public Rectangle(double height)
+    {
+        HEIGHT = height;
+    }
+
+    public double GetArea()
+    {
+        return HEIGHT * WIDTH;
+    }
+}
+```
+
+
+## Exempel med både const och readyonly
+
+Vi har en klass **Rectangel** med en konstant bredd för att passa in på en viss webbsida. Höjden kan däremot variera och tilldelas i konstruktorn då objektet skapas.
+
+
+## Sammanfattning
+
+Om du är säker på att värdet aldrig kommer att ändras, använd const. Om du är osäker eller om värdet kan ändras, använd readonly.

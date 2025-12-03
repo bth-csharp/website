@@ -1,0 +1,120 @@
+---
+title: "Introduktion till rekursion"
+description: Introduktion till rekursion
+sidebar:
+    order: 6
+    hidden: true
+---
+
+Rekursion är en teknik inom programmering där en metod anropar sig själv för att lösa ett problem. Rekursion används ofta för att lösa problem som kan delas upp i mindre, liknande delproblem. I C# kan rekursion användas för att implementera algoritmer som naturligt passar för denna teknik, såsom beräkning av fakultet, Fibonacci-sekvensen, och traversering av trädstrukturer.
+
+## Hur går det till?
+
+Den rekursiva metoden anropar sig själv med en modifierad parameter tills den kommer till ett basfall, ett villkor som stoppar rekursionen.
+Rekursion är ett kraftfullt verktyg men det är viktigt att använda det med försiktighet och att alltid säkerställa att det finns ett tydligt basfall för att undvika oändliga rekursioner.
+
+### Fördelar med rekursion
+
+- rekursiva lösningar kan vara enklare att förstå och implementera, särskilt för problem som kan delas upp i delproblem.
+- rekursiva lösningar kan ofta skrivas med mindre kod jämfört med iterativa lösningar.
+- passar för att traversera trädstrukturer.
+
+### Nackdelar med rekursion
+
+- rekursiva lösningar kan vara dyra när det gäller minne och prestanda eftersom varje rekursivt anrop lägger till en ny post på anropsstacken.
+- rekursiva lösningar kan vara svårare att debugga och förstå.
+- om basfallet inte är korrekt så kraschar programmet.
+- i vissa fall är rekursiva lösningar så svåra att förstå att iterativa lösningar är ett bättre val.
+
+## Exempel Fakultet
+
+Fakulteten av ett tal *n* skrivs som *n!* och är produkten av alla positiva heltal mindre än eller lika med *n*. Om *n=3* så är dess fakultet 6 , det vill säga `3 * 2 * 1`.
+
+### Algoritm
+
+Basfall: om n = 1 så returneras 1
+Rekursivt anrop: annars returneras n * (n-1)
+
+3 * 2 returnera 6
+2 * 1 returnera 1
+1 * 6 = 6
+
+### Lösning
+
+```csharp
+// I Program.cs
+static int FactorialNumber(int n)
+{
+    if (n == 1) // basfallet
+    {
+        Console.WriteLine($"Basfall med n = {n}, nu returneras {n}");
+        return 1;
+    }
+    Console.WriteLine($"Rekursivt anrop med n = {n}, nu returneras {n} * {n-1}");
+    return n * FactorialNumber(n-1);
+}
+
+Console.WriteLine($"Fakulteten av 3 är {FactorialNumber(3).}");
+// ger utskriften: 
+```
+
+Utskrifterna behövs inte i metoden men kan hjälpa till med förståelsen av de rekursiva anropen. Testa också att debugga koden och då ser du att debugger sparar undan de rekursiva anropen till den kommer till basfallet. I fallet med n=3, så sparas först `3 * FactorialNumber(2)`, därefter `2 * FactorialNumber(1)` och sen kommer vi till basfallet `FactorialNumber(1)` och då returneras 1. Då kommer den returnerade siffran 1 att multipliceras med produkten av `2 * FactorialNumber(1)` vilket är 2. Sen plockas `3 * FactorialNumber(2)` och det motsvarar `3 * 2` vilket blir 6.
+
+## Exempel Hanois torn
+
+![Hanois torn med 3 skivor](./../../../images/kmom06/towerOfHanoi.png "Hanois torn med 3 skivor")  
+Hanois torn är ett klassiskt problem inom rekursion där du har tre pinnar och ett antal skivor av olika storlekar. Målet är att flytta alla skivor från en startpinne till en målpinne, med hjälp av en hjälppinne, och följa dessa regler:
+
+1. Endast en skiva kan flyttas åt gången.
+2. En skiva kan endast placeras på en tom pinne eller ovanpå en större skiva.
+3. Alla skivor börjar på startpinnen, ordnade från största till minsta.
+
+Här är en [video](https://www.youtube.com/watch?app=desktop&v=ShRHZKpYe4w&ab_channel=PainlessProgramming) som förklarar lösningen på Hanois torn med python.
+
+Försök att lösa problemet i C#.
+
+
+Rekursivt lösningsförslag
+
+```csharp
+// I Program.cs
+static void HanoiRecursive(int n, char fromPeg, char toPeg, char helpPeg)
+{
+    if (n == 1) // basfallet
+    {
+        Console.WriteLine($"Flytta skiva 1 från {fromPeg} till {toPeg}");
+
+        return;
+    }
+    HanoiRecursive(n - 1, fromPeg, helpPeg, toPeg);
+    Console.WriteLine($"Flytta skiva {n} från {fromPeg} till {toPeg}");
+    HanoiRecursive(n - 1, helpPeg, toPeg, fromPeg);
+}
+
+int noOfDisks = 3;
+Console.WriteLine("Skiva 1 är liten röd, skiva 2 är mellanstor blå och skiva 3 är stor grön\n");
+HanoiRecursive(3, 'A', 'C', 'B');
+```
+
+
+Vi kör detta i [C# online kompilator .NET Fiddle](https://dotnetfiddle.net/). Välj Language: C#, Project Type: console och Compiler: Latest (.NET 9).
+
+Utskriften blir:
+
+```bash
+Skiva 1 är liten röd, skiva 2 är mellanstor blå och skiva 3 är stor grön.
+
+Flytta skiva 1 från A till C
+Flytta skiva 2 från A till B
+Flytta skiva 1 från C till B
+Flytta skiva 3 från A till C
+Flytta skiva 1 från B till A
+Flytta skiva 2 från B till C
+Flytta skiva 1 från A till C
+```
+
+
+## Sammanfattning
+
+Den rekursiva metoden anropar sig själv med en modifierad parameter tills den kommer till ett basfall, som stoppar rekursionen.
+Rekursiva lösningar är svårare att debugga och kräver mer minne och prestanda än iterativa lösningar. Den stora fördelen med rekursiva lösningar är mindre kod och intuitivare lösning särskilt för problem som kan delas upp i mindre delproblem.

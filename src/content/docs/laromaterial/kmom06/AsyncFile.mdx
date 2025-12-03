@@ -1,0 +1,110 @@
+---
+title: "Filer - läs och skriv asynkront"
+description: Läs och skriv asynkront
+sidebar:
+    order: 5
+    hidden: true
+---
+
+## ÅTERSTÅR ATT FIXA ÅTKMST TILL FileApp i KMOMo6 SIST I DENNA FIL
+
+
+import Figure from '@components/CustomFigure.astro';
+
+Att läsa och skriva till filer asynkront i C# har flera viktiga fördelar, särskilt i applikationer där prestanda och användarupplevelse är viktiga.
+
+När vi använder synkrona metoder som `File.ReadAllLines`, blockeras den aktuella tråden tills operationen är klar. I till exempel en GUI-applikation  kan detta göra att användargränssnittet fryser. Asynkrona metoder som `File.ReadAllLinesAsync` tillåter tråden att fortsätta arbeta medan filoperationen pågår.
+
+I webbapplikationer är det viktigt att hantera många samtidiga användare. Synkrona filoperationer binder upp trådar, vilket begränsar hur många förfrågningar servern kan hantera samtidigt.
+
+Asynkrona metoder använder resurser mer effektivt genom att utnyttja I/O-begäran på operativsystemnivå utan att belasta CPU:n med väntetid. Detta är särskilt viktigt vid arbete med stora filer eller långsamma lagringsmedier som nätverksdiskar.
+
+Att använda async/await är en modern och framtidssäker metod. Det gör koden mer flexibel och lättare att integrera med andra asynkrona komponenter, som databasanrop eller nätverkskommunikation.
+
+## En klass som läser och skriver asynkront till fil
+
+    public async Task WriteToFileAsync(string path, string[] lines)
+Här är ett exempel på en klass **FileHandler** som innehåller två asynkrona metoder. Metoden `WriteToFileAsync` för att skriva till en fil och metoden `ReadFromFileAsync` för att läsa från en fil.
+
+```csharp
+using System.IO;
+using System.Threading.Tasks;
+
+public class FileHandler
+{
+    public async Task WriteToFileAsync(string path, string[] lines)
+    {
+        try
+        {
+            if (File.Exists(path))
+            {
+                await File.WriteAllLinesAsync(path, lines);
+            }
+        }
+        catch (IOException ex)
+        {
+            Console.WriteLine($"Ett IO (input/output fel inträffade): {ex.Message}");
+        }
+    }
+
+    public async Task<string[]> ReadFromFileAsync(string path)
+    {
+        try
+        {
+            if (File.Exists(path))
+            {
+                return await File.ReadAllLinesAsync(path);
+            }
+            else
+            {
+                return Array.Empty<string>();
+            }
+        }
+        catch (IOException ex)
+        {
+            Console.WriteLine($"Ett IO (input/output fel inträffade): {ex.Message}");
+            return Array.Empty<string>();
+        }
+    }
+}
+```
+
+Så här ser **Program.cs ut**:
+
+```csharp
+using System;
+using System.Threading.Tasks;
+
+// Skapa instans av FileHandler
+var fileHandler = new FileHandler();
+
+string filePath = "exempel.txt";
+string[] linesToWrite = { "Första raden", "Andra raden", "Tredje raden" };
+
+// Skriv till filen
+await fileHandler.WriteToFileAsync(filePath, linesToWrite);
+
+// Läs från filen
+string[] linesRead = await fileHandler.ReadFromFileAsync(filePath);
+
+// Skriv ut innehållet
+Console.WriteLine("Innehåll i filen:");
+foreach (var line in linesRead)
+{
+    Console.WriteLine(line);
+}
+```
+
+Gör ett projekt i kmom06-katalogen och testa koden.
+
+### Sammanfattning
+
+Då har vi tittat på hur vi kan skriva till filer på ett asynkront sätt med `async` och `await` och det asynkrona metoderna `ReadAllLinesAsync` och `WriteAllLinesAsync`. Genom att läsa och skriva till filer asynkront så förbättras prestanda och användarupplevelse.
+
+Detta är två exempel på hur vi kan läsa och skriva till fil. Det finns mer exempel här i referensmanualen [File Class](https://learn.microsoft.com/en-us/dotnet/api/system.io.file?view=net-9.0).
+
+## LÄGGAS TILL LÄNK TILL Se kodexemplet CodeExamples/kmom06/FileApp (./../../../CodeExamples/kmom06/FileApp).
+## ELLER SKA DE  LADDA NER KODEXEMPLET GENOM 
+```bash
+task download-code -- kmom06/FileApp 
+```

@@ -1,0 +1,312 @@
+---
+title: "Automatiskt dokumentera C# kod"
+description: Dokumentation av C# kod
+sidebar:
+    order: 4
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+import csharpLogo from '@assets/csharpLogo.jpeg';
+
+
+I C# används XML-kommentarer för att skapa dokumentation för metoder, klasser, egenskaper och andra typer. Dessa XML-kommentarer skrivs ovanför den kod som de dokumenterar och kan innehålla information om parametrar, returvärden, undantag, exempel och annan relevant information.
+Vi märkte i förra kursmomentet att det var mycket att skriva och därför ska vi generera dessa XML-kommentarer automatiskt.
+
+
+## Installera extension i VS code
+
+Vi behöver installera en extension i Visual Studio Code som heter `C# XML Documentation Comments`.
+
+
+### Konfigurera ditt projekt
+
+Vi börjar med att kopiera vårt projekt "MyBank" och lägger den i rotkatalogen för kmom06.
+
+Vi behöver göra ett tillägg i projektfilen som ser ut så här:
+
+```shell
+// i kmom06/MyBank/src/MyBank.csproj
+...
+  <PropertyGroup>
+    ...
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+```
+
+ Nu när vi satt `GenerateDocumentationFile` till **true** så kommer den att varna för alla publika attribut och egenskaper som vi missat att dokumentera. Det allra bästa är att lägga till dokumentation för dem men för att slippa varningar så kan vi lägga till:
+
+```bash
+// i kmom06/MyBank/src/MyBank.csproj
+...
+  <PropertyGroup>
+    ...
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+``` 
+
+## Generera XML-kommentarer
+
+Gå in i din fil och skriv `///` (3 stycken slash) raden över det du vill dokumentera och så genereras en kommentar. Kolla i dokumentationen för tillägget så visar de hur vi ska göra.
+Vi får själva skriva i vad metoden ska göra och vad den returnerar samt vad attributet är till för. Men vi slipper i alla fall skriva strukturen runt kommentaren.
+
+
+### Exempel attribut
+
+Vi tittar på klassen *Bank* i MyBank och attributet BankName. Skriv `///`.
+
+```csharp
+// i kmom06/MyBank/src/Bank.cs
+...
+public class Bank
+{
+    ///
+    public string BankName;
+```
+
+Och då blir den genererade kommentaren:
+
+```csharp
+// i kmom06/MyBank/src/Bank.cs
+...
+public class Bank
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <value></value>
+    public string BankName;
+```
+
+När vi uppdaterat den, så ser den ut så här:
+
+```csharp
+// i kmom06/MyBank/src/Bank.cs
+...
+public class Bank
+{
+    /// <summary>
+    /// The name of the bank.
+    /// </summary>
+    public string BankName;
+```
+
+Vi väljer att inte ha med value då vi tycker att det blir samma som i summary för ett attribut.
+
+### Exempel metod
+
+Vi titta på klassen **Bank** i MyBank och metoden. Skriv `///`.
+
+```csharp
+// i kmom06/MyBank/src/Bank.cs
+...
+public class Bank
+{
+  ...
+    ///
+    public string GetNoOfAccounts()
+```
+
+Och då blir den genererade kommentaren:
+
+```csharp
+// i kmom06/MyBank/src/Bank.cs
+...
+public class Bank
+{
+  ...
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public string GetNoOfAccounts()
+```
+
+När vi uppdaterat den, så ser den ut så här:
+
+```csharp
+// i kmom06/MyBank/src/Bank.cs
+...
+public class Bank
+{
+  ...
+    /// <summary>
+    /// This method returns the number of accounts in the bank.
+    /// </summary>
+    /// <returns>The number of bank accounts as a string.</returns>
+    public string GetNoOfAccounts()
+```
+
+Om metoden returnerar ett objekt av en klass **BAnkAccount** så kan kommentaren se ut så här:
+
+```csharp
+    /// <returns>A <see cref="BankAccount"/> object with account information.</returns>
+```
+
+Den genererade kommentaren för en metod med parameter ser ut så här:
+
+```csharp
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="newAccount"></param>
+```
+
+Och ifylld så ser den ut så här:
+
+```csharp
+// i kmom06/MyBank/src/Bank.cs
+...
+public class Bank
+{
+  ...
+    /// <summary>
+    /// This method adds a new bank account to the bank.
+    /// </summary>
+    /// <param name="newAccount">The object of a BankAccount.</param>
+    public void AddAccount(BankAccount newAccount)
+```
+
+Och ibland blir det dubbla `<summary>` taggar när vi genererar en kommentar över klassen. Men i vilket fall är det bättre än att skriva alla taggar själv.
+
+### Andra exempel
+
+Se mer exempel i kodexemplet [MyBank](./../../../CodeExamples/kmom06/MyBank/).
+
+
+### Automatgenerera XML-kommentarer för en klass
+
+Vi jobbar igenom klassen **Bank** och automatgenererar XML-kommentarer till den.
+
+
+## Generera dokumentation
+
+### DocFX, initiera dokumentationen
+
+DocFX är ett verktyg från Microsoft som används för att generera statisk dokumentation från C#-kod och Markdown-filer. Det är särskilt användbart för att skapa API-dokumentation direkt från XML-kommentarer i vår kod.
+
+Nu ska vi initiera vår dokumentation och det gör vi så här (välj default så uppdaterar vi konfigurationsfilen sen):
+
+```csharp
+// Stå i kmom06/MyBank
+docfx init
+```
+
+
+<details>
+<summary>Input till docfx kommandot</summary>
+
+Om vi svarar med `.` på frågan ".NET projects location (src):" för då får vi projektet vi står i "MyBank".
+
+```bash
+This utility will walk you through creating a docfx project.
+It only covers the most common items, and tries to guess sensible defaults.
+
+Name (mysite): MyBank
+Generate .NET API documentation? [y/n] (y): y
+.NET projects location (src): .
+Markdown docs location (docs): docs
+Enable site search? [y/n] (y): y
+Enable PDF? [y/n] (y): y
+
+About to overwrite existing file ...
+Is this OK? [y/n] (y): y
+
+Och y på resten av frågorna
+```
+</details>
+
+Det är viktigt att det stämmer med path till våra klasser, dubbelkolla att din docfx.json ser ut så här i början. Dubbelkolla att src innehåller, "../.". Projektfilen MyBank.csproj ska ligga i samma katalog som docfx.json filen gör.
+
+```csharp
+// I kmom06/MyBank/src/docfx.json
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../.",
+          "files": [
+            "**/*.csproj"
+          ]
+        }
+      ],
+      "dest": "api"
+    ...
+    "globalMetadata": {
+      "_appName": "MyBank",
+      "_appTitle": "MyBank",
+      "_enableSearch": true,
+      "pdf": true
+    }
+  }
+}
+```
+
+Nu får du dokumentation genererat för alla projekt i din katalog. Vi får för "FileApp", "Badbank", "GoodBank" och resten av projekten i katalogen. Om vi bara vill ha för "MyBank", så gör vi såhär:
+
+
+```csharp
+// I kmom06/MyBank/src/docfx.json
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "MyBank.csproj"
+          ]
+        }
+      ],
+      "dest": "api"
+    ...
+    "globalMetadata": {
+      "_appName": "MyBank",
+      "_appTitle": "MyBank",
+      "_enableSearch": true,
+      "pdf": true
+    }
+  }
+}
+```
+
+Vi har endast kvar raden `"files: ["MyBank.csproj"]` om vi endast vill ha dokumentation för projektet "MyBank".
+
+
+### DocFX, starta dokumentationen
+
+Nu skapar vi och kör igång webbsidan med dokumentationen genom att köra kommandot nedan. Du hittar dokumentationen för dina klasser under "API".
+
+```csharp
+docfx docfx.json --serve // starta servern
+```
+
+Nu startar en http server på `<http://localhost:8080>` med dokumentationen du nyss genererade.
+
+Så här ser det ut på startsidan:
+
+import mybankdocsfx from '@assets/img/kmom06/MyBankDocFx.png';
+
+<Figure
+    src={mybankdocsfx}
+    caption="docfx startsida för MyBank"
+    width="600px"
+/>
+
+Klasserna ligger under fliken "API" överst i navbaren. Klicka på den och det ser ut så här:
+
+import mybankdocsfxapi from '@assets/img/kmom06/MyBankDocFxApi.png';
+
+<Figure
+    src={mybankdocsfxapi}
+    caption="docfx API för MyBank"
+    width="600px"
+/>
+
+**OBS** Om du får problem och inte ser något på dokumentsidan som har med dina klasser att göra, så stäng ner servern, ta bort katalogerna (MyBank/_api och MyBank/_site), kör om metadata kommandot `docfx metadata` och starta servern igen.
+
+
+### Sammanfattning
+
+Vi har lärt oss att dokumentera vår kod med automatgenererade kommentarer samt generera dokumentation om koden.

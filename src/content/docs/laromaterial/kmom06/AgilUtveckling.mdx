@@ -1,0 +1,95 @@
+---
+title: "Olika metoder för mjukvaruutveckling"
+description: Olika metoder för mjukvaruutveckling
+sidebar:
+    order: 3
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+Det finns olika metoder för att stödja utvecklingsteam med mjukvaruutveckling. Metoderna ska hjälpa teamet att strukturera arbetet och leverera rätt saker till en bra kvalitet. Det är dessutom till för att kommunicera med chefer, kravställare och kunder.
+
+Det finns olika metoder för mjukvaruutveckling och tyvärr finns det inte en metod som passar alla utvecklingsprojekt och team.
+
+
+## Olika metoder för mjukvaruutveckling
+
+## Vattenfallsmetoden
+
+I vattenfallsmetoden utförs de olika stegen efter varandra. När det ena steget är klart så påbörjas nästa.  
+
+import Vattenfallsmetoden from '@assets/img/kmom06/Vattenfallsmetoden.jpg';
+
+<Figure
+    src={Vattenfallsmetoden}
+    caption="Vattenfallsmodellen"
+/>
+
+De olika stegen är:
+
+1. Krav, samla in krav (requirements) och gör efterforskningar (research)
+2. Design, Analysera och försök förstå kraven, gör riktlinjer, bestäm arbetssätt, välj språk som C#, välj systemarkitekturen på programmet, här görs flödesscheman
+3. Konstruktion eller kodning, skriv kod
+4. Integration, se till att alla klasser funkar ihop
+5. Testning, testa koden och rätta buggar
+6. Installation, installera programmet
+7. Underhåll,  visa hur programmet underhålls
+
+Metoden är strukturerad och bra för projekt som förändras lite men för projekt som kräver snabba förändringar så är en agil metod lämpligare.
+
+
+## Agil utveckling
+
+Agila metoder utvecklades för att få en mer flexibel och effektiv utvecklingsprocess. Det finns olika metoder för agil utveckling som Scrum och Kanban. I agil utveckling görs alla steg inom en sprint även om fokus i en sprint ligger på steg 2-5, analys, design, kodning och testning. Dessa steg repeteras och detta kallas iterativ utveckling.
+
+
+### Scrum
+
+Scrum organiserar arbetet i korta arbetscykler, sprints som är 2-3 veckor långa. I slutet av varje sprint ska teamet ha något att leverera. För att underlätta för teamet eller arbetsgruppen att jobba ihop erbjuder Scrum ett arbetssätt med roller och värderingar och arbetsmetodik. Dagliga statusmöten rekommenderas för att informera alla om status, eventuella problem samt dagens aktiviteter.
+
+I slutet av varje sprint presenteras leveransen med kod, testfall och dokumentation. Teamet får då feedback från beställaren som kan beaktas till nästa sprint. Missförstånd mellan utvecklare och beställare (kund) hittas på så sätt tidigt. Efter sprinten har teamet retrospekt, en återblick där det diskuteras vad som var bra och mindre bra i sprinten. Viktigt med retrospekt är att reflektera över sitt arbete och förbättra sig.
+
+
+### Kanban
+
+Kanban är ett verktyg som visualiserar arbetsflödet och begränsar arbetsmängden under en sprint. Vi kan jämföra Kanban med en anslagstavla med lappar. Varje lapp motsvarar en arbetsuppgift. Tavlan har fält för "Att göra" (To do), "Pågående" (Ongoing eller Doing) och "Klart" (Done). Varje arbetsuppgift ska vara liten och oberoende. Men i verkligheten måste saker göras i en viss ordning därför kan "att göra"-lapparna ligga i en viss ordning. Det finns verktyg som visualiserar uppgifterna.  
+
+import ExempelKanbantavla from '@assets/img/kmom06/kanban.jpg';
+
+<Figure
+    src={ExempelKanbantavla}
+    caption="Exempel på en kanbantavla"
+/>
+
+
+#### Tasks i Kanban
+
+Hur tar vi då fram bra tasks? Jo, genom att utgå från ett mål, en uppgift eller ett krav. Är kravet lite större så delar vi upp den i flera tasks. Det är bra om en task har en titel, en beskrivning och att den tar max 1-2 dagar. Om vi tar exemplet med vår bank. Så kan skapa klassen **BankAccount** vara en task men så ska den testas också. Därför är det bra om det blir två tasks; en för att skapa klassen och en för att testa klassen. Försök att göra tasks som är så oberoende som möjligt.
+
+
+### Vad innebär iterativ utveckling?
+
+**Iterativ utveckling** är en metod inom mjukvaruutveckling (och produktutveckling i stort) där man bygger en produkt stegvis genom upprepade cykler – eller iterationer – snarare än att försöka leverera allt på en gång.
+
+- **Små steg**: Man utvecklar en första version (en prototyp), testar den, samlar feedback och förbättrar den i nästa iteration.
+- **Lärande i varje steg**: Varje iteration ger insikter som påverkar nästa steg.
+- **Flexibilitet**: Lätt att anpassa sig till förändrade krav eller ny information.
+- **Kundfokus**: Användarfeedback är central i varje iteration.
+
+#### Exempel på en iterativ process
+
+1. **Iteration 1**: Skapa en enkel version av programmet med grundfunktioner.
+2. **Test & Feedback**: Testa programmet med enhetstester och genom att köra programmet. Låt gärna slutanvändare testa och ge feedback.
+3. **Iteration 2**: Förbättra funktioner, fixa buggar, lägg till något nytt.
+4. **Upprepa**: Fortsätt med fler iterationer tills programmet är klart.
+
+
+## Sammanfattning
+
+Nu har vi tittat på mer mjukvaruutveckling:
+
+- de olika stegen i vattenfallsmetoden, läs mer om vattenfallsmetoden på [Wikipedia](https://sv.wikipedia.org/wiki/Vattenfallsmodellen) om du vill
+- agil utveckling, läs mer på [Wikipedia](https://sv.wikipedia.org/wiki/Agil_systemutveckling) om du vill
+- Scrum, läs mer på [Wikipedia](https://sv.wikipedia.org/wiki/Scrum) om du vill
+- Kanban, läs mer på [Wikipedia](https://sv.wikipedia.org/wiki/Kanban) om du vill
