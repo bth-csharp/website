@@ -5,4 +5,111 @@ sidebar:
     order: 0060
 ---
 
-Kommer snart...
+import Figure from '@components/CustomFigure.astro';
+import { YouTube } from 'astro-embed';
+
+
+import todoList from '@assets/img/kmom05/todoList.png';
+
+<Figure
+    src={todoList}
+    height="250px"
+    float="right"
+/>
+
+Du ska göra vidareutveckla planeringsverktyget ***MyPlanner** som innehåller en "Att göra-lista". Testerna du gjorde i kmom05 ska fortfarande fungera.
+
+## Förkunskaper
+
+Du har jobbat igenom [Kmom05](/website/kmom/kmom05) eller har motsvarande kunskaper.
+
+
+## Introduktion
+
+Mer info här...
+
+**Tips:** Under utvecklingen av programmet så använd gärna huvudprogrammet till att testa så att varje klass funkar som du tänkt.  
+
+<details>
+<summary>
+
+### Kodregler
+
+</summary>
+
+- Använd this och base
+- Använd [namngivningsreglerna](/website/laromaterial/kmom02/inledningoo/#namngivning)
+- Minst en konstruktor i varje klass
+- Använd hjälpmetoder för att få ner antalet kodrader. En vanlig rekommendation är max 20 rader per metod.
+
+</details>
+
+## Krav
+
+:::note
+Du gör dessa krav i rätt ordning, först 1, sen 2...  
+Terminalprogrammet kallar du `MyPlanner2` och skapar det i `kmom06`-katalogen. Du skapar dina klasser i `MyPlanner2/src`.
+Kopiera över de färdiga klasserna från kmom05 och lägg i `MyPlanner2/src`. Kopiera över testprojektet och lägg i `kmom06`-katalogen. Byt namn till `MyPlanner2.Tests`.
+:::
+
+### Katalogstruktur MyPlanner2
+
+Det finns en påbörjad testplan till projektet **MyPlanner** att ladda ner `task download-code -- kmom05/TestplanMyPlanner.pdf` eller `task download-code -- kmom05/TestplanMyPlanner.docx`. Fortsätt gärna fylla i den eller kopiera innehållet och lägg i ett eget dokument. Lägg testplanen `TestplanMyPlanner.pdf` på samma ställe som koden på detta sätt:
+
+```shell
+// i din kmom06 katalog
+├── MyPlanner2
+├── MyPlanner2.Tests
+└── TestplanMyPlanner.pdf
+```
+
+1. I kmom05 gjorde du testfall och nu ska du uppdatera testplanen för MyPlanner2. Ladda ner den påbörjade testplanen med `task download-code -- kmom06/TestplanMyPlanner.pdf` eller `task download-code -- kmom06/TestplanMyPlanner.docx` och fyll i den med testfall för klasserna **MyTask**, **PrivateTask** och **WorkTask**.
+
+1. Det har varit en kodanalys och det ska läggas till en abstract metod.
+
+1. Interface??
+
+## Extrauppgifter
+
+1. Dokumentera ditt projekt.
+    - lägg en summary-kommentar överst i alla filer i katalogen `src`.
+    - dokumentera hela klassen **PrivateTask**
+    - Generera dokumentationen.
+    - Dubbelkolla att dokumentationen skapats genom att starta servern och titta på sidan.
+
+1. Lägg till möjligheten att läsa ifrån fil och spara till fil i klassen **Planner**. Gör ett interface **IFileHandler** som du använder i **Planner**. Sen implementerar du klassen **FileHandler**. Vid start ska filen ska aktuella uppgifter läsas in. Spara ner alla uppgifter på filen när programmet avslutas.  
+Klassen FileHandler innehåller:
+
+- `ReadAsync()` läser in innehållet i filen tasks.txt i en array av strängar och returnerar den.
+- `SaveAsync()` sparar ner en array av strängar till filen tasks.txt.
+
+## Demo på MyPlanner2
+
+Så här ser det ut när vi kör programmet i terminalen:
+
+Så här kan det se ut när det är klart.
+
+:::note
+Kommer inom kort!
+:::
+
+<YouTube
+    id="???"
+    title="Så här kan MyPlanner se ut."
+/>
+
+
+## Extrauppgift
+
+:::note
+Kommer inom kort!
+:::
+
+
+## Tips från coachen
+
+Felsöka med hjälp av utskrifter av `Console.WriteLine()`. Använd gärna debugger i VS Code.
+
+Glöm inte att använda 'dotnet format' för att formatera din kod.
+
+Lycka till och hojta till i forumet om du behöver hjälp!
