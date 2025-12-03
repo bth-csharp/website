@@ -1,0 +1,29 @@
+@startuml
+
+class BankAccount {
+    - {static} _nextAccountNumber: int
+    # _owner: string
+    - _balance: decimal
+    - _accountNumber: string
+
+    + BankAccount(nameOfOwner: string, initialBalance: decimal)
+    + GetOwner(): string
+    + GetBalance(): decimal
+    + GetAccountNumber(): string
+    + Deposit(amount: decimal): bool
+    + Withdraw(amount: decimal): bool
+    + PrintAccountDescription(): void
+}
+
+class InterestAccount {
+    + InterestAccount(nameOfOwner: string, initialBalance: decimal)
+}
+
+class PayrollAccount  {
+    + PayrollAccount (nameOfOwner: string, initialBalance: decimal)
+}
+
+BankAccount <|-- InterestAccount
+BankAccount <|-- PayrollAccount
+
+@enduml

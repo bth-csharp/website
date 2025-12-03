@@ -1,16 +1,16 @@
 ---
-title: "Filer med JSOM data"
+title: "Filer med JSON data"
 description: Filer med JSON data
 sidebar:
     order: 7
     hidden: true
 ---
 
-# Länkarna till shoppinglista är för närvarande ./../../kmom03/Kunskap/File.md och behöver ändras
+JSON är ett lättviktigt och läsbart format som används för att lagra och utbyta data. I C# är det enkelt att arbeta med JSON tack vare inbyggt stöd för både serialisering och deserialisering. Formatet gör det möjligt att smidigt dela data mellan olika system, språk och plattformar.
 
 ## Skapa ett projekt eller fortsätt på FileApp
 
-Vi fortsätter med [shoppinglistan](./../../kmom03/Kunskap/File.md) som vi gjorde i kmom03. Där hade vi en shoppinglista där varje rad innehöll produkten som skulle handlas och antalet. Shoppinglistan såg ut så här:
+Vi fortsätter med [shoppinglistan från artikeln med filer](/website/laromaterial/kmom03/file) som vi gjorde i kmom03. Där hade vi en shoppinglista där varje rad innehöll produkten som skulle handlas och antalet. Shoppinglistan såg ut så här:
 
 ```text
 Din shoppinglista
@@ -18,13 +18,13 @@ kaffe 2
 te 1
 ```
 
-Gör ett projekt i kmom06 som heter "FileApp".
+Gör ett projekt i `kmom06/practice`-katalogen som heter `FileApp`.
 
 ```shell
 dotnet new console -n FileApp
 ```
 
-Fortsätt i **FileApp** som vi skapade i [Filer](./../../kmom03/Kunskap/File.md). Kopiera koden du gjorde där och lägg den under kmom06.
+Eller fortsätt i **FileApp** som vi skapade i artikeln [Filer](/website/laromaterial/kmom03/file). Kopiera koden du gjorde där och lägg den under `kmom06/practice`-katalogen.
 
 ## Läs och skriv JSON data - kodexempel med StreamReader och StreamWriter
 
@@ -257,7 +257,7 @@ shoppingList.Present();
 
 Då testkör vi programmet. Kolla att shoppinglistan är tom första gången du startar programmet. Lägg till en produkt och avsluta programmet. Starta programmet igen och se att shoppinglistan ser ut som innan.
 
-### **ProductData** som intern klass istället
+### ProductData som intern klass istället
 
 Eftersom det bara är klassen **SimpleJson** som använder klassen **ProductData** så skulle **ProductData** kunna varit en "intern klass" till **SimpleJson**. I så fall deklarerar vi den som en intern klass med nyckelordet `internal` sist i filen `SimpleJson.cs`. Då är det bara klassen **SimpleJson** som finns i samma fil som kommer åt den. Det är bra då vi vill begränsa användningen av klassen **ProductData** och gömma den för andra klasser genom att kapsla in och dölja den. Vi tar då bort filen `ProductData.cs` som innehåller klassen **ProductData** och gör det till en intern klass.
 
@@ -305,4 +305,4 @@ Då har vi tittat på hur vi kan skriva till filer på olika sätt, både vanlig
 
 Detta är två exempel på hur vi kan läsa och skriva till fil. Det finns fler exempel här i referensmanualen [File Class](https://learn.microsoft.com/en-us/dotnet/api/system.io.file?view=net-9.0). Här kan du läsa mer om [StreamWriter](https://learn.microsoft.com/en-us/dotnet/api/system.io.streamwriter?view=net-9.0) och [StreamReader](https://learn.microsoft.com/en-us/dotnet/api/system.io.streamreader?view=net-9.0).
 
-Se kodexemplet [FileApp](./../../../CodeExamples/kmom06/FileApp).
+Om du vill titta på koden i sin helhet och ladda ner den så kör du `task download-code -- kmom06/FileApp`

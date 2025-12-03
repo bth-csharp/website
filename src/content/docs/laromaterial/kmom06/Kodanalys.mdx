@@ -9,7 +9,6 @@ sidebar:
 import Figure from '@components/CustomFigure.astro';
 import csharpLogo from '@assets/csharpLogo.jpeg';
 
-### OBS Länkarna till kodexemplen är just nu /website/laromaterial/CodeExample/ etc och Behöver ändras!
 
 Det finns verktyg som vi kan använda för att förbättra vår kodkvalitet och ett av dem är "Microsoft.CodeAnalysis.NetAnalyzers". Från och med .NET5 så finns den redan med men du behöver "sätta på" den ("enabla") i din projektfil.
 
@@ -92,12 +91,11 @@ Genom att följa dessa riktlinjer kan vi säkerställa att vår C#-kod är av h�
 
 ### Jämför två kodexempel, BadBank och GoodBank
 
-Nu tänkte vi att vi jämför två kodexempel, två implementationer av bankexemplet. Den  med lite fel/problem i heter "BadBank" och den som är bra heter "GoodBank". Koden finns i katalogen [CodeExamples/kmom04](./../../../CodeExamples/kmom06/). Ta upp den och titta på den, först det sämre exemplet och sen det bättre exemplet.
-
+Nu jämför vi två kodexempel, två implementationer av bankexemplet. Den ena med lite fel/problem i heter **BadBank** och den som är bättre design heter **GoodBank**. Koden finns att ladda ner med `task download-code -- kmom06/BadBank` och `task download-code -- kmom06/GoodBank`. Titta först på det sämre exemplet och sen på det bättre exemplet.
 
 ### BadBank
 
-Det finns flera problem i [BadBank](./../../../CodeExamples/kmom06/BadBank/) 
+Det finns flera problem i **BadBank**: 
 
 1. Brist på inkapsling: Bankklassen manipulerar direkt BankAccount-array, vilket bryter mot inkapslingsprinciperna. (Lack of encapsulation)
 
@@ -114,7 +112,7 @@ Det finns flera problem i [BadBank](./../../../CodeExamples/kmom06/BadBank/)
 
 ### GoodBank
 
-I den här förbättrade versionen, [GoodBank](./../../../CodeExamples/kmom06/GoodBank/) har vi:
+I den här förbättrade versionen, **GoodBank** har vi:
 
 1. Förbättrad inkapsling: Bankklassen använder en `List<BankAccount>` för att lagra konton, vilket ger bättre inkapsling och flexibilitet. Dessutom kan vi ta bort attributet "numAccounts" eftersom antalet konton är längden på listan med bankkonton.
 

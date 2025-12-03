@@ -1,0 +1,36 @@
+@startuml
+
+class FileHandler
+{
+    - _filename: string
+    
+    + Read(): string[]
+    + Save(string[] line): void
+}
+
+interface IFileHandler
+{
+    + Read(): string[]
+    + Save(string[] line): void
+}
+
+IFileHandler <|-- FileHandler
+
+class Planner
+{
+    - _myTaskHandler : MyTaskHandler
+    - _myFileHandler: IFileHandler
+
+    - {static} PrintMenu() : void
+    + void Run() : void
+    - HandleCreateTask() : void
+    - HandleUpdateTask() : void
+    - HandleDeleteTask() : void
+    - PrintAllTasks() : void
+    - SetTaskToCompleted() : void
+    + GetNoOfTasks() : int
+    - ReadTasksFromFile(): void
+    - SaveTasksToFile(): void
+}
+
+@enduml

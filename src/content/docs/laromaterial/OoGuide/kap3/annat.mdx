@@ -1,5 +1,5 @@
 ---
-title: "Interface, Enum och Collections"
+title: "Interface, Enum och Collections - Överkurs"
 description: Interface, Enum och Collections
 sidebar:
     order: 4
@@ -19,9 +19,8 @@ Till skillnad från en abstrakt klass som också har attribut och därmed kan sp
 
 Hur vi strukturerar våra filer är olika beroende på hur projektet vi jobbar i vill ha det. I det här exemplet lägger vi interfacet under src-katalogen.
 
-## SE ÖVER EXEMPLET 
 
-### Skapa ett interface **IVehicle**
+### Skapa ett interface IVehicle
 
 ```csharp
 // i OoGuide/src/IVehicle.cs
@@ -141,28 +140,23 @@ Weather weather = new(currentWeather, 18, 8);
 raceTrack.AddWeather(weather);
 raceTrack.RunRace();
 ```
-## KOLLA KLASSDIAGRAMMET 
 
-## Klassdiagram  
+## Klassdiagram för hela bilbanan 
   
-
 import classdiagramRaceTrackInterface from '@assets/img/ooguide/classdiagramRaceTrackInterface.png';
 
 <Figure
     src={classdiagramRaceTrackInterface}
     caption="Klassdiagram för hela racingbanan med interface IVehicle och enum Speed"
-    width="700px"
 />
 
 ## Koden för racerbanan
 
+Om du vill titta på koden i sin helhet och ladda ner den så kör du `task download-code -- kmom06/OoGuide`
+
 Så här ser det ut när vi kör programmet i terminalen:
 
 [![asciicast](https://asciinema.org/a/Oqqp8s1UNkxH8gXNy1RcuJTHe.svg)](https://asciinema.org/a/Oqqp8s1UNkxH8gXNy1RcuJTHe)
-
-### HÄR SKA DET FÖRMODLIGEN LIGGA INSTRUKTION FÖR HUR KODEN SLADDAS NER ISTÄLLET
-
-Koden i sin helhet ligger i katalogen med kodexempel under [CodeExamples/kmom06/OoGuide](./../../CodeExamples/kmom06/OoGuide).
 
 
 ## Collections

@@ -1,0 +1,11 @@
+@startuml
+
+class FileHandler
+{
+    - _filename: string
+
+    + SaveAsync(lines: string[]): Task
+    + ReadAsync(): Task<string[]>
+}
+
+@enduml

@@ -6,7 +6,9 @@ sidebar:
     hidden: true
 ---
 
-# Bilden behöver länkas => powerOfHanoi.png
+import Figure from '@components/CustomFigure.astro';
+import { YouTube } from 'astro-embed';
+
 
 Rekursion är en teknik inom programmering där en metod anropar sig själv för att lösa ett problem. Rekursion används ofta för att lösa problem som kan delas upp i mindre, liknande delproblem. I C# kan rekursion användas för att implementera algoritmer som naturligt passar för denna teknik, såsom beräkning av fakultet, Fibonacci-sekvensen, och traversering av trädstrukturer.
 
@@ -62,19 +64,31 @@ Utskrifterna behövs inte i metoden men kan hjälpa till med förståelsen av de
 
 ## Exempel Hanois torn
 
-![Hanois torn med 3 skivor](./../../../images/kmom06/towerOfHanoi.png "Hanois torn med 3 skivor")  
+import towerOfHanoi from '@assets/img/kmom06/towerOfHanoi.png';
+
+
+<Figure
+    src={towerOfHanoi}
+    caption="Hanois torn med 3 skivor."
+    width="350px"
+    float="right"
+/>
+
 Hanois torn är ett klassiskt problem inom rekursion där du har tre pinnar och ett antal skivor av olika storlekar. Målet är att flytta alla skivor från en startpinne till en målpinne, med hjälp av en hjälppinne, och följa dessa regler:
 
 1. Endast en skiva kan flyttas åt gången.
 2. En skiva kan endast placeras på en tom pinne eller ovanpå en större skiva.
 3. Alla skivor börjar på startpinnen, ordnade från största till minsta.
 
-Här är en [video](https://www.youtube.com/watch?app=desktop&v=ShRHZKpYe4w&ab_channel=PainlessProgramming) som förklarar lösningen på Hanois torn med python.
+Videon nedan visar algoritmen på ett pedagogiskt sätt i Python. Du kanske vill försöka att lösa problemet i C#?
 
-Försök att lösa problemet i C#.
+<YouTube
+    id="https://youtu.be/ShRHZKpYe4w?si=5FhmFfcBZko5vHrq"
+    title="Videon visar en rekursiv lösning i Python till mattepusslet Hanois torn."
+/>
 
 
-Rekursivt lösningsförslag
+### Rekursivt lösningsförslag
 
 ```csharp
 // I Program.cs

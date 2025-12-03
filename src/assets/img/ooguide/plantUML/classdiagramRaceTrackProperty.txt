@@ -115,6 +115,6 @@ class Driver
     + GetDriverInfo(): void
 }
 
-RaceTrack <|-- Driver
+RaceTrack *-- Driver
 
 @enduml

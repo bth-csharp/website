@@ -1,0 +1,65 @@
+@startuml
+
+class Planner
+{
+    - _myTaskHandler : MyTaskHandler
+
+    - {static} PrintMenu() : void
+    + void Run() : void
+    - HandleCreateTask() : void
+    - HandleUpdateTask() : void
+    - HandleDeleteTask() : void
+    - PrintAllTasks() : void
+    - SetTaskToCompleted() : void
+    + GetNoOfTasks() : int
+}
+
+class MyTaskHandler 
+{
+    - _tasks : List<MyTask>
+    
+    + GetNoOfTasks(): int
+    + CreateTask(string title, string description, DateTime ready): void
+    + UpdateTask(): bool
+    + DeleteTask(): bool
+    + GetTasks(): List<MyTask>
+}
+
+class MyTask 
+{
+    - _title: string
+    - _description: string
+    - _dueDate: DateTime
+    - _completed: bool
+    
+    + MyTask(string title, string description, DateTime ready): MyTask
+    + Update(?): bool
+    + Completed(): void
+    + GetDescription() : string
+}
+
+MyTaskHandler *-- MyTask
+
+class WorkTask
+{
+    - _prio: int
+    - _estimatedTime: int
+    - _timeWorked: int
+    - _projectName: string
+
+    + GetProgression(): int
+    + IsCompleted(): bool
+    + GetDescription() : string
+}
+
+class PrivateTask
+{
+    - _location: string
+
+    + GetDescription() : string
+}
+
+MyTask <|-- WorkTask
+MyTask <|-- PrivateTask
+
+@enduml

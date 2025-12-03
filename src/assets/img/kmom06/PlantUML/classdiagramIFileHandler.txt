@@ -1,0 +1,20 @@
+@startuml
+
+class FileHandler
+{
+    - _filename: string
+
+    + SaveAsync(lines: string[]): Task
+    + ReadAsync(): Task<string[]>
+    Behövs någon mer metod()?
+}
+
+interface IFileHandler
+{
+    + Read(): string[]
+    + Save(lines: string[]): void
+}
+
+IFileHandler <|- FileHandler
+
+@enduml
