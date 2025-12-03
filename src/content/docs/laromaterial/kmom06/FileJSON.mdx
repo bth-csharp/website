@@ -6,6 +6,8 @@ sidebar:
     hidden: true
 ---
 
+# Länkarna till shoppinglista är för närvarande ./../../kmom03/Kunskap/File.md och behöver ändras
+
 ## Skapa ett projekt eller fortsätt på FileApp
 
 Vi fortsätter med [shoppinglistan](./../../kmom03/Kunskap/File.md) som vi gjorde i kmom03. Där hade vi en shoppinglista där varje rad innehöll produkten som skulle handlas och antalet. Shoppinglistan såg ut så här:
@@ -26,7 +28,7 @@ Fortsätt i **FileApp** som vi skapade i [Filer](./../../kmom03/Kunskap/File.md)
 
 ## Läs och skriv JSON data - kodexempel med StreamReader och StreamWriter
 
-När det inte räcker att spara ner strängar i filer är det vanligt att spara ner datan i JSON objekt. Vi skapar en klass **SimpleJson** som gör det. För att göra JSON omvandlingen enklare, så skapar vi en privat klass för ändamålet och kallar den **ProductData**. JSON (JavaScript Object Notation) är ett format som kodar objekt till en sträng. Serialisering innebär att konvertera ett objekt till den strängen, medan deserialisering är den omvända operationen (konvertera sträng till objekt).
+När det inte räcker att spara ner strängar i filer är det vanligt att spara ner datan i JSON-objekt. Vi skapar en klass **SimpleJson** som gör det. För att göra JSON-omvandlingen enklare, skapar vi en privat klass för ändamålet och kallar den **ProductData**. JSON (JavaScript Object Notation) är ett format som kodar objekt till en sträng. Serialisering innebär att konvertera ett objekt till en sträng, medan deserialisering är den omvända operationen (konvertera sträng till objekt).
 
 
 ### Klassen ProductData
@@ -53,7 +55,6 @@ public class ProductData
 
 <details>
 <summary>Så här kan innehållet i filen se ut:</summary>
-Så här kan innehållet i filen se ut:
 
 ```csharp
 // kmom06/FileApp/simpleList.json
@@ -191,7 +192,7 @@ public class SimpleJson
 
 </details>
 
-Dessutom så läser vi upp all JSON data och lägger till vår nya data innan vi sparar ner på fil med klassen **StreamWriter**. **StreamWriter** har bland annat metoderna `Write` som skriver en serie tecken och `WriteLine` som lägger till en radbrytning efter att ha skrivit till filen. **StreamReader** och **StreamWriter** måste stängas och det gör vi automatiskt genom att använda konstruktionen med "using".
+Dessutom läser vi upp all JSON data och lägger till vår nya data innan vi sparar på fil med klassen **StreamWriter**. **StreamWriter** har bland annat metoderna `Write` som skriver en serie tecken och `WriteLine` som lägger till en radbrytning efter att ha skrivit till filen. **StreamReader** och **StreamWriter** måste stängas och det gör vi automatiskt genom att använda konstruktionen med "using".
 
 ### Huvudprogrammet
 
@@ -258,7 +259,7 @@ Då testkör vi programmet. Kolla att shoppinglistan är tom första gången du 
 
 ### **ProductData** som intern klass istället
 
-Eftersom det bara är klassen **SimpleJson** som använder klassen **ProductData** så skulle **ProductData** kunna varit en "intern klass" till **SimpleJson**. I så fall så deklarerar vi den som en intern klass med nyckelordet `internal` sist i filen `SimpleJson.cs`. Då är det bara klassen **SimpleJson** som finns i samma fil som kommer åt den. Det är bra då vi vill begränsa användningen av klassen **ProductData** och gömma den för andra klasser genom att kapsla in den. Vi tar då bort filen `ProductData.cs` som innehåller klassen **ProductData** och gör det till en intern klass.
+Eftersom det bara är klassen **SimpleJson** som använder klassen **ProductData** så skulle **ProductData** kunna varit en "intern klass" till **SimpleJson**. I så fall deklarerar vi den som en intern klass med nyckelordet `internal` sist i filen `SimpleJson.cs`. Då är det bara klassen **SimpleJson** som finns i samma fil som kommer åt den. Det är bra då vi vill begränsa användningen av klassen **ProductData** och gömma den för andra klasser genom att kapsla in och dölja den. Vi tar då bort filen `ProductData.cs` som innehåller klassen **ProductData** och gör det till en intern klass.
 
 <details>
 <summary>Koden till SimpleJson med intern klass</summary>
@@ -300,8 +301,8 @@ Du kan använda [Json2CSharp](https://json2csharp.com/) för att generera C#-kla
 
 ### Sammanfattning
 
-Då har vi tittat på hur vi kan skriva till filer på olika sätt, både vanliga strängar och JSON data. Vi har använt oss av "File", "StreamReader" och "StreamWriter". För att vi inte ska glömma att stänga filer vi öppnar med "StreamReader" och "StreamWriter" så använder vi oss av konstruktionen "using". Klassen "File" stänger filerna automatiskt.
+Då har vi tittat på hur vi kan skriva till filer på olika sätt, både vanliga strängar och JSON data. Vi har använt oss av "File", "StreamReader" och "StreamWriter". För att vi inte ska glömma att stänga filer vi öppnar med "StreamReader" och "StreamWriter" använder vi oss av konstruktionen "using". Klassen "File" stänger filerna automatiskt.
 
-Detta är två exempel på hur vi kan läsa och skriva till fil. Det finns mer exempel här i referensmanualen [File Class](https://learn.microsoft.com/en-us/dotnet/api/system.io.file?view=net-9.0). Här kan du läsa mer om [StreamWriter](https://learn.microsoft.com/en-us/dotnet/api/system.io.streamwriter?view=net-9.0) och [StreamReader](https://learn.microsoft.com/en-us/dotnet/api/system.io.streamreader?view=net-9.0).
+Detta är två exempel på hur vi kan läsa och skriva till fil. Det finns fler exempel här i referensmanualen [File Class](https://learn.microsoft.com/en-us/dotnet/api/system.io.file?view=net-9.0). Här kan du läsa mer om [StreamWriter](https://learn.microsoft.com/en-us/dotnet/api/system.io.streamwriter?view=net-9.0) och [StreamReader](https://learn.microsoft.com/en-us/dotnet/api/system.io.streamreader?view=net-9.0).
 
 Se kodexemplet [FileApp](./../../../CodeExamples/kmom06/FileApp).

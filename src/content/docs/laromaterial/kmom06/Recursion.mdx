@@ -6,18 +6,20 @@ sidebar:
     hidden: true
 ---
 
+# Bilden behöver länkas => powerOfHanoi.png
+
 Rekursion är en teknik inom programmering där en metod anropar sig själv för att lösa ett problem. Rekursion används ofta för att lösa problem som kan delas upp i mindre, liknande delproblem. I C# kan rekursion användas för att implementera algoritmer som naturligt passar för denna teknik, såsom beräkning av fakultet, Fibonacci-sekvensen, och traversering av trädstrukturer.
 
 ## Hur går det till?
 
-Den rekursiva metoden anropar sig själv med en modifierad parameter tills den kommer till ett basfall, ett villkor som stoppar rekursionen.
+Den rekursiva metoden anropar sig själv med en modifierad parameter som gör att problemet som ska lösas minskar och till slut kommer till ett basfall, ett villkor som stoppar rekursionen.
 Rekursion är ett kraftfullt verktyg men det är viktigt att använda det med försiktighet och att alltid säkerställa att det finns ett tydligt basfall för att undvika oändliga rekursioner.
 
 ### Fördelar med rekursion
 
 - rekursiva lösningar kan vara enklare att förstå och implementera, särskilt för problem som kan delas upp i delproblem.
 - rekursiva lösningar kan ofta skrivas med mindre kod jämfört med iterativa lösningar.
-- passar för att traversera trädstrukturer.
+- passar för att traversera trädstrukturer (en struktur som förgrenar sig).
 
 ### Nackdelar med rekursion
 
@@ -35,9 +37,7 @@ Fakulteten av ett tal *n* skrivs som *n!* och är produkten av alla positiva hel
 Basfall: om n = 1 så returneras 1
 Rekursivt anrop: annars returneras n * (n-1)
 
-3 * 2 returnera 6
-2 * 1 returnera 1
-1 * 6 = 6
+3! = 3 * 2! = 3 * 2 * 1! = 3 * 2 * 1 = 6
 
 ### Lösning
 
