@@ -71,13 +71,13 @@ public class Sub: Base
 {
   private int _nr;
   protected string _str;
-  public bool _ok;
+  public bool Ok;
 
   public Sub(int nr)
   {
     this._nr = nr;
     this._str = "hi";
-    this._ok = true;
+    this.Ok = true;
     this._b = "nice";
   }
 
@@ -85,7 +85,7 @@ public class Sub: Base
   {
     this._nr = 99;
     this._str = str;
-    this._ok = true;
+    this.Ok = true;
   }
 
   public int GetNr()
@@ -130,7 +130,7 @@ Börja med att planera er lösning, vilken kod behövs och vilka datatyper er da
 
 1. På gymmet ”Super Gym” finns det olika typer av träningskort. En typ av träningskort gäller en viss tidsperiod (TimeLimitCard). En annan typ av träningskort gäller ett visst antal träningspass (PunchCard).  
 För alla träningskort registreras kortnummer och namnet på den som innehar kortet.   
-För träningskort som gäller en viss tidsperiod registreras dessutom datum för när kortet upphör..  
+För träningskort som gäller en viss tidsperiod registreras dessutom datum för när kortet upphör.  
 För träningskort som gäller ett visst antal träningspass registreras i stället antalet träningspass som återstår (ex-vis 10).  
 
 Ex.  
