@@ -9,7 +9,7 @@ import { YouTube } from 'astro-embed';
 import Figure from '@components/CustomFigure.astro';
 import { Icon } from '@astrojs/starlight/components';
 
-Detta seminarium tar upp följande områden: arv och mer testning.
+Detta seminarium tar upp arv.
 
 ## Förberedelser
 
@@ -17,27 +17,105 @@ Läs [Om seminarier](../).
 
 ## <Icon name="open-book" class="inline-icon" label="Interpret code" /> Teori
 
-### ???
+1. Komposition läses ofta "innehåller"/"består av", men hur läses relationen arv?   
 
-1. Kommer...
+1. Hur ritas relationen arv i ett klassdiagram?  
 
+1. Vad innebär relationen arv och vilken access har en subklass till medlemmar som i basklassen är `private`, `protected` respektive `public`?  
 
-### Hur kod funkar
+1. Kan man för ett objekt av subklasstyp anropa skyddade (protected) medlemsmetoder i basklassen?  
 
-Kommer...
+1. Vilka egenskaper ska "placeras i" en basklass och vilka ska "placeras i" subklasser om man utgår från följande beskrivning:
+Böcker har egenskaperna titel, publiceringsår och författare.
+Film har egenskaperna titel, publiceringsår, speltid och genre. 
+
+1. Varför ska man vara restriktiv med att deklarera medlemsvariabler/attribut `protected`? Hur bör man göra istället?  
+
+1. Måste en subklass konstruktor anropa basklassens konstruktor? Motivera.  
+
+1. När, under vilka förutsättningar, sker ett anrop av en basklass konstruktor i subklassens konstruktor utan att man skriver det explicit?  
+
+1. Vad är överskuggning (overriding)?  
 
 ## <Icon name="open-book" class="inline-icon" label="Interpret code" /> Tolka kod
 
-1. Vad gör följande kod och vad blir utskriften?  
-    ```csharp
-    ???
-    ```
+Anta att klassen Base och Sub.  
+```csharp
+public class Base 
+{
+  private int _a;
+  protected string _b;
+  public bool C;
 
-    ```
+  public Base(int a = 0)
+  {
+    this._a = a;
+    this._b = "hello";
+    this.C = false;
+  }
 
-## <Icon name="seti:csharp" class="inline-icon" label="Write code" /> Praktisk uppgift
+  public int GetA()
+  {
+    return this._a;
+  }
 
-Börja med att planera er lösning, vilken kod behövs och vilka datatyper er data kommer ha i de olika stegen. Efter ni har en plan, skriv koden. Använd frågorna nedanför för att planera koden ni behöver för att lösa uppgiften.
+  public virtual string GetString()
+  {
+    return "Base";
+  }
+}
+```
+  
+```csharp
+public class Sub: Base 
+{
+  private int _nr;
+  protected string _str;
+  public bool _ok;
+
+  public Sub(int nr)
+  {
+    this._nr = nr;
+    this._str = "hi";
+    this._ok = true;
+    this._b = "nice";
+  }
+
+  public Sub(string str = "bye"): base(22)
+  {
+    this._nr = 99;
+    this._str = str;
+    this._ok = true;
+  }
+
+  public int GetNr()
+  {
+    return this._nr;
+  }
+
+  public override string GetString()
+  {
+    return "Sub";
+  }
+}
+```
+
+Anta vidare att objekt skapas genom `Sub objOne = new Sub();` och `Sub objTwo = new Sub(88);`   
+
+1. Vilket innehåll har medlemsvariablerna i objekten som nås via variablerna `sub1` respektive `sub2`?  
+
+1. Anta följande alternativ   
+  a) `Base x = new Base();`  
+  b) `Base z = new Sub("C#");`  
+  c) `Sub y = new Base(44);`  
+
+Avgör vilket/vilka av alternativ som är korrekta och avgör dessutom för det/dessa vilken sträng som returneras om metoden GetString() anropas.
+
+Avgör slutligen om metoden GetNr() respektive metoden GetA() kan anropas från dessa.
+
+## <Icon name="seti:csharp" class="inline-icon" label="Write code" /> Praktisk uppgift  
+
+Börja med att planera er lösning, vilken kod behövs och vilka datatyper er data kommer ha i de olika stegen. Efter ni har en plan, skriv koden. Använd frågorna nedanför för att planera koden ni behöver för att lösa uppgiften.  
 
 - Går det att identifiera delproblem som kan lösas för att testa tidigt?
   - Vilka delproblem i så fall?
@@ -50,4 +128,53 @@ Börja med att planera er lösning, vilken kod behövs och vilka datatyper er da
 
 ### Uppgifter
 
-1. Kommer...
+1. På gymmet ”Super Gym” finns det olika typer av träningskort. En typ av träningskort gäller en viss tidsperiod (TimeLimitCard). En annan typ av träningskort gäller ett visst antal träningspass (PunchCard).  
+För alla träningskort registreras kortnummer och namnet på den som innehar kortet.   
+För träningskort som gäller en viss tidsperiod registreras dessutom datum för när kortet upphör..  
+För träningskort som gäller ett visst antal träningspass registreras i stället antalet träningspass som återstår (ex-vis 10).  
+
+Ex.  
+Träningskort som gäller en viss tidsperiod:  
+Kortnummer: 2412  
+Namn: Anna Svensson  
+Kortet upphör: 2026-09-10   
+  
+Träningskort som gäller ett visst antal träningspass:  
+Kortnummer: 2591  
+Namn: Peter Smith  
+Återstående träningspass: 6  
+
+Implementera en arvshierarki för träningskort (Card), dvs kort som gäller en viss tidsperiod (TimeLimitCard) samt kort som omfattar ett visst antal träningspass (PunchCard) där:
+
+- arv nyttjas på ett logiskt och rimligt sätt för att generalisera och specialisera
+- alla medlemsvariabler är privata
+- inga överflödiga attribut/medlemsvariabler förekommer
+- ingen onödig duplicering av kod görs
+- träningskort ska kunna returnera namnet på den som innehar kortet
+- träningskort ska kunna returnera kortnummer
+- kortnumren ska "genereras" automatiskt med början på 1000 (Tips: klassvariabel)
+- när man skapar ett PunchCard-objekt ska antalet pass vara 10 om inget annat anges.
+- när man skapar ett TimeLimitCard-objekt ska utgångstiden automatiskt bli ett år framåt i tiden.
+- både PunchCard och TimeLimitCard ska ha en metod namngiven GetCardInfo() som returnerar en sträng med kortnummer, namn och hur mycket träningsmöjligheter som återstår.   
+För PunchCard motsvaras träningsmöjlighet av hur många träningspass som återstår returneras. Ex-vis ” Återstående träningspass är 6”.  
+För TimeLimitCard motsvaras detta istället av datum för när kortet upphör. Ex-vis ”Kortet upphör 2026-03-17”  
+- PunchCard ska kunna förbruka ett träningspass (dvs minska antalet återstående träningspass med 1) om det är möjligt
+- det ska vara möjliga att fylla på pass för PunchCard  (t.ex öka med 5 pass)
+- ingen utskrift sker i någon av metoderna
+ 
+Fundera över hur du/ni kan testa klasserna i Program.cs efterhand som klasserna implementeras.
+
+När arvshierarkin (basklass och subklasser) är klar görs följande i Program.cs:
+
+- Skapa en lista som kan "hålla" PunchCard-objekt och TimeLimitCard-objekt.
+- Skapa och lägg in ett TimeLimitCard-objekt för Sven. 
+- Skapa och lägg in ett PunchCard-objekt för Linnea med 15 klipp.
+- Skapa och lägg in ett PunchCard-objekt för Trolle med 10 klipp (default-värdet).
+- Skapa och lägg in ett TimeLimitCard-objekt för Stina.
+Obs: Objekten som finns i listan får endast vara åtkomliga via listan!
+- Presentera alla korten genom att anropa GetCardInfo() för varje objekt i listan.
+- Låt användaren mata in ett namn och undersök om det finns ett kort med detta namn i listan. Om det finns presenteras kortnumret.
+
+Extra:
+- Låt användaren mata in ett namn och undersök om det finns ett kort med detta namn i listan. Om det finns och det är ett PunchCard så läggs det till 2 träningstillfällen för kortet. 
+- Presentera alla korten genom att anropa GetCardInfo() för alla objekt i listan.
