@@ -40,19 +40,19 @@ public const string COURSE_NAME = "csharp";
 public class Rectangle
 {
     // Readonly fält för höjd
-    public readonly double HEIGHT;
+    public readonly double Height;
 
     // Konstant värde för bredden
     public const double WIDTH = 1000;
 
     public Rectangle(double height)
     {
-        HEIGHT = height;
+        Height = height;
     }
 
     public double GetArea()
     {
-        return HEIGHT * WIDTH;
+        return Height * WIDTH;
     }
 }
 ```
@@ -60,7 +60,7 @@ public class Rectangle
 
 ## Exempel med både const och readyonly
 
-Vi har en klass **Rectangel** med en konstant bredd för att passa in på en viss webbsida. Höjden kan däremot variera och tilldelas i konstruktorn då objektet skapas.
+Vi har en klass **Rectangel** med en konstant bredd för att passa in på en viss webbsida. Höjden kan däremot bestämmas när ett objekt skapas genom en parameter till konstruktorn.
 
 
 ## Sammanfattning
