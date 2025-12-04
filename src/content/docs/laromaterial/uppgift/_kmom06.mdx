@@ -65,19 +65,17 @@ Det finns en påbörjad testplan till projektet **MyPlanner** att ladda ner `tas
 
 1. I kmom05 gjorde du testfall och nu ska du uppdatera testplanen för MyPlanner2. Ladda ner den påbörjade testplanen med `task download-code -- kmom06/TestplanMyPlanner.pdf` eller `task download-code -- kmom06/TestplanMyPlanner.docx` och fyll i den med testfall för klasserna **MyTask**, **PrivateTask** och **WorkTask**.
 
-1. Det har varit en kodanalys och det ska läggas till en abstract metod.
+1. Det har varit en kodanalys och det ska läggas till en abstract metod `GetSpecificContentAsString()` som ska anropas från `GetContentAsString()`.
 
-1. Interface??
+1. Finns det ställen i klasserna **Planner** och **MyTaskHandler** som där det är lämpligt att lägga till `readonly`?
+
+1. Dokumentera klassen **WorkTask** och lägg till en "summary" i varje klass. Generera dokumentationen. Dubbelkolla att dokumentationen skapats genom att starta servern och titta på sidan.
 
 ## Extrauppgifter
 
-1. Dokumentera ditt projekt.
-    - lägg en summary-kommentar överst i alla filer i katalogen `src`.
-    - dokumentera hela klassen **PrivateTask**
-    - Generera dokumentationen.
-    - Dubbelkolla att dokumentationen skapats genom att starta servern och titta på sidan.
+1. Dokumentera ditt projekt och generera dokumentationen. Dubbelkolla att dokumentationen skapats genom att starta servern och titta på sidan.
 
-1. Lägg till möjligheten att läsa ifrån fil och spara till fil i klassen **Planner**. Gör ett interface **IFileHandler** som du använder i **Planner**. Sen implementerar du klassen **FileHandler**. Vid start ska filen ska aktuella uppgifter läsas in. Spara ner alla uppgifter på filen när programmet avslutas.  
+2. Lägg till möjligheten att läsa ifrån fil och spara till fil i klassen **Planner**. Implementera klassen **FileHandler**. Vid start ska filen ska aktuella uppgifter läsas in. Spara ner alla uppgifter på filen när programmet avslutas.  
 Klassen FileHandler innehåller:
 
 - `ReadAsync()` läser in innehållet i filen tasks.txt i en array av strängar och returnerar den.
