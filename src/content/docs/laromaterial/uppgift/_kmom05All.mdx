@@ -10,116 +10,6 @@ import Figure from '@components/CustomFigure.astro';
 import { YouTube } from 'astro-embed';
 
 
-import todoList from '@assets/img/kmom05/todoList.png';
-
-<Figure
-    src={todoList}
-    height="250px"
-    float="right"
-/>
-
-Du ska göra ett planeringsverktyg som innehåller en todo-lista. Du ska lösa det med arv och testa dina klasser.
-Läs igenom hela uppgiften så att du får hela bilden av hela uppgiften innan du börjar.
-
-
-## Förkunskaper
-
-Du har jobbat igenom [Kmom05](/website/kmom/kmom05) eller har motsvarande kunskaper.
-
-
-## Introduktion
-
-Du ska skapa ett planeringsverktyg med arv och klasser med följande menyalternativ. Det finns två olika typer av uppgifter; arbetsuppgift och personlig uppgift.
-
-Menyalternativ:
-
-- 1 - Skapa en uppgift
-- 2 - Uppdatera en uppgift
-- 3 - Ta bort en uppgift
-- 4 - Skriv ut alla uppgifter
-- 5 - Sätt en uppgift till klar
-- e - Avsluta programmet
-
-Dina klasser ska uppfylla beskrivningarna nedanför. Beskrivningarna är vad som måste finnas, du får och är **rekommenderad** att skapa ytterligare metoder och attribut där du tycker att det behövs. Vilken konstruktor behöver du ha? Eller är det någon setmetod som saknas?
-
-**Tips:** Under utvecklingen av programmet så använd gärna huvudprogrammet till att testa så att varje klass funkar som du tänkt.  
-
-<details>
-<summary>
-
-### Kodregler
-
-</summary>
-
-- Använd this och base
-- Använd [namngivningsreglerna](/website/laromaterial/kmom02/inledningoo/#namngivning)
-- Minst en konstruktor i varje klass
-- Använd hjälpmetoder för att få ner antalet kodrader. En vanlig rekommendation är max 20 rader per metod.
-
-
-</details>
-
-### MyTask
-
-Klassen **MyTask** innehåller en uppgift med titel, beskrivning, datum den ska vara klar och om den är klar eller inte.
-
-#### Klassdiagram MyTask
-
-import classdiagramMyTask from '@assets/img/kmom05/classdiagramMyTask.png';
-
-<Figure
-    src={classdiagramMyTask}
-    width="600px"
-/>
-
-Klassen **MyTask** innehåller:
-
-- **MyTask(string title, string description, DateTime dueDate)** skapar uppgiften. Du kan räkna med att attributet `title` är unik. Du kan också förutsätta att alla attribut innehåller värden, inget är tomt.
-- **Update(string description, DateTime dueDate, string specifics="")** uppdaterar uppgiften. Metoden ska överskuggas i subklasserna. Om uppdateringen går bra så returneras `true`. Uppdateringen går bra om attributet uppdateras till ett nytt värde eller till samma värde som det hade innan.  
-Om uppdateringen inte går bra returneras `false`. Ingen uppdatering ska ske om parametern `description` är en tom sträng eller om parametern `dueDate` är tidigare än dagens datum.  
-Den tredje parametern `specifics` hanteras av subklassen.
-- **Completed()** uppdaterar uppgiften till klar.
-- **GetDescription()** returnerar en sträng med en beskrivning av uppgiften med all information (uppgiftens namn, beskrivning, datum den ska vara klar och om den är klar). Datumet ska vara på enligt ISO 8601 vilket är svensk standard.
-
-
-### PrivateTask
-
-Subklassen **PrivateTask** specificerar att det är en privat uppgift med en plats som egenskap. **PrivateTask** ärver från **MyTask**.
-
-#### Klassdiagram PrivateTask
-
-import classdiagramPrivateTask from '@assets/img/kmom05/classdiagramPrivateTask.png';
-
-<Figure
-    src={classdiagramPrivateTask}
-/>
-
-
-Subklassen **PrivateTask** innehåller:
-
-- **Update(string description, DateTime dueDate, string specifics="")**  överskuggar basklassens metod. Innehållet i `specifics` motsvarar det `_location` ska ersättas med, endast möjligt om `specifics` inte är en tom sträng. Tänk på att anropa basklassens metod `Update` avseende `description` och `dueDate`. Om uppdateringen går bra så returneras `true`, annars `false`.
-- **GetDescription()** överskuggar basklassens metod och returnerar inte bara basklassens information utan också platsen.
-
-### WorkTask
-
-Subklassen **WorkTask** specificerar att det är en arbetsuppgift med egenskaperna prioritet, estimerad tid, arbetad tid och ett projektnamn. **WorkTask** ärver från **MyTask**.
-
-#### Klassdiagram WorkTask
-
-import classdiagramWorkTask from '@assets/img/kmom05/classdiagramWorkTask.png';
-
-<Figure
-    src={classdiagramWorkTask}
-/>
-
-Subklassen **WorkTask** innehåller:
-
-- **Update(string description, DateTime dueDate, string specifics="")**  överskuggar basklassens metod. Innehållet i `specifics` motsvarar det `_timeWorked` och `_estimatedTime` ska ersättas med. Formatet i `specifics` är "timeWorked:estimatedTime", till exempel "10:20". Uppdatering är endast möjlig om `timeWorked` är mindre eller lika med `estimatedTime`. 
-Tänk på att anropa basklassens metod `Update` avseende `description` och `dueDate`. Om uppdateringen går bra så returneras `true`, annars `false`.
-- **GetProgression** beräknar hur klar uppgiften är i procent. Om beräknad tid är 40 timmar och arbetad tid är 10 timmar, så är progressionen 25% och metoden ska då returnera 25.
-- **Completed** överskugga basklassen metod eftersom uppgiften inte kan sättas till klar förrän progressionen kommit upp i 80%. Annars anses uppgiften felplanerad och behöver uppdateras innan den kan sättas i completed.
-- **GetDescription()** överskuggar basklassens metod och returnerar inte bara basklassens information utan också prioritet, progression och projektnamn.
-
 ### MyTaskHandler
 
 Klassen **MyTaskHandler** innehåller en lista med uppgifter. Du kan lägga till uppgifter i listan, ta bort uppgifter ur listan och uppdatera uppgifter i listan. Du kan också få en lista med alla uppgifter samt alla avklarade uppgifter.
@@ -157,18 +47,6 @@ import classdiagramPlanner from '@assets/img/kmom05/classdiagramPlanner.png';
 />
 
 
-### Testplan MyPlanner
-
-Det finns en påbörjad testplan till projektet **MyPlanner** att ladda ner `task download-code -- kmom05/TestplanMyPlanner.pdf` eller `task download-code -- kmom05/TestplanMyPlanner.docx`. Fortsätt gärna fylla i den eller kopiera innehållet och lägg i ett eget dokument. Lägg testplanen `TestplanMyPlanner.pdf` på samma ställe som koden på detta sätt:
-
-```shell
-// i din kmom05 katalog
-├── MyPlanner
-├── MyPlanner.Tests
-└── TestplanMyPlanner.pdf
-```
-
-
 ### Huvudprogrammet
 
 Huvudprogrammet, **Program.cs**, använder bara klassen **Planner** och startar planeringsverktyget med metoden `Run`.
@@ -181,100 +59,14 @@ Ladda ner den påbörjade testplanen med `task download-code -- kmom05/TestplanM
 
 ## Krav
 
-Det underlättar om du gör dessa krav i ordning.
+Det som saknas i kmom05 uppgiften.
 
-1. Skapa klassen **MyTask** och använd huvudprogrammet för att testa hur klassen funkar i huvudprogrammet (Program.cs).
+5. Ladda ner klassen **Planner** med `task download-code -- kmom05/Planner.cs`. Titta igenom klassen och ta reda på vad den gör. Klassen **Planner** har ett objekt av klassen **MyTaskHandler** och anropar dess metoder.
 
-<details>
 
-<summary>
+6. Implementera klassen **MyTaskHandler** som hanterar alla uppgifter. Du laddar ner klassen med `task download-code -- kmom05/MyTaskHandler.cs`. Vissa metoderna är implementerade och andra ska du implementera. Du kommer att få kompileringsfel och förväntas förstå vad det är du behöver lägga till i dina klasser.
 
-**Exempel på tester i huvudprogrammet**
-
-</summary>
-
-```csharp title="Exempel på uppdatering som ska gå igenom"
-MyTask myTask = new MyTask("städa", "rengör badrummet", DateTime.Today);
-string before = myTask.GetDescription();
-Console.WriteLine(before);
-
-bool updateOk = myTask.Update("rensa avloppet", DateTime.Today);
-string after = myTask.GetDescription();
-Console.WriteLine(after);
-if (updateOk && before != after)
-{
-    Console.WriteLine("Uppdatering verkar funka! Kolla innehållet i strängarna!");   
-}
-else
-{
-    Console.WriteLine("Inget uppdaterades, FEL!");
-}
-```
-
-```csharp title="Exempel på uppdatering som inte går igenom pga tom beskrivning"
-MyTask myTask = new MyTask("städa", "rengör badrummet", DateTime.Today);
-string before = myTask.GetDescription();
-Console.WriteLine(before);
-
-bool updateOk = myTask.Update("", DateTime.Today);
-string after = myTask.GetDescription();
-Console.WriteLine(after);
-if (!updateOk && before == after)
-{
-    Console.WriteLine("Uppdatering genomfördes inte och det var väntat.");   
-}
-else
-{
-    Console.WriteLine("FEL!");
-}
-```
-
-```csharp title="Exempel på uppdatering som inte går igenom pga för tidigt datum"
-MyTask myTask = new MyTask("städa", "rengör badrummet", DateTime.Today);
-string before = myTask.GetDescription();
-Console.WriteLine(before);
-
-bool updateOk = myTask.Update("", new DateTime(2025, 11, 11));
-string after = myTask.GetDescription();
-Console.WriteLine(after);
-if (!updateOk && before == after)
-{
-    Console.WriteLine("Uppdatering genomfördes inte och det var väntat.");   
-}
-else
-{
-    Console.WriteLine("FEL!");
-}
-```
-
-</details>
-
-2. Skapa ett testprojekt **MyPlanner.Tests** och skapa en testklass för **MyTask** och gör testfall.
-    - testfall 1: skapa MyTask och verifiera innehållet
-    - testfall 2: verifiera att Completed returnerar false om uppgiften inte är klar
-    - testfall 3: verifiera att Completed returnerar true om uppgiften är klar
-    - tesfall 4: givet ett visst tillstång för MyTask, returnerar MyTask rätt info med `GetDescription()`.
-    - testfall 5: uppdatera MyTask och verifiera att uppdateringen går ok
-    - testfall 6: uppdatera MyTask med en felaktig beskrivning (parametern `description`) och verifiera att uppdateringen inte går igenom.
-    - testfall 7: uppdatera MyTask med datumet 2025-11-11 (parametern `dueDate`) och verifiera att uppdateringen inte går igenom.
-
-3. Då är det dags för subklassen **PrivateTask**.
-    - Implementera subklassen.
-    - Testa den i huvudprogrammet
-    - Gör en testklass för **PrivateTask** med minst 2 relevanta testfall
-    - Uppdatera testplanen med ett kapitel om testerna för subklassen **PrivateTask**.
-
-4. Då är det dags för subklassen **WorkTask**.
-    - Implementera subklassen.
-    - Testa den i huvudprogrammet
-    - Gör en testklass för **WorkTask** med minst 3 relevanta testfall. När du testar metoderna `GetProgression()` använder du minst 3 olika indata till samma testfall.
-    - Uppdatera testplanen med ett kapitel om testerna för subklassen **WorkTask**. 
-
-5. Nu ska du utveckla en klass **MyTaskHandler** som hantera alla uppgifter. Du laddar ner klassen med `task download-code -- kmom05/MyTaskHandler.cs`. Vissa metoderna är implementerade och andra ska du implementera. Du kommer att få kompileringsfel och förväntas förstå vad det är du behöver lägga till i dina klasser.
-
-6. Avsluta med att ladda ner klassen **Planner** med `task download-code -- kmom05/Planner.cs`. Testkör ditt planeringsverktyg så att alla menyalternativ funkar.
-Klassen **Planner** använder en hjälpklass som du laddar ner med `task download-code -- kmom05/Helpers.cs`.
-
+7. Testkör ditt planeringsverktyg manuellt så att alla menyalternativ funkar.
 
 ## Demo på MyPlanner
 
