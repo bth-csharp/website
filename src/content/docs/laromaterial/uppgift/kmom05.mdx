@@ -122,23 +122,23 @@ Tänk på att anropa basklassens metod `Update` avseende `description` och `dueD
 
 ### MyTaskHandler
 
-:::note
-Kommer inom kort!
-:::
+Klassen **MyTaskHandler** innehåller (äger) en lista med uppgifter. Du kan lägga till uppgifter i listan, ta bort uppgifter ur listan och uppdatera uppgifter i listan. Du kan också få en lista med strängar som representerar en uppgift givet titeln på uppgiften. Klassen är till viss del implementerad men du behöver lägga till en del kod.
 
 ### Planner
 
-:::note
-Kommer inom kort!
-:::
+Klassen **Planner** innehåller (äger) ett objekt av klassen **MyTaskHandler**. Här tänkte din kollega göra testdriven utveckling därför är klassen stubbad, med tomma metoder. Metoden *Run()* innehåller en loop som körs tills användaren väljer att avsluta. Klassen är klar men det är tillåtet att lägga till relevanta attribut och metoder om du tycker det behövs. 
 
+**OBS!** All in- och utmatning i terminalen ska ske i klassen **Planner**. 
+
+### Huvudprogrammet
+
+Huvudprogrammet, **Program.cs**, använder bara klassen **Planner** och startar planeringsverktyget med metoden `Run`.
 
 ## Krav
 
 :::note
 Du gör dessa krav i rätt ordning, först 1, sen 2...  
 Terminalprogrammet kallar du `MyPlanner` och skapar det i `kmom05`-katalogen. Du skapar dina klasser i `MyPlanner/src`.
-Vänta med menyprogram och annat!
 :::
 
 1. Skapa klassen **MyTask** och använd huvudprogrammet för att testa hur klassen funkar i huvudprogrammet (Program.cs).
@@ -231,17 +231,11 @@ else
     - Testa den i huvudprogrammet
     - Gör en testklass för **WorkTask** med minst 3 relevanta testfall. När du testar metoderna `GetProgression()` använder du minst 3 olika indata till samma testfall.
 
-5. 
+5. Ladda ner klassen **Planner** med `task download-code -- kmom05/Planner.cs`. Titta igenom klassen och ta reda på vad den gör. Klassen **Planner** har ett objekt av klassen **MyTaskHandler** och anropar dess metoder.
 
-:::note
-Kommer inom kort!
-:::
+6. Implementera klassen **MyTaskHandler** som hanterar alla uppgifter. Du laddar ner klassen med `task download-code -- kmom05/MyTaskHandler.cs`. Vissa av metoderna är implementerade och andra ska du implementera. För att det inte ska bli kompileringsfel finns det dummy-returer i en del metoder. Du förväntas förstå vad du behöver lägga till i koden.
 
-6. 
-
-:::note
-Kommer inom kort!
-:::
+7. Testkör ditt planeringsverktyg manuellt så att alla menyalternativ funkar.
 
 
 ## Demo på MyPlanner
@@ -262,10 +256,15 @@ Kommer inom kort!
 
 ## Extrauppgift
 
-:::note
-Kommer inom kort!
-:::
+1. Se till att kodtäckningen funkar. Skapa en kodtäckningsrapport för **MyPlanner.Tests**. Generera en webbsida med ReportGenerator och kolla på kodtäckningen.
+   
+1. Se till att kodtäckningen blir 100% för **MyTask**. Utöka testplanen med dina testfall, implementera dem och testkör dem. Generera en ny rapport och kolla att alla kodrader i **MyTask** är testade.
 
+1. Uppdatera testplanen med ett kapitel om testerna för klassen **MyTaskHandler**. Tänk ut minst 3 testfall och beskriv de och dess utfall.
+
+1. Gör en testklass för **MyTaskHandler** och implementera ett testfall på `GetNoOfTasks()` genom att använda "Moq".
+   
+1. Försök att nå 100% testtäckning för hela projektet.
 
 ## Tips från coachen
 
