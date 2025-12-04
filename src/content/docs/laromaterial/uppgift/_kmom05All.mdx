@@ -12,50 +12,17 @@ import { YouTube } from 'astro-embed';
 
 ### MyTaskHandler
 
-Klassen **MyTaskHandler** innehåller en lista med uppgifter. Du kan lägga till uppgifter i listan, ta bort uppgifter ur listan och uppdatera uppgifter i listan. Du kan också få en lista med alla uppgifter samt alla avklarade uppgifter.
-
-#### Klassdiagram MyTaskHandler
-
-import classdiagramMyTaskHandler from '@assets/img/kmom05/classdiagramMyTaskHandler.png';
-
-<Figure
-    src={classdiagramMyTaskHandler}
-    width="250px"
-/>
-
-Klassen **MyTaskHandler** innehåller minst:
-
-- **GetNoOfTasks()** returnerar antalet uppgifter.
-- **GetTaskContent(string title)** returnerar en lista med strängar som motsvarar respektive attribut i objektet som har titeln `title`.
-
+Klassen **MyTaskHandler** innehåller (äger) en lista med uppgifter. Du kan lägga till uppgifter i listan, ta bort uppgifter ur listan och uppdatera uppgifter i listan. Du kan också få en lista med strängar som representerar en uppgift givet titeln på uppgiften. Klassen är till viss del implementerad men du behöver lägga till en del kod.
 
 ### Planner
 
-Klassen **Planner** innehåller ett objekt av klassen **MyTaskHandler**. Här tänkte din kollega göra testdriven utveckling därför är klassen stubbad, med tomma metoder. Metoden *Run()* innehåller en loop som körs tills användaren väljer att avsluta.
+Klassen **Planner** innehåller (äger) ett objekt av klassen **MyTaskHandler**. Här tänkte din kollega göra testdriven utveckling därför är klassen stubbad, med tomma metoder. Metoden *Run()* innehåller en loop som körs tills användaren väljer att avsluta. Klassen är klar men det är tillåtet att lägga till relevanta attribut och metoder om du tycker det behövs. 
 
 **OBS!** All in- och utmatning i terminalen ska ske i klassen **Planner**. 
-
-#### Klassdiagram Planner
-
-Klassen **Planner** är klar men du får lägga till relevanta attribut och metoder. Klassdiagram ser ut så här:
-
-import classdiagramPlanner from '@assets/img/kmom05/classdiagramPlanner.png';
-
-<Figure
-    src={classdiagramPlanner}
-    width="350px"
-/>
-
 
 ### Huvudprogrammet
 
 Huvudprogrammet, **Program.cs**, använder bara klassen **Planner** och startar planeringsverktyget med metoden `Run`.
-
-
-## Förutsättning
- 
-Ladda ner den påbörjade testplanen med `task download-code -- kmom05/TestplanMyPlanner.pdf` eller `task download-code -- kmom05/TestplanMyPlanner.docx`.
-
 
 ## Krav
 
@@ -64,7 +31,7 @@ Det som saknas i kmom05 uppgiften.
 5. Ladda ner klassen **Planner** med `task download-code -- kmom05/Planner.cs`. Titta igenom klassen och ta reda på vad den gör. Klassen **Planner** har ett objekt av klassen **MyTaskHandler** och anropar dess metoder.
 
 
-6. Implementera klassen **MyTaskHandler** som hanterar alla uppgifter. Du laddar ner klassen med `task download-code -- kmom05/MyTaskHandler.cs`. Vissa metoderna är implementerade och andra ska du implementera. Du kommer att få kompileringsfel och förväntas förstå vad det är du behöver lägga till i dina klasser.
+6. Implementera klassen **MyTaskHandler** som hanterar alla uppgifter. Du laddar ner klassen med `task download-code -- kmom05/MyTaskHandler.cs`. Vissa av metoderna är implementerade och andra ska du implementera. Du kommer att få kompileringsfel och förväntas förstå vad det är du behöver lägga till i dina klasser.
 
 7. Testkör ditt planeringsverktyg manuellt så att alla menyalternativ funkar.
 
