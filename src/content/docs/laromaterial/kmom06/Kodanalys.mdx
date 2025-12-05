@@ -42,28 +42,24 @@ Vi känner till DRY (Don't Repeat Yourself) vilket innebär att vi inte ska skri
 | int number    | private int numberOfAdults | Variabelnamnet ej tillräckligt beskrivande, antal av vad? samt åtkomstbehörighet saknas |
 | Metod med 25 rader | Dela upp metoden i flera metoder | Svårt att läsa och underhålla koden. Riktlinje är max 10 rader. |
 
-<details>
-<summary> 
 
 ### Bra kodkvalitet, några bra punkter 
-
-</summary>
 
 Här är några viktiga aspekter och bästa praxis för att uppnå hög kodkvalitet: 
 
 1. Läsbarhet:
 
-   - Använd tydliga och beskrivande namn för bland annat variabler, konstanter, metoder och klasser. 
+   - Använd tydliga och beskrivande namn på variabler, konstanter, metoder och klasser. 
 
-   - Följ kodningsstandarder och konventioner, som att använda PascalCase för metoder och camelCase för variabler.
+   - Följ kodstandarder och konventioner, som att använda PascalCase för metoder och camelCase för variabler.
 
    - Kommentera koden där det behövs för att förklara komplex logik eller komplexa beslut.
 
 2. Underhållbarhet:
 
-   - Modularisera koden genom att dela upp den i mindre, återanvändbara komponenter.
+   - Modularisera koden genom att dela upp den i mindre, återanvändbara komponenter. En klass ska ha ett eget ansvarsområde (Single responsibility) 
 
-   - Använd designmönster (tas inte upp i denna kurs) där det är lämpligt för att lösa vanliga problem på ett strukturerat sätt.
+   - Använd designmönster där det är lämpligt för att lösa vanliga problem på ett strukturerat sätt.
 
    - Skriv enhetstester för att säkerställa att koden fungerar som förväntat och för att underlätta framtida ändringar.
 
@@ -87,7 +83,26 @@ Här är några viktiga aspekter och bästa praxis för att uppnå hög kodkvali
 
 Genom att följa dessa riktlinjer kan vi säkerställa att vår C#-kod är av hög kvalitet och lätt att underhålla och vidareutveckla.
 
-</details>
+
+### Introduktion C# och designmönster
+
+Designmönster är återanvändbara lösningar på vanliga problem inom objektorienterad programmering.
+De är inte färdig kod – utan tänkbara strukturer, för hur man kan organisera sin programdesign. Istället för att uppfinna hjulet på nytt används beprövade lösningar.
+
+Inom C# används designmönster för att skapa kod som är:
+
+- Enkel att underhålla
+
+- Enkel att testa
+
+- Lätt att bygga ut
+
+- Tydligt separerad i ansvar
+
+Om din kod känns svår att testa, är fylld av beroenden och full av switch-satser/if-satser då är designmönster ofta lösningen.
+
+Ett exempel på designmönster för vår bank kan vara en abstract klass **BankAccount** som innehåller gemensam logik och abstrakta metoder som subklasserna (de olika kontotyperna) måste implementera.
+
 
 ### Jämför två kodexempel, BadBank och GoodBank
 
