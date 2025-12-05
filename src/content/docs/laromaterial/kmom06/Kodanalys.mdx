@@ -15,10 +15,10 @@ Det finns verktyg som vi kan använda för att förbättra vår kodkvalitet och 
 
 ## Lägg till kodanalysen
 
-Vi lägger till .NETs inbyggda kodanalys genom att stå i vårt projekt och köra kommandot:
+Vi lägger till .NETs inbyggda kodanalys genom att stå i vårt projekt och uppdatera projektfilen för det projekt vi vill analysera, i det här fallet `MyBank`:
 
 ```csharp
-// i projektfilen till exempel Dice100/Dice100.csproj
+// i projektfilen till exempel MyBank/MyBank.csproj
 <PropertyGroup>
     ...
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
@@ -26,7 +26,7 @@ Vi lägger till .NETs inbyggda kodanalys genom att stå i vårt projekt och kör
 </PropertyGroup>
 ```
 
-När vi sedan bygger och kör vårt projekt med dotnet run (eller dotnet build) så analyseras vår kod automatiskt enligt standardreglerna. Du kan lägga till ytterligare regler om du vill, men vi kör på standard. Om du vill läsa mer om standardregler, så läs [Code quality rules](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/). Eventuella kommentarer kommer i terminalen när vi kör "dotnet build" eller "dotnet run".
+När vi sedan bygger och kör vårt projekt med dotnet run (eller dotnet build) så analyseras vår kod automatiskt enligt standardreglerna. Du kan lägga till ytterligare regler om du vill, men vi kör på standard. Om du vill läsa mer om standardregler, så läs [Code quality rules](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/). Eventuella kommentarer kommer i terminalen när vi kör `dotnet build` eller `dotnet run`.
 
 Det är viktigt att notera att .NET Code Analysis Tool (CAT) är ett relativt nytt verktyg och dess funktionalitet och användning kan komma att förändras över tid. Du kan också hitta andra tredjepartsverktyg som erbjuder funktioner för att analyser koden i .NET-projekt men CAT är ett officiellt verktyg från .NET-teamet.
 
