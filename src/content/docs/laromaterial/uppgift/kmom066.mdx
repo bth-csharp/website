@@ -27,7 +27,7 @@ Du har jobbat igenom [Kmom05](/website/kmom/kmom05) eller har motsvarande kunska
 
 ## Introduktion
 
-Ditt planeringsprogram **MyPlanner** har mottagits väl men det behöver uppdateras lite för att säljas in. Kunderna vill ha olika uppgifter och någon av kunderna vill ha en webbsida som interface istället för menyprogrammet. De vill att du ska skapa **MyPlanner2**.
+Ditt planeringsprogram **MyPlanner** har mottagits väl men det behöver uppdateras lite för att säljas in. Kunderna vill ha olika uppgifter och någon av kunderna vill ha en webbsida som gränssnitt istället för terminalprogrammet. De vill att du ska skapa **MyPlanner2**.
 
 **Tips:** Under utvecklingen av programmet så använd gärna huvudprogrammet till att testa så att varje klass funkar som du tänkt.  
 
@@ -38,6 +38,8 @@ Ditt planeringsprogram **MyPlanner** har mottagits väl men det behöver uppdate
 - Använd [namngivningsreglerna](/website/laromaterial/kmom02/inledningoo/#namngivning)
 - Minst en konstruktor i varje klass
 - Använd hjälpmetoder för att få ner antalet kodrader. En vanlig rekommendation är max 20 rader per metod.
+- Inte tillåtet med lambda-funktioner, paket som LINQ, dynamiska typer, goto och extension metoder.
+- Använd hjälpmetoder för att få ner antalet kodrader. En vanlig rekommendation är max 20 rader per metod.
 
 
 ## Krav
@@ -46,7 +48,8 @@ Ditt planeringsprogram **MyPlanner** har mottagits väl men det behöver uppdate
 Du gör dessa krav i rätt ordning, först 1, sen 2...  
 Terminalprogrammet kallar du `MyPlanner2` och skapar det i `kmom06`-katalogen. Du skapar dina klasser i `MyPlanner2/src`.
 Kopiera över de färdiga klasserna från kmom05 och lägg i `MyPlanner2/src`.  
-Skapa ett nytt testprojekt `MyPlanner2.Tests` och kopiera dit dina testklasser från kmom05..
+Skapa ett nytt testprojekt `MyPlanner2.Tests` och kopiera dit dina testklasser från kmom05.  
+OBS! Glöm inte att uppdatera namespace!
 :::
 
 ### Katalogstruktur MyPlanner2
@@ -57,16 +60,16 @@ Det finns en påbörjad testplan till projektet **MyPlanner** att ladda ner `tas
 // i din kmom06 katalog
 ├── MyPlanner2
 ├── MyPlanner2.Tests
-└── TestplanMyPlanner.pdf
+└── TestplanMyPlanner2.pdf
 ```
 
-1. I kmom05 gjorde du testfall och nu ska du uppdatera testplanen för MyPlanner2. Ladda ner den påbörjade testplanen med `task download-code -- kmom06/TestplanMyPlanner.pdf` eller `task download-code -- kmom06/TestplanMyPlanner.docx` och fyll i den med testfall för klasserna **MyTask**, **PrivateTask** och **WorkTask**.
+1. I kmom05 gjorde du testfall och nu ska du uppdatera testplanen för MyPlanner2. Ladda ner den påbörjade testplanen med `task download-code -- kmom06/TestplanMyPlanner2.pdf` eller `task download-code -- kmom06/TestplanMyPlanner2.docx` och fyll i den med testfall för klasserna **MyTask**, **PrivateTask** och **WorkTask**.
 
 1. Det har varit en kodanalys och den abstrakta metoden `GetContentAsStringsSpecific()` ska läggas till i klassen **MyTask**. Uppdatera koden i **MyTask** så att den anropas i `GetContentAsStrings()`. Funkar dina tester på **MyTask** fortfarande?
 
 1. Finns det ställen i klasserna **Planner** och **MyTaskHandler** som där det är lämpligt att lägga till `readonly`? Lägg till readonly på minst 1 relevant ställe.
 
-1. Dokumentera klassen **WorkTask** och lägg till en "summary" i varje klass. Generera dokumentationen. Dubbelkolla att dokumentationen skapats genom att starta servern och titta på sidan.
+1. Dokumentera klassen **WorkTask** och lägg till en "summary" i varje klass. Det är valfritt om du vill generera dokumentationen eftersom det krävs en del installation och konfigurering.
 
 ## Extrauppgifter
 

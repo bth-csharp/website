@@ -181,6 +181,19 @@ Vi jobbar igenom klassen **Bank** och automatgenererar XML-kommentarer till den.
 
 ## Generera dokumentation
 
+### Installera DocFX
+
+DocFX är ett verktyg för att generera dokumentation från källkoden. Det stöder flera programmeringsspråk, inklusive C#, och extraherar automatiskt XML-kommentarer för att skapa användbar och lättläst dokumentation. Med DocFX kan utvecklare skapa snygga och strukturerade dokumentationssidor som inkluderar API-referenser, kodexempel, och användarguider. Det är ett kraftfullt verktyg som hjälper till att göra dokumentationsprocessen mer effektiv och professionell.
+
+Installera [DocFX](https://dotnet.github.io/docfx/index.html) globalt så här:
+
+```csharp
+dotnet tool install -g docfx // installation
+dotnet tool list -g // kolla alla verktyg (tools) i dotnet
+docfx --version // ger versionen av docfx
+```
+
+
 ### DocFX, initiera dokumentationen
 
 DocFX är ett verktyg från Microsoft som används för att generera statisk dokumentation från C#-kod och Markdown-filer. Det är särskilt användbart för att skapa API-dokumentation direkt från XML-kommentarer i vår kod.
