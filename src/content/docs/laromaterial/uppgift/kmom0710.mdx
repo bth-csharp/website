@@ -1,0 +1,135 @@
+---
+title: "Kmom07/10: DbWebb B&B"
+description: Projektet
+sidebar:
+    order: 0070
+    hidden: true
+---
+
+Du ska utveckla ett objektorienterat system i C# för ett Bed & Breakfast (DbWebb B&B). Systemet ska hantera rum, olika rumstyper, bokningar och gäster. Syftet är att ge en praktisk tillämpning av objektorienterade principer som arv, polymorfism, relationer mellan klasser och metodöverlagring.
+
+:::note
+Du ska arbeta individuellt och inga hjälpmedel är tillåtna mer än kursmaterialet.
+:::
+
+## Förutsättning
+
+Du har jobbat igenom kmom01-kmom06 och lämnat in dem. Det finns ingen anledning att påbörja projektet innan du är klar med kmom06. Projektet
+
+## Bedömning och betygsättning
+
+Det finns ett dokument som beskriver [grunderna för bedömning och betygsättning av projektet och kursen som helhet](/website/intro/bedomning-och-betygsattning/).
+
+## Innehåll
+
+Projektet ska innehålla:
+
+- OOP
+  - använd minst 4 klasser
+  - använd 2 olika relationer
+  - använd arv eller abstrakt klass eller båda
+  - överlagra åtminstone en metod
+  - överskugga åtminstone en metod
+- UML
+  - gör ett klassdiagram
+- Koden
+  - skriven i så korrekt som möjligt med rätt namngivning på klasser, attribut etc
+  - innehålla rimliga datatyper
+  - innehålla någon komplex datatyp, som List, Array eller Dictionary
+  - innehålla felhantering
+  - läsa och skriva från fil
+
+### Kodregler
+
+- Använd this och base
+- Använd [namngivningsreglerna](/website/laromaterial/kmom02/inledningoo/#namngivning)
+- Minst en konstruktor i varje klass
+- Använd hjälpmetoder för att få ner antalet kodrader. En vanlig rekommendation är max 20 rader per metod.
+- Inte tillåtet med lambda-funktioner, paket som LINQ, dynamiska typer, goto och extension metoder.
+- Använd hjälpmetoder för att få ner antalet kodrader. En vanlig rekommendation är max 20 rader per metod.
+
+### Menyalternativ
+
+--- Dbwebb B&B ---  
+Aktuellt datum och tid
+
+- 1 - Visa alla rum
+- 2 - Lägg till en gäst
+- 3 - Ta bort en gäst
+- 4 - Boka ett rum
+- 5 - Avboka ett rum
+- 6 - Sök lediga rum
+- 7 - Betala
+- q - Avsluta
+
+## Kraven
+
+### Krav 1: Klassdiagram och flödesschema
+
+Du börjar med att göra ett klassdiagram och ett flödesschema som du lämnar in och får godkänt på innan du börjar implementera.
+
+### Krav 2: Rum och gäster, implementera menyalternativ 1-3
+
+Skapa en klass som hanterar B&B:et. Dbwebb B&B har 10 rum. Du har minst 2 olika sorters rum. De olika rumstyperna läser du in från fil och när programmet avslutas så sparar du ner till fil. På menyalternativ 1 så skrivs alla rummen ut med en beskrivning.
+
+Skapa en gästlista utifrån en fil. Det finns 3 stamkunder i gästlistan.
+
+Här ska du kunna visa alla rum, lägga till en gäst och ta bort en gäst.
+
+### Krav 3: Bokning, implementera menyalternativ 4-6
+
+En bokning har ett startdatum och ett slutdatum.
+Ett rum ska bokas och en viss gäst som redan är tillagd i gästlistan blir ansvarig för rummet. När ett rum avbokas, så får den ansvarige gästen välja om den ska tas bort från gästlistan eller vara kvar för framtida bokningar.
+Vid menyalternativ 6 så ska lediga rum visas för de datum som anges.
+
+### Krav 4: Betalning, menyalternativ 7
+
+De olika sorts rummen har olika priser. De gäster som finns i gästlistan anses vara stamkunder och har alltid 10% rabatt. Natten fredag till lördag och lördag till söndag så är det dessutom 5% billigare för alla.
+På menyalternativ 7, så ska priset baserat på gäst, rumstyp och antalet nätter presenteras.
+Dessutom ska det gå att betala med kort och kontant.
+
+### Krav 5: Enhetstestning
+
+Gör en testplan för klasserna för rummen.
+Implementera testfallen.
+
+### Krav 6: Begränsningar
+
+Ett enkelrum får ha max en gäst och ett dubbelrum max två gäster. Vissa av rummen har plats till extrasäng/barnsäng, minst ett enkelrum och ett dubbelrum får ha en gäst till i extrasäng/barnsäng.
+Avbokningsregler, du får avboka gratis 4. dagar innan, betalar halva priset om du avbokar 1-3 dagar innan och fullpris om du avbokar samma dag.
+Frukost måste bokas tillsammans med rummet eller allra senast 1 dag innan ankomst. Olika frukostar: lyxig med varm mat, vanlig och enkel med frukostmacka
+
+### Krav 6: Uthyrning
+
+Lägg till ett menyalternativ för uthyrning av cyklar och kanoter. Pris per timme, sätts på rummet. En gäst från gästlistan är ansvarig.
+
+### Krav 6: Paketlösningar
+
+Olika paketlösningar ger billigare totalpris
+
+Olika paket:
+
+- helgpaketet rum+lyxig frukost+cykel (cykel på köpet)
+- äventyrspaketet med rum+vanlig frukost+kanot (50% rabatt på kanoten)
+- billiga paketet tält i trädgården+enkel frukost (tälthyra kostar 40% av ett enkelrum)
+
+## Resultat & Redovisning
+
+Läs instruktionen om hur du skall redovisa [Resultat och redovisning](/website/laromaterial/instruktion/resultat-och-redovisning).
+
+I projektet ska du skriva en redovisningstext som ska innehålla:
+
+- Inledning om projektet med vilka krav du implementerat
+- Ett kapitel för implementationen
+  - Hur tänkte du? Planering? Genomförande?
+  - Ett delkapitel per krav 10-15 meningar
+- Vad tycker du om projektet? Hur gick det?
+- Vad tycker du om kursen? Om du skulle rekommendera kursen, vad ger du för betyg 1-10 (10 är bäst)?
+
+Dessutom ska du lämna in en redovisningsvideo som ska vara 5-10 min lång och innehålla:
+
+- Id, visa ditt leg i början av videon och dig (hela videon)
+- Inledning med vilka krav du gjort
+- Visa programmet (ena halvan av skärmen)
+- Visa och berätta om delar av koden (andra halvan av skärmen)
+- Kort avslutning
