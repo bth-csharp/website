@@ -3,7 +3,6 @@ title: "Kmom06: Planeringsverktyg MyPlanner2"
 description: Sjätte uppgiften
 sidebar:
     order: 0060
-    hidden: true
 ---
 
 import Figure from '@components/CustomFigure.astro';
@@ -36,10 +35,11 @@ Ditt planeringsprogram **MyPlanner** har mottagits väl men det behöver uppdate
 
 - Använd this och base
 - Använd [namngivningsreglerna](/website/laromaterial/kmom02/inledningoo/#namngivning)
-- Minst en konstruktor i varje klass
+- Gör minst en explicit konstruktor i varje klass
 - Använd hjälpmetoder för att få ner antalet kodrader. En vanlig rekommendation är max 20 rader per metod.
-- Inte tillåtet med lambda-funktioner, paket som LINQ, dynamiska typer, goto och extension metoder.
-- Använd hjälpmetoder för att få ner antalet kodrader. En vanlig rekommendation är max 20 rader per metod.
+- Använd de kodkonstruktioner som finns på kursens webbsida.
+- Använd inte (inte tillåtet) lambda-funktioner.
+- Använd inte (inte tillåtet) med paket som LINQ, dynamiska typer, goto och extension metoder.
 
 
 ## Krav
@@ -54,7 +54,7 @@ OBS! Glöm inte att uppdatera namespace!
 
 ### Katalogstruktur MyPlanner2
 
-Det finns en påbörjad testplan till projektet **MyPlanner** att ladda ner `task download-code -- kmom05/TestplanMyPlanner.pdf` eller `task download-code -- kmom05/TestplanMyPlanner.docx`. Fortsätt gärna fylla i den eller kopiera innehållet och lägg i ett eget dokument. Lägg testplanen `TestplanMyPlanner.pdf` på samma ställe som koden på detta sätt:
+Det finns en påbörjad testplan till projektet **MyPlanner** att ladda ner. Fortsätt gärna fylla i den eller kopiera innehållet och lägg i ett eget dokument. Lägg testplanen `TestplanMyPlanner2.docx` eller `TestplanMyPlanner2.pdf` på samma ställe som koden på detta sätt:
 
 ```shell
 // i din kmom06 katalog
@@ -65,25 +65,24 @@ Det finns en påbörjad testplan till projektet **MyPlanner** att ladda ner `tas
 
 1. I kmom05 gjorde du testfall och nu ska du uppdatera testplanen för MyPlanner2. Ladda ner den påbörjade testplanen med `task download-code -- kmom06/TestplanMyPlanner2.pdf` eller `task download-code -- kmom06/TestplanMyPlanner2.docx` och fyll i den med testfall för klasserna **MyTask**, **PrivateTask** och **WorkTask**.
 
-1. Det har varit en kodanalys och den abstrakta metoden `GetContentAsStringsSpecific()` ska läggas till i klassen **MyTask**. Uppdatera koden i **MyTask** så att den anropas i `GetContentAsStrings()`. Funkar dina tester på **MyTask** fortfarande? Uppdatera dem så att dina testfall går igenom! Kan du verkligen enhetstesta en abstrakt klass?
+1. Det har varit en kodanalys och eftersom vi eftersträvar DRY kod ska den abstrakta metoden `GetContentAsStringsSpecific()` läggas till i klassen **MyTask**. Uppdatera koden i **MyTask** så att den anropas i `GetContentAsStrings()`.  
+Vad får denna ändring för konsekvenser avseende dina tester? Funkar dina tester på **MyTask** fortfarande? Kan du verkligen enhetstesta en abstrakt klass?
 
-1. Finns det ställen i klasserna **Planner** och **MyTaskHandler** som där det är lämpligt att lägga till `readonly`? Lägg till readonly på minst 1 relevant ställe.
+1. Finns det ställen i klasserna **Planner** och **MyTaskHandler** där det är lämpligt att lägga till `readonly`? Lägg i så fall till readonly.
 
-1. Dokumentera klassen **WorkTask** och lägg till en "summary" i varje klass. Det är valfritt om du vill generera dokumentationen eftersom det krävs en del installation och konfigurering.
+1. Dokumentera klassen **WorkTask** fullständig enligt kmom06. Lägg i övriga klasser till en "summary" som beskriver klassen. "Summaryn" bör innehålla en beskrivning av klassen syfte. Vi kräver inte att du genererar dokumentationen (webbsidan) eftersom det förutsätter en del installation och konfigurering.
 
 ## Extrauppgifter
 
 1. Dokumentera ditt projekt och generera dokumentationen. Dubbelkolla att dokumentationen skapats genom att starta servern och titta på sidan.
 
-2. Lägg till möjligheten att läsa ifrån fil och spara till fil i klassen **Planner**. Implementera klassen **FileHandler**. Vid start ska filen ska aktuella uppgifter läsas in. Spara ner alla uppgifter på filen när programmet avslutas.  
+2. Lägg till möjligheten att asynkront läsa ifrån fil och spara till fil i klassen **Planner**. Implementera klassen **FileHandler**. Vid start ska aktuella uppgifter läsas in från filen. Spara ner alla uppgifter på filen när programmet avslutas.  
 Klassen FileHandler innehåller:
 
-- `ReadAsync()` läser in innehållet i filen tasks.txt i en array av strängar och returnerar den.
-- `SaveAsync()` sparar ner en array av strängar till filen tasks.txt.
+- `ReadAsync()` läser innehållet från filen tasks.txt.
+- `SaveAsync()` sparar ner uppgifter till filen tasks.txt.
 
 ## Demo på MyPlanner2
-
-Så här ser det ut när vi kör programmet i terminalen:
 
 Så här kan det se ut när det är klart.
 
@@ -95,13 +94,6 @@ Kommer inom kort!
     id="???"
     title="Så här kan MyPlanner se ut."
 />
-
-
-## Extrauppgift
-
-:::note
-Kommer inom kort!
-:::
 
 
 ## Tips från coachen
