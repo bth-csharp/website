@@ -47,7 +47,7 @@ Läs [Om seminarier](../).
       private string _b;
 
       public B(string b) { this._b = b; }
-      public B(string b, int a) : base(33) {this._b = b;}
+      public B(string b, int a) : base(a) {this._b = b;}
       public override void Print() {Console.WriteLine("Jahapp");}
     }
 
@@ -73,7 +73,7 @@ Börja med att planera er lösning, vilken kod behövs och vilka datatyper er da
 I en glasögonbutik finns det solglasögon (SunGlasses) och läsglasögon
 (ReadingGlasses). Både solglasögon och läsglasögon har en båge som registreras med märke
 (ex-vis Borg) och ett grundpris (ex-vis 800 SEK).  
-För glasögon registreras dessutom styrka (ex-vis 2.5) och vilken typ av glas det är (ex-vis
+För läsglasögon registreras dessutom styrka (ex-vis 2.5) och vilken typ av glas det är (ex-vis
 enkelslipade). Det finns två olika typer av glas: enkelslipade och dubbelslipade. Enkelslipade glas ingår i grundpriset men för dubbelslipade tillkommer en kostnad på 1500 SEK.  
 För solglasögon registreras färgen på glaset (ex-vis brun). Det finns 3 olika
 färger: brun, gul och lila. Brun ingår i grundpriset medan lila och gul ger en tilläggskostnad på 200 SEK.  
