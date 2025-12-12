@@ -6,10 +6,10 @@ sidebar:
     hidden: true
 ---
 
-Du ska utveckla ett objektorienterat system i C# för ett Bed & Breakfast (DbWebb B&B). Systemet ska hantera olika rumstyper som övernattningsrum, konferens, vilorum, tält??, samt bokningar och gäster. Syftet är att ge en praktisk tillämpning av objektorienterade principer som arv, polymorfism, relationer mellan klasser och metodöverlagring.
+Du ska utveckla ett objektorienterat system i C# för ett Bed & Breakfast (DbWebb B&B). Systemet ska hantera olika rumstyper såsom övernattningsrum, konferensrum, vilorum, tält??, och dessutom hantera bokningar och gäster. Syftet är att ge en praktisk tillämpning av objektorienterade principer som arv, polymorfism, relationer mellan klasser och metodöverlagring.
 
 :::note
-Du ska arbeta individuellt och inga hjälpmedel är tillåtna mer än kursmaterialet.
+Du ska arbeta individuellt och inga hjälpmedel utöver kursmaterialet är tillåtna.
 :::
 
 ## Förutsättning
@@ -22,12 +22,18 @@ Projektet rättas inte förrän kodintervjun och kmom06 är godkänd.
 
 Det finns ett dokument som beskriver [grunderna för bedömning och betygsättning av projektet och kursen som helhet](/website/intro/bedomning-och-betygsattning/).
 
-## Innehåll
+## Introduktion??
+
+Börja med att ta fram ett övergripande klassdiagram i vilket det framgår vilka klasser som ingår i läsningen samt hur dessa relaterar till varandra. Detta lämnas in och därefter tittar en lärare på det och avgör om det är rimligt eller ej. Relevanta/Uppenbara attribut och metoder ska finnas med, men under arbetets gång kommer du förmodligen behöva lägga till och göra mindre ändringar i klassdiagrammet. Din slutliga lösning får dock inte skilja sig nämnvärt(??? annat ord) från det du utgått ifrån.
+
+När du tagit fram klassdiagrammet och fått detta godkänt ska du göra en kort plan för hur du kommer att lägga upp ditt arbete. Vilken klass börjar du med? Hur testar du den efter hand? 
+
+## Innehåll 
 
 Projektet ska innehålla:
 
-- gör ett första utkast av klassdiagrammet som lämnas in separat och ska godkännas av lärare
-- minst 5 egendefinierade relevanta klasser som läraren godkänt i klassdiagrammet
+- ett första utkast av klassdiagrammet som lämnas in separat och som  är  godkänt av lärare
+- minst 5 egendefinierade relevanta klasser som finns i det godkända klassdiagrammet
 - egendefinierat, logiskt och rimligt arv
 - minst 2 olika relationer (komposition/aggregation/association)
 - överlagring
@@ -37,11 +43,11 @@ Projektet ska innehålla:
 
 Övriga krav:
 
-- all in- och utmatning ska ske i en klass
+- all in- och utmatning ska ske i en enda klass
 - koden ska överensstämma med klassdiagrammet
 - koden ska följa kodreglerna
 - koden ska vara städad (till exempel ej utkommenterade kodavsnitt)
-- innehålla någon komplex datatyp, som List, Array eller Dictionary
+- någon komplex datatyp, som List, Array eller Dictionary, ska ingå
 
 
 ### Kodregler
@@ -50,10 +56,9 @@ Projektet ska innehålla:
 - Använd hjälpmetoder för att få ner antalet kodrader. En vanlig rekommendation är max 20 rader per metod.
 - Använd [namngivningsreglerna](/website/laromaterial/kmom02/inledningoo/#namngivning).
 - Gör minst en explicit konstruktor i varje klass.
-- Använd hjälpmetoder för att få ner antalet kodrader. En vanlig rekommendation är max 20 rader per metod.
 - Använd de kodkonstruktioner som finns på kursens webbsida.
 - Använd inte (inte tillåtet) lambda-funktioner.
-- Använd inte (inte tillåtet) med paket som LINQ, record, dynamiska typer, goto och extension metoder.
+- Använd inte (inte tillåtet) paket som LINQ, record, dynamiska typer, goto och extension-metoder.
 
 ### Menyalternativ
 
@@ -73,15 +78,22 @@ Aktuellt datum och tid
 
 ### Krav 1: Klassdiagram
 
-Du börjar med att göra ett klassdiagram som du lämnar in och får godkänt på innan du börjar implementera.
+Du börjar med att göra ett klassdiagram som du lämnar in. Detta måste bli godkänt av en lärare innan du påbörjar implementationen.
 
 ### Krav 2: Rum och gäster, implementera menyalternativ 1-3
 
-Skapa en klass som hanterar B&B:et. Dbwebb B&B har 10 rum. Du har minst 2 olika sorters rum som motiverar arv. Informationen om de olika rummen läser du in från fil. Rummen hanteras på basklassnivå. På menyalternativ 1 så skrivs alla rummen ut med en beskrivning.
+Skapa en klass som hanterar B&B:et. Dbwebb B&B har ett bestämt antal rum. Det ska finnas minst 2 olika sorters rum som motiverar arv. Informationen om de olika rummen läser du in från fil. Här behöver du fundera över hur informationen om rummen ska lagras på filen så att du kan anpassa läsningen efter det.
+.
+Polymorfism ska användas på ett logisk och rimligt sätt. (I stället för "Rummen hanteras på basklassnivå"???+). 
 
-Skapa en gästlista utifrån en fil. Det finns 3 stamkunder i gästlistan från början. Sparas.
+Menyalternativ 1 presenterar alla rum med en beskrivning och rummen visas grupperade efter rumstyp.
 
-Här ska du kunna visa alla rum grupperade efter rumstyp, lägga till en gäst och ta bort en gäst.
+Det finns även en gästlista. Du skapar gästlistas genom att läsa uppgifter om gästerna från fil. Från början ska det finns 3 stamkunder(???) i gästlistan. När programmet stängs ner ska gästlistan sparas för att läsas upp när programmet startas på nytt. 
+
+Menyalternativ 2 möjliggör inmatning av uppgifter för en gäst.
+
+Menyalternativ 3 möjliggör borttagning av en gäst..
+
 
 ### Krav 3: Bokning, implementera menyalternativ 4-6
 
