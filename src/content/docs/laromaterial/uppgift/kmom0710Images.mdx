@@ -76,11 +76,9 @@ Följande menyalternativ ska finnas samt en rubrik som innehåller Dbwebb B&B sa
 - 1 - Visa alla rum
 - 2 - Lägg till en gäst
 - 3 - Ta bort en gäst
-- 4 - Betala
-- 5 - Rapporter
-- 6 - Boka ett rum
-- 7 - Avboka ett rum
-- 8 - Sök lediga rum
+- 4 - Sök lediga rum
+- 5 - Boka ett rum
+- 6 - Avboka ett rum
 - q - Avsluta
 
 ### Olika övernattningsmöjligheter
@@ -159,85 +157,17 @@ Menyalternativ 2 möjliggör inmatning av uppgifter för en gäst. En gäst besk
 Menyalternativ 3 möjliggör borttagning av en gäst. Skriv ut alla gäster i gästlistan först för att se om gästen kan tas bort.
 
 
-### Krav 3: Betalning, menyalternativ 4
+### Krav 3, Enkel bokning, menyalternativ 4-6
 
-De olika sorters övernattningar har olika priser. De gäster som finns i gästlistan anses vara stamkunder och har alltid 10% rabatt. För stugor och tält finns möjlighet att köpa till frukost för 100 kr.
+Du ska kunna skriva ut de övernattningsmöjligheter som är lediga.
 
-På menyalternativ 4, så ska priset baserat på gäst, rumstyp och tillval presenteras.
-Dessutom ska det gå att betala med kort och kontant, dock tillkommer en liten avgift för kontantbetalning.
-
-Exempel en stuga som har ett grundpris 800 kr/natt inklusive städning som är en extrakostnad på 400 kr får ett totalpris på 1200 kr.
-
-Exempel ett rum som har ett grundpris 1200 kr och har extrasäng och eget badrum och har då 2 extragrejer. Varje extra grej är förenat med en kostnad på 15% av grundpriset och har du bokat båda extragrejerna så blir det 25% av grundpriset. Då blir kostnaden 1600 kr.
-
-Exempel tält har ett grundpris på 400 kr och så tillkommer el och då blir kostnaden 420 kr
+Gör en enkel bokning utan datum som innehåller antalet nätter, rum och gäst. Bokningen utgår alltid från idag. Du ska kunna boka en övernattning för en viss gäst. Den övernattningen är då inte längre ledig.
 
 
-### Krav 4: Enhetstestning
+### Krav 4: Enhetstestning (Optionellt)
 
-Gör en testplan för klasserna. In- och utmatning i terminalen kan du testa manuellt men ändå beskriva det i testplanen.
+Gör en testplan för dina klasser. In- och utmatning i terminalen kan du testa manuellt men ändå beskriva det i testplanen. Testa alla relevanta metoder.
 Implementera testfallen med NUnit.
-
-
-### Krav 5 Analys av lönsamhet, implementera menyalternativ 5
-
-import canoeAndBikeRental from '@assets/img/kmom10/canoeAndBikeRental.jpg';
-
-<Figure
-    src={canoeAndBikeRental}
-    width="350px"
-    float="right"
-/>
-
-Hur många nätter måste ett rum vara bokat för att det ska runt? Rummet kostar x per dygn.
-Interface? olika rapporter/analyser
-
-Funderar på uthyrning av cyklar och kanoter. Är det lönsamt?
-
-Kan innehålla olika paket?
-
-### Krav 6: Bokning, implementera menyalternativ 6-8
-
-En bokning har ett startdatum och ett slutdatum (eller antalet nätter) samt ett unikt bokningsnummer. En bokning innehåller vilken gäst som bokat samt vilket rum.
-
-Ett eller flera rum ska bokas och en viss gäst som redan är tillagd i gästlistan blir ansvarig för rummet. När ett rum avbokas, så får den ansvarige gästen välja om den ska tas bort från gästlistan eller vara kvar för framtida bokningar och bli stamkund.
-
-Vid menyalternativ 6 så ska lediga rum visas för de datum som anges. Beroende på typ.
-
-Frukost ja/nej, antalet gäster
-
-Gäst (namn, födelsedata, stamkund ja/nej)
-
-Objektorienterad och fungerande.
-
-
-
-
-## Extra krav
-
-### Krav 6: Begränsningar
-
-Ett enkelrum får ha max en gäst och ett dubbelrum max två gäster. Vissa av rummen har plats till extrasäng/barnsäng, minst ett enkelrum och ett dubbelrum får ha en gäst till i extrasäng/barnsäng.
-Avbokningsregler, du får avboka gratis 4 dagar innan, betalar halva priset om du avbokar 1-3 dagar innan och fullpris om du avbokar samma dag.
-Frukost måste bokas tillsammans med rummet eller allra senast 1 dag innan ankomst. Olika frukostar: lyxig med varm mat, vanlig och enkel med frukostmacka
-
-### Krav 6: Uthyrning
-
-Lägg till ett menyalternativ för uthyrning av cyklar och kanoter. Pris per timme, sätts på rummet. En gäst från gästlistan är ansvarig.
-
-### Krav 6: Paketlösningar ihop med uthyrning
-
-Olika paketlösningar ger billigare totalpris
-
-Olika paket:
-
-- helgpaketet rum+lyxig frukost+cykel (cykel på köpet)
-- äventyrspaketet med rum+vanlig frukost+kanot (50% rabatt på kanoten)
-- billiga paketet tält i trädgården+enkel frukost (tälthyra kostar 40% av ett enkelrum)
-
-### Krav 6: Abstrakt klass och metod
-
-Utöka gästerna, företagsgäster, vanliga gäster, över dagen gäster
 
 
 ## Resultat & Redovisning
