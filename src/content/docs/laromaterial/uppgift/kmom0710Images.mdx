@@ -1,0 +1,277 @@
+---
+title: "Kmom07/10: Projektet Dbwebb B&B"
+description: Projektet
+sidebar:
+    order: 0070
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+import dbwebbBB from '@assets/img/kmom10/dbwebbBB.jpg';
+
+<Figure
+    src={dbwebbBB}
+    caption="Dbwebb B&B"
+/>
+
+Du ska utveckla ett objektorienterat system i C# för ett Bed & Breakfast (DbWebb B&B). Systemet ska hantera olika rumstyper såsom övernattningsrum, konferensrum, vilorum, tält??, och dessutom hantera bokningar och gäster. Syftet är att ge en praktisk tillämpning av objektorienterade principer som arv, polymorfism, relationer mellan klasser och metodöverlagring.
+
+
+:::note
+Du ska arbeta individuellt och inga hjälpmedel utöver kursmaterialet är tillåtna.
+:::
+
+## Förutsättning
+
+Du har jobbat igenom kmom01-kmom06 och lämnat in dessa. Innan du påbörjar projektet förväntas du ha kunskaper motsvarande innehållet från kmom01-06.
+
+Projektet rättas först när att kmom03, kodintervjun och kmom06 är godkänd.
+
+## Bedömning och betygsättning
+
+Det finns ett dokument som beskriver [grunderna för bedömning och betygsättning av projektet och kursen som helhet](/website/intro/bedomning-och-betygsattning/).
+
+
+## Innehåll
+
+### Klassdiagram
+
+Börja med att ta fram ett övergripande klassdiagram i vilket det framgår vilka klasser som ingår i lösningen samt hur dessa relaterar till varandra. Detta lämnas in och därefter tittar en lärare på det och avgör om det är rimligt eller ej. Relevanta/Uppenbara attribut och metoder ska finnas med, men under arbetets gång kommer du förmodligen behöva lägga till och göra mindre ändringar i klassdiagrammet. Din slutliga lösning får dock inte skilja sig markant från det du utgått ifrån.
+
+### Projektet ska innehålla
+
+- ett första utkast av klassdiagrammet som lämnas in separat och som  är  godkänt av lärare
+- minst 5 egendefinierade relevanta klasser som finns i det godkända klassdiagrammet
+- egendefinierat, logiskt och rimligt arv
+- minst 2 olika relationer (komposition/aggregation/association)
+- överlagring
+- överskuggning
+- filhantering (läsa från och/eller spara på fil)
+- felhantering med undantag
+
+### Övriga krav
+
+- all in- och utmatning ska ske i en enda klass
+- koden ska överensstämma med klassdiagrammet
+- koden ska följa kodreglerna
+- koden ska vara städad (till exempel ej utkommenterade kodavsnitt)
+- någon komplex datatyp, som List, Array eller Dictionary, ska ingå
+
+
+### Kodregler
+
+- Använd hjälpmetoder för att få ner antalet kodrader. En vanlig rekommendation är max 20 rader per metod.
+- Använd [namngivningsreglerna](/website/laromaterial/kmom02/inledningoo/#namngivning).
+- Alla attribut i en klass ska vara privata
+- Gör minst en explicit konstruktor i varje klass.
+- Använd de kodkonstruktioner som finns på kursens webbsida.
+- Använd inte (inte tillåtet) lambda-funktioner.
+- Använd inte (inte tillåtet) paket som LINQ, record, dynamiska typer, goto och extension-metoder.
+
+### Menyalternativ
+
+Följande menyalternativ ska finnas samt en rubrik som innehåller Dbwebb B&B samt aktuellt datum:
+
+- 1 - Visa alla rum
+- 2 - Lägg till en gäst
+- 3 - Ta bort en gäst
+- 4 - Betala
+- 5 - Rapporter
+- 6 - Boka ett rum
+- 7 - Avboka ett rum
+- 8 - Sök lediga rum
+- q - Avsluta
+
+### Olika övernattningsmöjligheter
+
+Dbwebb B&B har olika sorters övernattningsmöjligheter, som vanliga rum, stugor och tält. För de som bor i stugor kan frukost beställas i samband med att övernattning bokas.
+
+#### Vanliga rum
+
+import doubleRoom from '@assets/img/kmom10/doubleRoom.jpg';
+
+<Figure
+    src={doubleRoom}
+    caption="Dubbelrum"
+    width="350px"
+    float="right"
+/>
+För de gäster som vill ha det mer bekvämt finns det rum med frukost att hyra i huset.
+
+- enkelrum för 800 kr natten eller dubbelrum för 1200 kr natten
+- extra säng är möjlig i vissa av dubbelrummen och medför en extra kostnad på 300 kr
+- eget bad/delat badrum, eget badrum medför en extra kostnad på 200 kr
+
+#### Stugor
+
+import cottage from '@assets/img/kmom10/cottage.jpg';
+
+<Figure
+    src={cottage}
+    caption="Stuga"
+    width="350px"
+    float="right"
+/>
+
+För de gäster som vill bo lite mer avskilt men fortfarande bekvämt så är stuga ett alternativ. Här kan gästerna köra ända fram till stugan. Stugan kostar 800 kr natten.
+
+- 2 våningssängar med eget badrum och pentry
+- parkeringsplats ingår i priset
+- städning ingår mot en extra kostnad på 400 kr
+
+#### Tält
+
+import tent from '@assets/img/kmom10/tent.jpg';
+
+<Figure
+    src={tent}
+    caption="Tält"
+    width="350px"
+    float="right"
+/>
+
+För det gäster som vill ha ett budgetboende med mer naturupplevelse så finns det tält att hyra för 400 kr natten. Om du vill ha el till lampa och laddare så finns det. Vill gästerna ta med egen frukost finns kylbox att hyra.
+
+- med eller utan el, el medför en extra kostnad
+- elförbrukning, grundkostnad på 20 kr (vanlig el med lampor) för kylbox så tillkommer en extra kostnad på 30 kr extra kostnad
+
+## Kraven
+
+### Krav 1: Klassdiagram
+
+Du börjar med att göra ett klassdiagram som du lämnar in. Detta måste bli godkänt av en lärare innan du påbörjar implementationen.
+
+När du tagit fram klassdiagrammet och fått detta godkänt ska du göra en kort plan för hur du kommer att lägga upp ditt arbete. Vilken klass börjar du med? Hur testar du den efter hand?
+
+### Krav 2: Rum och gäster, implementera menyalternativ 1-3
+
+Skapa en klass som hanterar B&B:et. Dbwebb B&B har ett bestämt antal övernattningsmöjligheter som beskrivs med ett rumsnummer, antal gäster och om frukost önskas. Informationen om de olika rummen läser du in från fil. Här behöver du fundera över hur informationen om rummen ska lagras på filen så att du kan anpassa läsningen efter det.
+
+Polymorfism ska användas på ett logisk och rimligt sätt.
+
+Menyalternativ 1 presenterar alla rum med en beskrivning och rummen visas grupperade efter rumstyp.
+
+Det finns även en gästlista. Du skapar gästlistas genom att läsa uppgifter om gästerna från fil. Från början ska det finns 3 stamkunder i gästlistan. När programmet stängs ner ska gästlistan sparas för att läsas in igen när programmet startas på nytt.
+
+Menyalternativ 2 möjliggör inmatning av uppgifter för en gäst. En gäst beskrivs med ett id-nummer, vilket kan vara födelsedata eller något annat nummer, namn och om kunden är stamkund. Om vill kan du inkludera email och adress. Skriv ut alla gäster i gästlistan först för att se om gästen redan finns.
+
+Menyalternativ 3 möjliggör borttagning av en gäst. Skriv ut alla gäster i gästlistan först för att se om gästen kan tas bort.
+
+
+### Krav 3: Betalning, menyalternativ 4
+
+De olika sorters övernattningar har olika priser. De gäster som finns i gästlistan anses vara stamkunder och har alltid 10% rabatt. För stugor och tält finns möjlighet att köpa till frukost för 100 kr.
+
+På menyalternativ 4, så ska priset baserat på gäst, rumstyp och tillval presenteras.
+Dessutom ska det gå att betala med kort och kontant, dock tillkommer en liten avgift för kontantbetalning.
+
+Exempel en stuga som har ett grundpris 800 kr/natt inklusive städning som är en extrakostnad på 400 kr får ett totalpris på 1200 kr.
+
+Exempel ett rum som har ett grundpris 1200 kr och har extrasäng och eget badrum och har då 2 extragrejer. Varje extra grej är förenat med en kostnad på 15% av grundpriset och har du bokat båda extragrejerna så blir det 25% av grundpriset. Då blir kostnaden 1600 kr.
+
+Exempel tält har ett grundpris på 400 kr och så tillkommer el och då blir kostnaden 420 kr
+
+
+### Krav 4: Enhetstestning
+
+Gör en testplan för klasserna. In- och utmatning i terminalen kan du testa manuellt men ändå beskriva det i testplanen.
+Implementera testfallen med NUnit.
+
+
+### Krav 5 Analys av lönsamhet, implementera menyalternativ 5
+
+import canoeAndBikeRental from '@assets/img/kmom10/canoeAndBikeRental.jpg';
+
+<Figure
+    src={canoeAndBikeRental}
+    width="350px"
+    float="right"
+/>
+
+Hur många nätter måste ett rum vara bokat för att det ska runt? Rummet kostar x per dygn.
+Interface? olika rapporter/analyser
+
+Funderar på uthyrning av cyklar och kanoter. Är det lönsamt?
+
+Kan innehålla olika paket?
+
+### Krav 6: Bokning, implementera menyalternativ 6-8
+
+En bokning har ett startdatum och ett slutdatum (eller antalet nätter) samt ett unikt bokningsnummer. En bokning innehåller vilken gäst som bokat samt vilket rum.
+
+Ett eller flera rum ska bokas och en viss gäst som redan är tillagd i gästlistan blir ansvarig för rummet. När ett rum avbokas, så får den ansvarige gästen välja om den ska tas bort från gästlistan eller vara kvar för framtida bokningar och bli stamkund.
+
+Vid menyalternativ 6 så ska lediga rum visas för de datum som anges. Beroende på typ.
+
+Frukost ja/nej, antalet gäster
+
+Gäst (namn, födelsedata, stamkund ja/nej)
+
+Objektorienterad och fungerande.
+
+
+
+
+## Extra krav
+
+### Krav 6: Begränsningar
+
+Ett enkelrum får ha max en gäst och ett dubbelrum max två gäster. Vissa av rummen har plats till extrasäng/barnsäng, minst ett enkelrum och ett dubbelrum får ha en gäst till i extrasäng/barnsäng.
+Avbokningsregler, du får avboka gratis 4 dagar innan, betalar halva priset om du avbokar 1-3 dagar innan och fullpris om du avbokar samma dag.
+Frukost måste bokas tillsammans med rummet eller allra senast 1 dag innan ankomst. Olika frukostar: lyxig med varm mat, vanlig och enkel med frukostmacka
+
+### Krav 6: Uthyrning
+
+Lägg till ett menyalternativ för uthyrning av cyklar och kanoter. Pris per timme, sätts på rummet. En gäst från gästlistan är ansvarig.
+
+### Krav 6: Paketlösningar ihop med uthyrning
+
+Olika paketlösningar ger billigare totalpris
+
+Olika paket:
+
+- helgpaketet rum+lyxig frukost+cykel (cykel på köpet)
+- äventyrspaketet med rum+vanlig frukost+kanot (50% rabatt på kanoten)
+- billiga paketet tält i trädgården+enkel frukost (tälthyra kostar 40% av ett enkelrum)
+
+### Krav 6: Abstrakt klass och metod
+
+Utöka gästerna, företagsgäster, vanliga gäster, över dagen gäster
+
+
+## Resultat & Redovisning
+
+Läs [instruktionen om hur du skall redovisa](/website/laromaterial/instruktion/resultat-och-redovisning).  
+
+Utöver en vanlig inlämning ska du också göra en [Pull Request](/website/laromaterial/instruktion/gor-en-pr).
+
+Gör en inlämning i **Canvas** med länken till din PR.
+
+### Rapport
+
+I projektet ska du skriva en rapport som ska innehålla:
+
+- Inledning om projektet med vilka krav du implementerat
+- Ett kapitel för implementationen
+  - Hur tänkte du? Planering? Genomförande?
+  - Ett delkapitel per krav 10-15 meningar
+- Vad tycker du om projektet? Hur gick det?
+- Vad tycker du om kursen? Om du skulle rekommendera kursen, vad ger du för betyg 1-10 (10 är bäst)?
+
+Redovisa rapporten som en fil i Canvas/Lägg filen under kmom10 i din PR.
+
+### Redovisningsvideo
+
+Du ska lämna in en redovisningsvideo på **5-8 min** som innehålla:
+
+- Id, visa ditt leg i början av videon
+- Visa dig (hela videon)
+- Inledning med vilka krav du gjort
+- Visa programmet (ena halvan av skärmen)
+- Visa och berätta om delar av koden (andra halvan av skärmen)
+- Kort avslutning
+
+Redovisa länken på Canvas/Redovisa länken som en kommentar i din PR.
+
+Vill ha tips om hur du kan förbereda och utföra en slutpresentation av ditt projekt, kan läsa dokumentet [Planera din slutpresentation](/website/laromaterial/instruktion/planera-din-slutpresentation) och [Spela in en redovisningsvideo med OBS](/website/laromaterial/instruktion/redovisningsvideo-spela-in).

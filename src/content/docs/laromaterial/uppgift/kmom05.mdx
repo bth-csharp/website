@@ -74,7 +74,7 @@ Klassen **MyTask** innehåller:
 Om uppdateringen inte går bra returneras `false`. Ingen uppdatering ska ske om parametern `description` är en tom sträng eller om parametern `dueDate` är tidigare än dagens datum.  
 Den tredje parametern `specifics` hanteras av subklassen.
 - **Completed()** ändrar uppgiften till klar.
-- **GetDescription()** returnerar en sträng med en beskrivning av uppgiften med all information (uppgiftens namn, beskrivning, datum den ska vara klar och om den är klar). Datumet ska vara på enligt ISO 8601 vilket är svensk standard.
+- **GetDescription()** returnerar en sträng med en beskrivning av uppgiften med all information (uppgiftens namn, beskrivning, datum den ska vara klar och om den är klar). Datumet ska vara på enligt ISO 8601 vilket är svensk standard. Om uppgiften är klar eller inte specificeras med "klar/inte klar" eller "done/not done".
 
 
 ### PrivateTask
