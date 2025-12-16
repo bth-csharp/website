@@ -144,24 +144,26 @@ När du tagit fram klassdiagrammet och fått detta godkänt ska du göra en kort
 
 ### Krav 2: Rum och gäster, implementera menyalternativ 1-3
 
-Skapa en klass som hanterar B&B:et. Dbwebb B&B har ett bestämt antal övernattningsmöjligheter som beskrivs med ett rumsnummer, antal gäster och om frukost önskas. Informationen om de olika rummen läser du in från fil. Här behöver du fundera över hur informationen om rummen ska lagras på filen så att du kan anpassa läsningen efter det.
+Skapa en klass som hanterar B&B:et. Dbwebb B&B har ett bestämt antal övernattningsmöjligheter som beskrivs med ett rumsnummer, antal gäster och om frukost önskas. Informationen om de olika övernattningsmöjligheterna läser du in från fil. Här behöver du fundera över hur informationen om rummen ska lagras på filen så att du kan anpassa läsningen efter det. Informationen om övernattningsmöjligheterna hittar du ovan. 
 
 Polymorfism ska användas på ett logisk och rimligt sätt.
 
 Menyalternativ 1 presenterar alla rum med en beskrivning och rummen visas grupperade efter rumstyp.
 
-Det finns även en gästlista. Du skapar gästlistas genom att läsa uppgifter om gästerna från fil. Från början ska det finns 3 stamkunder i gästlistan. När programmet stängs ner ska gästlistan sparas för att läsas in igen när programmet startas på nytt.
+Dbwebb B&B har även en gästlista med gäster. Du skapar gästlistan genom att läsa uppgifter om gästerna från fil. Från början ska det finns 3 stamkunder i gästlistan. När programmet stängs ner ska gästlistan sparas för att läsas in igen när programmet startas på nytt.
 
-Menyalternativ 2 möjliggör inmatning av uppgifter för en gäst. En gäst beskrivs med ett id-nummer, vilket kan vara födelsedata eller något annat nummer, namn och om kunden är stamkund. Om vill kan du inkludera email och adress. Skriv ut alla gäster i gästlistan först för att se om gästen redan finns.
+Menyalternativ 2 möjliggör inmatning av uppgifter för en gäst. En gäst beskrivs med ett id-nummer, vilket kan vara födelsedata eller något annat nummer, namn och om kunden är stamkund eller inte. Om vill kan du inkludera email och adress. Skriv ut alla gäster i gästlistan först för att se om gästen redan finns.
 
-Menyalternativ 3 möjliggör borttagning av en gäst. Skriv ut alla gäster i gästlistan först för att se om gästen kan tas bort.
+Menyalternativ 3 möjliggör borttagning av en gäst. Skriv ut alla gäster i gästlistan först för att se gästens id-nummer och använda det för att ta bort gästen.
 
 
 ### Krav 3, Enkel bokning, menyalternativ 4-6
 
-Du ska kunna skriva ut de övernattningsmöjligheter som är lediga.
+Gör en enkel bokning utan datum som innehåller antalet nätter, rum och gäst. Bokningen utgår alltid från idag. Du ska kunna boka en övernattning för en viss gäst från gästlistan. Den övernattningen är då inte längre ledig.
 
-Gör en enkel bokning utan datum som innehåller antalet nätter, rum och gäst. Bokningen utgår alltid från idag. Du ska kunna boka en övernattning för en viss gäst. Den övernattningen är då inte längre ledig.
+Menyalternativ 4, skriver ut de övernattningsmöjligheter som är lediga.
+
+Menyalternativ 5, gör en bokning. Mata in övernattningens namn
 
 
 ### Krav 4: Enhetstestning (Optionellt)
