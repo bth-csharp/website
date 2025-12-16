@@ -1,0 +1,229 @@
+---
+title: "Kmom07/10: Projektet Dbwebb B&B"
+description: Projektet
+sidebar:
+    order: 0070
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+import dbwebbBB from '@assets/img/kmom10/dbwebbBB.jpg';
+
+<Figure
+    src={dbwebbBB}
+    caption="Dbwebb B&B"
+/>
+
+Du ska utveckla ett objektorienterat system i C# för ett Bed & Breakfast (Dbwebb B&B). Systemet ska hantera olika övernattningsmöjligheter, som rum, stuga och tält, samt dessutom hantera gäster och bokningar. Syftet är att ge en praktisk tillämpning av objektorienterade principer som arv, polymorfism, relationer mellan klasser och metodöverlagring.
+
+
+:::note
+Du ska arbeta individuellt och inga hjälpmedel utöver kursmaterialet är tillåtna.
+:::
+
+## Förutsättning
+
+Du har jobbat igenom kmom01-kmom06 och lämnat in dessa. Innan du påbörjar projektet förväntas du ha kunskaper motsvarande innehållet från kmom01-06.
+
+Projektet rättas först när att kmom03, kodintervjun och kmom06 är godkända.
+
+## Bedömning och betygsättning
+
+Det finns ett dokument som beskriver [grunderna för bedömning och betygsättning av projektet och kursen som helhet](/website/intro/bedomning-och-betygsattning/).
+
+
+## Innehåll
+
+### Klassdiagram
+
+Börja med att ta fram ett övergripande klassdiagram i vilket det framgår vilka klasser som ingår i lösningen samt hur dessa relaterar till varandra. Detta lämnas in och därefter tittar en lärare på det och avgör om det är rimligt eller ej. Relevanta/Uppenbara attribut och metoder ska finnas med, men under arbetets gång kommer du förmodligen behöva lägga till och göra mindre ändringar i klassdiagrammet. Din slutliga lösning får dock inte skilja sig markant från det du utgått ifrån.
+
+### Projektet ska innehålla
+
+- ett första utkast av klassdiagrammet som lämnas in separat och som  är godkänt av lärare
+- minst 6 egendefinierade relevanta klasser som finns i det godkända klassdiagrammet
+- egendefinierat, logiskt och rimligt arv
+- minst 2 olika relationer (komposition/aggregation/association)
+- överlagring
+- överskuggning
+- filhantering (läsa från och/eller spara på fil)
+- felhantering med undantag
+
+### Övriga krav
+
+- all in- och utmatning ska ske i en enda klass
+- koden ska överensstämma med klassdiagrammet
+- koden ska följa kodreglerna
+- koden ska vara städad (till exempel ej utkommenterade kodavsnitt)
+- någon komplex datatyp, som List, Array eller Dictionary, ska ingå
+
+
+### Kodregler
+
+- Använd hjälpmetoder för att få ner antalet kodrader. En vanlig rekommendation är max 20 rader per metod.
+- Använd [namngivningsreglerna](/website/laromaterial/kmom02/inledningoo/#namngivning).
+- Alla attribut i en klass ska vara privata
+- Gör minst en explicit konstruktor i varje klass.
+- Använd de kodkonstruktioner som finns på kursens webbsida.
+- Använd inte (inte tillåtet) lambda-funktioner.
+- Använd inte (inte tillåtet) paket som LINQ, record, dynamiska typer, goto och extension-metoder.
+
+### Menyalternativ
+
+Följande menyalternativ ska finnas samt en rubrik som innehåller Dbwebb B&B samt aktuellt datum:
+
+- 1 - Visa alla rum
+- 2 - Lägg till en gäst (Visa gästlistan)
+- 3 - Ta bort en gäst (Visa gästlistan)
+- 4 - Sök lediga rum
+- 5 - Boka ett rum
+- 6 - Avboka ett rum
+- q - Avsluta
+
+### Olika övernattningsmöjligheter
+
+Dbwebb B&B har olika sorters övernattningsmöjligheter, som vanliga rum, stugor och tält. För de som bor i stugor kan frukost beställas i samband med att övernattning bokas.
+
+#### Vanliga rum
+
+import doubleRoom from '@assets/img/kmom10/doubleRoom.jpg';
+
+<Figure
+    src={doubleRoom}
+    caption="Dubbelrum"
+    width="350px"
+    float="right"
+/>
+För de gäster som vill ha det mer bekvämt finns det rum med frukost att hyra i huset.
+
+- enkelrum för 800 kr natten eller dubbelrum för 1200 kr natten
+- extra säng är möjlig i vissa av dubbelrummen och medför en extra kostnad på 300 kr
+- eget bad/delat badrum, eget badrum medför en extra kostnad på 200 kr
+
+#### Stugor
+
+import cottage from '@assets/img/kmom10/cottage.jpg';
+
+<Figure
+    src={cottage}
+    caption="Stuga"
+    width="350px"
+    float="right"
+/>
+
+För de gäster som vill bo lite mer avskilt men fortfarande bekvämt så är stuga ett alternativ. Här kan gästerna köra ända fram till stugan. Stugan kostar 800 kr natten.
+
+- 2 våningssängar med eget badrum och pentry
+- parkeringsplats ingår i priset
+- städning ingår mot en extra kostnad på 400 kr
+
+#### Tält
+
+import tent from '@assets/img/kmom10/tent.jpg';
+
+<Figure
+    src={tent}
+    caption="Tält"
+    width="350px"
+    float="right"
+/>
+
+För det gäster som vill ha ett budgetboende med mer naturupplevelse så finns det tält att hyra för 400 kr natten. Om du vill ha el till lampa och laddare så finns det. Vill gästerna ta med egen frukost finns kylbox att hyra.
+
+- med eller utan el, el medför en extra kostnad
+- elförbrukning, grundkostnad på 20 kr (vanlig el med lampor) för kylbox så tillkommer en extra kostnad på 30 kr extra kostnad
+
+## Kraven
+
+### Krav 1: Klassdiagram
+
+Du börjar med att göra ett klassdiagram som du lämnar in. Detta måste bli godkänt av en lärare innan du påbörjar implementationen.
+
+När du tagit fram klassdiagrammet och fått detta godkänt ska du göra en kort plan för hur du kommer att lägga upp ditt arbete. Vilken klass börjar du med? Hur testar du den efter hand?
+
+### Krav 2: Rum och gäster, implementera menyalternativ 1-3
+
+Skapa en klass som hanterar B&B:et. Dbwebb B&B har ett bestämt antal övernattningsmöjligheter som beskrivs med ett rumsnummer, antal gäster och om frukost önskas. Informationen om de olika övernattningsmöjligheterna läser du in från fil. Här behöver du fundera över hur informationen om rummen ska lagras på filen så att du kan anpassa läsningen efter det. Informationen om övernattningsmöjligheterna hittar du ovan. 
+
+Polymorfism ska användas på ett logisk och rimligt sätt.
+
+Menyalternativ 1 presenterar alla rum med en beskrivning och rummen visas grupperade efter rumstyp.
+
+Dbwebb B&B har även en gästlista med gäster. Du skapar gästlistan genom att läsa uppgifter om gästerna från fil. Från början ska det finns 3 stamkunder i gästlistan. När programmet stängs ner ska gästlistan sparas för att läsas in igen när programmet startas på nytt.
+
+Menyalternativ 2 möjliggör inmatning av uppgifter för en gäst. En gäst beskrivs med ett id-nummer, vilket kan vara födelsedata eller något annat nummer, namn och om kunden är stamkund eller inte. Om vill kan du inkludera email och adress. Skriv ut alla gäster i gästlistan först för att se om gästen redan finns. Här kan du lägga till att om inget namn matas in, så visas bara gästerna.
+
+Menyalternativ 3 möjliggör borttagning av en gäst. Skriv ut alla gäster i gästlistan först för att se gästens id-nummer och använda det för att ta bort gästen.
+
+
+### Krav 3, Enkel bokning, menyalternativ 4-6
+
+Gör en enkel bokning utan datum som innehåller antalet nätter, rum och gäst. Bokningen utgår alltid från idag. Dbwebb B&B har ansvar för bokningarna. Du ska kunna boka en övernattning för en viss gäst från gästlistan. Den övernattningen är då inte längre ledig.
+
+Menyalternativ 4, skriver ut de övernattningsmöjligheter som är lediga.
+
+Menyalternativ 5, gör en bokning. Mata in övernattningens namn och gästens id. Vi kan förvänta oss att användaren skriver ut gästlistan och de lediga rummen innan och matar in rätt information för gästen och rummet för att skapa en bokning.
+
+Menyalternativ 6, avbokar en viss bokning.
+
+
+### Krav 4: Enhetstestning (Optionellt)
+
+Gör en testplan för dina klasser. In- och utmatning i terminalen kan du testa manuellt men ändå beskriva det i testplanen. Testa alla relevanta metoder.
+Implementera testfallen med NUnit som du gjorde i kmom05.  
+Tänk 1-2 testfall per publik metod i varje klass. En testklass per klass. Gör ett testprojekt som du gjorde i kmom05.
+
+### Krav 5: XXX (Optionellt)
+
+Kommer i slutet av v51
+
+### Krav 6: XXX (Optionellt)
+
+## Resultat & Redovisning
+
+Dubbelkolla att du följt kraven i [Projektet ska innehålla](/website/kmom/kmom0710/#projektet-ska-innehålla) och var i koden du gjort det.
+
+Dubbelkolla att du följt [Övriga krav](/website/kmom/kmom0710/#övriga-krav) och [Kodregler](/website/kmom/kmom0710/#kodregler).
+
+Läs [instruktionen om hur du skall redovisa](/website/laromaterial/instruktion/resultat-och-redovisning).  
+
+Utöver en vanlig inlämning ska du också göra en [Pull Request](/website/laromaterial/instruktion/gor-en-pr).
+
+Gör en inlämning i **Canvas** med länken till din PR.
+
+### Rapport
+
+I projektet ska du skriva en rapport som ska innehålla:
+
+- Inledning om projektet med vilka krav du implementerat
+- Ett kapitel för implementationen
+  - Hur tänkte du? Planering? Genomförande?
+  - Ett delkapitel per krav 10-15 meningar
+- Vad tycker du om projektet? Hur gick det?
+- Vad tycker du om kursen? Om du skulle rekommendera kursen, vad ger du för betyg 1-10 (10 är bäst)?
+
+Ladda upp rapporten som en fil i Canvas.
+
+### Redovisningsvideo
+
+Du ska lämna in en redovisningsvideo på **6-8 min** som innehålla:
+
+- Id, visa ditt leg i början av videon
+- Visa dig (hela videon)
+- Inledning med vilka krav du gjort
+- Gå kort igenom ditt uppdaterade klassdiagram
+- Visa programmet (ena halvan av skärmen)
+- Visa och berätta om delar av koden (andra halvan av skärmen)
+- Visa testplanen kort
+- Kort avslutning
+
+Redovisa länken till din video på Canvas.
+
+Vill ha tips om hur du kan förbereda och utföra en slutpresentation av ditt projekt, kan läsa dokumentet [Planera din slutpresentation](/website/laromaterial/instruktion/planera-din-slutpresentation) och [Spela in en redovisningsvideo med OBS](/website/laromaterial/instruktion/redovisningsvideo-spela-in).
+
+### Checklista inlämning
+
+1. Implementera krav 1-3 (optionellt 4-6) och gör en PR (bth/submit/kmom10)
+1. Skriv en rapport och ladda upp på Canvas
+1. Spela in en video och lämna in länken på Canvas
