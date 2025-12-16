@@ -41,8 +41,8 @@ Börja med att ta fram ett övergripande klassdiagram i vilket det framgår vilk
 
 ### Projektet ska innehålla
 
-- ett första utkast av klassdiagrammet som lämnas in separat och som  är  godkänt av lärare
-- minst 5 egendefinierade relevanta klasser som finns i det godkända klassdiagrammet
+- ett första utkast av klassdiagrammet som lämnas in separat och som  är godkänt av lärare
+- minst 6 egendefinierade relevanta klasser som finns i det godkända klassdiagrammet
 - egendefinierat, logiskt och rimligt arv
 - minst 2 olika relationer (komposition/aggregation/association)
 - överlagring
@@ -74,8 +74,8 @@ Börja med att ta fram ett övergripande klassdiagram i vilket det framgår vilk
 Följande menyalternativ ska finnas samt en rubrik som innehåller Dbwebb B&B samt aktuellt datum:
 
 - 1 - Visa alla rum
-- 2 - Lägg till en gäst
-- 3 - Ta bort en gäst
+- 2 - Lägg till en gäst (Visa gästlistan)
+- 3 - Ta bort en gäst (Visa gästlistan)
 - 4 - Sök lediga rum
 - 5 - Boka ett rum
 - 6 - Avboka ett rum
@@ -152,25 +152,33 @@ Menyalternativ 1 presenterar alla rum med en beskrivning och rummen visas gruppe
 
 Dbwebb B&B har även en gästlista med gäster. Du skapar gästlistan genom att läsa uppgifter om gästerna från fil. Från början ska det finns 3 stamkunder i gästlistan. När programmet stängs ner ska gästlistan sparas för att läsas in igen när programmet startas på nytt.
 
-Menyalternativ 2 möjliggör inmatning av uppgifter för en gäst. En gäst beskrivs med ett id-nummer, vilket kan vara födelsedata eller något annat nummer, namn och om kunden är stamkund eller inte. Om vill kan du inkludera email och adress. Skriv ut alla gäster i gästlistan först för att se om gästen redan finns.
+Menyalternativ 2 möjliggör inmatning av uppgifter för en gäst. En gäst beskrivs med ett id-nummer, vilket kan vara födelsedata eller något annat nummer, namn och om kunden är stamkund eller inte. Om vill kan du inkludera email och adress. Skriv ut alla gäster i gästlistan först för att se om gästen redan finns. Här kan du lägga till att om inget namn matas in, så visas bara gästerna.
 
 Menyalternativ 3 möjliggör borttagning av en gäst. Skriv ut alla gäster i gästlistan först för att se gästens id-nummer och använda det för att ta bort gästen.
 
 
 ### Krav 3, Enkel bokning, menyalternativ 4-6
 
-Gör en enkel bokning utan datum som innehåller antalet nätter, rum och gäst. Bokningen utgår alltid från idag. Du ska kunna boka en övernattning för en viss gäst från gästlistan. Den övernattningen är då inte längre ledig.
+Gör en enkel bokning utan datum som innehåller antalet nätter, rum och gäst. Bokningen utgår alltid från idag. Dbwebb B&B har ansvar för bokningarna. Du ska kunna boka en övernattning för en viss gäst från gästlistan. Den övernattningen är då inte längre ledig.
 
 Menyalternativ 4, skriver ut de övernattningsmöjligheter som är lediga.
 
-Menyalternativ 5, gör en bokning. Mata in övernattningens namn
+Menyalternativ 5, gör en bokning. Mata in övernattningens namn och gästens id. Vi kan förvänta oss att användaren skriver ut gästlistan och de lediga rummen innan och matar in rätt information för gästen och rummet för att skapa en bokning.
+
+Menyalternativ 6, avbokar en viss bokning.
 
 
 ### Krav 4: Enhetstestning (Optionellt)
 
 Gör en testplan för dina klasser. In- och utmatning i terminalen kan du testa manuellt men ändå beskriva det i testplanen. Testa alla relevanta metoder.
-Implementera testfallen med NUnit.
+Implementera testfallen med NUnit som du gjorde i kmom05.  
+Tänk 1-2 testfall per publik metod i varje klass. En testklass per klass. Gör ett testprojekt som du gjorde i kmom05.
 
+### Krav 5: XXX (Optionellt)
+
+Kommer i slutet av v51
+
+### Krav 6: XXX (Optionellt)
 
 ## Resultat & Redovisning
 
@@ -191,19 +199,27 @@ I projektet ska du skriva en rapport som ska innehålla:
 - Vad tycker du om projektet? Hur gick det?
 - Vad tycker du om kursen? Om du skulle rekommendera kursen, vad ger du för betyg 1-10 (10 är bäst)?
 
-Redovisa rapporten som en fil i Canvas/Lägg filen under kmom10 i din PR.
+Ladda upp rapporten som en fil i Canvas.
 
 ### Redovisningsvideo
 
-Du ska lämna in en redovisningsvideo på **5-8 min** som innehålla:
+Du ska lämna in en redovisningsvideo på **6-8 min** som innehålla:
 
 - Id, visa ditt leg i början av videon
 - Visa dig (hela videon)
 - Inledning med vilka krav du gjort
+- Gå kort igenom ditt uppdaterade klassdiagram
 - Visa programmet (ena halvan av skärmen)
 - Visa och berätta om delar av koden (andra halvan av skärmen)
+- Visa testplanen kort
 - Kort avslutning
 
-Redovisa länken på Canvas/Redovisa länken som en kommentar i din PR.
+Redovisa länken till din video på Canvas.
 
 Vill ha tips om hur du kan förbereda och utföra en slutpresentation av ditt projekt, kan läsa dokumentet [Planera din slutpresentation](/website/laromaterial/instruktion/planera-din-slutpresentation) och [Spela in en redovisningsvideo med OBS](/website/laromaterial/instruktion/redovisningsvideo-spela-in).
+
+### Checklista inlämning
+
+1. Implementera krav 1-3 (optionellt 4-6) och gör en PR (bth/submit/kmom10)
+1. Skriv en rapport och ladda upp på Canvas
+1. Spela in en video och lämna in länken på Canvas
