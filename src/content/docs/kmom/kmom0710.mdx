@@ -7,6 +7,9 @@ sidebar:
 ---
 
 import Figure from '@components/CustomFigure.astro';
+import Task from '@components/Task.astro';
+import TaskList from '@components/TaskList.astro';
+import RewardMessage from '@components/RewardMessage.astro';
 
 import dbwebbBB from '@assets/img/kmom10/dbwebbBB.jpg';
 
@@ -75,8 +78,8 @@ Följande menyalternativ ska finnas samt en rubrik som innehåller Dbwebb B&B sa
 
 - 1 - Visa alla rum
 - 2 - Lägg till en gäst (Visa gästlistan)
-- 3 - Ta bort en gäst (Visa gästlistan)
-- 4 - Sök lediga rum
+- 3 - Ta bort en gäst
+- 4 - Visa lediga rum
 - 5 - Boka ett rum
 - 6 - Avboka ett rum
 - q - Avsluta
@@ -131,30 +134,30 @@ import tent from '@assets/img/kmom10/tent.jpg';
 
 För det gäster som vill ha ett budgetboende med mer naturupplevelse så finns det tält att hyra för 400 kr natten. Om du vill ha el till lampa och laddare så finns det. Vill gästerna ta med egen frukost finns kylbox att hyra.
 
-- med eller utan el, el medför en extra kostnad
-- elförbrukning, grundkostnad på 20 kr (vanlig el med lampor) för kylbox så tillkommer en extra kostnad på 30 kr extra kostnad
+- 2 bekväma liggunderlag med sovsäcker
+- med eller utan el, el medför en extra kostnad på grundkostnad på 20 kr (vanlig el med lampor) för kylbox så tillkommer en extra kostnad på 30 kr extra kostnad
 
 ## Kraven
 
 ### Krav 1: Klassdiagram
 
-Du börjar med att göra ett klassdiagram som du lämnar in. Detta måste bli godkänt av en lärare innan du påbörjar implementationen.
+Du börjar med att göra ett klassdiagram som du lämnar in på Canvas. Helst ska en lärare godkänna till klassdigram innan du påbörjar implementationen men med alla helger över jul och nyår så är det bättre att du börjar lite smått.
 
-När du tagit fram klassdiagrammet och fått detta godkänt ska du göra en kort plan för hur du kommer att lägga upp ditt arbete. Vilken klass börjar du med? Hur testar du den efter hand?
+När klassdiagrammet är klart ska du göra en kort plan för hur du kommer att lägga upp ditt arbete. Vilken klass börjar du med? Hur testar du den efter hand? Nu är du redo att påbörja implementationen.
 
 ### Krav 2: Rum och gäster, implementera menyalternativ 1-3
 
-Skapa en klass som hanterar B&B:et. Dbwebb B&B har ett bestämt antal övernattningsmöjligheter som beskrivs med ett rumsnummer, antal gäster och om frukost önskas. Informationen om de olika övernattningsmöjligheterna läser du in från fil. Här behöver du fundera över hur informationen om rummen ska lagras på filen så att du kan anpassa läsningen efter det. Informationen om övernattningsmöjligheterna hittar du ovan. 
+Skapa en klass som hanterar B&B:et. Dbwebb B&B har ett bestämt antal övernattningsmöjligheter som beskrivs med ett rumsnummer, antal gäster och om frukost önskas. Informationen om de olika övernattningsmöjligheterna läser du in från fil. Här behöver du fundera över hur informationen om övernattningsmöjligheterna ska lagras på filen och anpassa inläsningen efter det. Informationen om övernattningsmöjligheterna hittar du ovan. 
 
 Polymorfism ska användas på ett logisk och rimligt sätt.
 
-Menyalternativ 1 presenterar alla rum med en beskrivning och rummen visas grupperade efter rumstyp.
+Menyalternativ 1 presenterar alla rum med en beskrivning och rummen visas grupperade efter typ av övernattning.
 
 Dbwebb B&B har även en gästlista med gäster. Du skapar gästlistan genom att läsa uppgifter om gästerna från fil. Från början ska det finns 3 stamkunder i gästlistan. När programmet stängs ner ska gästlistan sparas för att läsas in igen när programmet startas på nytt.
 
 Menyalternativ 2 möjliggör inmatning av uppgifter för en gäst. En gäst beskrivs med ett id-nummer, vilket kan vara födelsedata eller något annat nummer, namn och om kunden är stamkund eller inte. Om vill kan du inkludera email och adress. Skriv ut alla gäster i gästlistan först för att se om gästen redan finns. Här kan du lägga till att om inget namn matas in, så visas bara gästerna.
 
-Menyalternativ 3 möjliggör borttagning av en gäst. Skriv ut alla gäster i gästlistan först för att se gästens id-nummer och använda det för att ta bort gästen.
+Menyalternativ 3 möjliggör borttagning av en gäst. Skriv ut alla gäster i gästlistan först för att se gästernas id-nummer och använda det för att ta bort gästen.
 
 
 ### Krav 3, Enkel bokning, menyalternativ 4-6
@@ -171,14 +174,17 @@ Menyalternativ 6, avbokar en viss bokning.
 ### Krav 4: Enhetstestning (Optionellt)
 
 Gör en testplan för dina klasser. In- och utmatning i terminalen kan du testa manuellt men ändå beskriva det i testplanen. Testa alla relevanta metoder.
-Implementera testfallen med NUnit som du gjorde i kmom05.  
-Tänk 1-2 testfall per publik metod i varje klass. En testklass per klass. Gör ett testprojekt som du gjorde i kmom05.
+Implementera testfallen med NUnit.  
+Tänk 1-2 testfall per publik metod i varje klass och en testklass per klass.  
+Gör ett testprojekt med testklasser och testfall som i kmom05.
 
 ### Krav 5: XXX (Optionellt)
 
 Kommer i slutet av v51
 
 ### Krav 6: XXX (Optionellt)
+
+Kommer i slutet av v51
 
 ## Resultat & Redovisning
 
@@ -203,7 +209,7 @@ I projektet ska du skriva en rapport som ska innehålla:
 - Vad tycker du om projektet? Hur gick det?
 - Vad tycker du om kursen? Om du skulle rekommendera kursen, vad ger du för betyg 1-10 (10 är bäst)?
 
-Ladda upp rapporten som en fil i Canvas.
+Ladda upp rapporten som en fil i **Canvas**.
 
 ### Redovisningsvideo
 
@@ -218,7 +224,7 @@ Du ska lämna in en redovisningsvideo på **6-8 min** som innehålla:
 - Visa testplanen kort
 - Kort avslutning
 
-Redovisa länken till din video på Canvas.
+Redovisa länken till din video på **Canvas**.
 
 Vill ha tips om hur du kan förbereda och utföra en slutpresentation av ditt projekt, kan läsa dokumentet [Planera din slutpresentation](/website/laromaterial/instruktion/planera-din-slutpresentation) och [Spela in en redovisningsvideo med OBS](/website/laromaterial/instruktion/redovisningsvideo-spela-in).
 
@@ -227,3 +233,9 @@ Vill ha tips om hur du kan förbereda och utföra en slutpresentation av ditt pr
 1. Implementera krav 1-3 (optionellt 4-6) och gör en PR (bth/submit/kmom10)
 1. Skriv en rapport och ladda upp på Canvas
 1. Spela in en video och lämna in länken på Canvas
+
+<TaskList>
+  <Task completed={false}>Implementera krav 1-3 (optionellt 4-6) och gör en PR (bth/submit/kmom10)</Task>
+  <Task completed={false}>Skriv en rapport och ladda upp på Canvas</Task>
+  <Task completed={false}>Spela in en video och lämna in länken på Canvas</Task>
+</TaskList>
