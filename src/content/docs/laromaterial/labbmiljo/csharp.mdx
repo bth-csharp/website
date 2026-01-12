@@ -48,10 +48,17 @@ I den här kursen kör vi programmen vi skapar i terminalen eftersom det är enk
 
 Ladda ner den senaste versionen av **.NET** med pakethanteraren **apt** (du behöver använda sudo). Öppna en terminal och kör följande kommandon.
 
+Microsoft/.NET-teamet tillhandahåller nyare versioner av .NET för Ubuntu via ett särskilt arkiv (PPA = Personal Package Archive), utöver de versioner som finns i Ubuntus vanliga paketförråd. Backports-paketets arkiv (ppa:dotnet/backports) innehåller nyare versioner av .NET SDK och .NET Runtime.
+
 ```shell
-sudo apt update
-sudo apt upgrade
-sudo apt install -y dotnet-sdk-9.0
+sudo add-apt-repository ppa:dotnet/backports
+```
+
+Med .NET SDK (SDK = Software Developers Kit) kan du utveckla appar med .NET. Om du installerar .NET SDK behöver du inte installera motsvarande runtime. Kör följande kommandon för att installera .NET SDK:
+
+```shell
+sudo apt-get update && \
+  sudo apt-get install -y dotnet-sdk-9.0
 ```
 
 Första kommandot med *update* uppdaterar listan över tillgängliga paket och deras versioner men installerar inga nya paket. Det kontrollerar bara förändringar i paketlistorna och hämtar nya versioner av befintliga paket.
