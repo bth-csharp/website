@@ -1,0 +1,167 @@
+---
+title: "Kmom01: Kom igång med C#"
+description: Första kmomet.
+sidebar:
+    order: 2
+hidden: true
+---
+
+import { YouTube } from 'astro-embed';
+import { Steps } from '@astrojs/starlight/components';
+import { Icon } from '@astrojs/starlight/components';
+import { Badge } from '@astrojs/starlight/components';
+import Figure from '@components/CustomFigure.astro';
+
+import var1Image from '@assets/img/kmom01/infoUserHW.png';
+
+Det första vi skall göra är att skaffa oss en utvecklingsmiljö och kika i kurslitteraturen. C# fungerar på många miljöer och i olika varianter. Vi kommer att skapa och köra C#-program i terminalen. För att uppdatera och felsöka (debugga) vår kod använder vi Visual Studio Code (VS Code).
+
+Vi börjar skriva de första enkla programmen för att komma underfund med hur C# kan användas och hur programmeringsspråket fungerar i grunden. Eftersom vi nyss läst python så jämför vi med det och tittar på hur motsvarande språkkonstruktioner ser ut i C#. Vi tittar även på C# som programmeringsspråk.
+
+<Figure
+    src={var1Image}
+    caption="Informationsflödet mellan en användare och hårdvaran."
+    width="450px"
+/>
+
+Bilden visar på informationsflödet mellan en användare och hårdvaran. Användaren är den som använder, nyttjar, programmet eller applikationen som det också kallas. Hårdvaran är den fysiska datorn och kan vara en PC, Linuxdator eller en Mac. Operativsystem kan vara Windows, Mac eller någon Linuxvariant som Ubuntu. Operativsystemet tillhandahåller resurser som filer och nätverkskommunikation men hanterar även resurser som till exempel minnet.
+
+Applikationen är i vårt fall skrivet i språket C#. Vårt C#-program kompileras för att anpassas till hårdvaran vilket innebär att de kodrader vi skrivit i C# översätts till maskinkod som därefter körs på hårdvaran.
+
+
+## Förberedelser
+
+Innan du börjar med kmom01 så behöver du ha jobbat igenom [Kom igång](../) och installerat labbmiljö, kursrepo och utvecklingsmiljö.
+
+:::note
+Du har förkunskaper som motsvarar innehållet i python-kursen.
+:::
+
+
+### Kursens upplägg
+
+Om inget annat anges är det samma upplägg varje kursmoment.
+
+**Måndag:**
+Via Zoom startar vi veckans kursmoment på morgonen och uppsamling med frågor på eftermiddagen. 
+
+**Onsdag:**
+På onsdagsförmiddagen jobbar vi igenom [seminarium kmom01](/website/laromaterial/seminarium/kmom01) på Campus och i Zoom.
+
+**Torsdag:**
+På torsdag förmiddag hänger vi lärare på Discord och i sal för att svara på din frågor.
+
+
+## Läs & Studera
+
+Här kan du på egen hand studera och förbereda dig inför övningar och uppgifter.
+
+### Intro till csharp
+
+I kursen kommer vi använda boken [C# 12.0 in a Nutshell: The Definitive Reference av Joseph Albahari](../../laromaterial/böcker/). Det är en omfattande referensbok som täcker alla aspekter av C#-programmering, från grundläggande till avancerade ämnen. Vi nöjer oss med de grundläggande kapitlen i boken men här finns information även för den avancerade programmeraren.
+
+:::tip
+När du läser boken så är det viktigt att ha en online kompilator öppen och köra koden i boken parallellt. Det är ett bra sätt att lära sig och förstå hur csharp fungerar. Att **endast** läsa boken utan att köra koden är inte tillräckligt. Det är viktigt att du kör koden och testar den själva så du förstår den.
+:::
+
+
+### Artiklar
+
+1. Läs igenom "[C# - vad är det för språk?](/website/laromaterial/kmom01/csharpinfo)".
+
+1. Läs och jobba igenom "[Python till C#](/website/laromaterial/kmom01/pythontillcsharp)". Testa gärna i [C# online kompilator](https://dotnetfiddle.net/) (glöm ej att välja senaste kompilatorn i menyn till vänster). Skriv din kodsnutt inuti Main()-metoden.
+
+1. Läs och jobba igenom "[Mer C#](/website/laromaterial/kmom01/mercsharp)". Testa gärna i [C# online kompilator](https://dotnetfiddle.net/) (glöm ej att välja senaste kompilatorn i menyn till vänster). Skriv din kodsnutt inuti Main()-metoden.
+
+1. Läs (skumma) igenom följande kapitel i boken **C# 12.0 in a Nutshell: The Definitive Reference**:
+    * kapitel 2 C# Language Basics  
+    Det är mycket information i kapitel 2, läs i omgångar eller använd som uppslagsbok.
+
+<details>
+<summary>
+#### Extra övningsmaterial (Klicka på rubriken)
+</summary>
+
+Om du vill öva mer så finns här möjligheter.
+
+#### Interaktiva övningar och tutorials
+
+* [Microsoft Learn – C#](https://learn.microsoft.com/dotnet/csharp/)  
+Officiella guider och interaktiva kodexempel direkt i webbläsaren. Bra om du vill lära dig rätt från källan.
+* [Exercism](https://exercism.org/tracks/csharp)  
+Gratis, massor av små övningar där du får feedback av communityn. Perfekt för att träna problemlösning i C#.
+* [Codewars](https://www.codewars.com/)  
+Gamifierat – lös problem ("kata") och gå upp i nivå. Bra för att öva logik och algoritmer i C#.
+* [LeetCode](https://leetcode.com/)  
+Inriktat på algoritmer, datastrukturer och problemlösning. Väldigt bra om du vill bli stark på intervjufrågor och mer avancerad kodning.
+
+#### Lekfulla/övningsvänliga sidor
+
+* [Codingame](https://www.codingame.com/)  
+Lös problem genom att styra spel med C#. Roligare än vanliga uppgifter om du gillar spel.
+* [Dotnetfiddle](https://dotnetfiddle.net/)  
+Online-editor för C#, där du snabbt kan skriva och testa kod utan att installera något.
+
+</details>
+<br/>
+
+
+### Video
+
+Om du vill, så finns det en bra video med Mosh; [C# Tutorial For Beginners](https://www.youtube.com/watch?v=gfkTfcpWqAY&ab_channel=ProgrammingwithMosh).
+
+
+## Övningar & Uppgifter
+
+Övningar är träning inför uppgifterna. Uppgifter skall utföras och redovisas.
+Seminarie är en lärarledd övning där vi diskuterar kod i grupp och uppgifterna gås igenom av en lärare.
+
+### Seminarie
+
+Jobba igenom [seminarium kmom01](/website/laromaterial/seminarium/kmom01). Det görs på onsdagens lektion.
+
+### Övningar
+
+Använd mappen `practice` i kmom01-katalogen för att skriva övningskod.
+
+1. Kom igång med din första C#-app tillsammans med artikeln [SkapaApp](/website/laromaterial/kmom01/skapaapp).
+
+1. Öva på problemlösning genom att göra ett enkelt menyprogram i artikeln [SkapaMenyApp](/website/laromaterial/kmom01/skapamenyapp).
+
+
+### Uppgifter
+
+Följande uppgifter skall utföras och resultatet skall redovisas.
+
+1. På Canvas, gör quizzet `Fusk policy. Måste få alla rätt, oändlig med försök`.
+
+1. På Canvas, gör quizzet `Kmom01 quiz`.
+
+1. Gör uppgiften "[Gör ett menyprogram](/website/laromaterial/uppgift/kmom01)" för att visa att du har koll på grunderna. Använd gärna flödesschema eller pseudokod för problemlösningen.  
+Spara alla filer under `kmom01`.
+
+:::danger
+Varje uppgift ska lösas med de C# konstruktioner som vi går igenom i respektive kmom.
+:::
+
+## Resultat & Redovisning
+
+Läs [instruktionen om hur du skall redovisa](/website/laromaterial/instruktion/resultat-och-redovisning).  
+I denna kursen har vi ingen redovisningstext utan quiz att klara av istället.
+
+
+## Målet med kmom01
+
+Efter att ha jobbat igenom kmom01 så bör du kunna:
+
+- grunderna i C#
+  - miljön
+  - datatyper
+  - metoder/funktioner
+  - iterationer
+  - villkor och logik
+- flödesschema & pseudokod
+- grunderna i dotnet
+  - skapa program i C# med dotnet
+  - köra program med dotnet
+- debugga program i VS code

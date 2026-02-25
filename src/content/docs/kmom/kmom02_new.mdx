@@ -1,0 +1,114 @@
+---
+title: "Kmom02: Introduktion till Objektorienterad programmering och UML"
+description: Andra kmomet.
+sidebar:
+    order: 2
+hidden: true
+---
+
+import { YouTube } from 'astro-embed';
+import { Steps } from '@astrojs/starlight/components';
+import { Icon } from '@astrojs/starlight/components';
+import { Badge } from '@astrojs/starlight/components';
+import Figure from '@components/CustomFigure.astro';
+
+import dieClass5 from '@assets/img/kmom02/ClassDie5.png';
+
+Nu ska vi börja med objektorienterad programmering i C#. Objektorienterad programmering (OOP) fokuserar på att organisera kod i klasser, vilket motsvarar en slags sammansatt datatyp, och skapa objekt av dessa klasser som representerar verkliga eller abstrakta enheter. I OOP betraktas programmet som en samling av dessa objekt som interagerar med varandra genom att skicka meddelanden. Dessa objekt har egenskaper (variabler) och beteenden (metoder).
+
+Ett objekt skapas utifrån en ritning eller beskrivning, en så kallad klass.
+
+Vi ska också lära oss att använda UML klassdiagram som visar klassernas egenskaper och beteenden.
+
+<Figure
+    src={dieClass5}
+    caption="Klassen Die och objektet Die5."
+/>
+
+
+## Förberedelser
+
+Innan du börjar med kmom02 så behöver du ha jobbat igenom [Kmom01](../kmom01).
+
+:::note
+Du har förkunskaper som motsvarar innehållet i Kmom01.
+:::
+
+## Läs & Studera
+
+Här kan du på egen hand studera och förbereda dig inför övningar och uppgifter.
+
+:::tip
+När du ska jobba med kursen är det lättast om du öppnar VS Code från terminalen innan du börjar jobba.  
+Tänk på att rensa bort "solution-filer" med ändelsen ".sln". Det ställer bara till det i VS Code.  
+Om VS Code stryker under ett klassnamn med rött i Program.cs trots korrekt namespace och programmet går att köra så är det bara att strunta i den varningen. VS Code tipsar om att öppna bara det aktuella projektet i ett eller eller via “Command Palett” (CTRL-Shift-P) och välj “Developer: Reload Window” men det röda kommer tillbaka ibland ändå.
+:::
+
+
+### Artiklar
+
+1. Läs igenom artikeln [Introduktion till Objektorienterad programmering](/website/laromaterial/kmom02/inledningoo).
+
+1. Läs igenom artikeln [Introduktion till UML och klassdiagram](/website/laromaterial/kmom02/umlklassdiagram).
+
+1. Läs och jobba igenom [Introduktion - Klasser och objekt](/website/laromaterial/ooguide/intro/) i guiden [Kom igång med objektorienterad programmering i C#](/website/laromaterial/ooguide/).
+
+1. Läs (skumma) igenom följande kapitel i boken **C# 12.0 in a Nutshell: The Definitive Reference**:
+    * kapitel 3 Creating Types in C# delkapitel "Classes"
+
+1. Bekanta dig med C# dokumentationen, kika i [C# language documentation](https://learn.microsoft.com/en-us/dotnet/csharp/) och titta runt.
+
+
+## Övningar & Uppgifter
+
+Övningar är träning inför uppgifterna. Uppgifter skall utföras och redovisas.
+
+### Seminarie
+
+Jobba igenom [seminarium kmom02](/website/laromaterial/seminarium/kmom02). Det görs på onsdagens lektion.
+
+### Övningar
+
+Använd mappen `practice` i kmom02-katalogen för att skriva övningskod.
+
+1. Gör ett program i C# med klasser. [Skapa menyprogram med klasser](/website/laromaterial/kmom02/skapamenyapp2).
+
+
+#### Extra
+
+1. Enhetstesta klassen **Helpers** från uppgiften ovan. Det gör vi i artikeln [C# - testning](/website/laromaterial/kmom02/testningdel1).
+
+### Uppgifter
+
+1. På Canvas, gör quizzet `Kmom02 quiz`.
+
+1. Gör uppgiften "[Tärningsspelet Dice100](/website/laromaterial/uppgift/kmom02)". Använd gärna flödesschema eller pseudokod för problemlösningen.  
+Spara alla filer under `kmom02`.
+
+:::danger
+Varje uppgift ska lösas med de C# konstruktioner som vi går igenom i respektive kmom.
+:::
+
+
+## Resultat & Redovisning
+
+Läs [instruktionen om hur du skall redovisa](/website/laromaterial/instruktion/resultat-och-redovisning).  
+I denna kursen har vi ingen redovisningstext utan quiz att klara av istället.
+
+## Målet med kmom02
+
+Efter att ha jobbat igenom kmom02 så bör du kunna:
+
+* grunderna i objektorienterad programmering
+  * klasser och objekt
+  * namespace
+  * skillnad på statiska och vanliga variabler och metoder i en klass
+  * åtkomstnivåerna; private och public men även känna till protected
+  * använda objekt inom andra objekt
+* grunderna i UML klassdiagram
+
+### Extra
+
+* grunderna i enhetstestning med dotnet och NUnit
+  * använda ett testprojekt
+  * skapa ett testprojekt
