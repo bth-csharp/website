@@ -1,0 +1,142 @@
+---
+title: "Värdetyper och referenstyper"
+description: Värdetyper och referenstyper och dess skillnader
+hidden: true
+sidebar:
+    order: 1
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+import VardeReferensTyp from '@assets/img/kmom02/VardeReferensTyp.png';
+
+
+I C# är skillnaden mellan värdetyper (value types) och referenstyper (reference types) en av de viktigaste sakerna i språket. Den påverkar minne, kopiering av variabler och hur parametrar skickas till metoder.
+
+## Värdetyper (Value Types)
+
+En värdetyp innehåller själva värdet direkt i variabeln.
+
+När du kopierar variabeln kopieras hela värdet.
+
+**Exempel**
+```csharp
+int a = 10;
+int b = a;
+
+b = 20;
+
+Console.WriteLine(a); // 10
+Console.WriteLine(b); // 20
+```
+
+### Vanliga värdetyper
+
+I C# är dessa värdetyper:
+
+- int
+- double
+- float
+- bool
+- char
+- decimal
+- DateTime
+
+## Referenstyper (Reference Types)
+
+En referenstyp innehåller en referens (adress) till ett objekt i minnet.
+
+När du kopierar variabeln kopieras referensen, inte objektet.
+
+**Exempel**
+```csharp
+class Person
+{
+    public string Namn;
+}
+
+Person person1 = new Person();
+person1.Namn = "Anna";
+
+Person person2 = person1;
+
+person2.Namn = "Erik";
+
+Console.WriteLine(person1.Namn); // Erik
+```
+
+### Vanliga referenstyper
+
+I C# är dessa referenstyper:
+
+- class
+- string
+- array
+
+## Skillnad vid metodanrop
+
+### Värdetyp
+
+```csharp
+void Change(int x)
+{
+    x = 100;
+}
+
+int a = 10;
+Change(a);
+
+Console.WriteLine(a); // 10
+```
+
+Kopian ändras, inte originalet.
+
+### Referenstyp
+
+```csharp
+void Change(Person p)
+{
+    p.Namn = "Lisa";
+}
+```
+
+Objektet ändras eftersom referensen pekar på samma objekt.
+
+### Viktig detalj: string
+
+string är en referenstyp, men den är immutable (oföränderlig).
+
+```csharp
+string a = "Hej";
+string b = a;
+
+b = "Hej då";
+
+Console.WriteLine(a); // Hej
+```
+
+En ny sträng skapas istället.
+
+### Snabb jämförelse
+
+| Egenskap | Värdetyp | Referenstyp          |
+|----------|----------|----------------------|
+|   Lagrar   |   värde   | referens           |
+| Kopiering	| kopierar värde | kopierar referens |
+| Typiska exempel |	int, double |	class, array, string |
+| Påverkan vid ändring |	påverkar inte andra |	kan påverka andra |  
+
+### Minnet
+
+<Figure
+    src={VardeReferensTyp}
+    caption="Skillnad på värdetyp och referenstyp i minnet"
+    width="450px"
+/>
+
+
+
+## Sammanfattning
+
+- Värdetyper → kopia av värdet
+- Referenstyper → kopia av adressen
