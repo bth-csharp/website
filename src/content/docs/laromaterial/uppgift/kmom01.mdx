@@ -14,6 +14,10 @@ Du ska göra ett menyprogram och strukturera koden i funktioner. Du skapar din a
 
 Du har jobbat igenom allt material i "[kmom01](/website/kmom/kmom01)".
 
+:::note
+Du har förkunskaper som motsvarar innehållet i Kmom01.
+:::
+
 ## Krav
 
 ### Inledning
@@ -47,7 +51,9 @@ Minst 3 meningar efterfrågas. Skriv något om C#, till exempel vilka som utveck
 
 (Metodnamn: **double ConvertCelsiusToFahrenheit(double tempCelsius)**)
 
-Fråga efter en temperatur i Celsius (ska kunna vara ett tal med decimaler) och returnera motsvarande temperatur i Farenheit avrundat till 2 decimaler. Inmatningen av temperaturen i Celcius ska ske innan anrop av metoden `ConvertCelsiusToFahrenheit`. Inmatning sker innan metoden anropas. Utskriften sker efter anropet. Exempel:
+Fråga efter en temperatur i Celsius (ska kunna vara ett tal med decimaler) och returnera motsvarande temperatur i Fahrenheit avrundat till 2 decimaler. Inmatningen av temperaturen i Celsius ska ske innan anrop av metoden `ConvertCelsiusToFahrenheit`.  Använd den inbyggda metoden **Round** för avrundning.  
+Inmatning sker innan metoden anropas. Utskriften sker efter anropet.  
+Exempel:
 
 ```shell
 input: 11.344     output: "52.42"
@@ -57,7 +63,9 @@ input: 11.344     output: "52.42"
 
 (Metodnamn: **string RepeatLetters()**)
 
-Fråga efter en sträng och skriva ut en ny sträng där varje tecken har ökat med +1 och är separerat med "-". Inmatning sker i metoden. Utskriften sker efter anropet. Exempel:
+Fråga efter en sträng och skriva ut en ny sträng där varje tecken har ökat med +1 och är separerat med "-".  
+Inmatning sker i metoden. Utskriften sker efter anropet.  
+Exempel:
 
 ```shell
 input: "apa"      output: "a-pp-aaa"
@@ -68,7 +76,9 @@ input: "kassler"  output: "k-aa-sss-ssss-lllll-eeeeee-rrrrrrr"
 
 (Metodnamn: **string CreateAcronym()**)
 
-Fråga efter en sträng och skapa en akronym genom att plocka ut alla stora bokstäver i namnet du skriver in. Inmatning sker i metoden. Utskriften sker efter anropet. Exempel:
+Fråga efter en sträng och skapa en akronym genom att plocka ut alla stora bokstäver i namnet du skriver in.  
+Inmatning sker i metoden. Utskriften sker efter anropet.  
+Exempel:
 
 ```shell
 input: "BRöderna Ivarsson Osby"      output: "BRIO"
@@ -79,7 +89,9 @@ input: "Ingvar Kamprad Elmtaryd Agunnaryd"  output: "IKEA"
 
 (Metodnamn: **string CountSumAndAverage()**)
 
-Låt användaren mata in tal tills texten "klar" matas in. Då skriv summan av talen och medelvärdet av talen ut. Metoden returnerar en sträng med summan och medelvärdet enligt output nedan. Avrunda medelvärdet till 2 decimaler. Inmatning sker i metoden. Utskriften sker efter anropet. Exempel:
+Låt användaren mata in tal tills texten "klar" matas in. Då skriv summan av talen och medelvärdet av talen ut. Metoden returnerar en sträng med summan och medelvärdet enligt output nedan. Avrunda medelvärdet till 2 decimaler först vid utskriften i en interpolerande sträng genom formatering.  
+Inmatning sker i metoden. Utskriften sker efter anropet.  
+Exempel:
 
 ```shell
 input: 1
@@ -94,7 +106,8 @@ input: "klar"  output: "Summan=6 och medelvärdet=2"
 
 Luhnalgoritmen används för att verifiera giltigheten hos nummer, särskilt kreditkortsnummer och personnummer.
 
-Algoritmen funkar på så sätt att varannan siffra multipliceras med 2 och varannan med 1, med start på första siffran i personnumret. Om något tal vid multiplikationen blir större än 9 ersätts det talet med dess siffersumma. Därefter summeras alla tal och om summan är jämt delbar med 10 så är kontrollsiffran korrekt. Om personnumret validerar ska metoden returnera `true` annars `false`. Koden ska klara av personnummer med och utan `-` innan de fyra sista siffrorna. Om för får eller för många siffror skickas med ska det bli `false`.  Inmatning sker i metoden. Efter anropet av metoden skrivs texten "Valid" ut om personnumret var korrekt och annars skrivs texten "Not valid" ut beroende på om metoden returnerar true eller false.
+Algoritmen funkar på så sätt att varannan siffra multipliceras med 2 och varannan med 1, med start på första siffran i personnumret. Om något tal vid multiplikationen blir större än 9 ersätts det talet med dess siffersumma. Därefter summeras alla tal och om summan är jämt delbar med 10 så är kontrollsiffran korrekt. Om personnumret validerar ska metoden returnera `true` annars `false`.  
+Koden ska klara av personnummer med och utan `-` innan de fyra sista siffrorna. Om för får eller för många siffror skickas med ska det bli `false`.  Inmatning sker i metoden. Efter anropet av metoden skrivs texten "Valid" ut om personnumret var korrekt och annars skrivs texten "Not valid" ut beroende på om metoden returnerar true eller false.
 
 ```shell
    8  1 1 2 1 8 9  8 7  6
@@ -114,7 +127,7 @@ input: "231218-9874"      output: "Not valid"
 input: "8181818181"       output: "Valid"    
 ```
 
-Så här kan det se ut när du är klar med uppgiften. Videon visar hur menyprogrammet ser ut när marie testkör de olika alternativen.
+Så här kan det se ut när du är klar med uppgiften. Videon visar hur menyprogrammet ser ut när Marie testkör de olika alternativen.
 
 <YouTube
     id="PNOoxc8yvyQ"

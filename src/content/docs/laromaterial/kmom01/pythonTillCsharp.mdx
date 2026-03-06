@@ -27,6 +27,14 @@ Kommentarer använder vi för att beskriva något i koden men också innan vi ko
 
 I Python markerar vi en kommentar för en rad med brädgård eller hashtag "#" och för flera rader genom att omringa raderna med enkelfnuttar '''. I C# använder vi dubbla snedstreck eller slashes "//" för en-rads-kommentarer och "/\*" för fler-rads-kommentarer "\*/", se exempel.
 
+```python title="Kommentarer i Python"
+# first_name = "Murphy" En rad
+'''
+age = 42
+Flera rader
+'''
+```
+
 ```csharp title="Kommentarer C#"
 // Console.WriteLine("Hello, World!"); En rad
 Console.WriteLine("Hello, World!"); // Del av en rad
@@ -59,7 +67,7 @@ double interest = 0.011; // decimaltal
 
 Dessa nyckelord definierar variabelns typ för att data ska lagras på rätt sätt i datorns minne. Vi gör så beskrivande variabelnamn som möjligt och använder oss helst av engelska. C# skiljer på stora och små bokstäver.
 I C# använder vi "Camel case" för att namnge variabler, vilket innebär att första bokstaven i variabeln är liten och sen är det stora bokstäver i varje nytt ord. Till exempel: `maxNumber`, `minNumber`, `ageOfPerson`. Första tecknet i variabelnamnet måste vara en liten bokstav eller _ (underscore) och därefter kan vi ha bokstäver och siffror.
-**Notera** att konstanter i de flesta andra programmeringspråk består av enbart stora bokstäver med understreck mellan orden så vi använder det här också, även om C# rekommenderar Pascal case.
+**Notera** att konstanter i de flesta andra programmeringsspråk består av enbart stora bokstäver med understreck mellan orden så vi använder det här också, även om C# rekommenderar Pascal case.
 Läs mer om [namngivning i C#](https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/identifier-names). Tänk på att inte använda reserverade ord, som till exempel `string` till variabelnamn. Läs mer om [reserverade ord i C#](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/).
 
 Vad finns det då för variabeltyper?
@@ -355,6 +363,7 @@ I en `do while`-loop så körs en iteration innan villkoret kontrolleras.
 
 ## Array
 
+En array är en referensdatatyp med fast storlek och en bestämd datatyp.
 Python har inte en inbyggd datatyp array som i C#, där storlek och datatyp är fasta. Istället använder vi list för att skapa sekvenser av värden i Python. En lista i Python kan innehålla olika datatyper, till exempel:
 
 ```python title="Lista i Python"
@@ -402,7 +411,7 @@ string[] newArray = teachers.Split(", "); // en ny array med 5 strängar
 
 ## Listor
 
-Listor finns både i Python och C#. I Python kan vi spara element av olika datatyper i listor. I C# behöver vi deklarera vilken datatyp listan ska bestå av. Gemensamt är att vi kan ändra på listan genom att lägga till och ta bort element i listan. Vi kan även uppdatera element i listan.
+Listor är en referensdatatyp och finns både i Python och C#. I Python kan vi spara element av olika datatyper i listor. I C# behöver vi deklarera vilken datatyp listan ska bestå av. Gemensamt är att vi kan ändra på listan genom att lägga till och ta bort element i listan. Vi kan även uppdatera element i listan.
 
 I Python används en lista så här:
 

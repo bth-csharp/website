@@ -7,7 +7,7 @@ sidebar:
 
 import Figure from '@components/CustomFigure.astro';
 
-import csharpKompilering from '@assets/img/kmom01/csharpKompilering.png';
+import csharpKompDetaljer from '@assets/img/kmom01/csharpKompDetaljer.png';
 import csharpLogo from '@assets/csharpLogo.jpeg';
 
 
@@ -42,25 +42,40 @@ För att kunna köra den kod du skriver i C# behöver den alltså kompileras. Vi
 Detta görs automatiskt när du kör ditt program i terminalen med .NET-kommandot, *dotnet run*. Om du bara vill kompilera din C#-kod, vilket är lämpligt om du bara vill se om koden följer språkets syntax, använder du istället .NET-kommandot *dotnet build*. Du behöver inte förstå exakt vad som händer när din C#-kod görs om till exekverbar kod men du bör i stora drag känna till vad som sker. 
 
 <Figure
-    src={csharpKompilering}
+    src={csharpKompDetaljer}
     caption="C# kompilering, från C# kod till maskinkod."
 />
 
 C# kompilatorn kallas JIT (Just-In-Time kompilator), och är en central del av hur .NET (och därmed C#) körs.
 
-Kompilering av ett C#-program sker följande i två steg:
+Kompilering av ett C#-program sker följande i steg:
 
-1. Kompilering till CIL (Common Intermediate Language):
-När du kör dotnet build kompileras C#-koden först till CIL, som är plattformsoberoende.
-Denna CIL sparas i en `.dll` eller `.exe-fil`.
+1. Källkod på datorn
+Du skriver och sparar din C# kod lokalt på din dator. Filer: `*.cs`
 
-1. JIT-kompilering vid körning:
-När du sedan kör programmet:
-  - CLR (Common Language Runtime) laddar IL-koden.
-  - JIT-kompilatorn översätter IL → maskinkod för din dator precis innan metoderna körs.  
-Därför: “Just in time”.
+1. C#-kompilering (Roslyn)
+När du kör *dotnet build* kompileras C#-koden (`*.cs-filer`) först till CIL(Common Intermediate Language), som är plattformsoberoende.
+Denna CIL sparas i en `.dll-fil` för klassbibliotek eller `.exe-fil` för körbar kod (assembly).
+Vid C#-kompileringen kollas syntax och datatyper kontrolleras.
 
-En fördel med JIT-kompilering är att koden optimeras för aktuell CPU (dator) och operativsystem men det tar lite längre tid att starta ett C#-program än ett Python-program.
+1. Körning under .NET/CLR (Common Language Runtime)
+När du sedan kör programmet med *dotnet run*:
+  1. CLR (Common Language Runtime) laddar CIL-koden.
+  1. Verifiering (säkerhet och typkorrekthet)
+  1. JIT-kompilatorn översätter CIL → maskinkod för din dator precis innan metoderna körs.
+  Därför: “Just in time”.
+  1. Exekvering av ditt program
+
+
+```text
+.cs (C#-källkod)
+   └─(C#-kompilator)→  .dll/.exe (CIL + metadata)
+                           └─(CLR + JIT vid körning)→  native maskinkod i minne
+                                                          └→ exekveras av CPU
+```
+
+En fördel med JIT-kompilering är att koden optimeras för aktuell CPU (dator) och operativsystem men nackdelen är att det tar lite längre tid att starta ett C#-program än ett Python-program.  
+En annan fördel är portabilitet då samma CIL kan köras på olika plattformar/CPU:er; JIT skräddarsyr maskinkoden.
 
 Det viktiga att ta med sig är att det är ett program kallat kompilator som verifierar din C# kod och översätter den till maskinkod som kan köras på din dator.
 
@@ -106,8 +121,11 @@ C# har:
   - uppräkningstyper, som enum för namngivna konstanter
   - struct-typer; används för att kapsla in data och relaterade metoder
   - nullvärden
-  - tupplar, för att gruppera flera dataelement i en enkel struktur
-- användardefinierade referenstyper, som strängtypen
+  - tuplar, för att gruppera flera dataelement i en enkel struktur
+- referenstyper;
+  - som string och array (blir objekt)
+  - innehåller en referens till ett objekt i minnet
+  - du kan definiera egna
 - nullbara typer; skyddar mot variabler som inte refereras till något objekt
 - undantagshantering; för att hantera oväntade och/eller undantag som inträffar när koden körs.
 - asynkrona åtgärder; för distribuerade system
