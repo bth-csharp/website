@@ -55,6 +55,9 @@ Följande tabell används vid bedömning av projektet.
 | Krav 6 är implementerat och fungerar felfritt. | 10    |           |
 | TOTALT                                         | 60    |           |
 
+Krav 4-6 är optionella. Beroende på projekt så kan det vara 3 optionella krav eller 2 lite större optionella krav.
+
+
 ### Slutbetyg
 
 Följande tabell visar hur slutbetyget räknas fram baserat på antalet poäng.
