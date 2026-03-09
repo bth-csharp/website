@@ -19,14 +19,18 @@ import classdiagramRoundNew from '@assets/img/kmom02/classdiagramRoundNew.png';
     float="right"
 />
 
-Tärningsspelet **Dice100** är ett enkelt men roligt, tärningsspel. Det gäller att samla ihop poäng för att komma först till **100** genom att kasta **5** tärningar. I varje omgång kastar en spelare i taget tärningar tills spelaren väljer att stanna och spara poängen eller tills det dyker upp en 1:a eftersom spelaren då förlorar alla poäng som samlats in i rundan. Antalet rundor räknas upp oavsett om spelaren väljer att spara rundan eller får en etta.
+Tärningsspelet **Dice100** är ett enkelt men roligt, tärningsspel. Det gäller att samla ihop poäng för att komma först till **100** genom att kasta **5** tärningar. I varje runda kastar en spelare tärningarna en eller flera gånger tills spelaren väljer att stanna och spara poängen. Om det dyker upp en 1:a bland tärningarna förlorar spelaren alla poäng som samlats in i den rundan. Antalet rundor räknas upp oavsett om spelaren väljer att spara rundan eller får en etta.
 
 I denna uppgiften får du möjlighet att bygga klasser för att representera en tärning, en spelrunda och själva spelet. Du får också bygga en klass för menyn.
 
 
 ## Förkunskaper
 
-Du bör ha jobbat igenom [Kmom02](/website/kmom/kmom02) eller ha motsvarande kunskaper.
+Du har jobbat igenom materialet i "[Kmom02](/website/kmom/kmom02)".
+
+:::note
+Du har förkunskaper som motsvarar innehållet i Kmom02.
+:::
 
 ## Introduktion
 
@@ -121,6 +125,39 @@ Huvudprogrammet, `Program.cs`, ska endast skapa ett objekt av Meny-klassen och v
 1. Skapa dina klasser under src katalogen i ditt projekt **Dice100** precis som du gjorde i övningen.
 
 1. Skapa klassen för tärningen **Die**. Gör `dotnet build` och rätta eventuella kompileringsfel. Testa din klass med kod i `Program.cs` och gör sen `dotnet run` och sen att den funkar.
+
+<details>
+
+<summary>
+
+**Exempel på tester av Die i huvudprogrammet**
+
+</summary>
+
+
+```csharp title="Testa Die-klassen i Program.cs"
+Die die1 = new Die();
+Console.WriteLine($"Tärning utan inparameter fick värdet: {die1.GetString()}");
+
+int value = 5;
+Die die2 = new Die(value);
+Console.WriteLine($"Tärning med inparameter 5 fick värdet: {die2.GetString()}");
+if (die2.GetValue() == value )
+{
+    Console.WriteLine($"Tärning med inparameter 5 fick samma värde: {die2.GetValue().ToString()}");
+}
+else
+{
+    Console.WriteLine($"Det blev något fel på tärningens värde!");
+}
+die2.Roll();
+Console.WriteLine($"Tärning med inparameter 5 kastas om och fick värdet: {die2.GetString()}");
+
+// Testa även värden mindre än 1 och större än 6
+
+```
+
+</details>
 
 1. Skapa klassen för spelrunda **Round**. Gör `dotnet build` och rätta eventuella kompileringsfel. Testa din klass med kod i `Program.cs` och gör sen `dotnet run` och sen att den funkar.
 
