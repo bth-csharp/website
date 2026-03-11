@@ -134,6 +134,6 @@ Om rektor beslutar att utdela varning, kan studenten begära att beslutet ska un
 
 Ett beslut om avstängning meddelas av disciplinnämnden och ska tillämpas genast, om annat inte föreskrivs i beslutet. Avstängning får ske under en eller flera perioder, dock högst sex månader. Ett beslut om avstängning innebär att studenten under tiden för avstängningen inte får delta i någon form av verksamhet inom ramen för utbildningen vid högskolan, d.v.s. förbud att delta i föreläsningar, seminarier, laborationer, examination, handledning eller dyl. Ett beslut om avstängning innebär också att studenten inte får använda högskolans IT-resurser samt vistas i högskolans lokaler.
 
-När en student blir avstängd meddelas bl.a. berörd sektion, IT-avdelningen, Studerandeavdelningen vid högskolan och Centrala studiestödsnämnden (CSN).
+När en student blir avstängd meddelas bland annat. berörd sektion, IT-avdelningen, Studerandeavdelningen vid högskolan och Centrala studiestödsnämnden (CSN).
 
 Studenten kan överklaga ett beslut om avstängning och varning av disciplinnämnden hos Förvaltningsrätten.

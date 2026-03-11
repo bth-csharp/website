@@ -1,9 +1,9 @@
 ---
 title: "Värdetyper och referenstyper"
 description: Värdetyper och referenstyper och dess skillnader
-hidden: true
 sidebar:
     order: 1
+    hidden: true
 ---
 
 import Figure from '@components/CustomFigure.astro';
@@ -19,8 +19,7 @@ En värdetyp innehåller själva värdet direkt i variabeln.
 
 När du kopierar variabeln kopieras hela värdet.
 
-**Exempel**
-```csharp
+```csharp title="Exempel värdetyp"
 int a = 10;
 int b = a;
 
@@ -46,23 +45,25 @@ I C# är dessa värdetyper:
 
 En referenstyp innehåller en referens (adress) till ett objekt i minnet.
 
-När du kopierar variabeln kopieras referensen, inte objektet.
+När du kopierar variabeln kopieras referensen till objektet, inte objektet.
 
-**Exempel**
-```csharp
+```csharp title="Exempel referenstyp"
 class Person
 {
-    public string Namn;
+    private string _name;
+
+    public string GetName() { return this._name; }
+    public void SetName(string newName) { this._name = newName; }
 }
 
 Person person1 = new Person();
-person1.Namn = "Anna";
+person1.SetName("Anna");
 
 Person person2 = person1;
 
-person2.Namn = "Erik";
+person2.SetName("Erik");
 
-Console.WriteLine(person1.Namn); // Erik
+Console.WriteLine(person1.GetName()); // Erik
 ```
 
 ### Vanliga referenstyper
@@ -94,9 +95,9 @@ Kopian ändras, inte originalet.
 ### Referenstyp
 
 ```csharp
-void Change(Person p)
+void Change(Person person)
 {
-    p.Namn = "Lisa";
+    person.SetName("Lisa");
 }
 ```
 
@@ -128,6 +129,8 @@ En ny sträng skapas istället.
 
 ### Minnet
 
+I exemplet nedan så har vi en värdetyp *x med värdet 42* och när vi kopierar *x* så skapas en ny int med värdet 42. Vi har också en referenstyp *person av typen Person* och när vi kopierar *person* till *andra* så kopieras referensen. Referenserna för *person* och *andra* pekar på samma objekt av klassen Person.
+
 <Figure
     src={VardeReferensTyp}
     caption="Skillnad på värdetyp och referenstyp i minnet"
@@ -139,4 +142,4 @@ En ny sträng skapas istället.
 ## Sammanfattning
 
 - Värdetyper → kopia av värdet
-- Referenstyper → kopia av adressen
+- Referenstyper → kopia av referensen (adressen till objektet)

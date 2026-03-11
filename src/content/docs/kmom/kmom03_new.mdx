@@ -1,0 +1,106 @@
+---
+title: "Kmom03: Mer Objektorienterad programmering och UML"
+description: Tredje kmomet.
+sidebar:
+    order: 3
+    hidden: true
+---
+
+import { YouTube } from 'astro-embed';
+import { Steps } from '@astrojs/starlight/components';
+import { Icon } from '@astrojs/starlight/components';
+import { Badge } from '@astrojs/starlight/components';
+import Figure from '@components/CustomFigure.astro';
+
+import var1Image from '@assets/img/kmom01/infoUserHW.png';
+
+I detta kursmomentet ska vi titta på olika relationer mellan objekt: **komposition** och **aggregation**, och hur dessa representeras i klassdiagram. Nu tittar vi vidare på UML diagram och lär oss dels mer om klassdiagram och dels om beteendediagram. Vi fortsätter att skapa klasser och använda objekt och vi strävar efter att låta klassers variabler vara privata (information hiding).
+
+Komposition är en relationsform där ett objekt "innehåller" objekt av en annan klass. Det är ganska vanligt att använda benämningen "äger", det vill säga vi uttrycker att objektet äger de objekt som det innehåller. Objektet som äger andra objekt ansvarar för de andra objektens livslängd. 
+
+Aggregation är en associationsform där en klass har tillgång till (kan även här uttryckas innehåller) objekt av en annan klass men de objekten kan existera oberoende av varandra och det är en "svagare" relation än komposition.
+
+Vi ska utöka vårt tärningsspel **Dice100** så att vi använder fler klasser och dessutom beskriva vilka relationerna är mellan klasserna.
+
+## Förberedelser
+
+Innan du börjar med kmom03 så behöver du ha jobbat igenom [Kmom02](../kmom02).
+
+:::note
+Du har förkunskaper som motsvarar innehållet i Kmom2.
+:::
+
+
+## Läs & Studera
+
+Här kan du på egen hand studera och förbereda dig inför övningar och uppgifter.
+
+
+### Artiklar
+
+1. Läs och jobba igenom [Kapitel 1 - Objekt och Klasser](/website/laromaterial/ooguide/kap1/) i guiden [Kom igång med objektorienterad programmering i C#](/website/laromaterial/ooguide/).
+
+1. Gå igenom artikeln [Mer om klassdiagram](/website/laromaterial/kmom03/relationerklassdiagram) för att lära dig mer om relationerna i ett klassdiagram. Du lär dig skillnaden mellan komposition och aggregation.
+
+1. Om du vill ha extra kunskap om UML diagram, så går du igenom artikeln om [Beteendediagram](/website/laromaterial/kmom03/beteendediagram).
+
+1. Läs (skumma) igenom följande kapitel i boken **C# 12.0 in a Nutshell: The Definitive Reference**:
+    * kapitel 4 Advance C#, delkapitel Try Statements and Exceptions
+    * kapitel 15, delkapitel  File and Directory Operations till och med Path
+
+
+## Övningar & Uppgifter
+
+Övningar är träning inför uppgifterna. Uppgifter skall utföras och redovisas.
+
+### Seminarie
+
+Jobba igenom [seminarium kmom03](/website/laromaterial/seminarium/kmom03). Det görs på onsdagens lektion.
+
+
+### Övningar
+
+Använd mappen `practice` i kmom03-katalogen för att skriva övningskod.
+
+1. Gå igenom artikeln [Filer](/website/laromaterial/kmom03/file) för att lära dig olika sätt att spara på fil.
+
+1. Lär dig om [Exceptions](/website/laromaterial/kmom03/exception). Artikeln beskriver vanliga exceptions. Lär dig göra egna exceptions.
+
+1. Lär dig kort om sortering i artikeln [Sortera information](/website/laromaterial/kmom03/sortering).
+
+
+### Uppgifter
+
+Följande uppgifter skall utföras och resultatet skall redovisas.
+
+1. På Canvas, gör quizzet `Kmom03 quiz`.
+
+:::danger
+Varje uppgift ska lösas med de C# konstruktioner som vi går igenom i respektive kmom.
+:::
+
+1. Fortsätt med ditt tärningsspel och gör uppgiften "[Tärningsspelet Dice100 del 2](/website/laromaterial/uppgift/kmom03)".
+Spara alla filer under `kmom03`.
+
+
+## Resultat & Redovisning
+
+Läs [instruktionen om hur du skall redovisa](/website/laromaterial/instruktion/resultat-och-redovisning).  
+
+Utöver en vanlig inlämning ska du också göra en [Pull Request](/website/laromaterial/instruktion/gor-en-pr). Gör en inlämning i **Canvas** med länken till din PR.
+
+## Målet med kmom03
+
+Efter att ha jobbat igenom kmom03 så bör du kunna:
+
+* mer om klassrelationer i objektorienterad programmering
+  * information hiding
+  * skillnaden mellan komposition & aggregation
+* filhantering; att läsa från fil & spara på fil
+* exceptions, några vanliga och hur vi gör egna
+* enkel sortering
+
+### Extra
+
+* UML som visar komposition & aggregation i klassdiagram
+* UML som visar hur beteendediagram kan se ut

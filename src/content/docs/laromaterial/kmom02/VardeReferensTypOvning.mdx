@@ -1,0 +1,176 @@
+---
+title: "Värdetyper och referenstyper - övningar"
+description: Värdetyper och referenstyper och dess skillnader
+sidebar:
+    order: 1
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+import VardeReferensTyp from '@assets/img/kmom02/VardeReferensTyp.png';
+
+
+I C# är skillnaden mellan värdetyper (value types) och referenstyper (reference types) en av de viktigaste sakerna i språket. Därför ska vi träna genom dessa övningsuppgfiter.
+
+Skapa ett consoleprojekt och testa koden eller kör i en onlinekompilator.
+
+## Övning 1: Temperaturmätare
+
+Vi har en temperaturmätare som mäter temperaturen i Celsius och klassen ser ut så här. 
+
+```csharp title="Klassen Sensor"
+class Sensor
+{
+    public double _temperature;
+
+    public string GetTemperature() { return this._temperature; }
+    public void SetTemperature(string newTemperature) { this._temperature = newTemperature; }
+}
+```
+
+Vi har följande kod i huvudprogrammet.
+
+```csharp title="Huvudprogrammet, kod i Program.cs"
+double temp1 = 20.0;
+double temp2 = temp1;
+
+Sensor sensor1 = new Sensor();
+sensor1.SetTemperatur(20.0);
+
+Sensor sensor2 = sensor1;
+
+temp2 = 30.0;
+sensor2..SetTemperatur(30.0);
+
+Console.WriteLine(temp1);        // ?
+Console.WriteLine(temp2);        // ?
+Console.WriteLine(sensor1.GetTemperature()); // ?
+Console.WriteLine(sensor2.GetTemperature()); // ?
+```
+
+Frågor att besvara:
+
+- Varför ändras inte temp1 när temp2 ändras?
+- Varför ändras _temperature i sensor1 när _temperature i sensor2 ändras?
+
+<details>
+<summary>Lösning Övning 1</summary>
+
+temp1 = 20.0 double är en värdetyp → kopieras.  
+temp2 = 30.0 vi ändrade den till 30.0  
+sensor1.GetTemperature() = 30.0 Sensor är referenstyp → sensor1 och sensor2 pekar på samma objekt.  
+sensor2.GetTemperature() = 30.0 Ändringen görs i samma objektet som både sensor1 och sensor2 pekar på.
+
+</details>
+
+
+## Övning 2: Poängräknare för ett spel
+
+Vi har en poängräknare för ett spel och klassen ser ut så här. 
+
+```csharp title="Klassen Player"
+
+class Player
+{
+    private string _name;
+    private int _playerScore;
+
+    public string GetName() { return this._name; }
+    public void SetName(string newName) { this._name = newName; }
+    public string GetPlayerScore() { return this._playerScore; }
+    public void SetPlayerScore(string newPlayerScore) { this._playerScore = newPlayerScore; }
+}
+```
+
+Vi har följande kod i huvudprogrammet.
+
+```csharp title="Huvudprogrammet, kod i Program.cs"
+Player person1 = new Player();
+person1.SetName("Alice");
+person1.SetPlayerScore(10);
+
+Player person2 = person1;
+
+person2.SetName("Bob");
+person2.SetPlayerScore(99);
+
+Console.WriteLine(person1.GetName());            // ?
+Console.WriteLine(person1.GetPlayerScore()); // ?
+```
+
+Frågor att besvara:
+
+- Varför påverkas person1 av ändringen som görs på person2?
+- Vad blir poängen för person1?
+
+<details>
+<summary>Lösning Övning 2</summary>
+
+person1.GetName() har värdet "Bob" Player är klass → person1 och person2 pekar på samma objekt.  
+person1.GetPlayerScore() har 99 eftersom person1 och person2 pekar på samma objekt.  
+Player är referenstyp → kopior delar samma objekt.
+
+</details>
+
+
+## Övning 3: Bankkonto och saldohistorik
+
+Vi har ett bankkont med historik och klassen ser ut så här. 
+
+```csharp title="Klassen BankAccount"
+class BankAccount
+{
+    
+    private int Saldo;
+    private List<int> Historik = new List<int>();
+
+
+    public string GetTemperature() { return this._temperature; }
+    public void SetTemperature(string newTemperature) { this._temperature = newTemperature; }
+}
+```
+
+Vi har följande kod i huvudprogrammet.
+
+```csharp title="Huvudprogrammet, kod i Program.cs"
+Bankkonto k1 = new Bankkonto();
+k1.Saldo = 100;
+k1.Historik.Add(k1.Saldo);
+
+Bankkonto k2 = k1;
+
+k2.Saldo += 50;
+k2.Historik.Add(k2.Saldo);
+
+Console.WriteLine(k1.Saldo);        // ?
+Console.WriteLine(k2.Saldo);        // ?
+Console.WriteLine(k1.Historik.Count); // ?
+Console.WriteLine(k2.Historik.Count); // ?
+```
+
+Frågor att besvara:
+
+- Varför skiljer sig hanteringen av Saldo och Historik?
+- Vad händer om två konton delar listan?
+
+<details>
+<summary>Lösning Övning 3</summary>
+
+k1.Saldo 150 Saldo ligger i samma objekt (referenstyp).  
+k2.Saldo 150 Samma objekt.  
+k1.Historik.Count 2 Listan är samma objekt för k1 och k2.  
+k2.Historik.Count 2 Ändringen gjordes i samma lista.
+
+Förklaring
+
+- Bankkonto är en klass → k1 och k2 pekar på samma konto.
+- Historik är en lista (referenstyp) → listan delas också.
+- Alla ändringar syns genom båda variablerna.
+
+</details>
+
+## Sammanfattning
+
+- Värdetyper → kopia av värdet
+- Referenstyper → kopia av referensen (adressen till objektet)
