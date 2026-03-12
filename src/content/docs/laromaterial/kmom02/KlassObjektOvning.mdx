@@ -221,7 +221,7 @@ Skriv ut energin efter varje steg.
 <details>
 <summary>Lösningsförslag Övning 3</summary>
 
-```csharp title="Klassen BankAccount"
+```csharp title="Klassen Pet"
 class Pet
 {
     private string _name;
@@ -317,6 +317,66 @@ Vi har en klass som heter **Circle** som ser ut så här:
 1. `this` en referens till det aktuella objektet. Det används inne i en klass för att referera till objektets egna attribut eller metoder.
 1. Klassens beteende är dess metoder. Det finns klassmetoder som är statiska och vanliga metoder som tillhör objekten. Här finns 3 vanliga metoder; `GetRadius(), SetRadius() och CalculateArea()`. GetRadius returnerar cirkel-objektets radie och SetRadius sätter cirkel-objektets radie. CalculateArea beräknar cirkel-objektets area och returnerar värdet.
 1. Konstruktorerna är överlagrade. Metoder i samma klass och med samma namn men olika parameterlistor är överlagrade.
+
+</details>
+
+
+## Övning 5 - En klass Teacher
+
+Vi har en klass som heter **Teacher** som ser ut så här:
+
+```csharp title="Klassen Teacher"
+class Teacher
+{
+    private string name;
+
+    public Teacher(string name)
+    {
+        name = name;
+    }
+
+    public string GetName()
+    {
+        return name;
+    }
+}
+```
+
+Vi har följande kod i huvudprogrammet.
+
+```csharp title="Huvudprogrammet, kod i Program.cs"
+Teacher teacher = new Teacher("Anna");
+Console.WriteLine($"Name: {p.GetName()}");
+```
+
+**Frågor att besvara:**
+
+1. Vad skrivs ut?
+
+
+<details>
+<summary>Svar Övning 5</summary>
+
+1. Svarade du "Name: Anna"? Men tyvärr är det fel. Det som skrivs ut är "Name: " och så inget namn. Med denna konstruktor så får du varningen "Assignment made to the same variable; did you mean something else?". Genom att uppdatera konstruktor till:
+```csharp title="Uppdatera konstruktorn med this"
+class Teacher
+{
+    private string name;
+
+    public Teacher(string name)
+    {
+        this.name = name;
+    }
+
+    public string GetName()
+    {
+        return this.name;
+    }
+}
+```
+Nu så skrivs "Name: Anna" ut. Men koden följer inte namnkonventionen för C#, där privata variabler ska heta `_name` med ett understreck i början av namnet. Då blir det tydligare skillnad på `_name` och `name`. Det är bra att alltid skriva `this` framför attribut och metoder som tillhör objektet.
+
+Skriv alltid `this` vid användning objektets attribut för att visa att vi arbetar med objektets data och undviker vanliga fel. Det brukar leda till en bättre och snabbare förståelse av objektmodellen. I slutet av kursen (kmom01/10 projektet) och i produktion (arbetslivet) så kan ni som vill hoppa över `this`.
 
 
 </details>
