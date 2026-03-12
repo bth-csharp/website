@@ -55,12 +55,19 @@ Frågor att besvara:
 - Varför ändras _temperature i sensor1 när _temperature i sensor2 ändras?
 
 <details>
-<summary>Lösning Övning 1</summary>
+<summary>Svar Övning 1</summary>
 
-temp1 = 20.0 double är en värdetyp → kopieras.  
-temp2 = 30.0 vi ändrade den till 30.0  
-sensor1.GetTemperature() = 30.0 Sensor är referenstyp → sensor1 och sensor2 pekar på samma objekt.  
-sensor2.GetTemperature() = 30.0 Ändringen görs i samma objektet som både sensor1 och sensor2 pekar på.
+| Variabel | Värde | Förklaring              |
+|----------|----------|----------------------|
+| temp1 | 20.0 | double är en värdetyp → kopieras. |
+| temp2 | 30.0 | Vi ändrade den direkt. |
+| sensor1.GetTemperature() | 30.0 | Sensor är referenstyp → sensor1 och sensor2 pekar på samma objekt. |
+| sensor2.GetTemperature() | 30.0 | Ändringen görs i samma objektet som både sensor1 och sensor2 pekar på. |
+
+**Förklaring**
+
+- temp1 och temp2 ligger på separata minnesplatser → ändringar sprids inte.
+- sensor1 och sensor2 är referenser till samma Sensor-instans → ändringar syns på båda.
 
 </details>
 
@@ -105,11 +112,13 @@ Frågor att besvara:
 - Vad blir poängen för person1?
 
 <details>
-<summary>Lösning Övning 2</summary>
+<summary>Svar Övning 2</summary>
 
-person1.GetName() har värdet "Bob" Player är klass → person1 och person2 pekar på samma objekt.  
-person1.GetPlayerScore() har 99 eftersom person1 och person2 pekar på samma objekt.  
-Player är referenstyp → kopior delar samma objekt.
+| Variabel | Värde | Förklaring              |
+|----------|----------|----------------------|
+| person1.GetName() | "Bob" | Player är klass → person1 och person2 pekar på samma objekt. |
+| person1.GetPlayerScore() | 99 | Variablerna person1 och person2 är av referenstyp och pekar på samma objekt. _playerScore är en värdetyp int men eftersom den ligger som ett attribut i ett objekt ändras den via referensen. |
+
 
 </details>
 
@@ -122,50 +131,55 @@ Vi har ett bankkont med historik och klassen ser ut så här.
 class BankAccount
 {
     
-    private int Saldo;
-    private List<int> Historik = new List<int>();
+    private int _balance;
+    private List<int> _history = new List<int>();
 
-
-    public string GetTemperature() { return this._temperature; }
-    public void SetTemperature(string newTemperature) { this._temperature = newTemperature; }
+    public int GetBalance() { return this._balance; }
+    public void SetBalance(int newBalance) { this._balance = newBalance; }
+    public void IncreaseBalance(int newBalance) { this._balance += newBalance; }
+    public int GetHistoryCount() { return this._history.Count; }
+    public void AddToHistory(int newBalance) { this._history.Add(newBalance); }
 }
 ```
 
 Vi har följande kod i huvudprogrammet.
 
 ```csharp title="Huvudprogrammet, kod i Program.cs"
-Bankkonto k1 = new Bankkonto();
-k1.Saldo = 100;
-k1.Historik.Add(k1.Saldo);
+BankAccount account1 = new BankAccount();
+account1.SetBalance(100);
+account1.AddToHistory(account1._balance);
 
-Bankkonto k2 = k1;
+BankAccount account2 = account1;
 
-k2.Saldo += 50;
-k2.Historik.Add(k2.Saldo);
+account2.IncreaseBalance(50);
+account2.AddToHistory(account2._balance);
 
-Console.WriteLine(k1.Saldo);        // ?
-Console.WriteLine(k2.Saldo);        // ?
-Console.WriteLine(k1.Historik.Count); // ?
-Console.WriteLine(k2.Historik.Count); // ?
+Console.WriteLine(account1.GetBalance());        // ?
+Console.WriteLine(account2.GetBalance());        // ?
+Console.WriteLine(account1.GetHistoryCount()); // ?
+Console.WriteLine(account2.GetHistoryCount()); // ?
 ```
 
 Frågor att besvara:
 
-- Varför skiljer sig hanteringen av Saldo och Historik?
+- Varför skiljer sig hanteringen av _balance och _history?
 - Vad händer om två konton delar listan?
 
 <details>
-<summary>Lösning Övning 3</summary>
+<summary>Svar Övning 3</summary>
 
-k1.Saldo 150 Saldo ligger i samma objekt (referenstyp).  
-k2.Saldo 150 Samma objekt.  
-k1.Historik.Count 2 Listan är samma objekt för k1 och k2.  
-k2.Historik.Count 2 Ändringen gjordes i samma lista.
+| Variabel | Värde | Förklaring              |
+|----------|----------|----------------------|
+| account1.GetBalance() |   150   | _balance ligger i samma objekt (referenstyp). |
+| account2.GetBalance() |   150   | account1 och account2 pekar på samma objekt.  |
+| account1.GetHistoryCount() |   2   | Listan är samma objekt för account1 och account2. |
+| account2.GetHistoryCount() |   2   | Ändringen gjordes i samma lista. |
 
-Förklaring
+**Förklaring**
 
-- Bankkonto är en klass → k1 och k2 pekar på samma konto.
-- Historik är en lista (referenstyp) → listan delas också.
+- BankAccount är en klass → account1 och account2 pekar på samma objekt av typen BankAccount.
+- Variablerna account1 och account2 är av referenstyp.
+- _history är en lista (referenstyp) → listan delas också.
 - Alla ändringar syns genom båda variablerna.
 
 </details>
