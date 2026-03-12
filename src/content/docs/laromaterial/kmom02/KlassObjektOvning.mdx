@@ -1,0 +1,328 @@
+---
+title: "Klasser och objekt - övningar"
+description: Klasser och objekt, attribut, konstruktor etc
+sidebar:
+    order: 7
+    hidden: true
+---
+
+import Figure from '@components/CustomFigure.astro';
+
+import classdiagramCircle from '@assets/img/kmom02/classdiagramCircle.png';
+
+
+I objektorienterad programmering (OOP) så har vi klasser och objekt. 
+
+En **klass** är en mall (ritning) för hur objekt ska se ut. Den beskriver vilken data och vilka funktioner objekten ska ha.
+
+Ett **objekt** är en instans av en klass, alltså något som skapas från mallen.
+
+**Attribut** är variabler i en klass som beskriver objektets egenskaper.
+
+**Metoder** är funktioner som finns i en klass. De beskriver vad ett objekt kan göra.
+
+Ett **statiskt attribut** tillhör klassen själv, inte varje objekt. Alla objekt delar samma värde.
+
+En **statisk metod** tillhör också klassen istället för objekten. Den anropas via klassnamnet.
+
+Vi tränar på dessa begrepp och liknande begrepp inom OOP genom dessa övningsuppgifter.
+
+Skapa ett console-projekt och testa koden eller kör i en onlinekompilator.
+
+## Övning 1 - Skapa en klass Book
+
+Skapa en klass som heter **Book**. Klassen ska ha tre privata attribut:
+
+Titel (string)
+Författare (string)
+AntalSidor (int)
+
+Skapa sedan en konstruktor som tar alla tre värdena som parametrar.
+Gör följande i "Program.cs":
+
+1. Skapa ett objekt av klassen Book.
+1. Skriv ut informationen om boken i terminalen.
+1. Byt författare och skriv ut författarens namn.
+
+
+<details>
+<summary>Lösningsförslag Övning 1</summary>
+
+```csharp title="Klassen Book"
+class Book
+{
+    private string _title;
+    private string _author;
+    private int _numberOfPages;
+
+    public Book(string title, string author, int pages)
+    {
+        this._title = title;
+        this._author = author;
+        this._numberOfPages = pages;
+    }
+
+    public string GetTitle()
+    {
+        return this._title;
+    }
+
+    public string GetAuthor()
+    {
+        return this._author;
+    }
+
+    public void SetAuthor(string author)
+    {
+        this._author = author;
+    }
+
+    public int GetNumberOfPages()
+    {
+        return this._numberOfPages;
+    }
+}
+```
+
+Vi har följande kod i huvudprogrammet.
+
+```csharp title="Huvudprogrammet, kod i Program.cs"
+// Skapa ett objekt av klassen Book.
+Book book = new Book("Dune", "Frank Herbert", 412);
+
+// Skriv ut informationen om boken i terminalen.
+Console.WriteLine($"Title: {book.GetTitle()}");
+Console.WriteLine($"Author: {book.GetAuthor()}");
+Console.WriteLine($"Pages: {book.GetNumberOfPages()}");
+
+// Byt författare och skriv ut författarens namn.
+book.SetAuthor("Frank Herbert");
+Console.WriteLine($"Author: {book.GetAuthor()}");
+```
+
+</details>
+
+
+## Övning 2 - Skapa en klass Student
+
+Skapa en klass som heter **Student** som ser ut så här:
+
+Skriv en konstruktor som tar alla tre värdena.
+I Main() ska du:
+
+Skapa tre Student‑objekt med olika värden.
+Skriva ut varje students namn och program.
+
+```csharp title="Klassen Student"
+class Student
+{
+    public const int AGE = 18;
+    private string _name;
+    private string _program;
+    private int _age;
+
+    public Student(string name, string program, int age)
+    {
+        this._name = name;
+        this._program = program;
+        if (age < 0) 
+        {
+            this._age = AGE;
+        }
+        else 
+        {
+            this._age = a;
+        }
+    }
+
+    public Student(string name)
+    {
+        this._name = name;
+        this._program = "";
+        this._age = AGE;
+    }
+
+    public string GetName()
+    {
+        return this._name;
+    }
+
+    public string GetProgram()
+    {
+        return this._program;
+    }
+
+    public int GetAge()
+    {
+        return this._age;
+    }
+}
+```
+
+Vi har följande kod i huvudprogrammet.
+
+```csharp title="Huvudprogrammet, kod i Program.cs"
+Student student1 = new Student("Alice", "Computer Science", 22);
+Student student2 = new Student("Bob", "Software Engineering", 24);
+Student student3 = new Student("Charlie", "IT Security", 21);
+
+Console.WriteLine(student1.GetName() + " - " + student1.GetProgram());
+Console.WriteLine(student2.GetName() + " - " + student2.GetProgram());
+Console.WriteLine(student3.GetName() + " - " + student3.GetProgram());
+
+double averageAge = (student1.GetAge() + student2.GetAge() + student3.GetAge()) / 3.0;
+Console.WriteLine($"The average age of the students is {averageAge:F1} years.");
+```
+
+**Frågor att besvara:**
+
+1. Vilka är attributen till klassen **Student**? Svara med attributets namn, åtkomstnivå och datatyp.
+1. Vilka attribut tillhör objektet?
+1. Finns det något attribut som tillhör klassen?
+1. Vad är this och vad används den till?
+1. Berätta om klassens beteende.
+1. Finns det något exempel på överlagring (overloading) i klassen?
+1. Vad händer i huvudprogrammet?
+
+<details>
+<summary>Svar Övning 2</summary>
+
+1. Attributen är:  
+`_name`, är ett privat attribut av datatypen string.  
+`_program`, är ett privat attribut av datatypen string. 
+`_age`, är ett privat attribut av datatypen int. 
+1. Attributen `_name, _program och _age` tillhör ett objekt av klassen **Student** och är unika för det objektet.
+1. Attributet `AGE` är en konstant och tillhör klassen. Alla objekt av klassen **Student** har samma konstanta värde.
+1. `this` en referens till det aktuella objektet. Det används inne i en klass för att referera till objektets egna attribut eller metoder.
+1. Klassens beteende är dess metoder. Det finns klassmetoder som är statiska och vanliga metoder som tillhör objekten. Här finns 3 vanliga metoder; `GetName(), GetProgram() och GetAge()`. Getmetoder som hämtar objektets data och returnerar den.
+1. Konstruktorerna är överlagrade. Metoder i samma klass och med samma namn men olika parameterlistor är överlagrade.
+1. Först skapas 3 objekt av klassen Student med olika indata och dessa lagras i variablerna student1, student2 och student3. Därefter skriver vi ut alla studenter med namn och program. Till sist hämtar vi alla studenters ålder och räknar ut medelåldern på studenterna och skriver ut den avrundat till 1 decimaler.
+
+
+</details>
+
+
+## Övning 3 - En liten minisimulator, Husdjur
+
+Skapa en klass som heter **Pet** med attributen; namn (string), art (string) och energi (int).
+
+Skriv en konstruktor som tar namn och art, och sätter energin till 50.
+Lägg till två metoder:
+
+- Eat(int amount) som ökar husdjurets energi
+- Play(int time) som minskar husdjurets energi
+
+Gör följande i "Program.cs":
+
+1. Skapa ett Husdjur‑objekt.
+1. Låt djuret leka och äta några gånger.
+Skriv ut energin efter varje steg.
+
+<details>
+<summary>Lösningsförslag Övning 3</summary>
+
+```csharp title="Klassen BankAccount"
+class Pet
+{
+    private string _name;
+    private string _species;
+    private int _energy;
+
+    public Pet(string name, string species)
+    {
+        this._name = name;
+        this._species = species;
+        this._energy = 50;
+    }
+
+    public string GetName()
+    {
+        return this._name;
+    }
+
+    public int GetEnergy()
+    {
+        return this._energy;
+    }
+
+    public void Eat(int amount)
+    {
+        this._energy += amount;
+    }
+
+    public void Play(int time)
+    {
+        this._energy -= time;
+
+        if (this._energy < 0)
+        {
+            this._energy = 0;
+        }
+    }
+}
+
+```
+
+Vi har följande kod i huvudprogrammet.
+
+```csharp title="Huvudprogrammet, kod i Program.cs"
+// Skapa ett Husdjur‑objekt
+Pet p = new Pet("Milo", "Cat");
+
+// Lek en stund (10)
+p.Play(10);
+Console.WriteLine("Energy: " + p.GetEnergy());
+
+// Fyll på med energi (20)
+p.Eat(20);
+Console.WriteLine("Energy: " + p.GetEnergy());
+
+// Lek en lång stund (100)
+p.Play(100);
+Console.WriteLine("Energy: " + p.GetEnergy()); // Energin har tagit slut
+```
+
+</details>
+
+
+## Övning 4 - Skapa en klass Cirkel
+
+Vi har en klass som heter **Circle** som ser ut så här:
+
+<Figure
+    src={classdiagramCircle}
+    caption="Klassen Circle"
+    width="300px"
+/>
+
+`NO_OF_CIRCLES` räknas upp med ett i konstruktorn.
+
+**Frågor att besvara:**
+
+1. Vilka är attributen till klassen **Student**? Svara med attributets namn, åtkomstnivå och datatyp.
+1. Vilka attribut tillhör objektet?
+1. Finns det något attribut som tillhör klassen?
+1. Vad är this och vad används den till?
+1. Berätta om klassens beteende.
+1. Finns det något exempel på överlagring (overloading) i klassen?
+
+<details>
+<summary>Svar Övning 4</summary>
+
+1. Attributen är:  
+`_radius`, är ett privat attribut av datatypen double.  
+`NO_OF_CIRCLES`, är ett privat statiskt attribut av datatypen int. 
+1. Attributen `_radius` tillhör ett objekt av klassen **Circle** och är unika för det objektet.
+1. Attributet `NO_OF_CIRCLES` är ett statiskt attribut och tillhör därmed klassen. Alla objekt av klassen **Circle** kommer åt samma attribut `NO_OF_CIRCLES`.
+1. `this` en referens till det aktuella objektet. Det används inne i en klass för att referera till objektets egna attribut eller metoder.
+1. Klassens beteende är dess metoder. Det finns klassmetoder som är statiska och vanliga metoder som tillhör objekten. Här finns 3 vanliga metoder; `GetRadius(), SetRadius() och CalculateArea()`. GetRadius returnerar cirkel-objektets radie och SetRadius sätter cirkel-objektets radie. CalculateArea beräknar cirkel-objektets area och returnerar värdet.
+1. Konstruktorerna är överlagrade. Metoder i samma klass och med samma namn men olika parameterlistor är överlagrade.
+
+
+</details>
+
+
+## Sammanfattning
+
+- Värdetyper → kopia av värdet
+- Referenstyper → kopia av referensen (adressen till objektet)
