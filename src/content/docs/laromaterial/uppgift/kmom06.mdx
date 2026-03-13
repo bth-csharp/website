@@ -102,4 +102,38 @@ Felsöka med hjälp av utskrifter av `Console.WriteLine()`. Använd gärna debug
 
 Glöm inte att använda 'dotnet format' för att formatera din kod.
 
+När du gör en PR så körs först dina tester på din kod och sen lärartester på kmom05 och kmom06. Där tester vi enligt krav och klassdiagram samt följer koden (Planner och MyTaskHandler) ni laddade ner.
+
+<details>
+<summary>Kolla här om du behöver hjälp att få testerna att passera för din PR för kmom06</summary>
+
+Kolla i slutet av PRn och där är det information om:
+- Studenttester (dina)
+- Lärartester för kmom05 & kmom06, tabell med testresultat om din kod kompilerar med testerna och om den saknas så kompilerar inte din kod med testerna.
+- Sammanfattning, som ska se ut så här när allt är ok.
+
+```text
+Sammanfattning:
+Student test result
+student tests kmom05 ok
+
+Test result
+kmom05 ok
+kmom06 ok
+Everything is ok. Wait for a teacher to do a code review and correct the task!
+```
+
+Om du har kompileringsfel, så hittar du dem på GitHub, under `Actions`:
+- Välj senaste kmom06 som är röd. 
+- Klicka på `call-decider/run-tests`
+- Klicka på `Run TEACHER tests for both/submit/kmom06` och gå ner till rad 61 där hittar du första felet.
+- Lös felen tills kompileringen går igenom och du får en tabell med testresultat.
+
+Testerna följer kraven och koden du laddade ner för klassen Planner och MyTaskHandler. Exempel på ett fel: 
+
+- kmom05/MyPlanner.Tests/WorkTaskTest.cs(21,38): error CS1503: Argument 1: cannot convert from 'int' to 'string' - troligen är parametrarna när du skapar eller uppdaterar en WorkTask i fel ordning eller med fel datatyp. Dubbelkolla att klassdiagrammen i uppgiften i kmom05 så ser du att argument 1 ska vara en string och du har en int.
+- kmom05/MyPlanner.Tests/WorkTaskTest.cs(21,65): error CS1503: Argument 3: cannot convert from 'string' to 'System.DateTime' - troligen är parametrarna när du skapar eller uppdaterar en WorkTask i fel ordning eller med fel datatyp. Dubbelkolla att klassdiagrammen i uppgiften i kmom05 så ser du att argument 3 ska vara en string och du har en DateTime.
+
+</details>
+
 Lycka till och hojta till i forumet om du behöver hjälp!
