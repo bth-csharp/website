@@ -20,5 +20,11 @@
     "reading-time": "^1.5.0",
     "starlight-auto-sidebar": "^0.1.2",
     "starlight-image-zoom": "^0.11.1"
+  },
+  "pnpm": {
+    "allowedBuildDependencies": [
+      "esbuild",
+      "sharp"
+    ]
   }
 }
