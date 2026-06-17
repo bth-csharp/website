@@ -1,25 +1,52 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy Astro
+name: Deploy Astro pages on GitHub
 
 on:
   push:
     branches: [main]
+  # Allows you to run this workflow manually from the Actions tab on GitHub.
+  workflow_dispatch:
+
+# Allow this job to clone the repo and create a page deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout your repository using git
+        uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
+      - name: Use Node version
+        uses: actions/setup-node@v4
         with:
-          version: latest
+          node-version: 22.13
 
-      - uses: actions/setup-node@v4
+      - name: Install pnpm (without Corepack)
+        run: npm install -g pnpm@9
+
+      - name: Allow pnpm build scripts
+        run: echo "PNPM_ENABLE_PRE_POST_SCRIPTS=true" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          node-version: 22
-          cache: 'pnpm'
+          path: dist   # ← Astro bygger hit som standard
 
-      - run: pnpm install
-      - run: pnpm build
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
