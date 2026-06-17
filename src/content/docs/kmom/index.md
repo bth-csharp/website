@@ -5,6 +5,10 @@ sidebar:
     order: 1
 ---
 
+:::danger
+Kursen kommer att uppdateras inför ht26 så vänta på den nya webbsidan och kursen.
+:::
+
 Utför följande instruktioner för att förbereda dig inför kursen.
 
 ## Om kursmoment (kmom)
